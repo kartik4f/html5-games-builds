@@ -1,0 +1,5754 @@
+[
+{
+      "id":"0",
+      "question":"I begin your sentences. What am I?",
+      "answer":"Capital"
+   },
+   {
+      "id":"1",
+      "question":"If I drink, I die, if I eat, I'm fine. What am I?",
+      "answer":"Fire"
+   },
+   
+  
+   {
+      "id":"2",
+      "question":"Cloud is my mother, wind is my father.I come down but never go up. What am I?",
+      "answer":"Rain"
+   },
+   {
+      "id":"3",
+      "question":"I repeat only the last word you say. The more I repeat, the softer I got. I cannot be seen but can be heard. What am I?",
+      "answer":"Echo"
+   },
+   {
+      "id":"4",
+      "question":"What color can you eat?",
+      "answer":"Orange"
+   },
+   {
+      "id":"5",
+      "question":"What body part is pronounced as one letter but written with three, only two different letters are used??",
+      "answer":"eye"
+   },
+   {
+      "id":"6",
+      "question":"You are my brother, but I am not your brother. Who am I?",
+      "answer":"Sister"
+   },
+   {
+      "id":"7",
+      "question":"The answer for I shrink smaller every time I take a bath. What am I?",
+      "answer":"Soap"
+   },
+   {
+      "id":"8",
+      "question":"I sleep by day, I fly by night. I have no feathers to aid my flight. What am I?",
+      "answer":"Bat"
+   },
+   {
+      "id":"9",
+      "question":"What starts with the letter t, is filled with t and ends in t?",
+      "answer":"Teapot"
+   },
+   {
+      "id":"10",
+      "question":"I belong to you but others use me more often than you do. What am I?",
+      "answer":"Name"
+   },
+   {
+      "id":"11",
+      "question":"I am an odd number. Take away one letter and I become even. What number am I?",
+      "answer":"Seven"
+   },
+   {
+      "id":"12",
+      "question":"What is an astronaut's favorite key on a keyboard?",
+      "answer":"Space"
+   },
+   {
+      "id":"13",
+      "question":"They come out at night without being called.They are lost in the day without being stolen. What are they?",
+      "answer":"Stars"
+   },
+   {
+      "id":"14",
+      "question":"What has a head and a tail, but no body or legs?",
+      "answer":"Coin"
+   },
+   {
+      "id":"15",
+      "question":"What has teeth but no mouth?",
+      "answer":"Saw"
+   },
+   {
+      "id":"16",
+      "question":"I am easy to waste and unstoppable. What am I?",
+      "answer":"Time"
+   },
+   {
+      "id":"17",
+      "question":"What has a head and a tail, but no body or legs?",
+      "answer":"Coin"
+   },
+   {
+      "id":"18",
+      "question":"I start with “e” end with “e”. I have whole countries inside me. What am I?",
+      "answer":"Europe"
+   },
+   {
+      "id":"19",
+      "question":"I have a face and two hands but I have no arms and legs six plus seven is one what am I?",
+      "answer":"Clock"
+   },
+   {
+      "id":"20",
+      "question":"What comes in many different sizes but is always only 1 foot long?",
+      "answer":"Shoe"
+   },
+   {
+      "id":"21",
+      "question":"I can be cracked, made, told, and played. What am I?",
+      "answer":"Joke"
+   },
+   {
+      "id":"22",
+      "question":"What building has the most stories?",
+      "answer":"Library"
+   },
+   {
+      "id":"23",
+      "question":"Tuesday, Sam and Peter went to a restaurant to eat lunch. After eating lunch, they paid the bill.Sam and Peter did not pay the bill, so who did?",
+      "answer":"Tuesday"
+   },
+   {
+      "id":"24",
+      "question":"What kind of tree can you carry in your hand?",
+      "answer":"Palm"
+   },
+   {
+      "id":"25",
+      "question":"What kind of room has no doors or windows?",
+      "answer":"Mushroom"
+   },
+   {
+      "id":"26",
+      "question":"I'm an animal. I love marching. I always wear a tuxedo. What am I?",
+      "answer":"Penguin"
+   },
+   {
+      "id":"27",
+      "question":"Roast,boast, coast,post. what do you put in a toaster?",
+      "answer":"Bread"
+   },
+   {
+      "id":"28",
+      "question":"Tear one off and scratch my head, what once was red is black instead! What is it?",
+      "answer":"Match"
+   },
+   {
+      "id":"29",
+      "question":"I have four fingers and a thumb but I'm not living. What am I?",
+      "answer":"Glove"
+   },
+   {
+      "id":"30",
+      "question":"What starts with “p” and ends with “orn” and is really popular in the movie industry?",
+      "answer":"Popcorn"
+   },
+   {
+      "id":"31",
+      "question":"What word begins and ends with an 'E' but only has one letter?",
+      "answer":"Envelope"
+   },
+   {
+      "id":"32",
+      "question":"What is full of holes but still holds water?",
+      "answer":"Sponge"
+   },
+   {
+      "id":"33",
+      "question":"You hold my tail while I fish for you. What am I?",
+      "answer":"Net"
+   },
+   {
+      "id":"34",
+      "question":"What can you catch but not throw?",
+      "answer":"Cold"
+   },
+   {
+      "id":"35",
+      "question":"What can hold a car but can't lift a feather?",
+      "answer":"Garage"
+   },
+   {
+      "id":"36",
+      "question":"What invention lets you look right through a wall?",
+      "answer":"Window"
+   },
+   {
+      "id":"37",
+      "question":"The more it dries, the wetter it becomes. What is it?",
+      "answer":"Towel"
+   },
+   {
+      "id":"38",
+      "question":"What gets bigger the more you take away from it?",
+      "answer":"Hole"
+   },
+   {
+      "id":"39",
+      "question":"What is so delicate that saying its name breaks it?",
+      "answer":"Silence"
+   },
+   {
+      "id":"40",
+      "question":"I have six faces but not even one body connected, 21 eyes in total but cannot see. What am I?",
+      "answer":"Dice"
+   },
+   {
+      "id":"41",
+      "question":"The answer for If two is Company and three is a Crowd, What are four and five?",
+      "answer":"Nine"
+   },
+   {
+      "id":"42",
+      "question":"What is the saddest fruit?",
+      "answer":"Blueberry"
+   },
+   {
+      "id":"43",
+      "question":"I have a neck but no head. I have a body but no arm. I have a bottom but no leg. What am I?",
+      "answer":"Bottle"
+   },
+   {
+      "id":"44",
+      "question":"Poor people have it. Rich people need it. If you eat it you die. what is it?",
+      "answer":"Nothing"
+   },
+   {
+      "id":"45",
+      "question":"You walk into a room with a rabbit holding a carrot, a pig eating slop, and a chimp holding a banana.Which animal in the room is the smartest animal in the room?",
+      "answer":"You"
+   },
+   {
+      "id":"46",
+      "question":"What has to be broken before you can use it?",
+      "answer":"Egg"
+   },
+   {
+      "id":"47",
+      "question":"I am gentle enough to soothe your skin, light enough to fly in the sky, strong enough to crack rocks. What am I?",
+      "answer":"Water"
+   },
+   {
+      "id":"48",
+      "question":"I have a neck and no head, two arms but no hands. I'm with you to school, I'm with you to work. What am I??",
+      "answer":"Shirt"
+   },
+   {
+      "id":"49",
+      "question":"I walk on 4 legs when I was little, 2 legs when I was strong, and 3 legs when I was old. What am I?",
+      "answer":"Human"
+   },
+   {
+      "id":"50",
+      "question":"What side of a cat has the most fur?",
+      "answer":"outside"
+   },
+   {
+      "id":"51",
+      "question":"What is easy to get into, but hard to get out of?",
+      "answer":"Trouble"
+   },
+   {
+      "id":"52",
+      "question":"What gets broken without being held?",
+      "answer":"Promise"
+   },
+   {
+      "id":"53",
+      "question":"I'm tall when I'm young. I'm short when I'm old. I can light up your world. What am I?",
+      "answer":"Candle"
+   },
+   {
+      "id":"54",
+      "question":"What do you get when you mix lemons with gunpowder?",
+      "answer":"Lemonades"
+   },
+   {
+      "id":"55",
+      "question":"Mr.Red lives in the red house.Mr.Blue lives in the blue house. Mrs. Pink lives in the pink house? Who lives in the white house?",
+      "answer":"President"
+   },
+   {
+      "id":"56",
+      "question":"I have an eye, but can't see. I usually have to work with something in my eye. What am I?",
+      "answer":"Needle"
+   },
+   {
+      "id":"57",
+      "question":"Given them to the girls whenever, And they'll be best friends forever. Shiny, pretty stones, Bought with massive loans.",
+      "answer":"Diamonds"
+   },
+   {
+      "id":"58",
+      "question":"I am lighter than air but a hundred people cannot lift me. Careful, I am fragile. What am I?",
+      "answer":"Bubble"
+   },
+   {
+      "id":"59",
+      "question":"When you take away the whole from me, there is always some left. What am I?",
+      "answer":"Wholesome"
+   },
+   {
+      "id":"60",
+      "question":"What can travel around the world while staying in a corner?",
+      "answer":"Stamp"
+   },
+   {
+      "id":"61",
+      "question":"What goes through towns and over hills but never moves?",
+      "answer":"Road"
+   },
+   {
+      "id":"62",
+      "question":"What time of day, when written in a capital letters, is the same forwards, backwards and upside down?",
+      "answer":"Noon"
+   },
+   {
+      "id":"63",
+      "question":"I am a kind of coat that can only be put on when wet. What am I?",
+      "answer":"Paint"
+   },
+   {
+      "id":"64",
+      "question":"Soft, hairy, from door to door. I am the pet that always stays on the floor. What am I?",
+      "answer":"Carpet"
+   },
+   {
+      "id":"65",
+      "question":"What is it that is deaf, dumb and blind and always tells the truth?",
+      "answer":"Mirror"
+   },
+   {
+      "id":"66",
+      "question":"I cannot be other than what I am, until the man who made me dies. Power and glory will fall to me, only when he last closes his eyes. Who am I?",
+      "answer":"Prince"
+   },
+   {
+      "id":"67",
+      "question":"What three letters change a boy into a man?",
+      "answer":"Age"
+   },
+   {
+      "id":"68",
+      "question":"The last man on Earth received a phone call, who was the caller?",
+      "answer":"Woman"
+   },
+   {
+      "id":"69",
+      "question":"Tear off my skin and I won't cry but you will. What am I?",
+      "answer":"Onion"
+   },
+   {
+      "id":"70",
+      "question":"What is harder to catch the faster you run?",
+      "answer":"Breath"
+   },
+   {
+      "id":"71",
+      "question":"Never resting, never still, Silently moving from hill to hill, I do not walk, run or trot, But all is cool where I am not. What am I?",
+      "answer":"Sunshine"
+   },
+   {
+      "id":"72",
+      "question":"I cannot be burned in fire or drowned in water. What am I?",
+      "answer":"Ice"
+   },
+   {
+      "id":"73",
+      "question":"I'm a word that is not even strange. What am I?",
+      "answer":"Odd"
+   },
+   {
+      "id":"74",
+      "question":"What gets sharper the more you use it?",
+      "answer":"Brain"
+   },
+   {
+      "id":"75",
+      "question":"Fatherless and Motherless, born without sin. Roared when it entered the world, And never spoke again.What's it?",
+      "answer":"Thunder"
+   },
+   {
+      "id":"76",
+      "question":"Who is the most foreign visitor you could imagine?",
+      "answer":"Alien"
+   },
+   {
+      "id":"77",
+      "question":"I go up and I go down, towards the sky and the ground. I'm present and past tense too, Let's go for a ride, me and you. What am I?",
+      "answer":"Seesaw"
+   },
+   {
+      "id":"78",
+      "question":"What can be heard in court or used to carry briefs?",
+      "answer":"Case"
+   },
+   {
+      "id":"79",
+      "question":"If you are looking for I touch the Earth, I touch the sky, but if I touch you, you'll likely die. What am I?",
+      "answer":"Lightning"
+   },
+   {
+      "id":"80",
+      "question":"Walk on the living, they don't even mumble, Walk on the dead, they mutter and grumble. What are they?",
+      "answer":"Leaves"
+   },
+   {
+      "id":"81",
+      "question":"I have a head but never weeps. I have a bed but never sleep. I can run but never walks. I have a bank but no money. What am I?",
+      "answer":"River"
+   },
+   {
+      "id":"82",
+      "question":"Mr.and Mrs. Mustard have five daughters and each daughter has one brother. How many people are in the Mustard family?",
+      "answer":"Eight"
+   },
+   {
+      "id":"83",
+      "question":"Fashions change but what can a person wear that is never out of style?",
+      "answer":"Smile"
+   },
+   {
+      "id":"84",
+      "question":"If you drop a yellow hat in the Red Sea what does it become?",
+      "answer":"Wet"
+   },
+   {
+      "id":"85",
+      "question":"I cover what is real and hide what is true, But sometimes I bring out the courage in you. What am I?",
+      "answer":"Makeup"
+   },
+   {
+      "id":"86",
+      "question":"Who is your mother's only sister's son's brother's aunt's daughter's sister's father?",
+      "answer":"Father"
+   },
+   {
+      "id":"87",
+      "question":"What goes in the water black and comes out red?",
+      "answer":"Lobster"
+   },
+   {
+      "id":"88",
+      "question":"What has 88 keys but can't open a single door?",
+      "answer":"Piano"
+   },
+   {
+      "id":"89",
+      "question":"What always goes to bed with its shoes on?",
+      "answer":"Horse"
+   },
+   {
+      "id":"90",
+      "question":"You cannot keep me until you have given me. What am I?",
+      "answer":"Word"
+   },
+   {
+      "id":"91",
+      "question":"What type of house weighs the least?",
+      "answer":"Lighthouse"
+   },
+   {
+      "id":"92",
+      "question":"What do you call a boomerang that doesn't come back?",
+      "answer":"Stick"
+   },
+   {
+      "id":"93",
+      "question":"I can fly but have no wings. I can cry but I have no eyes. Wherever I go, darkness follows me. What am I?",
+      "answer":"Cloud"
+   },
+   {
+      "id":"94",
+      "question":"What jumps when it walks and sits when it stands?",
+      "answer":"kangaroo"
+   },
+   {
+      "id":"95",
+      "question":"What is black and white and is red all over?",
+      "answer":"Newspaper"
+   },
+   {
+      "id":"96",
+      "question":"Railroad Crossing, look out for the cars. Can you spell that, without any R's?",
+      "answer":"That"
+   },
+   {
+      "id":"97",
+      "question":"The answer for What type of dress can never be worn?",
+      "answer":"Address"
+   },
+   {
+      "id":"98",
+      "question":"If you have it, you don't share it. If you share it, you don't have it. What is it?",
+      "answer":"Secret"
+   },
+   {
+      "id":"99",
+      "question":"A man shaves several times a day, yet he still has a beard. Who is this man?",
+      "answer":"Barber"
+   },
+   {
+      "id":"100",
+      "question":"It flies around all day but never goes anywhere? What is it?",
+      "answer":"Flag"
+   },
+   {
+      "id":"101",
+      "question":"I know a word of letters three. Add two, and fewer there will be. What is the word?",
+      "answer":"Few"
+   },
+   {
+      "id":"102",
+      "question":"With a halo of water and a tongue of wood, stone as skin long I stood. What am I?",
+      "answer":"Castle"
+   },
+   {
+      "id":"103",
+      "question":"You do not want me when you don't have me, but when you have me you don't want to lose me. What am I?",
+      "answer":"Lawsuit"
+   },
+   {
+      "id":"104",
+      "question":"What goes around and around the wood but never goes into the wood?",
+      "answer":"Bark"
+   },
+   {
+      "id":"105",
+      "question":"I can make arrows fly. I can make kites soar. What am I?",
+      "answer":"String"
+   },
+   {
+      "id":"106",
+      "question":"I am a seed with three letters in my name. Take away the last two and I still sound the same. What am I?",
+      "answer":"Pea"
+   },
+   {
+      "id":"107",
+      "question":"What can you lose that will cause other people to lose theirs too?",
+      "answer":"Temper"
+   },
+   {
+      "id":"108",
+      "question":"I have roots nobody sees. I am taller than trees Up, Up I go but I never grow. What am I?",
+      "answer":"Mountain"
+   },
+   {
+      "id":"109",
+      "question":"What runs around a soccer field but never moves?",
+      "answer":"Fence"
+   },
+   {
+      "id":"110",
+      "question":"I am always in front of you but yet I am never here. What am I?",
+      "answer":"Future"
+   },
+   {
+      "id":"111",
+      "question":"What can go up a chimney down, but can't go down a chimney up?",
+      "answer":"Umbrella"
+   },
+   {
+      "id":"112",
+      "question":"I am heavy forward, but backwards I'm not. What am I?",
+      "answer":"Ton"
+   },
+   {
+      "id":"113",
+      "question":"If lightning strikes an orchestra who is the one most likely to get hit?",
+      "answer":"Conductor"
+   },
+   {
+      "id":"114",
+      "question":"What is the musical part of a turkey?",
+      "answer":"Drumstick"
+   },
+   {
+      "id":"115",
+      "question":"I'm where yesterday follows today and tomorrow is in the middle. What am I?",
+      "answer":"Dictionary"
+   },
+   {
+      "id":"116",
+      "question":"I have a name written on me, but it isn’t my name. Men plant me, but I never grow. They look at me and see their future, rotting in my bloom. What am I?",
+      "answer":"Tombstone"
+   },
+   {
+      "id":"117",
+      "question":"What do people spend a lot of money on it every year, but never want to use it?",
+      "answer":"Insurance"
+   },
+   {
+      "id":"118",
+      "question":"I have keys but no locks. I have space but no room. You can enter but can't go outside. What am I?",
+      "answer":"keyboard"
+   },
+   {
+      "id":"119",
+      "question":"I am an insect, half of my name is another insect. I am similar to the name of a famous band. What am I?",
+      "answer":"Beetle"
+   },
+   {
+      "id":"120",
+      "question":"I go around in circles, But always straight ahead Never complain, no matter where I am led. What am I?",
+      "answer":"wheel"
+   },
+   {
+      "id":"121",
+      "question":"You can see me in water, but I never get wet. What am I?",
+      "answer":"Reflection"
+   },
+   {
+      "id":"122",
+      "question":"What goes up and down but doesn't move?",
+      "answer":"Staircase"
+   },
+   {
+      "id":"123",
+      "question":"A butcher is 6 feet tall and wears size 12 shoes. What does he weigh?",
+      "answer":"Meat"
+   },
+   {
+      "id":"124",
+      "question":"I ask no questions but receive a lot of answers. What am I?",
+      "answer":"Doorbell "
+   },
+   {
+      "id":"125",
+      "question":"What's orange and sounds like a parrot?",
+      "answer":"Carrot"
+   },
+   {
+      "id":"126",
+      "question":"What's orange and sounds like a parrot?",
+      "answer":"Pitcher"
+   },
+   {
+      "id":"127",
+      "question":"I make billions of dollars selling windows. Who am I?",
+      "answer":"Microsoft"
+   },
+   {
+      "id":"128",
+      "question":"You throw away my outside, you cook my inside. Then you eat my outside and you throw away my inside. What am I?",
+      "answer":"Corn"
+   },
+   {
+      "id":"129",
+      "question":"I am always hungry, I must always be fed, The finger I touch, Will soon turn red.",
+      "answer":"Fire"
+   },
+   {
+      "id":"130",
+      "question":"My rings are not worth much, but they do tell my age. What am I?",
+      "answer":"Tree"
+   },
+   {
+      "id":"131",
+      "question":"What loses its head every morning and gets it back every night?",
+      "answer":"Pillow"
+   },
+   {
+      "id":"132",
+      "question":"Mary's father has 5 daughters. Nana, Nene, Nini, Nono. What is the 5th daughter's name?",
+      "answer":"Mary"
+   },
+   {
+      "id":"133",
+      "question":"I am so simple that I can only point. Yet I guide men all over the world.",
+      "answer":"Compass"
+   },
+   {
+      "id":"134",
+      "question":"Born of sorrow, grows with age,You need a lot to be a sage. What is it?",
+      "answer":"Wisdom"
+   },
+   {
+      "id":"135",
+      "question":"I have one eye, See near and far, I hold the moments you treasure, And the things that make you weep.",
+      "answer":"Camera"
+   },
+   {
+      "id":"136",
+      "question":"He has married many women, but has never been married. Who is he?",
+      "answer":"Priest"
+   },
+   {
+      "id":"137",
+      "question":"I hold two meanings. With one I may be broken, with the other I hold on. What am I?",
+      "answer":"Tie"
+   },
+   {
+      "id":"138",
+      "question":"I am a ship that can be made to ride the greatest waves. I am not built by objects, but built by minds. What am I?",
+      "answer":"Friendship"
+   },
+   {
+      "id":"139",
+      "question":"I am a ship that can be made to ride the greatest waves. I am not built by objects, but built by minds. What am I?",
+      "answer":"Sword"
+   },
+   {
+      "id":"140",
+      "question":"Six letters it contains. Take away the last and only twelve remains. What is the word?",
+      "answer":"Dozens"
+   },
+   {
+      "id":"141",
+      "question":"Who plays when he works and works when he plays?",
+      "answer":"Actor"
+   },
+   {
+      "id":"142",
+      "question":"What goes through a door but never goes in and never comes out?",
+      "answer":"Keyhole"
+   },
+   {
+      "id":"143",
+      "question":"Lighter than what Im made of, more of me is hidden than is seen. What am I?",
+      "answer":"Iceberg"
+   },
+   {
+      "id":"144",
+      "question":"The more you take, the more you leave behind. What are they?",
+      "answer":"Footsteps"
+   },
+   {
+      "id":"145",
+      "question":"What do you call a chicken with no arms, no legs and no body?",
+      "answer":"Head"
+   },
+   {
+      "id":"146",
+      "question":"I can bring tears to your eyes; resurrect the dead, make you smile, and reverse time. I form in an instant but I last a lifetime. What am I?",
+      "answer":"Memory"
+   },
+   {
+      "id":"147",
+      "question":"The more there is the less you see. What is it?",
+      "answer":"Darkness"
+   },
+   {
+      "id":"148",
+      "question":"You have to travel far before you turn it over. What is it?",
+      "answer":"Odometer"
+   },
+   {
+      "id":"149",
+      "question":"What has 3 feet but no toes?",
+      "answer":"Yardstick"
+   },
+   {
+      "id":"150",
+      "question":"Mr.Smith has 4 daughters. Each of his daughters has a brother. How many children does Mr Smith have?",
+      "answer":"Five"
+   },
+   {
+      "id":"151",
+      "question":"What seven letter word has hundreds of letters in it??",
+      "answer":"Mailbox"
+   },
+   {
+      "id":"152",
+      "question":"What's the difference between a well dressed man on a bicycle and a poorly dressed man on a unicycle?",
+      "answer":"Attire"
+   },
+   {
+      "id":"153",
+      "question":"Take it and you will lose or gain more than all the others.",
+      "answer":"Risk"
+   },
+   {
+      "id":"154",
+      "question":"Lovely and round, I shine with pale light, Grown in the darkness, a lady's delight.",
+      "answer":"Pearl"
+   },
+   {
+      "id":"155",
+      "question":"I am a word. I become longer when the third letter is removed. What am I?",
+      "answer":"Lounger"
+   },
+   {
+      "id":"156",
+      "question":"Who keeps the ocean clean?",
+      "answer":"Mermaid"
+   },
+   {
+      "id":"157",
+      "question":"When it comes to me, you go on red and stops on green. What am I?",
+      "answer":"Watermelon"
+   },
+   {
+      "id":"158",
+      "question":"Who makes it, has no need of it. Who buys it, has no use for it. Who uses it can neither see nor feel it. What is it?",
+      "answer":"Coffin"
+   },
+   {
+      "id":"159",
+      "question":"What tastes better than it smells?",
+      "answer":"Tongue"
+   },
+   {
+      "id":"160",
+      "question":"Which word does not belong in the following list: Stop cop mop chop prop shop or crop?",
+      "answer":"Or"
+   },
+   {
+      "id":"161",
+      "question":"What insect does a blacksmith manufacture?",
+      "answer":"Firefly"
+   },
+   {
+      "id":"162",
+      "question":"They are many and one, they wave and they drum, used to cover a stare, they go with you everywhere. What are they?",
+      "answer":"Hands"
+   },
+   {
+      "id":"163",
+      "question":"Which vehicle is spelled the same forwards and backwards?",
+      "answer":"Racecar"
+   },
+   {
+      "id":"164",
+      "question":"I pass before the sun, yet make no shadow. I'm all around you, but you cannot see me.What am I?",
+      "answer":"Wind"
+   },
+   {
+      "id":"165",
+      "question":"Once you know it exists, it no longer exists. What is it?",
+      "answer":"surprise"
+   },
+   {
+      "id":"166",
+      "question":"It's colorful. No one can touch it, not even the queen. What is it?",
+      "answer":"Rainbow"
+   },
+   {
+      "id":"167",
+      "question":"Goes over all the hills and hollows. Bites hard but never swallows. What is it?",
+      "answer":"Frost"
+   },
+   {
+      "id":"168",
+      "question":"It's in your hand though you can not feel it. Only you and time can reveal it. What is it?",
+      "answer":"Fate"
+   },
+   {
+      "id":"169",
+      "question":"What is black when you buy it, red when you use it, and gray when you throw it away?",
+      "answer":"Charcoal"
+   },
+   {
+      "id":"170",
+      "question":"Where do fish keep their money?",
+      "answer":"Riverbank"
+   },
+   {
+      "id":"171",
+      "question":"I can be written, I can be spoken, I can be exposed, I can be broken. What am I?",
+      "answer":"News"
+   },
+   {
+      "id":"172",
+      "question":"I am not alive but I can die. What am I?",
+      "answer":"Battery"
+   },
+   {
+      "id":"173",
+      "question":"A caribbean shape that makes ships disappear. What's it?",
+      "answer":"Triangle"
+   },
+   {
+      "id":"174",
+      "question":"You shoot me but I don't die. You hang me but I don't die. What am I?",
+      "answer":"Picture"
+   },
+   {
+      "id":"175",
+      "question":"I'm a kind of cup that doesn't hold water, but makes a lot of noise repeatedly. What am I?",
+      "answer":"Hiccup"
+   },
+   {
+      "id":"176",
+      "question":"Man walks over, man walks under, in times of war he burns asunder. What is it?",
+      "answer":"Bridge"
+   },
+   {
+      "id":"177",
+      "question":"What do you call a sleeping bull?",
+      "answer":"Bulldozer"
+   },
+   {
+      "id":"178",
+      "question":"It rows quickly with four oars but never comes out from under his own roof. What is it?",
+      "answer":"Turtle"
+   },
+   {
+      "id":"179",
+      "question":"I hide but my head is outside. What am I?",
+      "answer":"Nail"
+   },
+   {
+      "id":"180",
+      "question":"You bury me when I'm alive and dig me up when I'm dead. What am I?",
+      "answer":"Plant"
+   },
+   {
+      "id":"181",
+      "question":"I am round. I have only one line. Circle is not my name indeed. What am I?",
+      "answer":"oval"
+   },
+   {
+      "id":"182",
+      "question":"What is always coming but never arrives?",
+      "answer":"Tomorrow"
+   },
+   {
+      "id":"183",
+      "question":"My seas have no water, my mountains have no rock, and my land has no grass. what am I?",
+      "answer":"Map"
+   },
+   {
+      "id":"184",
+      "question":"Some try to hide, some try to cheat, but time will show we always will meet. Whta is it?",
+      "answer":"Death"
+   },
+   {
+      "id":"185",
+      "question":"Never ahead ever behind yet flying swiftly past for a child i last forever for adults i'm gone too fast. What am I?",
+      "answer":"Youth"
+   },
+   {
+      "id":"186",
+      "question":"The last woman on Earth received a phone call. Who was the caller?",
+      "answer":"Man"
+   },
+   {
+      "id":"187",
+      "question":"What has no beginning, end, or middle?",
+      "answer":"Donut "
+   },
+   {
+      "id":"188",
+      "question":"As a stone inside a tree, I'll help your words outlive thee. But if you push me as I stand, the more I move the less I am. What am I?",
+      "answer":"Pencil "
+   },
+   {
+      "id":"189",
+      "question":"You throw me out when you want to use me, but take me in when you don't want to use me. What am I?",
+      "answer":"Anchor "
+   },
+   {
+      "id":"190",
+      "question":"I saw the dead bring forth the living. I saw the living bring forth the dead. What did I see?",
+      "answer":"Funeral "
+   },
+   {
+      "id":"191",
+      "question":"What gets whiter the dirtier it gets?",
+      "answer":"Chalkboard "
+   },
+   {
+      "id":"192",
+      "question":"There was a girl half my age when I was 12, now I am 66, how old is she?",
+      "answer":"Sixty "
+   },
+   {
+      "id":"193",
+      "question":"Tool of thief, toy of queen. Always used to be unseen. Sign of joy, sign of sorrow. Giving all likeness borrowed. What is it?",
+      "answer":"Mask "
+   },
+   {
+      "id":"194",
+      "question":"In A Tunnel of Darkness Lies a Beast of Iron. It Can Only Attack When Pulled Back. What is it?",
+      "answer":"Bullet "
+   },
+   {
+      "id":"195",
+      "question":"What kind of table can you eat?",
+      "answer":"vegetable "
+   },
+   {
+      "id":"196",
+      "question":"You can drop me from the tallest building and I'll be fine, but if you drop me in water I die. What am I?",
+      "answer":"Paper "
+   },
+   {
+      "id":"197",
+      "question":"Everyone has me but nobody can lose me. What am I?",
+      "answer":"shadow "
+   },
+   {
+      "id":"198",
+      "question":"What word has kst in the middle, in the beginning, and at the end?",
+      "answer":"Hurricane "
+   },
+   {
+      "id":"199",
+      "question":"What dress does everyone have, but no one wears?",
+      "answer":"Address "
+   },
+   {
+      "id":"200",
+      "question":"It covers you, you lose it every day and you'd die without it.",
+      "answer":"Skin"
+   },
+   {
+      "id":"201",
+      "question":"You will always find me in the past. I can be created in the present, but the future can never taint me. What am I?",
+      "answer":"History"
+   },
+   {
+      "id":"202",
+      "question":"What word becomes shorter when you add two letters to it?",
+      "answer":"Short"
+   },
+   {
+      "id":"203",
+      "question":"Three little letters, a paradox to some.The worse that it is, the better it becomes.",
+      "answer":"Pun"
+   },
+   {
+      "id":"204",
+      "question":"I'm a blended cold beverage made up of milk, ice cream and fruit. I bring all the boys to the yard.",
+      "answer":"Milkshake"
+   },
+   {
+      "id":"205",
+      "question":"Kids love this bouncy, sugary, treat. It's like colorful rubber that you can eat.",
+      "answer":"Jello"
+   },
+   {
+      "id":"206",
+      "question":"I'm a type of pizza that is folded in half before cooking to contain a filling, who am I?",
+      "answer":"Calzone"
+   },
+   {
+      "id":"207",
+      "question":"A defendant will go free if a reasonable amount of this exists.",
+      "answer":"Doubt"
+   },
+   {
+      "id":"208",
+      "question":"John's mother had three children. The first child was April. The second child was May. What was the third child's name?",
+      "answer":"John"
+   },
+   {
+      "id":"209",
+      "question":"What type of cheese is made backwards?",
+      "answer":"Edam"
+   },
+   {
+      "id":"210",
+      "question":"A weighty currency.",
+      "answer":"Pound"
+   },
+   {
+      "id":"211",
+      "question":"What bird is always unhappy?",
+      "answer":"Bluebird"
+   },
+   {
+      "id":"212",
+      "question":"When young, I am sweet in the sun. When middle-aged, I make you gay. When old, I am valued more than ever.",
+      "answer":"Wine"
+   },
+   {
+      "id":"213",
+      "question":"Who always enjoys poor health?",
+      "answer":"Doctor"
+   },
+   {
+      "id":"214",
+      "question":"This both describes gorgeous woman and an excellent punch.",
+      "answer":"Knockout"
+   },
+   {
+      "id":"215",
+      "question":"I am something all men have but all men deny. Man created me but no man can hold me. What am I?",
+      "answer":"Fear"
+   },
+   {
+      "id":"216",
+      "question":"What dentists battle on a daily basis.",
+      "answer":"Cavities"
+   },
+   {
+      "id":"217",
+      "question":"What lives where it cannot breathe and has a hole in its back?",
+      "answer":"whale"
+   },
+   {
+      "id":"218",
+      "question":"I have 4 legs but never run. What am I?",
+      "answer":"chair"
+   },
+   {
+      "id":"219",
+      "question":"A salutation from the islands.",
+      "answer":"Aloha"
+   },
+   {
+      "id":"220",
+      "question":"It speak without a tongue and listen without ears?",
+      "answer":"Phone"
+   },
+   {
+      "id":"221",
+      "question":"Without this, H2O would just be 2O.",
+      "answer":"Hydrogen"
+   },
+   {
+      "id":"222",
+      "question":"What types of words are these: madam, civic, eye, level?",
+      "answer":"Palindrome"
+   },
+   {
+      "id":"223",
+      "question":"I tell people to be careful when handling boxes. What am I?",
+      "answer":"Fragile"
+   },
+   {
+      "id":"224",
+      "question":"For this gourmet style of meal you'll need a pot and some pointy sticks.",
+      "answer":"Fondue"
+   },
+   {
+      "id":"225",
+      "question":"A mighty weapon in the war against winged household pests.",
+      "answer":"Flyswatter"
+   },
+   {
+      "id":"226",
+      "question":"If you are a sore loser, you are often called the sour variety of this fruit.",
+      "answer":"Grape"
+   },
+   {
+      "id":"227",
+      "question":"Tomorrow's yesterday. Yesterday's tomorrow. What is it?",
+      "answer":"Today"
+   },
+   {
+      "id":"228",
+      "question":"I tap and I spin, I wiggle and I twist, and my movements are dictated by external sounds. Who am I?",
+      "answer":"Dancer"
+   },
+   {
+      "id":"229",
+      "question":"What is Mrs. Right's first name?",
+      "answer":"Always"
+   },
+   {
+      "id":"230",
+      "question":"I am wingless but airborne, and when I meet your gaze tears will fall from your eyes. What am I?",
+      "answer":"Smoke"
+   },
+   {
+      "id":"231",
+      "question":"I won't break if you throw me off from the highest building but I will break if you place me in the ocean. What am I?",
+      "answer":"Tissue"
+   },
+   {
+      "id":"232",
+      "question":"What can an elephant and a shrimp both be?",
+      "answer":"Jumbo"
+   },
+   {
+      "id":"233",
+      "question":"My first is high, My second damp, My whole a tie, A writer's cramp, who am I?",
+      "answer":"Hyphen"
+   },
+   {
+      "id":"234",
+      "question":"Edible beach crawler served at seafood restaurants, similar to a lobster, but quite different.",
+      "answer":"Crab"
+   },
+   {
+      "id":"235",
+      "question":"A tower at the root of all confusion.",
+      "answer":"Babel"
+   },
+   {
+      "id":"236",
+      "question":"When someone uses this acronym, you know you've got to pick up the pace.",
+      "answer":"Asap"
+   },
+   {
+      "id":"237",
+      "question":"Which is the oldest tree?",
+      "answer":"Elder"
+   },
+   {
+      "id":"238",
+      "question":"What do angels sing in the shower?",
+      "answer":"Soul"
+   },
+   {
+      "id":"239",
+      "question":"I am a fruit with seeds on the outside. What am I?",
+      "answer":"Strawberry"
+   },
+   {
+      "id":"240",
+      "question":"Held firmly in the hands, like a sword it cuts deep. Bloodless strokes, all, then forward we leap.",
+      "answer":"Paddle"
+   },
+   {
+      "id":"241",
+      "question":"Even if you throw it away, it still comes back.",
+      "answer":"Yoyo"
+   },
+   {
+      "id":"242",
+      "question":"Both peaches and a certain couture have this in common.",
+      "answer":"Juicy"
+   },
+   {
+      "id":"243",
+      "question":"This toasted sandwich is made with bacon, lettuce and tomato.",
+      "answer":"Blt"
+   },
+   {
+      "id":"244",
+      "question":"What kinds of men are always above board?",
+      "answer":"Chessmen"
+   },
+   {
+      "id":"245",
+      "question":"What kind of dog chases anything red?",
+      "answer":"Bulldog"
+   },
+   {
+      "id":"246",
+      "question":"The main difference between us and zombies.",
+      "answer":"Life"
+   },
+   {
+      "id":"247",
+      "question":"These are believed to be found at the end of rainbows.",
+      "answer":"Pots"
+   },
+   {
+      "id":"248",
+      "question":"This heavy and ancient suit was not worn with a tie, but was always worn in battle.",
+      "answer":"Armor"
+   },
+   {
+      "id":"249",
+      "question":"Hold these between your knees if you want to set a Cuban beat.",
+      "answer":"Bongos"
+   },
+   {
+      "id":"250",
+      "question":"Men in skirts blow into these.",
+      "answer":"Bagpipes"
+   },
+   {
+      "id":"251",
+      "question":"A device for finding furniture in the dark.",
+      "answer":"Shin"
+   },
+   {
+      "id":"252",
+      "question":"A house has 4 walls. All of the walls are facing south, and a bear is circling the house. What color is the bear?",
+      "answer":"White"
+   },
+   {
+      "id":"253",
+      "question":"Where do cows go to dance?",
+      "answer":"Meatball"
+   },
+   {
+      "id":"254",
+      "question":"I have a tail. I can fly. I'm covered in colorful feathers. I can whistle and I can talk. Who am I?",
+      "answer":"Parrot"
+   },
+   {
+      "id":"255",
+      "question":"What can be seen but never found that only hides in the unwound?",
+      "answer":"Relaxation"
+   },
+   {
+      "id":"256",
+      "question":"Through its wounds, water does run. It once held many but now has none. What is it?",
+      "answer":"Shipwreck"
+   },
+   {
+      "id":"257",
+      "question":"What is an aliens favourite sport?",
+      "answer":"Spaceball"
+   },
+   {
+      "id":"258",
+      "question":"They are producers of pies and burgers and are great for tipping",
+      "answer":"cows"
+   },
+   {
+      "id":"259",
+      "question":"A single seater best accompanied by circus music and great balance.",
+      "answer":"Unicycle"
+   },
+   {
+      "id":"260",
+      "question":"A circle of stones, never in rows. Stacked one on the other, mystery it sows. What is it?",
+      "answer":"Stonehenge"
+   },
+   {
+      "id":"261",
+      "question":"What follows a dog wherever it goes?",
+      "answer":"Tail"
+   },
+   {
+      "id":"262",
+      "question":"I start with S and end with IT, and have you in the middle. What am I?",
+      "answer":"Suit"
+   },
+   {
+      "id":"263",
+      "question":"What social media website is a favorite among teens who don't like to share their bedrooms?",
+      "answer":"Myspace"
+   },
+   {
+      "id":"264",
+      "question":"It carries paper of the most important sort but also plastic, I'm glad to report. What is it?",
+      "answer":"Wallet"
+   },
+   {
+      "id":"265",
+      "question":"The more holes you cover the lower it goes.",
+      "answer":"Recorder"
+   },
+   {
+      "id":"266",
+      "question":"I am what remains when nothing is left. What am I?",
+      "answer":"Right"
+   },
+   {
+      "id":"267",
+      "question":"What nut has a hole and is squishy?",
+      "answer":"Doughnut"
+   },
+   {
+      "id":"268",
+      "question":"What calls for help, when written in capital letters, is the same forwards, backwards and upside down?",
+      "answer":"SOS"
+   },
+   {
+      "id":"269",
+      "question":"My treasures are golden and guarded by thousands amongst a maze no man can enter. What am I?",
+      "answer":"Beehive"
+   },
+   {
+      "id":"270",
+      "question":"These make grown men dance in end zones",
+      "answer":"Touchdown"
+   },
+   {
+      "id":"271",
+      "question":"What animal would you get crossed a duck, a beaver, and an otter?",
+      "answer":"Platypus"
+   },
+   {
+      "id":"272",
+      "question":"I flow from the mouth of Homer when he sees doughnuts. What am I?",
+      "answer":"Drool"
+   },
+   {
+      "id":"273",
+      "question":"Born from a fountain of wealth, I am black instead of gold but valued the same. What am I?",
+      "answer":"Oil"
+   },
+   {
+      "id":"274",
+      "question":"This Cajun dish of rice with shrimp, chicken, and vegetables, is often enjoyed with cornbread.",
+      "answer":"Jambalaya"
+   },
+   {
+      "id":"275",
+      "question":"I am so delicious that I require a house to contain me. What am I?",
+      "answer":"Pancakes"
+   },
+   {
+      "id":"276",
+      "question":"What has feet on the inside but not on the outside?",
+      "answer":"Shoes"
+   },
+   {
+      "id":"277",
+      "question":"I run up and down the stairs without moving. What am I?",
+      "answer":"Rug"
+   },
+   {
+      "id":"278",
+      "question":"What's at the head of an elephant and at the tail of a squirrel?",
+      "answer":"EL"
+   },
+   {
+      "id":"279",
+      "question":"I am edible, pink, and a great summer food. What am I?",
+      "answer":"Peach"
+   },
+   {
+      "id":"280",
+      "question":"What word in the dictionary is weird?",
+      "answer":"Weird"
+   },
+   {
+      "id":"281",
+      "question":"I have strong affection for belly buttons. What am I?",
+      "answer":"Lint"
+   },
+   {
+      "id":"282",
+      "question":"IWhat peels like an onion but still remains whole?",
+      "answer":"Lizard"
+   },
+   {
+      "id":"283",
+      "question":"You can only have it once you have given it",
+      "answer":"Respect"
+   },
+   {
+      "id":"284",
+      "question":"If you can spot one of these eastern warriors, it means they're not doing their job right.",
+      "answer":"Ninja"
+   },
+   {
+      "id":"285",
+      "question":"What is a Mummy's favorite type of music?",
+      "answer":"Wrap"
+   },
+   {
+      "id":"286",
+      "question":"The fans of the pied piper's smooth sound who are feared by elephants.",
+      "answer":"Mice"
+   },
+   {
+      "id":"287",
+      "question":"A doctor might remove one from the neck of a Dracula victim.",
+      "answer":"Fang"
+   },
+   {
+      "id":"288",
+      "question":"What instrument can make any sound and be heard but not touched or seen?",
+      "answer":"Voice"
+   },
+   {
+      "id":"289",
+      "question":"I am nothing but holes tied to holes, yet am strong as iron",
+      "answer":"Chain"
+   },
+   {
+      "id":"290",
+      "question":"Long legs, crooked thighs, little head, and no eyes.",
+      "answer":"Tongs"
+   },
+   {
+      "id":"291",
+      "question":"You could do this to a motion, see it on a watch, or place this in a race.",
+      "answer":"Second"
+   },
+   {
+      "id":"292",
+      "question":"What can provide food before it is alive, while it is alive and after it's dead?",
+      "answer":"Chicken"
+   },
+   {
+      "id":"293",
+      "question":"Soldiers fight it but never changes.",
+      "answer":"war"
+   },
+   {
+      "id":"294",
+      "question":"I have eight corners, yet my shadow often takes the shape of a hexagon. What am I?",
+      "answer":"Cube"
+   },
+   {
+      "id":"295",
+      "question":"What do you call a group of butchers?",
+      "answer":"Meating"
+   },
+   {
+      "id":"296",
+      "question":"You roll it or you buy it, People say you shouldn't try it, Because you may get a stroke, From inhaling all that smoke.",
+      "answer":"Cigarette"
+   },
+   {
+      "id":"297",
+      "question":"Often wandering the streets, this group of people cannot afford to be choosers.",
+      "answer":"Beggars"
+   },
+   {
+      "id":"298",
+      "question":"It breathes fire in fairy-tales, what's it?",
+      "answer":"Dragon"
+   },
+   {
+      "id":"299",
+      "question":"It breathes fire in fairy-tales, what's it?",
+      "answer":"Dragon"
+   },
+   {
+      "id":"300",
+      "question":"What key is the hardest to turn?",
+      "answer":"Donkey  "
+   },
+   {
+      "id":"301",
+      "question":"Don't do this in the shallow end.",
+      "answer":"Dive"
+   },
+   {
+      "id":"302",
+      "question":"Securing your documents is easy with these trusty metal objects.",
+      "answer":"Staples"
+   },
+   {
+      "id":"303",
+      "question":"With hands that can't hold and eyes that can't see, she's cherished by some but has no real family. Who is she?",
+      "answer":"Doll"
+   },
+   {
+      "id":"304",
+      "question":"Though blind as well, can lead the blind well.",
+      "answer":"Cane"
+   },
+   {
+      "id":"305",
+      "question":"My first half means container. Not a lot of people understand my language. What am I?",
+      "answer":"Binary"
+   },
+   {
+      "id":"306",
+      "question":"An art-form and a web-browser.",
+      "answer":"Oera"
+   },
+   {
+      "id":"307",
+      "question":"It flies when it's on and floats coming off.",
+      "answer":"Feather"
+   },
+   {
+      "id":"308",
+      "question":"This on this. That on that. Growing tall, But never fat. What am I?",
+      "answer":"Stack"
+   },
+   {
+      "id":"309",
+      "question":"What do you call a fish without an eye?",
+      "answer":"Fsh"
+   },
+   {
+      "id":"310",
+      "question":"What is an acceptable act of violence during saint Patrick's day?",
+      "answer":"Pinch"
+   },
+   {
+      "id":"311",
+      "question":"A tasty reward given to well behaved dogs and kids.",
+      "answer":"Treat"
+   },
+   {
+      "id":"312",
+      "question":"What has a spot and is very bright, is sometimes, red, white, blue, yellow or green and is often blinding.",
+      "answer":"Spotlight"
+   },
+   {
+      "id":"313",
+      "question":"What word of five letters has only one left when two letters are removed?",
+      "answer":"Stone"
+   },
+   {
+      "id":"314",
+      "question":"A reaction to being spooked that takes its name from waterfowl.",
+      "answer":"Goosebumps"
+   },
+   {
+      "id":"315",
+      "question":"I support you in your darkest times, but you choose to leave me everyday. What am I?",
+      "answer":"Bed"
+   },
+   {
+      "id":"316",
+      "question":"Special abilities and brightly colored underwear are all you need to be one of these.",
+      "answer":"Superhero"
+   },
+   {
+      "id":"317",
+      "question":"This could make wooden boy's noses grow.",
+      "answer":"Fib"
+   },
+   {
+      "id":"318",
+      "question":"Watches students at the prom to make sure there's no funny business.",
+      "answer":"Chaperone"
+   },
+   {
+      "id":"319",
+      "question":"Gown but not a priest; crown but not a king.",
+      "answer":"Rooster"
+   },
+   {
+      "id":"320",
+      "question":"Black within and red without, With four corners round about. What am I?",
+      "answer":"Chimney"
+   },
+   {
+      "id":"321",
+      "question":"Being able to interpret the letters on this screen proves that you have this quality.",
+      "answer":"Literate"
+   },
+   {
+      "id":"322",
+      "question":"The thinkers usually hold this body part.",
+      "answer":"Chin"
+   },
+   {
+      "id":"323",
+      "question":"You need a key to receive an answer from me. The answer you'll find is straight from your mind. What is it?",
+      "answer":"Code"
+   },
+   {
+      "id":"324",
+      "question":"There's one in every deck of cards and in a famous movie.",
+      "answer":"Joker"
+   },
+   {
+      "id":"325",
+      "question":"Looks like a hippo crossed with a unicorn.",
+      "answer":"Rhino"
+   },
+   {
+      "id":"326",
+      "question":"When the horse strokes the cat, the wood begins to sing.",
+      "answer":"Violin"
+   },
+   {
+      "id":"327",
+      "question":"This for is a baked dish of fruit, or meat and vegetables, typically with a top and base of pastry.",
+      "answer":"Pie"
+   },
+   {
+      "id":"328",
+      "question":"I'm a pie, but I come with peperoni and cheese.",
+      "answer":"Pizza"
+   },
+   {
+      "id":"329",
+      "question":"You are owed one of these when someone wrongs you.",
+      "answer":"Apology"
+   },
+   {
+      "id":"330",
+      "question":"We applaud if you perform well. What am I?",
+      "answer":"Audience"
+   },
+   {
+      "id":"331",
+      "question":"I am the yellow hem of the sea's blue skirt.",
+      "answer":"Beach"
+   },
+   {
+      "id":"332",
+      "question":"In birth I spring forth, in life I unfold. In death I wilt and die, but rebirth restores all.",
+      "answer":"Leaf"
+   },
+   {
+      "id":"333",
+      "question":"Maritime marauders.",
+      "answer":"Pirate"
+   },
+   {
+      "id":"334",
+      "question":"Hoofed frolicking.",
+      "answer":"Horseplay"
+   },
+   {
+      "id":"335",
+      "question":"When life gives you these, make a refreshing beverage.",
+      "answer":"Lemon"
+   },
+   {
+      "id":"336",
+      "question":"Could be described as the cranium's version of snow.",
+      "answer":"Dandruff"
+   },
+   {
+      "id":"337",
+      "question":"I climb higher when hot, But beware my rage, I'll kill with a breath, If I can escape my cage.",
+      "answer":"Mercury "
+   },
+   {
+      "id":"338",
+      "question":"I am someone you don't know. Who am i?",
+      "answer":"Stranger "
+   },
+   {
+      "id":"339",
+      "question":"What animal keeps the best time?",
+      "answer":"Watchdog "
+   },
+   {
+      "id":"340",
+      "question":"Its fleece is warm and wooly white. And when you lie awake at night, count it and you'll fall asleep. What is it?",
+      "answer":"Sheep "
+   },
+   {
+      "id":"341",
+      "question":"What comes in many varieties and can't be seen or touched, but it often makes you move?",
+      "answer":"Music "
+   },
+   {
+      "id":"342",
+      "question":"I am shared by goats, devils, and unicorns. What am I?",
+      "answer":"Horn "
+   },
+   {
+      "id":"343",
+      "question":"They are Dark, and always on the run. without the sun, would be none!",
+      "answer":"Shadows "
+   },
+   {
+      "id":"344",
+      "question":"During the day, I follow one, during the night, I follow none. What am I?",
+      "answer":"Sunflower  "
+   },
+   {
+      "id":"345",
+      "question":"John Lennon sang about being this toothy creature.",
+      "answer":"Walrus  "
+   },
+   {
+      "id":"346",
+      "question":"A tiny bead, like fragile glass, strung along a cord of grass.",
+      "answer":"Dew  "
+   },
+   {
+      "id":"347",
+      "question":"It is the time in your life when you simultaneously know everything and nothing at an instance.",
+      "answer":"Teenager  "
+   },
+   {
+      "id":"348",
+      "question":"Cute hares that hop and deliver eggs at Easter are called by this nickname.",
+      "answer":"Bunny  "
+   },
+   {
+      "id":"349",
+      "question":"I'm a lion with a human head. Guess my Riddle or you'll be dead.",
+      "answer":"Sphinx  "
+   },
+   {
+      "id":"350",
+      "question":"My second is performed by my first, and it is thought a thief by the marks of my whole might be caught.",
+      "answer":"Footstep"
+   },
+   {
+      "id":"351",
+      "question":"It is a place of play on a sunny day. Winter will come and take all the fun, but we'll be back in May. What is it?",
+      "answer":"Park"
+   },
+   {
+      "id":"352",
+      "question":"When it comes in, From sea to shore, Twenty paces you'll see, No less, no more.",
+      "answer":"Fog"
+   },
+   {
+      "id":"353",
+      "question":"I am longer than a decade and shorter than a millennium. What am I?",
+      "answer":"Century"
+   },
+   {
+      "id":"354",
+      "question":"It is the great nemesis of the lactose intolerant.",
+      "answer":"Dairy"
+   },
+   {
+      "id":"355",
+      "question":"When I type I tap these on the keys.",
+      "answer":"Fingertips"
+   },
+   {
+      "id":"356",
+      "question":"I am green and ugly and come out at night with a crumple old broom. Who am I?",
+      "answer":"Witch"
+   },
+   {
+      "id":"357",
+      "question":"A toasty and crunchy cereal would be pointless without this spice.",
+      "answer":"Cinnamon"
+   },
+   {
+      "id":"358",
+      "question":"Before crust hardens.",
+      "answer":"Dough"
+   },
+   {
+      "id":"359",
+      "question":"Taken from a mine and then locked up in a wooden case. Never released but used by students everyday. What am I?",
+      "answer":"Lead"
+   },
+   {
+      "id":"360",
+      "question":"What goes further the slower it goes?",
+      "answer":"Money"
+   },
+   {
+      "id":"361",
+      "question":"They come in many varieties: Red, Black, Dead, and Caspian to name a few.",
+      "answer":"Sea"
+   },
+   {
+      "id":"362",
+      "question":"What becomes too young the longer it exists?",
+      "answer":"Prtrait"
+   },
+   {
+      "id":"363",
+      "question":"A close relative of ketchup that people often spread on their dog.",
+      "answer":"Mustard"
+   },
+   {
+      "id":"364",
+      "question":"What kind of cup doesn't hold water?",
+      "answer":"Cupcake"
+   },
+   {
+      "id":"365",
+      "question":"What is lengthened by being cut at both ends?",
+      "answer":"Ditch"
+   },
+   {
+      "id":"366",
+      "question":"What can honk without a horn?",
+      "answer":"Goose"
+   },
+   {
+      "id":"367",
+      "question":"There is someone, and there is always another, for without the other, there wouldn't be one.",
+      "answer":"Twins"
+   },
+   {
+      "id":"368",
+      "question":"What has a throne, but has no king?",
+      "answer":"Bathroom"
+   },
+   {
+      "id":"369",
+      "question":"Not a comb or a brush but makes the hair feel plush. What is it?",
+      "answer":"Shampoo"
+   },
+   {
+      "id":"370",
+      "question":"What type of paper can you neither read nor write on?",
+      "answer":"Sandpaper"
+   },
+   {
+      "id":"371",
+      "question":"While I'm a challenge for one and a rebuke between two, Yet I still have a direction for every number. What am I?",
+      "answer":"Crosswords"
+   },
+   {
+      "id":"372",
+      "question":"One where none should be, or maybe where two should be, seeking out purity, in the kings trees. What am I?",
+      "answer":"Unicorn"
+   },
+   {
+      "id":"373",
+      "question":"What month do all soldiers hate?",
+      "answer":"March"
+   },
+   {
+      "id":"374",
+      "question":"Thousands of these come together to make a digital image. What is it?",
+      "answer":"Pixel"
+   },
+   {
+      "id":"375",
+      "question":"It can cause deflation of tires when dropped from the rear of spy cars.",
+      "answer":"Spikes"
+   },
+   {
+      "id":"376",
+      "question":"Has feathers but can't fly. Rests on legs but can't walk.",
+      "answer":"Mattress"
+   },
+   {
+      "id":"377",
+      "question":"What is something that can go up quite easily, but is not as easy to bring back down?",
+      "answer":"Weight"
+   },
+   {
+      "id":"378",
+      "question":"What can you put in a wood box that will make it lighter?",
+      "answer":"Holes"
+   },
+   {
+      "id":"379",
+      "question":"What takes hours to pull off Is most satisfying when it's done And requires consent from the person you're doing it to?",
+      "answer":"Hypnotism"
+   },
+   {
+      "id":"380",
+      "question":"It can be done to buttons and shopping carts. What is it?",
+      "answer":"Push"
+   },
+   {
+      "id":"381",
+      "question":"Two birds, trying to balance in one twig.",
+      "answer":"Earrings"
+   },
+   {
+      "id":"382",
+      "question":"When a doctor hits you with a hammer he is testing this.",
+      "answer":"Reflex"
+   },
+   {
+      "id":"383",
+      "question":"According to the music industry, you can count on a midnight train and the devil to turn up here.",
+      "answer":"Georgia"
+   },
+   {
+      "id":"384",
+      "question":"These are needed to finish a test",
+      "answer":"Answers"
+   },
+   {
+      "id":"385",
+      "question":"How do you tell a boy snowman apart from a girl snowman?",
+      "answer":"Snowballs"
+   },
+   {
+      "id":"386",
+      "question":"I stink up your breath and fights evil vampires. What am I?",
+      "answer":"Garlic"
+   },
+   {
+      "id":"387",
+      "question":"Something you do with guests at a fancy party hoping to get a leg-up in your career.",
+      "answer":"Schmooze"
+   },
+   {
+      "id":"388",
+      "question":"Possibly the only famous plumber who has the courage to ever to rescue a princess.",
+      "answer":"Mario"
+   },
+   {
+      "id":"389",
+      "question":"I am at your hand when it is dark and hidden away in the light. What am I?",
+      "answer":"Flashlight"
+   },
+   {
+      "id":"390",
+      "question":"I am one of many, You forget I'm here, but I'm just below. Without me, you'd surely topple, Go ahead, what am I?",
+      "answer":"Toes"
+   },
+   {
+      "id":"391",
+      "question":"I can be found on a present, the front of a boat, or after the rain. What am I?",
+      "answer":"Bow"
+   },
+   {
+      "id":"392",
+      "question":"I fly through the air on small feathered wings, seeking out life and destroying all things.",
+      "answer":"Arrow"
+   },
+   {
+      "id":"393",
+      "question":"If a dog were filling out a resume, he might list his mastery of this game under “skills”",
+      "answer":"Fetch"
+   },
+   {
+      "id":"394",
+      "question":"My first is an insect; my second is a border; my whole puts the face in a tuneful disorder.",
+      "answer":"Anthem"
+   },
+   {
+      "id":"395",
+      "question":"A seasonal fashion statement named for the weather It's worn in.",
+      "answer":"Sundress"
+   },
+   {
+      "id":"396",
+      "question":"Chicken noodle and cream of mushroom are two well known varieties of this kind of food.",
+      "answer":"soup"
+   },
+   {
+      "id":"397",
+      "question":"I live next to beauty trying to catch your eye. Grab me without looking, and you're surely to cry. What am I?",
+      "answer":"Thorn"
+   },
+   {
+      "id":"398",
+      "question":"This food, made from pork, is often eaten alongside eggs and bacon.",
+      "answer":"Sausage"
+   },
+   {
+      "id":"399",
+      "question":"Who eats a lot of iron without getting sick?",
+      "answer":"Rust"
+   },
+   {
+      "id":"400",
+      "question":"This Chocolate baked good is a soft candy made from sugar, butter, and milk or cream.",
+      "answer":"Fudge"
+   },
+   {
+      "id":"401",
+      "question":"What you do to determine the length of something.",
+      "answer":"Measure"
+   },
+   {
+      "id":"402",
+      "question":"Which friend of a witch eats the fastest?",
+      "answer":"Goblin"
+   },
+   {
+      "id":"403",
+      "question":"This is your stomach's way of letting you know you've neglected it.",
+      "answer":"Grumble"
+   },
+   {
+      "id":"404",
+      "question":"What's white, gooey, sticky, and better to spit than swallow?",
+      "answer":"Toothpaste"
+   },
+   {
+      "id":"405",
+      "question":"Who won the skeleton fitness contest?",
+      "answer":"Nobody"
+   },
+   {
+      "id":"406",
+      "question":"My first is nothing but a name; my second is more small; my whole is of so little fame it has no name at all.",
+      "answer":"Nameless"
+   },
+   {
+      "id":"407",
+      "question":"In the forest, this blends in just right, but every December it is covered with lights. What is it?",
+      "answer":"Evergreen"
+   },
+   {
+      "id":"408",
+      "question":"A man says: Brothers and sisters, have I none, but that man's father is my father's son. Who is he pointing at?",
+      "answer":"son"
+   },
+   {
+      "id":"409",
+      "question":"A certain wizard resided in a city made from this gemstone.",
+      "answer":"Emerald"
+   },
+   {
+      "id":"410",
+      "question":"How do snails travel?",
+      "answer":"Slowly"
+   },
+   {
+      "id":"411",
+      "question":"Four leaves I have. What am I?",
+      "answer":"Shamrock"
+   },
+   {
+      "id":"412",
+      "question":"What has a brown coat, a long tail, and lives in house or shed but most active while you're in bed?",
+      "answer":"Mouse"
+   },
+   {
+      "id":"413",
+      "question":"Where do sailors take their baths?",
+      "answer":"Tubmarine"
+   },
+   {
+      "id":"414",
+      "question":"It has 8 arms and lots of ink but can't write a word.",
+      "answer":"Octopus"
+   },
+   {
+      "id":"415",
+      "question":"If it weren't for these, no one would be aware of Idaho's existence.",
+      "answer":"Potato"
+   },
+   {
+      "id":"416",
+      "question":"Take away my first letter, then take away my second letter. Then take away the rest of my letters, yet I remain the same. What am I?",
+      "answer":"Postman"
+   },
+   {
+      "id":"417",
+      "question":"Big as a biscuit, deep as a cup, even a river can't fill it up. What is it?",
+      "answer":"Strainer"
+   },
+   {
+      "id":"418",
+      "question":"The celebrities of high school were part of this crowd.",
+      "answer":"Popular"
+   },
+   {
+      "id":"419",
+      "question":"A king without a crown.",
+      "answer":"Lion"
+   },
+   {
+      "id":"420",
+      "question":"Delicious but said to be a lie.",
+      "answer":"Cake"
+   },
+   {
+      "id":"421",
+      "question":"What does a man have in his trousers that a lady doesn't want in her face?",
+      "answer":"Wrinkles"
+   },
+   {
+      "id":"422",
+      "question":"I am owned by Old McDonald. What am I?",
+      "answer":"Farm"
+   },
+   {
+      "id":"423",
+      "question":"As soft as silk, as white as milk, as bitter as gall, a thick green wall, and a green coat covers me all.",
+      "answer":"Walnut"
+   },
+   {
+      "id":"424",
+      "question":"Though learning has fed me, I know not a letter; I live among the books, Yet am never the better. What am I?",
+      "answer":"Bookworm"
+   },
+   {
+      "id":"425",
+      "question":"It is by nature, soft as silk; A puffy cloud, white as milk; Snow tops this tropical crop; The dirtiest part of a mop.",
+      "answer":"Cotton"
+   },
+   {
+      "id":"426",
+      "question":"What do you call two witches who live together?",
+      "answer":"Broommates"
+   },
+   {
+      "id":"427",
+      "question":"Found in pizza but also the sky. You'll know I'm around when I'm close by. What am I?",
+      "answer":"Circle"
+   },
+   {
+      "id":"428",
+      "question":"A great mysterious place that the bold have been known to journey into.",
+      "answer":"Unknown"
+   },
+   {
+      "id":"429",
+      "question":"Most people need it, some ask for it, some give it, but almost nobody takes it. What is it?",
+      "answer":"Advice"
+   },
+   {
+      "id":"430",
+      "question":"The distance from the top of your head to the floor –standing up straight.",
+      "answer":"Height"
+   },
+   {
+      "id":"431",
+      "question":"I am like thunder in your cranium. What am I?",
+      "answer":"Headache"
+   },
+   {
+      "id":"432",
+      "question":"Talks like this, a green wise man does. Guess my clue, you will.",
+      "answer":"Yoda"
+   },
+   {
+      "id":"433",
+      "question":"I am rubber you can eat. What am I?",
+      "answer":"Jelly"
+   },
+   {
+      "id":"434",
+      "question":"What is all over a house?",
+      "answer":"Roof"
+   },
+   {
+      "id":"435",
+      "question":"One more than a duet.",
+      "answer":"Trio"
+   },
+   {
+      "id":"436",
+      "question":"What falls but never breaks?",
+      "answer":"Night"
+   },
+   {
+      "id":"437",
+      "question":"What's brown and sounds like a bell?",
+      "answer":"Dung"
+   },
+   {
+      "id":"438",
+      "question":"I make up all literature, but I'm often sealed. What am I?",
+      "answer":"Letters"
+   },
+   {
+      "id":"439",
+      "question":"They can be long or short; they can be grown or bought; they can be painted or left bare; they can be round or square.",
+      "answer":"Nails"
+   },
+   {
+      "id":"440",
+      "question":"What does someone else have to take before you can get?",
+      "answer":"Photograph"
+   },
+   {
+      "id":"441",
+      "question":"What did Adam and Eve lack that everyone else has?",
+      "answer":"Parents"
+   },
+   {
+      "id":"442",
+      "question":"I will go within you, and destroy you. Only because you wanted me too. What am I?",
+      "answer":"Drugs"
+   },
+   {
+      "id":"443",
+      "question":"Which word contains 26 letters but only three syllables?",
+      "answer":"Alphabet"
+   },
+   {
+      "id":"444",
+      "question":"I am used when you jump off a bridge for fun. What am I?",
+      "answer":"Bungee"
+   },
+   {
+      "id":"445",
+      "question":"Skirts for men. What am I?",
+      "answer":"Kilt"
+   },
+   {
+      "id":"446",
+      "question":"What is not a ball but yet a sphere, and holds all lands and people year after year?",
+      "answer":"Earth"
+   },
+   {
+      "id":"447",
+      "question":"Women don't have and don't want it. Men get it but sometimes they try to get rid of it. What is it?",
+      "answer":"Beard"
+   },
+   {
+      "id":"448",
+      "question":"The time between daylight and darkness when blood drinkers like to come out. What am I?",
+      "answer":"Twilight"
+   },
+   {
+      "id":"449",
+      "question":"What are you certain to find inside your pocket when you reach into it?",
+      "answer":"Hand"
+   },
+   {
+      "id":"450",
+      "question":"What does a stone become when in the water?",
+      "answer":"Whetstone"
+   },
+   {
+      "id":"451",
+      "question":"I have a hundred legs but cannot stand, a long neck but no head; I eat the maid's life. What am I?.",
+      "answer":"Broom"
+   },
+   {
+      "id":"452",
+      "question":"A stylish winter top that covers your larynx.",
+      "answer":"Turtleneck"
+   },
+   {
+      "id":"453",
+      "question":"Without me you will surely die. Too much of me and like a pig you may lie. What am I?",
+      "answer":"Food"
+   },
+   {
+      "id":"454",
+      "question":"You'll see savory dishes in Hong Kong sizzling in these.",
+      "answer":"Wok"
+   },
+   {
+      "id":"455",
+      "question":"What is a cheerleaders favorite color?",
+      "answer":"Yeller"
+   },
+   {
+      "id":"456",
+      "question":"It is an arctic double breasted formal wear.",
+      "answer":"Snowsuit"
+   },
+   {
+      "id":"457",
+      "question":"Give it a toss, and it's ready, but not until it's dressed. What is it?",
+      "answer":"Salad"
+   },
+   {
+      "id":"458",
+      "question":"You can break it or drink water from it.",
+      "answer":"Glass"
+   },
+   {
+      "id":"459",
+      "question":"What has been around for millions of years but is never more than a month old?",
+      "answer":"Moon"
+   },
+   {
+      "id":"460",
+      "question":"Sharp and long, flag of the world. What is it?",
+      "answer":"Tower"
+   },
+   {
+      "id":"461",
+      "question":"Inside a burning house, this thing is best to make. And best to make it quickly, before the fire's too much to take.",
+      "answer":"Haste"
+   },
+   {
+      "id":"462",
+      "question":"Sends paper without using the post office.",
+      "answer":"Fax"
+   },
+   {
+      "id":"463",
+      "question":"The one fashion accessory farmers and hipsters can agree upon.",
+      "answer":"Suspenders"
+   },
+   {
+      "id":"464",
+      "question":"What is given but kept by the giver?",
+      "answer":"Birth"
+   },
+   {
+      "id":"465",
+      "question":"What is put on a table and cut but never eaten?",
+      "answer":"Cards"
+   },
+   {
+      "id":"466",
+      "question":"Never ahead, ever behind, yet flying swiftly past, for a child, I last forever, for adults, I'm gone too fast.",
+      "answer":"Childhood"
+   },
+   {
+      "id":"467",
+      "question":"According to the ads this is the favorite beverage of friendly polar bears.",
+      "answer":"Coke"
+   },
+   {
+      "id":"468",
+      "question":"Kids hunt for them and adults make sure they are not all in one basket.",
+      "answer":"Eggs"
+   },
+   {
+      "id":"469",
+      "question":"One of the few times it's encouraged to lock lips with a stranger.",
+      "answer":"Cpr"
+   },
+   {
+      "id":"470",
+      "question":"A squiggly line tells you when you've done it wrong.",
+      "answer":"Spell"
+   },
+   {
+      "id":"471",
+      "question":"This is meat from the upper part of a pig's leg salted and dried or smoked, often enjoyed in a sandwich.",
+      "answer":"Ham"
+   },
+   {
+      "id":"472",
+      "question":"You hear it speak, for it has a hard tongue. But it cannot breathe, for it has not a lung. What is it?",
+      "answer":"Bell"
+   },
+   {
+      "id":"473",
+      "question":"Although it sounds like I work on a transportation device, I actually work in a restaurant. What am I?",
+      "answer":"Busboy"
+   },
+   {
+      "id":"474",
+      "question":"A standard dimension for sandwiches and rulers.",
+      "answer":"Footlong"
+   },
+   {
+      "id":"475",
+      "question":"Most people love to use me. You make me glide through the air. Even your dog loves me. What am I?",
+      "answer":"Frisbee"
+   },
+   {
+      "id":"476",
+      "question":"What type of shoes do spies wear?",
+      "answer":"Sneakers"
+   },
+   {
+      "id":"477",
+      "question":"A blind superhero and Evel Knievel's profession.",
+      "answer":"Daredevil"
+   },
+   {
+      "id":"478",
+      "question":"This is variety of pasta formed in narrow tubes, often mixed with cheese powder.",
+      "answer":"Macaroni"
+   },
+   {
+      "id":"479",
+      "question":"Aliens in Toy Story call this their leader?",
+      "answer":"Claw"
+   },
+   {
+      "id":"480",
+      "question":"There are four of these, but everyone's favorite seems to be spades.",
+      "answer":"Ace"
+   },
+   {
+      "id":"481",
+      "question":"You use me daily without knowing. The only time you acknowledge me is when you don't understand me. What am I?",
+      "answer":"Language"
+   },
+   {
+      "id":"482",
+      "question":"I'm the manly mark that milk makes. What am I?",
+      "answer":"Mustache"
+   },
+   {
+      "id":"483",
+      "question":"I have branches, sometimes a few and other times hundreds or more, but I have no fruit, trunk or leaves. What am I?",
+      "answer":"Bank"
+   },
+   {
+      "id":"484",
+      "question":"I am a good state, there can be no doubt of it; But those who are in, entirely are out of it.",
+      "answer":"Sane"
+   },
+   {
+      "id":"485",
+      "question":"It is the transportation of choice for princesses to attend balls.",
+      "answer":"Carriage"
+   },
+   {
+      "id":"486",
+      "question":"Meat that has been cured by being cut into long, thin strips and dried.",
+      "answer":"Jerky"
+   },
+   {
+      "id":"487",
+      "question":"2 people in front of 2 people. 2 people behind 2 people, and 2 people beside 2 people. How many people are there?",
+      "answer":"Four"
+   },
+   {
+      "id":"488",
+      "question":"I run, yet I have no legs. What am I?",
+      "answer":"Nose"
+   },
+   {
+      "id":"489",
+      "question":"Tickle with your fingers and a song it will sing. Be careful, though, you may break a string. What is it?",
+      "answer":"Guitar"
+   },
+   {
+      "id":"490",
+      "question":"It can be in a hat, Or out of the bag. If you see it you'll be smitten, 'Cause it's fluffy like a mitten.",
+      "answer":"Cat"
+   },
+   {
+      "id":"491",
+      "question":"I am used in most sports, have four holes, come in many different colors and there is a state that shares my name.",
+      "answer":"Jersey"
+   },
+   {
+      "id":"492",
+      "question":"I'm colourful, You can have thick strips of me, And people often lose some of me. What am I?",
+      "answer":"Crayons"
+   },
+   {
+      "id":"493",
+      "question":"Sophie's mother had 2 sons and 1 daughter. The sons names were George and John. What was the daughter's name?",
+      "answer":"Sophie"
+   },
+   {
+      "id":"494",
+      "question":"A pony trots his way through the world on these.",
+      "answer":"Hoof"
+   },
+   {
+      "id":"495",
+      "question":"What does a cow have four of that a woman only has two of?",
+      "answer":"Legs"
+   },
+   {
+      "id":"496",
+      "question":"A container holding water but not a cup. If you want to find me, look up. What am I?",
+      "answer":"Coconut"
+   },
+   {
+      "id":"497",
+      "question":"You may always chase me but you are always about 3 miles away. What am I?",
+      "answer":"Horizon"
+   },
+   {
+      "id":"498",
+      "question":"Plow and hoe, reap and sow, What soon does every farmer grow?",
+      "answer":"Weary"
+   },
+   {
+      "id":"499",
+      "question":"You may have many of me but never enough. After the last one arrives you will have no more. What am I?",
+      "answer":"Birthday"
+   },
+   {
+      "id":"500",
+      "question":"You see me a lot, especially at night. I protect something special. Many shut me in fright. What am I?",
+      "answer":"Eyelid"
+   },
+   {
+      "id":"501",
+      "question":"You can throw me away, but I will always be coming back. What am I?",
+      "answer":"Boomerang"
+   },
+   {
+      "id":"502",
+      "question":"A job that involves sitting in a highchair, wearing a black gown and smacking things with a mallet.",
+      "answer":"Judge"
+   },
+   {
+      "id":"503",
+      "question":"I am a shower that lights up the sky. What am I?",
+      "answer":"Meteor"
+   },
+   {
+      "id":"504",
+      "question":"A king wears one on his head.",
+      "answer":"Crown"
+   },
+   {
+      "id":"505",
+      "question":"I am often sold by children entrepreneurs in summer time. What am I?",
+      "answer":"Lemonade"
+   },
+   {
+      "id":"506",
+      "question":"I have a leg but I do not move, A face but no expression, Be it wind or rain I stay outside. What am I?",
+      "answer":"Scarecrow"
+   },
+   {
+      "id":"507",
+      "question":"What do you called a sad coffee?",
+      "answer":"Depresso"
+   },
+   {
+      "id":"508",
+      "question":"Your mother's brother's only brother-in-law is asleep on your couch. Who is asleep on your couch?",
+      "answer":"Dad"
+   },
+   {
+      "id":"509",
+      "question":"What does a fish say when it runs into a concrete wall?",
+      "answer":"Dam"
+   },
+   {
+      "id":"510",
+      "question":"They are two brothers. However much they run, they do not reach each other.",
+      "answer":"Wheels"
+   },
+   {
+      "id":"511",
+      "question":"It is probably the most laid-back member of the animal kingdom.",
+      "answer":"Sloth"
+   },
+   {
+      "id":"512",
+      "question":"I'm a green veggie that looks like a tiny tree.",
+      "answer":"Broccoli"
+   },
+   {
+      "id":"513",
+      "question":"A stellar five-limbed sea creature.",
+      "answer":"Starfish"
+   },
+   {
+      "id":"514",
+      "question":"A prehistoric reptile that lives today and the inspiration for the name of a popular sports drink.",
+      "answer":"Gator"
+   },
+   {
+      "id":"515",
+      "question":"The leaves are on the fruit, the fruit is on the leaves. What is it?",
+      "answer":"Pineapple"
+   },
+   {
+      "id":"516",
+      "question":"I go up and I go down, sometimes I am curvy and sometimes I am straight. What am I?",
+      "answer":"Stairs"
+   },
+   {
+      "id":"517",
+      "question":"Ladies used to party with this kitchen device.",
+      "answer":"Tupperware"
+   },
+   {
+      "id":"518",
+      "question":"If you have three, you have three. If you have two, you have two. But if you have one, you have none. What am I?",
+      "answer":"Choices"
+   },
+   {
+      "id":"519",
+      "question":"What you become during a workout?",
+      "answer":"Sweaty"
+   },
+   {
+      "id":"520",
+      "question":"I fall with the waves, rise with the tide, and drift with the current alongside. What am I?",
+      "answer":"Plankton"
+   },
+   {
+      "id":"521",
+      "question":"Beautiful girls strut and sexy men 'do their little turn' on this.",
+      "answer":"Catwalk"
+   },
+   {
+      "id":"522",
+      "question":"This patch of land stands alone.",
+      "answer":"Island"
+   },
+   {
+      "id":"523",
+      "question":"A canvas full of stars.",
+      "answer":"Sky"
+   },
+   {
+      "id":"524",
+      "question":"Cycle Cycle Cycle.",
+      "answer":"Tricycle"
+   },
+   {
+      "id":"525",
+      "question":"How much dirt is in a hole 4 feet deep and 2 feet wide?",
+      "answer":"None"
+   },
+   {
+      "id":"526",
+      "question":"Always a part. Never a whole. If only half grows I shrink. What am I?",
+      "answer":"Fraction"
+   },
+   {
+      "id":"527",
+      "question":"You can see me up north bundled up, I live inside a white house, and my diet is mainly Paleo. Who am I?",
+      "answer":"Eskimo"
+   },
+   {
+      "id":"528",
+      "question":"You can hold me, fill me, but you can't pour me. I am needed to live but can be broken. What am I?",
+      "answer":"Heart"
+   },
+   {
+      "id":"529",
+      "question":"The signature stroll of ducks and penguins.",
+      "answer":"Waddle"
+   },
+   {
+      "id":"530",
+      "question":"The lunch destination of choice for teenagers and hospital employees.",
+      "answer":"Cafeteria"
+   },
+   {
+      "id":"531",
+      "question":"If you agree give me one of these.",
+      "answer":"Amen"
+   },
+   {
+      "id":"532",
+      "question":"I have many ears, this may be true But no matter how you shout, But no matter how you shout, I'll never hear you. What am I?",
+      "answer":"Cornfield"
+   },
+   {
+      "id":"533",
+      "question":"What do you call a snowman in the summer?",
+      "answer":"Puddle"
+   },
+   {
+      "id":"534",
+      "question":"What is something you will never see again?",
+      "answer":"Yesterday"
+   },
+   {
+      "id":"535",
+      "question":"What kind of nail can be grown?",
+      "answer":"Fingernail"
+   },
+   {
+      "id":"536",
+      "question":"Attracted by light but flies at night. It's wind and hairy but not too scary. What is it?",
+      "answer":"Moth"
+   },
+   {
+      "id":"537",
+      "question":"Turns us on our backs, and open up our stomachs. You will be the wisest of men though at start a lummox.",
+      "answer":"Books"
+   },
+   {
+      "id":"538",
+      "question":"If you're worried that grandpa will bite, just remove these.",
+      "answer":"Dentures"
+   },
+   {
+      "id":"539",
+      "question":"The land was white the seed was black it'll take a good scholar to riddle me that. What is it?",
+      "answer":"Book"
+   },
+   {
+      "id":"540",
+      "question":"You'll have to consult an optometrist if you want to improve this.",
+      "answer":"Sight"
+   },
+   {
+      "id":"541",
+      "question":"Tiny creatures that have a special relationship with flowers.",
+      "answer":"Bumblebee"
+   },
+   {
+      "id":"542",
+      "question":"James has 98 chocolate bars, he eats 91 of them. What does he have now?",
+      "answer":"Diabetes"
+   },
+   {
+      "id":"543",
+      "question":"My body is timber and I am a boy among men. I have a nose without end and an insect for a friend. Who am I?",
+      "answer":"Pinocchio"
+   },
+   {
+      "id":"544",
+      "question":"They swim around in schools or pods and they are related to whales.",
+      "answer":"Dolphin"
+   },
+   {
+      "id":"545",
+      "question":"The preferred color of carpet in this town is red.",
+      "answer":"Hollywood"
+   },
+   {
+      "id":"546",
+      "question":"During the 1800's these turned women into hourglasses and is becoming more popular again these days.",
+      "answer":"Corset"
+   },
+   {
+      "id":"547",
+      "question":"Can be achieved in a car or as a position during conflict.",
+      "answer":"Neutral"
+   },
+   {
+      "id":"548",
+      "question":"What can you always count on?",
+      "answer":"Fingers"
+   },
+   {
+      "id":"549",
+      "question":"Green but not a lizard, white without being snow, and bearded without being a man.",
+      "answer":"Leek"
+   },
+   {
+      "id":"550",
+      "question":"What kind of fish chases a mouse?",
+      "answer":"Catfish"
+   },
+   {
+      "id":"551",
+      "question":"Stolen from a cow, I'm placed in a vat. My flavor gets stronger the longer I've sat. What am I?",
+      "answer":"Cheese"
+   },
+   {
+      "id":"552",
+      "question":"You speak this when you are being sincere.",
+      "answer":"Truth"
+   },
+   {
+      "id":"553",
+      "question":"Without feather or wing I fly, but you'll known what I am when I hover near by. What am I?",
+      "answer":"Helicopter"
+   },
+   {
+      "id":"554",
+      "question":"This dish is usually consumed at breakfast time with milk.",
+      "answer":"Cereal"
+   },
+   {
+      "id":"555",
+      "question":"What zips through the sky with a tail of fire and dust. It could be an omen, its origin to discuss?",
+      "answer":"Comet"
+   },
+   {
+      "id":"556",
+      "question":"What has four wings but cannot fly and uses the wind but does not know why?",
+      "answer":"Windmill"
+   },
+   {
+      "id":"557",
+      "question":"What has feet and legs and nothing else?",
+      "answer":"Stockings"
+   },
+   {
+      "id":"558",
+      "question":"What can be swallowed, but can swallow you?",
+      "answer":"Pride"
+   },
+   {
+      "id":"559",
+      "question":"One of the few vegetables that is routinely consumed with marshmallows",
+      "answer":"Yam"
+   },
+   {
+      "id":"560",
+      "question":"What animal dwells in water and best known for its work ethic?",
+      "answer":"Beaver"
+   },
+   {
+      "id":"561",
+      "question":"I eat as you turn me, my blade cutting wood. When I am full, empty me you should. What am I?",
+      "answer":"Sharpener"
+   },
+   {
+      "id":"562",
+      "question":"Island hello. What am I?",
+      "answer":"Aloha"
+   },
+   {
+      "id":"563",
+      "question":"Island hello. What am I?",
+      "answer":"Hello"
+   },
+   {
+      "id":"564",
+      "question":"We are five little objects of an everyday sort, You will find us all in a tennis court.",
+      "answer":"Vowels "
+   },
+   {
+      "id":"565",
+      "question":"I keep things green and keep kids happy during summer time. What am I?",
+      "answer":"Sprinkler"
+   },
+   {
+      "id":"566",
+      "question":"What suits do lawyers wear?",
+      "answer":"Lawsuits"
+   },
+   {
+      "id":"567",
+      "question":"When your undies attack you.",
+      "answer":"Wedgie"
+   },
+   {
+      "id":"568",
+      "question":"What has one foot but no body?",
+      "answer":"Ruler"
+   },
+   {
+      "id":"569",
+      "question":"If you blow past your destination, you'll have to throw your car into this.",
+      "answer":"Reverse"
+   },
+   {
+      "id":"570",
+      "question":"Both old people and owls are said to be possessing this trait.",
+      "answer":"Wise"
+   },
+   {
+      "id":"571",
+      "question":"What's red and bad for your teeth?",
+      "answer":"Brick"
+   },
+   {
+      "id":"572",
+      "question":"Defends your noggin from the hard pavement.",
+      "answer":"Helmet"
+   },
+   {
+      "id":"573",
+      "question":"In all the world, none can compare, to this tiny weaver, his deadly cloth so silky and fair.",
+      "answer":"Milkspider"
+   },
+   {
+      "id":"574",
+      "question":"I am neither a guest nor a trespasser in this place. I belong that belongs to me. Where is it?",
+      "answer":"Home"
+   },
+   {
+      "id":"575",
+      "question":"What two things can always see what the other sees, but can never see each other?",
+      "answer":"Eyes "
+   },
+   {
+      "id":"576",
+      "question":"Angels and pilots work with me. What am I?",
+      "answer":"Wings"
+   },
+   {
+      "id":"577",
+      "question":"I clear the name of guilty men and mixed with common items I am deadly. What am I?",
+      "answer":"Ammonia"
+   },
+   {
+      "id":"578",
+      "question":"The ones in the sea are prickly, but the ones on the street might pickpocket you.",
+      "answer":"urchin"
+   },
+   {
+      "id":"579",
+      "question":"What kind of shoes can you make out of banana peels?",
+      "answer":"Slippers"
+   },
+   {
+      "id":"580",
+      "question":"People like this usually live in rural areas, unless they are lucky enough to strike oil and move to Beverly Hills.",
+      "answer":"Hillbilly"
+   },
+   {
+      "id":"581",
+      "question":"What do you call the mother-in-law of your sister's husband?",
+      "answer":"Mother"
+   },
+   {
+      "id":"582",
+      "question":"I'm a long, green-skinned fruit with watery flesh, usually eaten raw in salads or pickled.",
+      "answer":"Cucumber"
+   },
+   {
+      "id":"583",
+      "question":"Has its teeth on your head but doesn't bite.",
+      "answer":"Comb"
+   },
+   {
+      "id":"584",
+      "question":"As strong as love, more dangerous than cancer.",
+      "answer":"Hate"
+   },
+   {
+      "id":"585",
+      "question":"I give people a huge fright, but at the end I'm sweet. I normally celebrate at night, when there's less heat.What am I?",
+      "answer":"Halloween"
+   },
+   {
+      "id":"586",
+      "question":"Canine children. What am I?",
+      "answer":"Puppy"
+   },
+   {
+      "id":"587",
+      "question":"When I'm born I fly. When I'm alive I lay. When I'm dead I run.",
+      "answer":"Snow"
+   },
+   {
+      "id":"588",
+      "question":"They are toothy nocturnal immortals.",
+      "answer":"Vampire"
+   },
+   {
+      "id":"589",
+      "question":"It has the biggest wall and is also used when drinking tea.",
+      "answer":"China"
+   },
+   {
+      "id":"590",
+      "question":"A dark-colored creature serenaded by Lennon and McCartney.",
+      "answer":"Blackbird"
+   },
+   {
+      "id":"591",
+      "question":"What has a head, can't think, but drives?",
+      "answer":"Hammer"
+   },
+   {
+      "id":"592",
+      "question":"I go in hard and come out soft. I never mind if you blow me. What am I?",
+      "answer":"Bubblegum"
+   },
+   {
+      "id":"593",
+      "question":"Poorly behaved children often find themselves sitting in these.",
+      "answer":"Corners"
+   },
+   {
+      "id":"594",
+      "question":"A crafty use of long pieces of wool to make a scarf.",
+      "answer":"Knit"
+   },
+   {
+      "id":"595",
+      "question":"This is a baked snack that is traditionally twisted into a unique knot-like shape.",
+      "answer":"Pretzel"
+   },
+   {
+      "id":"596",
+      "question":"A storage facility for criminals and fire-breathing reptiles. What am I?",
+      "answer":"Dungeon"
+   },
+   {
+      "id":"597",
+      "question":"I direct you from outer space. What am I?",
+      "answer":"Gps"
+   },
+   {
+      "id":"598",
+      "question":"Sometimes black, sometimes white, I have veins but no blood.",
+      "answer":"Marble"
+   },
+   {
+      "id":"599",
+      "question":"This food is usually grilled and put between two buns, with cheese, tomato and pickles.",
+      "answer":"Burger"
+   },
+   {
+      "id":"600",
+      "question":"Send poorly behaved children to me and let them sit here. What am I?",
+      "answer":"Corner"
+   },
+   {
+      "id":"601",
+      "question":"What is always late and never present now?",
+      "answer":"Later"
+   },
+   {
+      "id":"602",
+      "question":"I am owned by every man, though my length differs. Their wives uses me after getting married. What am I?",
+      "answer":"Lastname"
+   },
+   {
+      "id":"603",
+      "question":"I'm often served as a rack of ... I'm often smoked or grilled, with bones in, and slathered in BBQ sauce.",
+      "answer":"Ribs"
+   },
+   {
+      "id":"604",
+      "question":"Small edible creature from the sea that is often served at restaurants.",
+      "answer":"Shrimp"
+   },
+   {
+      "id":"605",
+      "question":"If it is absolute, it will corrupt absolutely.",
+      "answer":"Power"
+   },
+   {
+      "id":"606",
+      "question":"What food lives at the beach?",
+      "answer":"Sandwich"
+   },
+   {
+      "id":"607",
+      "question":"Long and slinky like a trout, never sings till it's guts come out.",
+      "answer":"Gun"
+   },
+   {
+      "id":"608",
+      "question":"What has a spine, tail, and leash but isn't a dog?",
+      "answer":"Kite"
+   },
+   {
+      "id":"609",
+      "question":"I drive men mad for the love of me. Easily beaten, never free. What am I?",
+      "answer":"Gold"
+   },
+   {
+      "id":"610",
+      "question":"If you're stealing honey, be prepared to receive vengeance in this form.",
+      "answer":"Sting"
+   },
+   {
+      "id":"611",
+      "question":"Salty water everywhere but not sea in sight.",
+      "answer":"Tears"
+   },
+   {
+      "id":"612",
+      "question":"This small creature kills even the largest one. ",
+      "answer":"Bacteria"
+   },
+   {
+      "id":"613",
+      "question":"It can be grown in your yard or bought at the store and is given for love when less is more? ",
+      "answer":"Flower"
+   },
+   {
+      "id":"614",
+      "question":"I am a vegetable that bugs stay away from. What am I?",
+      "answer":"Squash"
+   },
+   {
+      "id":"615",
+      "question":"Possibly the word most commonly said before taking a sip.",
+      "answer":"Cheers"
+   },
+   {
+      "id":"616",
+      "question":"What is made of wood and metal and must be buried before it works?",
+      "answer":"Shovel"
+   },
+   {
+      "id":"617",
+      "question":"The surname of Cinderella's boyfriend.",
+      "answer":"Charming"
+   },
+   {
+      "id":"618",
+      "question":"Gets rid of bad ones, short and tall. Tightens when used, one size fits all.",
+      "answer":"Noose"
+   },
+   {
+      "id":"619",
+      "question":"First I am dried, then I am wet; The longer I swim, the more taste you get. What am I?",
+      "answer":"Tea"
+   },
+   {
+      "id":"620",
+      "question":"What is never used unless it's in a tight place?",
+      "answer":"Cork"
+   },
+   {
+      "id":"621",
+      "question":"What gift should you give blind people, drunks, and nerds for Christmas?",
+      "answer":"Glasses"
+   },
+   {
+      "id":"622",
+      "question":"Something you carry while singing.",
+      "answer":"Tune"
+   },
+   {
+      "id":"623",
+      "question":"I am the reaction after enjoying soda. What am I?",
+      "answer":"Belch"
+   },
+   {
+      "id":"624",
+      "question":"What do you call bread that has been browned in a small electric oven until it is crispy?",
+      "answer":"Toast"
+   },
+   {
+      "id":"625",
+      "question":"You may have to assure your date's dad that you have these kind of intentions.",
+      "answer":"Honorable"
+   },
+   {
+      "id":"626",
+      "question":"Said to have fifty shades.",
+      "answer":"Grey"
+   },
+   {
+      "id":"627",
+      "question":"A tree with 5 branches, no leaves and no fruits.",
+      "answer":"Arm"
+   },
+   {
+      "id":"628",
+      "question":"I am round as a bowl, deep as a tub, but all the world's water couldn't fill me up.",
+      "answer":"Sieve"
+   },
+   {
+      "id":"629",
+      "question":"Barren location, infertile and dry; my name means to leave, it's not heard to see why.",
+      "answer":"Desert"
+   },
+   {
+      "id":"630",
+      "question":"My first keeps time, my second spends time, my whole tells time.",
+      "answer":"Watchman"
+   },
+   {
+      "id":"631",
+      "question":"What is the best cure for dandruff?",
+      "answer":"Baldness"
+   },
+   {
+      "id":"632",
+      "question":"Come November 1st, many of these will be found smashed on sidewalks.",
+      "answer":"Pumpkin"
+   },
+   {
+      "id":"633",
+      "question":"I'm a lot like a pancake, except I'm a little crisper, and I'm square, with square patterns all over.",
+      "answer":"Waffles"
+   },
+   {
+      "id":"634",
+      "question":"The sun bakes them, the hand breaks them, the foot treads on them, and the mouth tastes them. What are they?",
+      "answer":"Grapes"
+   },
+   {
+      "id":"635",
+      "question":"I push, but do not shove. I float, but don't normally sink. I have sisters, but no brothers. What am I?",
+      "answer":"Tug"
+   },
+   {
+      "id":"636",
+      "question":"He has a genie to thank for the fact that he married a princess.",
+      "answer":"Aladin"
+   },
+   {
+      "id":"637",
+      "question":"What's a carpet's favorite sport?",
+      "answer":"Rugby"
+   },
+   {
+      "id":"638",
+      "question":"I like to twirl my body but keep my head up high. After I go in, everything becomes tight. What am I?",
+      "answer":"Screw"
+   },
+   {
+      "id":"639",
+      "question":"The daughter of Maria is the mother of my daughter. Who am I to Maria?",
+      "answer":"daughter"
+   },
+   {
+      "id":"640",
+      "question":"Though easy to spot, when allowed to plume, It is hard to see, when held in a room.",
+      "answer":"Smoke"
+   },
+   {
+      "id":"641",
+      "question":"One who has offended the government and has been detained by it.",
+      "answer":"Prisoner"
+   },
+   {
+      "id":"642",
+      "question":"People chop this off for a good cause.",
+      "answer":"Hair"
+   },
+   {
+      "id":"643",
+      "question":"What is the sun's favorite day of the week?",
+      "answer":"Sunday"
+   },
+   {
+      "id":"644",
+      "question":"Looks like water, but it's heat. Sits on sand, lays on concrete. A play on the eyes, but it's all lies.",
+      "answer":"Mirage"
+   },
+   {
+      "id":"645",
+      "question":"A wave of white powdery destruction that is a skier's worst nightmare.",
+      "answer":"Avalanche"
+   },
+   {
+      "id":"646",
+      "question":"We hurt without moving. And poison without touching. We bear truth and lies, But are not judged by size. What are we?",
+      "answer":"Words"
+   },
+   {
+      "id":"647",
+      "question":"I am an odd number, take away two letters and I am even.",
+      "answer":"Eleven"
+   },
+   {
+      "id":"648",
+      "question":"I am the breath of relief and depression. What am I?",
+      "answer":"Sigh"
+   },
+   {
+      "id":"649",
+      "question":"Sweet, sour, tart, and sugary, you can see me in every store and in every pantry. What am I?",
+      "answer":"Candy"
+   },
+   {
+      "id":"650",
+      "question":"What fish came first?",
+      "answer":"goldfish"
+   },
+   {
+      "id":"651",
+      "question":"The line a runner strives to reach.",
+      "answer":"Finish"
+   },
+   {
+      "id":"652",
+      "question":"All day long it's in and out. I discharge loads from my shaft. Both men and women go down on me. What am I?",
+      "answer":"Elevator"
+   },
+   {
+      "id":"653",
+      "question":"Neither bought nor sold but more valuable than gold. It is built but not by hand. What is it?",
+      "answer":"Trust"
+   },
+   {
+      "id":"654",
+      "question":"The athletically challenged spend a good deal of time on this seat made of pine.",
+      "answer":"Bench"
+   },
+   {
+      "id":"655",
+      "question":"What does a WW1 Trench, A Submarine and a Popular Phone App all have in common?",
+      "answer":"Periscope"
+   },
+   {
+      "id":"656",
+      "question":"You get one if you miss one at golf.",
+      "answer":"Stroke"
+   },
+   {
+      "id":"657",
+      "question":"What has three feet but no arms or legs?",
+      "answer":"Yard"
+   },
+   {
+      "id":"658",
+      "question":"Found at the back of a book or in an abdomen. What am I?",
+      "answer":"Appendix"
+   },
+   {
+      "id":"659",
+      "question":"My flavors ranges from strawberry to toe. What am I?",
+      "answer":"Jam"
+   },
+   {
+      "id":"660",
+      "question":"An office supply that's shaped like a trombone.",
+      "answer":"Paperclip"
+   },
+   {
+      "id":"661",
+      "question":"I am a daily ritual involving using a metal tool on the body. What am I?",
+      "answer":"Shave"
+   },
+   {
+      "id":"662",
+      "question":"Cats and deflation tires make this noise. What am I?",
+      "answer":"Hiss"
+   },
+   {
+      "id":"663",
+      "question":"Very helpful if you intend to go gently down a river. - Answer: rowboat.",
+      "answer":"Rowboat"
+   },
+   {
+      "id":"664",
+      "question":"Slang for the male half in a marriage.",
+      "answer":"Hubby"
+   },
+   {
+      "id":"665",
+      "question":"What breaks without falling?",
+      "answer":"Day"
+   },
+   {
+      "id":"666",
+      "question":"Both boats with holes and dirty dishes have this in common.",
+      "answer":"Sink"
+   },
+   {
+      "id":"667",
+      "question":"What has a head, a tail, is brown, and has no legs?",
+      "answer":"Penny"
+   },
+   {
+      "id":"668",
+      "question":"Environmentalists want to keep this from drying.",
+      "answer":"Wetland"
+   },
+   {
+      "id":"669",
+      "question":"I love spinach. What am I?",
+      "answer":"Popeye"
+   },
+   {
+      "id":"670",
+      "question":"There are four of us, but it seems like everyone loves spades the most. What am I?",
+      "answer":"Aces"
+   },
+   {
+      "id":"671",
+      "question":"What can be underwater, under fire, on fire and taking water all at the same time?",
+      "answer":"Submarine"
+   },
+   {
+      "id":"672",
+      "question":"If someone offers you one of these, they had a successful fishing trip or their band just broke up.",
+      "answer":"Bass"
+   },
+   {
+      "id":"673",
+      "question":"I don't have eyes, but once I did see. Once I had thoughts, but now I'm white and empty.",
+      "answer":"Skull"
+   },
+   {
+      "id":"674",
+      "question":"You are having a bad day if 12 peers deem you to be this.",
+      "answer":"Guilty"
+   },
+   {
+      "id":"675",
+      "question":"It happens when something has been cut with H2O.",
+      "answer":"Diluted"
+   },
+   {
+      "id":"676",
+      "question":"The older they are the less wrinkles they have.",
+      "answer":"Tires"
+   },
+   {
+      "id":"677",
+      "question":"What leaps one time out of four?",
+      "answer":"Year"
+   },
+   {
+      "id":"678",
+      "question":"What turns from red to black as soon as it touches water?",
+      "answer":"Ember"
+   },
+   {
+      "id":"679",
+      "question":"I am a sound made by felines when petted. What am I?",
+      "answer":"Purr"
+   },
+   {
+      "id":"680",
+      "question":"A setting that proved to be deadly for Abraham Lincoln.",
+      "answer":"Theater"
+   },
+   {
+      "id":"681",
+      "question":"It can be used onstage or to express admiration. What is it?",
+      "answer":"Props"
+   },
+   {
+      "id":"682",
+      "question":"The more I lie, the more people trust me. Who am I?",
+      "answer":"Politician"
+   },
+   {
+      "id":"683",
+      "question":"Dragons are known to do this to their gold.",
+      "answer":"Hoard"
+   },
+   {
+      "id":"684",
+      "question":"The offspring of a feline and a Xerox machine.",
+      "answer":"Copycat"
+   },
+   {
+      "id":"685",
+      "question":"You feel this sensation when you are dehydrated.",
+      "answer":"Thirsty"
+   },
+   {
+      "id":"686",
+      "question":"This is the known hairdo for nascar fans.",
+      "answer":"Mullet"
+   },
+   {
+      "id":"687",
+      "question":"What has a tongue but cannot talk, gets around a lot but cannot walk?",
+      "answer":"Armadillo"
+   },
+   {
+      "id":"688",
+      "question":"What is the word that even in plain sight remains hidden?",
+      "answer":"Hidden"
+   },
+   {
+      "id":"689",
+      "question":"What rains at the north pole?",
+      "answer":"Reindeer"
+   },
+   {
+      "id":"690",
+      "question":"What can you share and still have all for yourself?",
+      "answer":"Knowledge"
+   },
+   {
+      "id":"691",
+      "question":"English word retains the same pronunciation, even after you take away four of its five letters?",
+      "answer":"Queue"
+   },
+   {
+      "id":"692",
+      "question":"What is eaten by man, served among many, grown by many, and white as snow?",
+      "answer":"Rice"
+   },
+   {
+      "id":"693",
+      "question":"A nutcracker up in a tree.",
+      "answer":"Squirrel"
+   },
+   {
+      "id":"694",
+      "question":"Round as an apple, deep as a cup, and all the kings' horses can't fill it up. What is it?",
+      "answer":"Well"
+   },
+   {
+      "id":"695",
+      "question":"Where is the ocean deepest?",
+      "answer":"Bottom"
+   },
+   {
+      "id":"696",
+      "question":"What word do all dictionaries spell wrong?",
+      "answer":"Wrong"
+   },
+   {
+      "id":"697",
+      "question":"What do rich people have that can be changed into the law.",
+      "answer":"Wealth"
+   },
+   {
+      "id":"698",
+      "question":"What usually runs when asked to , but doesn't walk?",
+      "answer":"Mouth"
+   },
+   {
+      "id":"699",
+      "question":"I'm a disturbance, but nobody can see anything without me. What am I?",
+      "answer":"Light"
+   },
+   {
+      "id":"700",
+      "question":"What travels from coast to coast without ever moving?",
+      "answer":"Highway"
+   },
+   {
+      "id":"701",
+      "question":"I can be white or dark, I am sweet and sometimes bitter and you see me on a cupcake or in a cookie. What am I?",
+      "answer":"Chocolate"
+   },
+   {
+      "id":"702",
+      "question":"When the creeper passes, all the grass kneels.",
+      "answer":"Plow"
+   },
+   {
+      "id":"703",
+      "question":"Take one royal word in the plural and make it singular by adding one letter.",
+      "answer":"Princes"
+   },
+   {
+      "id":"704",
+      "question":"I block the sun, I can keep you warm. Spell my name backwards and say it twice and you shall be on your way.",
+      "answer":"Hat"
+   },
+   {
+      "id":"705",
+      "question":"Autumn leaves and bad bowlers wreak havoc on this.",
+      "answer":"Gutter"
+   },
+   {
+      "id":"706",
+      "question":"What animal has feet on the head?",
+      "answer":"Lice"
+   },
+   {
+      "id":"707",
+      "question":"It nukes food at the touch of a button.",
+      "answer":"Microwave"
+   },
+   {
+      "id":"708",
+      "question":"What has two legs but doesn't walk?",
+      "answer":"Ladder"
+   },
+   {
+      "id":"709",
+      "question":"What do you do with a dead chemist?",
+      "answer":"Barium"
+   },
+   {
+      "id":"710",
+      "question":"The more you take, the more you leave behind. What are they?",
+      "answer":"Footprints"
+   },
+   {
+      "id":"711",
+      "question":"Digital white-out. What am I?",
+      "answer":"Delete"
+   },
+   {
+      "id":"712",
+      "question":"A mechanism to discover who is following you.",
+      "answer":"Rearview"
+   },
+   {
+      "id":"713",
+      "question":"They can float and tickle, but their sound is rarely heard unless you're a pillow or bird. What are they?",
+      "answer":"Feathers"
+   },
+   {
+      "id":"714",
+      "question":"I make a living following the wealthy and beautiful. What am I?",
+      "answer":"Paparazzi"
+   },
+   {
+      "id":"715",
+      "question":"This food is a Thanksgiving tradition.",
+      "answer":"Turkey"
+   },
+   {
+      "id":"716",
+      "question":"If you can get this professional's attention you can get where you need to go for a price.",
+      "answer":"Taxi"
+   },
+   {
+      "id":"717",
+      "question":"Creeping on its belly, curled into a ring. Eyes forever open, beware its lethal sting.",
+      "answer":"Snake"
+   },
+   {
+      "id":"718",
+      "question":"The stack just might be sent all over. Full of what's new, yet it's nearly obsolete.",
+      "answer":"Newspapers"
+   },
+   {
+      "id":"719",
+      "question":"The day is their night and the night is their day, when I shout and they shout back I run away.",
+      "answer":"Bats"
+   },
+   {
+      "id":"720",
+      "question":"A hill full, a hole full; yet you cannot catch a bowl full. What is it?",
+      "answer":"Mist"
+   },
+   {
+      "id":"721",
+      "question":"In my life I must bare, my bloodline I must share. What am I?",
+      "answer":"Sibling"
+   },
+   {
+      "id":"722",
+      "question":"Iron roof, glass walls, burns and burns and never falls.",
+      "answer":"Lantern"
+   },
+   {
+      "id":"723",
+      "question":"What kind of table has no legs?",
+      "answer":"Periodic"
+   },
+   {
+      "id":"724",
+      "question":"Used on a diamond and left on a board. It's great for a gymnast his grip to restore. What is it?",
+      "answer":"Chalk"
+   },
+   {
+      "id":"725",
+      "question":"What do elves do after school?",
+      "answer":"Gnomework"
+   },
+   {
+      "id":"726",
+      "question":"Has no feet, but travels far. Is literate, but not a scholar. Has no mouth, yet clearly speaks.",
+      "answer":"Letter"
+   },
+   {
+      "id":"727",
+      "question":"What is light enough to float but will stay in a pack and may save your life if its on your back?",
+      "answer":"Parachute"
+   },
+   {
+      "id":"728",
+      "question":"What is seen in the water and in the sky? It is part of the rainbow and can be in your eye.",
+      "answer":"Blue"
+   },
+   {
+      "id":"729",
+      "question":"You can build or destroy. Let creativity soar but be careful at night. What am I?",
+      "answer":"Minecraft"
+   },
+   {
+      "id":"730",
+      "question":"What fruit is of great use in history?",
+      "answer":"Date"
+   },
+   {
+      "id":"731",
+      "question":"By the way, what never moves, wears shoes, sandals and boots, but has no feet?",
+      "answer":"Sidewalk"
+   },
+   {
+      "id":"732",
+      "question":"Its days are numbered.",
+      "answer":"Calendar"
+   },
+   {
+      "id":"733",
+      "question":"Under pressure is the only way I work, and by myself is the only way I'm hurt. What am I?",
+      "answer":"Diamond"
+   },
+   {
+      "id":"734",
+      "question":"I am gold and can be black and white, I'm a symbol for a nation, when freedom took flight. What am I?",
+      "answer":"Eagle"
+   },
+   {
+      "id":"735",
+      "question":"Pirates put their booty in it.",
+      "answer":"Chest"
+   },
+   {
+      "id":"736",
+      "question":"Low on cash? Pick out items from this rack.",
+      "answer":"Clearance"
+   },
+   {
+      "id":"737",
+      "question":"I twist and turn and leaves a loop. What am I?",
+      "answer":"Shoelace"
+   },
+   {
+      "id":"738",
+      "question":"What can be heard and caught but never seen?",
+      "answer":"Remark"
+   },
+   {
+      "id":"739",
+      "question":"I am a place with substance and story, where many masquerade to there glory. What am I?",
+      "answer":"Stage"
+   },
+   {
+      "id":"740",
+      "question":"What has a bell but isn't a church. Is full of air but is not a balloon?",
+      "answer":"Trumpet"
+   },
+   {
+      "id":"741",
+      "question":"What do you call a fish with 4 eyes?",
+      "answer":"FiiiiSH"
+   },
+   {
+      "id":"742",
+      "question":"What can you not eat for breakfast?",
+      "answer":"Lunch"
+   },
+   {
+      "id":"743",
+      "question":"The negative hero in each story.",
+      "answer":"Villain"
+   },
+   {
+      "id":"744",
+      "question":"I am an activity involving pins flying in the air. What am I?",
+      "answer":"Juggling"
+   },
+   {
+      "id":"745",
+      "question":"What is Bruce Lee's favorite drink?",
+      "answer":"Wataaaaa"
+   },
+   {
+      "id":"746",
+      "question":"Do what he says and you'll be fine, don't and you lose the game.",
+      "answer":"Simon"
+   },
+   {
+      "id":"747",
+      "question":"A colorful cuisine without flesh.",
+      "answer":"Vegetarian"
+   },
+   {
+      "id":"748",
+      "question":"Diamonds and stress have this to thank for their existence.",
+      "answer":"Pressure"
+   },
+   {
+      "id":"749",
+      "question":"What has green hair, a round red head and a long thin white beard?",
+      "answer":"Radish"
+   },
+   {
+      "id":"750",
+      "question":"What ship has no captain but two mates?",
+      "answer":"Courtship"
+   },
+   {
+      "id":"751",
+      "question":"What does a snowman like to eat for breakfast?",
+      "answer":"Snowflakes"
+   },
+   {
+      "id":"752",
+      "question":"What number has all letters in alphabetical order when spelled out?",
+      "answer":"Forty"
+   },
+   {
+      "id":"753",
+      "question":"Microparasite expert at sucking the blood of mammals and birds.",
+      "answer":"Flea"
+   },
+   {
+      "id":"754",
+      "question":"I produce wool and spit a lot. What am I?",
+      "answer":"LLama"
+   },
+   {
+      "id":"755",
+      "question":"This dish is defined as small pasta envelopes containing ground meat, cheese, or vegetables.",
+      "answer":"Ravioli"
+   },
+   {
+      "id":"756",
+      "question":"When it was young, it had a tail. When it grew up, it had knees.",
+      "answer":"Frog"
+   },
+   {
+      "id":"757",
+      "question":"Sitting down you have it, Standing up you don't.",
+      "answer":"Lap"
+   },
+   {
+      "id":"758",
+      "question":"They're actually great swimmers now, but later they will become excellent hoppers.",
+      "answer":"Tadpole"
+   },
+   {
+      "id":"759",
+      "question":"Teenage girls are pros at creating me. Learn me in classes. What am I?",
+      "answer":"Drama"
+   },
+   {
+      "id":"760",
+      "question":"I am a time for gathering crops. Remove the first three letters I become an object you can wear. What am I?",
+      "answer":"Harvest"
+   },
+   {
+      "id":"761",
+      "question":"Only two backbones and thousands of ribs. - Answer: railroad.",
+      "answer":"Railroad"
+   },
+   {
+      "id":"762",
+      "question":"What part of a fish weighs most?",
+      "answer":"Scales"
+   },
+   {
+      "id":"763",
+      "question":"What type of drink is usually added to cereal in the morning?",
+      "answer":"Milk"
+   },
+   {
+      "id":"764",
+      "question":"Boxers do this for a living and kids do it in the backseat for free.",
+      "answer":"Fight"
+   },
+   {
+      "id":"765",
+      "question":"You do this into someone's ear when you want to be discreet.",
+      "answer":"Whisper"
+   },
+   {
+      "id":"766",
+      "question":"You eat something you neither plant nor plow. It is the son of water, but if water touches it. It dies. What is it?",
+      "answer":"Salt"
+   },
+   {
+      "id":"767",
+      "question":" I work when I play and play when I work.",
+      "answer":"Musician"
+   },
+   {
+      "id":"768",
+      "question":"What has a horn but does not honk?",
+      "answer":"Rhinoceros"
+   },
+   {
+      "id":"769",
+      "question":"What do cheetas, dalmatians and appaloosas have in common?",
+      "answer":"Spots"
+   },
+   {
+      "id":"770",
+      "question":"I have three heads. Cut off one, I become stronger. Cut off two, I become ten. What am I?",
+      "answer":"Fox"
+   },
+   {
+      "id":"771",
+      "question":"Teddy bears are never hungry because they are always what?",
+      "answer":"Stuffed"
+   },
+   {
+      "id":"772",
+      "question":"It's a game played by serious people that takes place on a global scale.",
+      "answer":"Politics"
+   },
+   {
+      "id":"773",
+      "question":"Patch upon patch, without any stitches, if you tell me this riddle, I'll give you my breeches.",
+      "answer":"Cabbage"
+   },
+   {
+      "id":"774",
+      "question":"A type of hammer that brings a room to order.",
+      "answer":"Gavel"
+   },
+   {
+      "id":"775",
+      "question":"What does a cat have that no other animal has?",
+      "answer":"kittens"
+   },
+   {
+      "id":"776",
+      "question":"Describes universities like Harvard and can be poisonous.",
+      "answer":"ivy"
+   },
+   {
+      "id":"777",
+      "question":"Useful tool for who in darkness dwell. Within you, corrupting like a deadly spell.",
+      "answer":"poison"
+   },
+   {
+      "id":"778",
+      "question":"What instrument plays from the heart?",
+      "answer":"Lungs"
+   },
+   {
+      "id":"779",
+      "question":"What has a bottom right at the top? - Answer: leg.",
+      "answer":"Leg"
+   },
+   {
+      "id":"780",
+      "question":"People buy me to eat, but never eat me. What am I?",
+      "answer":"plate"
+   },
+   {
+      "id":"781",
+      "question":"It is not your enemy, yet we still beat it. What is it?",
+      "answer":"Drum"
+   },
+   {
+      "id":"782",
+      "question":"What bone has a sense of humor?",
+      "answer":"Humorous"
+   },
+   {
+      "id":"783",
+      "question":"What stinks when living and smells good when dead?",
+      "answer":"Bacon"
+   },
+   {
+      "id":"784",
+      "question":"What never ends but you always have it.",
+      "answer":"Love"
+   },
+   {
+      "id":"785",
+      "question":"What flowers have two lips?",
+      "answer":"Tulips"
+   },
+   {
+      "id":"786",
+      "question":"Which bus could cross the ocean?",
+      "answer":"Columbus"
+   },
+   {
+      "id":"787",
+      "question":"I am used to bat with, yet I never get a hit. I am near a ball, yet it is never thrown. What am I?",
+      "answer":"Eyelashes"
+   },
+   {
+      "id":"788",
+      "question":"Bold are the first; true are the second; playful are the third; clever are the fourth; forceful are the fifth.",
+      "answer":"Brave"
+   },
+   {
+      "id":"789",
+      "question":"What can I not be tomorrow?",
+      "answer":"Younger"
+   },
+   {
+      "id":"790",
+      "question":"I make something that I can destroy too, I cut and shape things that could've been used for a barbeque. Who am I?",
+      "answer":"Carpenter"
+   },
+   {
+      "id":"791",
+      "question":"Gumby and yoga instructors have this in common.",
+      "answer":"Flexible"
+   },
+   {
+      "id":"792",
+      "question":"Mobsters judge the quality of a vehicle by the size of this.",
+      "answer":"Trunk"
+   },
+   {
+      "id":"793",
+      "question":"If someone calls you this, it might be time to consider hot wax.",
+      "answer":"Hairy"
+   },
+   {
+      "id":"794",
+      "question":"An appropriately loud response to fear, excitement, or your team scoring.",
+      "answer":"Yell"
+   },
+   {
+      "id":"795",
+      "question":"Without this, eating food and Steven Spielberg's career would be very different.",
+      "answer":"Jaws"
+   },
+   {
+      "id":"796",
+      "question":"I carried by mad animals. What am I?",
+      "answer":"Rabies"
+   },
+   {
+      "id":"797",
+      "question":"I can fill any space, float, and disappear. Never touching the ground I help others get around. What am I?",
+      "answer":"Gas"
+   },
+   {
+      "id":"798",
+      "question":"What when read from right to left is a servant but when read from left to right is a ruler?",
+      "answer":"God"
+   },
+   {
+      "id":"799",
+      "question":"What Botox will do to your expression.",
+      "answer":"Paralyze"
+   },
+   {
+      "id":"800",
+      "question":"Where humans breathe liquid.",
+      "answer":"Womb"
+   },
+   {
+      "id":"801",
+      "question":"Rotten trees and Jack-O-Lanterns have this characteristic in common.",
+      "answer":"Hollow"
+   },
+   {
+      "id":"802",
+      "question":"What do you call it when a dinosaur farts?",
+      "answer":"Exstink"
+   },
+   {
+      "id":"803",
+      "question":"Not a burden for its weight and daily carried out, He who takes it wishes it had never come about.",
+      "answer":"Punishment"
+   },
+   {
+      "id":"804",
+      "question":"I have many faces, expressions and emotions and am only one tap away. What am I?",
+      "answer":"Emojis"
+   },
+   {
+      "id":"805",
+      "question":"What becomes white when it is dirty?",
+      "answer":"Blackboard"
+   },
+   {
+      "id":"806",
+      "question":"I count time, but have no end. Tick tick, but I am not a clock. What am I?",
+      "answer":"Metronome"
+   },
+   {
+      "id":"807",
+      "question":"Perhaps the most important adjective for ballerinas and princesses.",
+      "answer":"Graceful"
+   },
+   {
+      "id":"808",
+      "question":"These are crisp, green, and are found near deli sandwiches.",
+      "answer":"Pickle"
+   },
+   {
+      "id":"809",
+      "question":"What speeds on a track but isn't in a race and has a whistle to announce its steady pace?",
+      "answer":"Train"
+   },
+   {
+      "id":"810",
+      "question":"Sand + Net + Bikini = ?",
+      "answer":"Volleyball"
+   },
+   {
+      "id":"811",
+      "question":"What build its house with earthen string and ensnares its prey with a biting sting?",
+      "answer":"Spider"
+   },
+   {
+      "id":"812",
+      "question":"It is a common and favored clothing material among biker gangs and superheroes.",
+      "answer":"Leather"
+   },
+   {
+      "id":"813",
+      "question":"What two letters in the alphabet say goodbye?",
+      "answer":"Cu"
+   },
+   {
+      "id":"814",
+      "question":"Hearing something unexpected or touching a live wire can have this effect.",
+      "answer":"Shocking"
+   },
+   {
+      "id":"815",
+      "question":"I spin and hum, I'm your summer tool. Just flip the switch, and I serve to cool. What am I?",
+      "answer":"Fan"
+   },
+   {
+      "id":"816",
+      "question":"If you eat me, my sender will eat you. What am I?",
+      "answer":"Fishhook"
+   },
+   {
+      "id":"817",
+      "question":"Everybody has some. You can lose some, you can gain some. But you cannot live without it. What am I?",
+      "answer":"Blood"
+   },
+   {
+      "id":"818",
+      "question":"It flavors your food and divides the year up. What is it?",
+      "answer":"Season"
+   },
+   {
+      "id":"819",
+      "question":"Vikings use this for warmth.",
+      "answer":"Pelt"
+   },
+   {
+      "id":"820",
+      "question":"What English Word has Three Consecutive Double letters?",
+      "answer":"Bookkeeper"
+   },
+   {
+      "id":"821",
+      "question":"What is the thing that stays the same size, but the more it's used the more it decreases?",
+      "answer":"Iron"
+   },
+   {
+      "id":"822",
+      "question":"Though I am dark, Adam married me. What am I?",
+      "answer":"Eve"
+   },
+   {
+      "id":"823",
+      "question":"What age most travelers have?",
+      "answer":"Baggage"
+   },
+   {
+      "id":"824",
+      "question":"What do you call a greedy grumpy holiday hater?",
+      "answer":"Scrooge"
+   },
+   {
+      "id":"825",
+      "question":"I bind it and it walks. I loose it and it stops.",
+      "answer":"Sandal"
+   },
+   {
+      "id":"826",
+      "question":"A kind of weather that comes your way but add a D and it will run away.",
+      "answer":"Drain"
+   },
+   {
+      "id":"827",
+      "question":"I come in winter. I cannot see, hear, or feel. I can't eat, but you can eat parts of me.",
+      "answer":"Snowman"
+   },
+   {
+      "id":"828",
+      "question":"What book do teenagers and millennials love the most and voluntarily spend hours looking through?",
+      "answer":"Facebook"
+   },
+   {
+      "id":"829",
+      "question":"I go in dry and come out wet, The longer I'm in, the stronger it will get. What am I?",
+      "answer":"Teabag"
+   },
+   {
+      "id":"830",
+      "question":"What is the hardest part about skydiving?",
+      "answer":"Ground"
+   },
+   {
+      "id":"831",
+      "question":"I am a protector. I sit on a bridge. One person can see right through me, while others wonder what I hide. What am I?",
+      "answer":"sunglasses"
+   },
+   {
+      "id":"832",
+      "question":"Face with a tree, skin like the sea. A great beast I am. Yet vermin frightens me.",
+      "answer":"Elephant"
+   },
+   {
+      "id":"833",
+      "question":"The strangest creature you'll ever find: Two eyes in front and many more behind.",
+      "answer":"Peacock"
+   },
+   {
+      "id":"834",
+      "question":"It comes from crystal and melts to a treat. Add it to your tea to make it sweet. What is it?",
+      "answer":"Sugar"
+   },
+   {
+      "id":"835",
+      "question":"The weapon of choice to create the biggest shock.",
+      "answer":"Stungun"
+   },
+   {
+      "id":"836",
+      "question":"My head bobs lazily in the sun. You think I'm cute. For my face is yellow my hair is white and my body is green.",
+      "answer":"Daisy"
+   },
+   {
+      "id":"837",
+      "question":"What is red and nailed to a wall?",
+      "answer":"Herring"
+   },
+   {
+      "id":"838",
+      "question":"Spies and detectives do this to phones and musical shoes make this sound.",
+      "answer":"Tap"
+   },
+   {
+      "id":"839",
+      "question":"You buy me to eat, but never eat me. What am I?",
+      "answer":"Silverware"
+   },
+   {
+      "id":"840",
+      "question":"A leathery snake, with a stinging bite. I'll stay coiled up, unless I must fight.",
+      "answer":"Whip"
+   },
+   {
+      "id":"841",
+      "question":"What do you call a naughty turkey?",
+      "answer":"Dinner"
+   },
+   {
+      "id":"842",
+      "question":"They keep secrets locked away. And you pass through them each day. For each one there is a key, They respond to sesame.",
+      "answer":"Doors"
+   },
+   {
+      "id":"843",
+      "question":"A blackbird similar to, but much bigger than a crow.",
+      "answer":"Raven"
+   },
+   {
+      "id":"844",
+      "question":"What hatches without food?",
+      "answer":"Hunger"
+   },
+   {
+      "id":"845",
+      "question":"Can describe a distress signal or flashy accessories.",
+      "answer":"Flare"
+   },
+   {
+      "id":"846",
+      "question":"If there are three cups of sugar and you take one away, how many do you have?",
+      "answer":"One"
+   },
+   {
+      "id":"847",
+      "question":"Though I should be unique, you've made most of us the same. I would be stronger, if my characters were stranger.",
+      "answer":"Password"
+   },
+   {
+      "id":"848",
+      "question":"Hot tempered and sometimes it blows its top, making a mess of everything.",
+      "answer":"Volcano"
+   },
+   {
+      "id":"849",
+      "question":"Two is one, four is two, and six is three. Don't you see? What am I?",
+      "answer":"Half"
+   },
+   {
+      "id":"850",
+      "question":"What is it that given one, you'll have either two or none?",
+      "answer":"Choice"
+   },
+   {
+      "id":"851",
+      "question":"In the ground I am nothing, but give me time and I'll be something. What am I?",
+      "answer":"Seed"
+   },
+   {
+      "id":"852",
+      "question":"We chop its feet; we drink its blood.",
+      "answer":"Sesugarcane"
+   },
+   {
+      "id":"853",
+      "question":"I am a piece of paper that takes most people 3 or 4 years to get. What am I?",
+      "answer":"Diploma"
+   },
+   {
+      "id":"854",
+      "question":"I'll shout til you wake or sing you to sleep. I'll talk to you but you're crazy if you talk back. What am I?",
+      "answer":"Radio"
+   },
+   {
+      "id":"855",
+      "question":"Slayer of regrets, old and new, sought by many, found by few.",
+      "answer":"Redemption"
+   },
+   {
+      "id":"856",
+      "question":"What weaves webs as they grow?",
+      "answer":"Lies"
+   },
+   {
+      "id":"857",
+      "question":"What holds names and memories which are not its own?",
+      "answer":"Gravestone"
+   },
+   {
+      "id":"858",
+      "question":"What wears a coat in the winter and pants in the summer?",
+      "answer":"Dog"
+   },
+   {
+      "id":"859",
+      "question":"When this is found in a road you are forced to make a decision.",
+      "answer":"Fork"
+   },
+   {
+      "id":"860",
+      "question":"A twiggy home.",
+      "answer":"Nest"
+   },
+   {
+      "id":"861",
+      "question":"Different lights do make me strange, thus into different sizes I will change.",
+      "answer":"Pupil"
+   },
+   {
+      "id":"862",
+      "question":"What do you call a blender that made a mistake?",
+      "answer":"Blunder"
+   },
+   {
+      "id":"863",
+      "question":"What do we see every day, kings see rarely, and God never sees?",
+      "answer":"Equal"
+   },
+   {
+      "id":"864",
+      "question":"Seven brothers, five work all day, The other two, just play or pray.",
+      "answer":"Week"
+   },
+   {
+      "id":"865",
+      "question":"Its title means book.",
+      "answer":"Bible"
+   },
+   {
+      "id":"866",
+      "question":"Brings celebrities into your home every night.",
+      "answer":"Television"
+   },
+   {
+      "id":"867",
+      "question":"What's in a man's pants that you won't find in a girl's dress?",
+      "answer":"Pockets"
+   },
+   {
+      "id":"868",
+      "question":"What sphinxes employ and players enjoy.",
+      "answer":"Riddle"
+   },
+   {
+      "id":"869",
+      "question":"I run around the city, but I never move.",
+      "answer":"Wall"
+   },
+   {
+      "id":"870",
+      "question":"His big belly supposedly has the ability to dispense good fortune.",
+      "answer":"Buddha"
+   },
+   {
+      "id":"871",
+      "question":"It has a long neck, A name of a bird, Feeds on cargo of ships, It's not alive. What am I?",
+      "answer":"Crane"
+   },
+   {
+      "id":"872",
+      "question":"A warrior amongst the flowers, he bears a thrusting sword. He uses it whenever he must, to defend his golden hoard.",
+      "answer":"Bee"
+   },
+   {
+      "id":"873",
+      "question":"It increases and decreases yet no one see it. It is not a fire and yet it can be quenched.",
+      "answer":"Thirst"
+   },
+   {
+      "id":"874",
+      "question":"Not my sister nor my brother but still the child of my mother and father. Who am I?",
+      "answer":"Myself"
+   },
+   {
+      "id":"875",
+      "question":"A natural tattoo on babies.",
+      "answer":"Birthmark"
+   },
+   {
+      "id":"876",
+      "question":"You're gonna need a bigger boat to go after one of these toothy hunters.",
+      "answer":"Sharks"
+   },
+   {
+      "id":"877",
+      "question":"What dish consists of tortilla chips smothered in cheese?",
+      "answer":"Nachos"
+   },
+   {
+      "id":"878",
+      "question":"How many months have 28 days?",
+      "answer":"Twelve"
+   },
+   {
+      "id":"879",
+      "question":"Where jewelry pierces your head.",
+      "answer":"Lobe"
+   },
+   {
+      "id":"880",
+      "question":"You'll find me in a bee, in a comb, in cakes, in a bunch, in a bun and even in mustard. What am I?",
+      "answer":"Honey"
+   },
+   {
+      "id":"881",
+      "question":"This is in a realm of true and in a realm false, but you experience me as you turn and toss.",
+      "answer":"Dream"
+   },
+   {
+      "id":"882",
+      "question":"Timmy's mother has three children. The first was named April. The next was named May. What is the final one's name?",
+      "answer":"Timmy"
+   },
+   {
+      "id":"883",
+      "question":"I am not alive but seem so, because I dance and breathe with no legs or lungs of my own. What am I?",
+      "answer":"Flame"
+   },
+   {
+      "id":"884",
+      "question":"You can read it both ways, I wear; One way it's a number, reversed a snare.",
+      "answer":"Ten"
+   },
+   {
+      "id":"885",
+      "question":"Never swallowed but certainly chewed, tossed in the mouth but it is not food. What is it?",
+      "answer":"Gum"
+   },
+   {
+      "id":"886",
+      "question":"What is a duck's favorite snack?",
+      "answer":"Quackers"
+   },
+   {
+      "id":"887",
+      "question":"David's father has three sons: Snap, Crackle and?",
+      "answer":"David"
+   },
+   {
+      "id":"888",
+      "question":"This is a dead giveaway.",
+      "answer":"Will"
+   },
+   {
+      "id":"889",
+      "question":"Godzilla calls this place home.",
+      "answer":"Japan"
+   },
+   {
+      "id":"890",
+      "question":"These suck.",
+      "answer":"Vacuum"
+   },
+   {
+      "id":"891",
+      "question":"I am known for my natural tuxedo and marching.",
+      "answer":"Penguins"
+   },
+   {
+      "id":"892",
+      "question":"A huge mythical animal said to resemble a whale.",
+      "answer":"Leviathan"
+   },
+   {
+      "id":"893",
+      "question":"In your fire you hear me scream! Creaking and whining yet I am dead before you lay me in your hearth.",
+      "answer":"Log"
+   },
+   {
+      "id":"894",
+      "question":"What is a Cheerleader's favorite food?",
+      "answer":"Cheerios"
+   },
+   {
+      "id":"895",
+      "question":"When set loose, I fly away. Never so cursed, as when I go astray. What am I?",
+      "answer":"Fart"
+   },
+   {
+      "id":"896",
+      "question":"I am a way to say goodbye to your sweetheart. What am I?",
+      "answer":"Kiss"
+   },
+   {
+      "id":"897",
+      "question":"At first I am a yellow weed in the lawn, and then the wind blows, and my white feathers are gone. What am I?",
+      "answer":"Dandelion"
+   },
+   {
+      "id":"898",
+      "question":"It is hate and has hate in it, but it isn't hate.",
+      "answer":"Hatred"
+   },
+   {
+      "id":"899",
+      "question":"A big shiny black car nobody wants to be a passenger in.",
+      "answer":"Hearse"
+   },
+   {
+      "id":"900",
+      "question":"Cows do this to salt and humans do it to ice cream.",
+      "answer":"Lick"
+   },
+   {
+      "id":"901",
+      "question":"I let water fall on you while everyone else stays dry. What am I?",
+      "answer":"Shower"
+   },
+   {
+      "id":"902",
+      "question":"Known to accessorize with feathers, trumpets, and harps.",
+      "answer":"Angel"
+   },
+   {
+      "id":"903",
+      "question":"Dark, feathery, and popular in Baltimore and fantasy books.",
+      "answer":"Ravens"
+   },
+   {
+      "id":"904",
+      "question":"They're big and blue, and larger than seas.",
+      "answer":"Oceans"
+   },
+   {
+      "id":"905",
+      "question":"Brings you May flowers.",
+      "answer":"Showers"
+   },
+   {
+      "id":"906",
+      "question":"The itsy bitsy teeny weeny yellow polka dot variety is quite popular.",
+      "answer":"Bikini"
+   },
+   {
+      "id":"907",
+      "question":"I am expelled from you orally with a sound. What am I?",
+      "answer":"Burp"
+   },
+   {
+      "id":"908",
+      "question":"Raise your right appendage high above your head. Turn your head to the right and you will smell this.",
+      "answer":"Armpit"
+   },
+   {
+      "id":"909",
+      "question":"Sport olympians use this to get high jump up in the air.",
+      "answer":"Pole"
+   },
+   {
+      "id":"910",
+      "question":"I am found in the day, but more often at night. Whenever you fall, I may be deep or light.",
+      "answer":"Sleep"
+   },
+   {
+      "id":"911",
+      "question":"My first is equality; my second is inferiority; my whole is superiority.",
+      "answer":"Peerless"
+   },
+   {
+      "id":"912",
+      "question":"How many times can you subtract five from twenty-five?",
+      "answer":"Once"
+   },
+   {
+      "id":"913",
+      "question":"I save lives on the ground and in the air. What am I?",
+      "answer":"Seatbelt"
+   },
+   {
+      "id":"914",
+      "question":"I only have one entrance, but you can come out with three exits. What am I?",
+      "answer":"Blouse"
+   },
+   {
+      "id":"915",
+      "question":"Some people avoid me, some people count me, some people just consume me. What am I?",
+      "answer":"Calories"
+   },
+   {
+      "id":"916",
+      "question":"What did the sushi say to the bee?",
+      "answer":"Wasabi"
+   },
+   {
+      "id":"917",
+      "question":"The ninja turtles call this place home, as do mythical alligators.",
+      "answer":"Sewer"
+   },
+   {
+      "id":"918",
+      "question":"This small, rolled tortilla usually has meat or cheese filling, and was originally invented in Mexico.",
+      "answer":"Taquitos"
+   },
+   {
+      "id":"919",
+      "question":"They live only in stories, taller than three storeys.",
+      "answer":"Giants"
+   },
+   {
+      "id":"920",
+      "question":"I am a type of animal that hang out in the mist. What am I?",
+      "answer":"Gorilla"
+   },
+   {
+      "id":"921",
+      "question":"I am a shiny metal sheet that covers BBQ food. What am I?",
+      "answer":"Aluminum"
+   },
+   {
+      "id":"922",
+      "question":"The little pink nub that helps rectify mistakes.",
+      "answer":"Eraser"
+   },
+   {
+      "id":"923",
+      "question":"What breaks in the water but never on land?",
+      "answer":"Wave"
+   },
+   {
+      "id":"924",
+      "question":"I have an eye but cannot see, You'll head inside when you see.",
+      "answer":"Storm"
+   },
+   {
+      "id":"925",
+      "question":"Causes dancing in children when it fills up.",
+      "answer":"Bladder"
+   },
+   {
+      "id":"926",
+      "question":"I am the noise Santa's reindeers make. What am I?",
+      "answer":"Jingle"
+   },
+   {
+      "id":"927",
+      "question":"A tangly game and a destructive weather phenomenon.",
+      "answer":"Twister"
+   },
+   {
+      "id":"928",
+      "question":"What can you throw but not catch?",
+      "answer":"Party"
+   },
+   {
+      "id":"929",
+      "question":"What falls down but never breaks?",
+      "answer":"Nightfall"
+   },
+   {
+      "id":"930",
+      "question":"What cruel person would sit on a baby?",
+      "answer":"Babysitter"
+   },
+   {
+      "id":"931",
+      "question":"I peel to heal this pain I feel. What am I?",
+      "answer":"Sunburn"
+   },
+   {
+      "id":"932",
+      "question":"I am here neither dead or alive. What am I?",
+      "answer":"Ghost"
+   },
+   {
+      "id":"933",
+      "question":"This is needed both for courage and hardcover books.",
+      "answer":"Spine"
+   },
+   {
+      "id":"934",
+      "question":"A word of five letters, Upside down is the same, A shark does this, But it's not to blame. What is the word?",
+      "answer":"Swims"
+   },
+   {
+      "id":"935",
+      "question":"In the morning I sing on feathered wing. I soar through the air without a care. What am I?",
+      "answer":"Bird"
+   },
+   {
+      "id":"936",
+      "question":"Mostly worn by women or girls, this is sometimes shiny like silver or gold, and sometimes it is made of pearls",
+      "answer":"Necklace"
+   },
+   {
+      "id":"937",
+      "question":"You take my clothes off when you put your clothes on. What am I?",
+      "answer":"Hanger"
+   },
+   {
+      "id":"938",
+      "question":"Weight in my belly, trees on my back. Nails in my ribs, feet I do lack. What am I?",
+      "answer":"Ship"
+   },
+   {
+      "id":"939",
+      "question":"What shoes should you wear when your basement is flooded?",
+      "answer":"Pumps"
+   },
+   {
+      "id":"940",
+      "question":"This would be a good place to find Can-Can girls and drunk Cowboys.",
+      "answer":"Saloon"
+   },
+   {
+      "id":"941",
+      "question":"Without what would everyone lose their head?",
+      "answer":"Neck"
+   },
+   {
+      "id":"942",
+      "question":"According to many students, dogs have an appetite for this paper item.",
+      "answer":"Homework"
+   },
+   {
+      "id":"943",
+      "question":"I am rarely touched but always held if you are smart you'll use me well. What am I?",
+      "answer":"Toungue"
+   },
+   {
+      "id":"944",
+      "question":"Plant whose name sounds like a dish full of dairy spread.",
+      "answer":"Buttercup"
+   },
+   {
+      "id":"945",
+      "question":"Found under bridges and on the Internet.",
+      "answer":"Troll"
+   },
+   {
+      "id":"946",
+      "question":"Can be found in the drink aisle or on a body-builder's torso.",
+      "answer":"Sixpack"
+   },
+   {
+      "id":"947",
+      "question":"What is between heaven and earth?",
+      "answer":"And"
+   },
+   {
+      "id":"948",
+      "question":"I am a ball that can be rolled but never bounced or thrown. What am I?",
+      "answer":"Eyeball"
+   },
+   {
+      "id":"949",
+      "question":"What divides by uniting and by dividing?",
+      "answer":"Scissors"
+   },
+   {
+      "id":"950",
+      "question":"Once they sailed the sea, now they surf the web.",
+      "answer":"Pirates"
+   },
+   {
+      "id":"951",
+      "question":"What can be big, white, dirty and wicked?",
+      "answer":"Lie"
+   },
+   {
+      "id":"952",
+      "question":"What goes with a car, comes with a car, is no use to a car, but the car can't move without it?",
+      "answer":"Noise"
+   },
+   {
+      "id":"953",
+      "question":"I ate one and threw away two.",
+      "answer":"Oyster"
+   },
+   {
+      "id":"954",
+      "question":"I am flora, not fauna, I am foliage, not trees, I am shrubbery, not grass, What am I?",
+      "answer":"Bush"
+   },
+   {
+      "id":"955",
+      "question":"It is everything to someone, and nothing to everyone else. What is it?",
+      "answer":"Mind"
+   },
+   {
+      "id":"956",
+      "question":"You fill it and it empties, A metaphor for plenty, Depending on what half you see, It's either full or empty.",
+      "answer":"Cup"
+   },
+   {
+      "id":"957",
+      "question":"I moan, I groan, I chase after you. I never seem to rest. Time's up for you. What am I?",
+      "answer":"Children"
+   },
+   {
+      "id":"958",
+      "question":"I have bows but I am not a hunter, I have wings but I am not a bird. I look like a baby wearing a diaper. Who am I?",
+      "answer":"Cupid"
+   },
+   {
+      "id":"959",
+      "question":"I can be entertaining until you realize some pieces have been lost. What am I? - Answer: puzzle.",
+      "answer":"Puzzle"
+   },
+   {
+      "id":"960",
+      "question":"Fred and Wilma's child, named after a stone.",
+      "answer":"Pebbles"
+   },
+   {
+      "id":"961",
+      "question":"There is a creature of God whose body is hard; it does not wish to eat unless you strike its head.",
+      "answer":"Chisel"
+   },
+   {
+      "id":"962",
+      "question":"What is Saturn's favorite day of the week?",
+      "answer":"Saturnday"
+   },
+   {
+      "id":"963",
+      "question":"I have legs but never walk, I may have flowers but no soil, I hold food but never eat.",
+      "answer":"Table"
+   },
+   {
+      "id":"964",
+      "question":"I encourage people to run home and steal. What am I?",
+      "answer":"Baseball"
+   },
+   {
+      "id":"965",
+      "question":"I destroy your home from inside out. What am I?",
+      "answer":"Termite"
+   },
+   {
+      "id":"966",
+      "question":"Today he is there to trip you up and he will torture you tomorrow.",
+      "answer":"Alcohol"
+   },
+   {
+      "id":"967",
+      "question":"Goliath, The Jolly Green and Andre are all examples of this.",
+      "answer":"Giant"
+   },
+   {
+      "id":"968",
+      "question":"Noah survived one and it was great.",
+      "answer":"Flood"
+   },
+   {
+      "id":"969",
+      "question":"An art-form and its colourful result.",
+      "answer":"Painting"
+   },
+   {
+      "id":"970",
+      "question":"A sport with love and service played by singles and pairs.",
+      "answer":"Tennis"
+   },
+   {
+      "id":"971",
+      "question":"The ball drops when the clock hits this.",
+      "answer":"Midnight"
+   },
+   {
+      "id":"972",
+      "question":"They say each one is totally unique.",
+      "answer":"Snowflake"
+   },
+   {
+      "id":"973",
+      "question":"I help engines spin and pants stay up. What am I?",
+      "answer":"Belt"
+   },
+   {
+      "id":"974",
+      "question":"Everyone is attracted to me and everybody falls for me. What am I?",
+      "answer":"Gravity"
+   },
+   {
+      "id":"975",
+      "question":"Other terms for this handy device include doohicky, doo-dad, and whatchyamacallit.",
+      "answer":"Gadget"
+   },
+   {
+      "id":"976",
+      "question":"You seek it out, when your hunger is ripe. It sits on four legs, and smokes a pipe.",
+      "answer":"Stove"
+   },
+   {
+      "id":"977",
+      "question":"I have a head but no body, a heart but no blood. Just leaves and no branches, I grow without wood. What am I?",
+      "answer":"Lettuce"
+   },
+   {
+      "id":"978",
+      "question":"I can be in your room and your mind but two people can never find me, What am I?",
+      "answer":"Isolation"
+   },
+   {
+      "id":"979",
+      "question":"What do you call the money a hooker makes?",
+      "answer":"Incum"
+   },
+   {
+      "id":"980",
+      "question":"War fought with pieces on a board.",
+      "answer":"Chess"
+   },
+   {
+      "id":"981",
+      "question":"I run distances, often making many turns, yet I never move one foot. What am I?",
+      "answer":"Watch"
+   },
+   {
+      "id":"982",
+      "question":"Some keep it in a dumpster while others keep it in their trunk.",
+      "answer":"Junk"
+   },
+   {
+      "id":"983",
+      "question":"Men have one, women two, and when they become family, it's three. What is it?",
+      "answer":"Syllables"
+   },
+   {
+      "id":"984",
+      "question":"What is the cleanest language in the world?",
+      "answer":"Polish"
+   },
+   {
+      "id":"985",
+      "question":"Nothing specific, but more than a few. This many clustered, together will do.",
+      "answer":"Bunch"
+   },
+   {
+      "id":"986",
+      "question":"What do you call a famous lobster?",
+      "answer":"Lobstar"
+   },
+   {
+      "id":"987",
+      "question":"What starts with “p” and ends with “orn” and is really popular in the movie industry?",
+      "answer":"Popcorn"
+   },
+   {
+      "id":"988",
+      "question":"Controlled by your hands and feet. It would be nothing without a street. What is it?",
+      "answer":"Car"
+   },
+   {
+      "id":"989",
+      "question":"Racers are asked to start these at NASCAR events.",
+      "answer":"Engine"
+   },
+   {
+      "id":"990",
+      "question":"My prefix is food. My suffix is rude. My infix comes in rounds. I keep you off the ground. What Am I?",
+      "answer":"Hammock"
+   },
+   {
+      "id":"991",
+      "question":"It is a popular afterlife destination where you want to send people when you're mad at them.",
+      "answer":"hell"
+   },
+   {
+      "id":"992",
+      "question":"What has thirteen hearts But no body or soul?",
+      "answer":"Deck"
+   },
+   {
+      "id":"993",
+      "question":"What travels from house to house and is sometimes narrow and sometimes wide but always stays outside?",
+      "answer":"Path"
+   },
+   {
+      "id":"994",
+      "question":"Sometimes it's silver but also gold. Printed on paper it's a treasure to hold. What is it?",
+      "answer":"Currency"
+   },
+   {
+      "id":"995",
+      "question":"Feared on the playground, he steals your lunch money and distributes wedgies.",
+      "answer":"Bully"
+   },
+   {
+      "id":"996",
+      "question":"This is the main ingredient in spaghetti and Mac-N-Cheese.",
+      "answer":"Pasta"
+   },
+   {
+      "id":"997",
+      "question":"I was not born, but I am here. I have no name, but I am given many. I was made by science and life. What am I?",
+      "answer":"Clone"
+   },
+   {
+      "id":"998",
+      "question":"An action done on mosquito bites. What am I?",
+      "answer":"Scratch"
+   },
+   {
+      "id":"999",
+      "question":"Bill's mom has four kids: Mary, John, and Alice. What is the name of her fourth child?",
+      "answer":"Bill"
+   },
+   {
+      "id":"1000",
+      "question":"White and thin, red within, with a nail at the end. What is it? ",
+      "answer":"Finger"
+   },
+   {
+      "id":"1001",
+      "question":"I have no brain but am still smarter than the average human. What am I?",
+      "answer":"Calculator"
+   },
+   {
+      "id":"1002",
+      "question":"What hangs in the sky by day but at night goes away?",
+      "answer":"Sun"
+   },
+   {
+      "id":"1003",
+      "question":"There are several different kinds, but the one you pick doesn't do its job. What is it?",
+      "answer":"Lock"
+   },
+   {
+      "id":"1004",
+      "question":"Split me in half, and you get me and another me. What word am I?",
+      "answer":"Meme"
+   },
+   {
+      "id":"1005",
+      "question":"Break it and it is better, immediately set and harder to break again.",
+      "answer":"Record"
+   },
+   {
+      "id":"1006",
+      "question":"The edge of earth and bread.",
+      "answer":"Crust"
+   },
+   {
+      "id":"1007",
+      "question":"Never alive but practically extinct. How we miss the letters pressing the ribbon of ink. What is it?",
+      "answer":"Typewriter"
+   },
+   {
+      "id":"1008",
+      "question":"The day before two days after the day before tomorrow is Saturday. What day is it today?",
+      "answer":"Friday"
+   },
+   {
+      "id":"1009",
+      "question":"Temporary evidence of where you've been strolling.",
+      "answer":"Footprint"
+   },
+   {
+      "id":"1010",
+      "question":"Sing me to a baby about to go to sleep. What am I?",
+      "answer":"Lullaby"
+   },
+   {
+      "id":"1011",
+      "question":"I wear a red robe, with staff in hand and a stone in my throat. Cut me and I weep red tears. What am I?",
+      "answer":"Cherry"
+   },
+   {
+      "id":"1012",
+      "question":"What comes with your car, but travels more than your car?",
+      "answer":"Keys"
+   },
+   {
+      "id":"1013",
+      "question":"Kids, elders and a monster love me, I'm mostly round and brown if you ask me. What am I?",
+      "answer":"Cookie"
+   },
+   {
+      "id":"1014",
+      "question":"I am a body with a leg, an arm and a head but I look like I am naked and bare. What am I?",
+      "answer":"Skeleton"
+   },
+   {
+      "id":"1015",
+      "question":"I mean goodbye for South Americans. What am I?",
+      "answer":"Adios"
+   },
+   {
+      "id":"1016",
+      "question":"I am grew up outside society, I am wild, my voice echoes throughout the jungle and nature is my playground. Who am I?",
+      "answer":"Tarzan"
+   },
+   {
+      "id":"1017",
+      "question":"Both a currency and an antlered male. What is it?",
+      "answer":"Buck"
+   },
+   {
+      "id":"1018",
+      "question":"Ten Men's Strength, Ten Men's Length, Ten Men can't break it, yet a young boy walks off with it. What am I?",
+      "answer":"Rope"
+   },
+   {
+      "id":"1019",
+      "question":"Describes a mysterious region and a stylish pair of shorts.",
+      "answer":"Bermuda"
+   },
+   {
+      "id":"1020",
+      "question":"What is round on both ends and hi in the middle?",
+      "answer":"Ohio"
+   },
+   {
+      "id":"1021",
+      "question":"Disgusting creatures that would survive a nuclear strike.",
+      "answer":"Roach"
+   },
+   {
+      "id":"1022",
+      "question":"What heavy seven letter word can you take two away from and be left with eight?",
+      "answer":"Weights"
+   },
+   {
+      "id":"1023",
+      "question":"I am the red tongue of the earth, that buries cities.",
+      "answer":"Lava"
+   },
+   {
+      "id":"1024",
+      "question":"Keep doing me to avoid lens dryness. What am I?",
+      "answer":"Blink"
+   },
+   {
+      "id":"1025",
+      "question":"Prior to smartphones, people used this to record their lives.",
+      "answer":"Camcorder"
+   },
+   {
+      "id":"1026",
+      "question":"Doing this with your job can be risky but doing it with smoking is always a good idea.",
+      "answer":"Quit"
+   },
+   {
+      "id":"1027",
+      "question":"Who spends the day at the window, goes to the table for meals and hides at night?",
+      "answer":"Fly"
+   },
+   {
+      "id":"1028",
+      "question":"Serves as a go between in business.",
+      "answer":"Middleman"
+   },
+   {
+      "id":"1029",
+      "question":"What kind of bees make milk?",
+      "answer":"Boobees"
+   },
+   {
+      "id":"1030",
+      "question":"I am hot then cold, a liquid then solid, and I am at once flaky and wet. What am I?",
+      "answer":"Wax"
+   },
+   {
+      "id":"1031",
+      "question":"This food is a tortilla filled with cheese and sometimes chicken before being heated or cooked.",
+      "answer":"Quasedilla"
+   },
+   {
+      "id":"1032",
+      "question":"Blind but cruel.",
+      "answer":"Justice"
+   },
+   {
+      "id":"1033",
+      "question":"I have one eye, See near and far, I hold the moments you treasure, And the things that make you weep.",
+      "answer":"Camera"
+   },
+   {
+      "id":"1034",
+      "question":"Out of all the celestial bodies, this one has the funniest name.",
+      "answer":"Uranus"
+   },
+   {
+      "id":"1035",
+      "question":"Can you think of a crime that is punishable if attempted but not punishable if actually committed?",
+      "answer":"Suicide"
+   },
+   {
+      "id":"1036",
+      "question":"What is an insect's favorite sport?",
+      "answer":"Cricket"
+   },
+   {
+      "id":"1037",
+      "question":"I carry your blood, but I'm not your child. Who Am I?",
+      "answer":"Mosquito"
+   },
+   {
+      "id":"1038",
+      "question":"Rub me and a genie might appear. What am I?",
+      "answer":"Lamp"
+   },
+   {
+      "id":"1039",
+      "question":"What grows bigger the more you contract it?",
+      "answer":"Debt"
+   },
+   {
+      "id":"1040",
+      "question":"I have three hundred cattle, with a single nose cord.",
+      "answer":"Beads"
+   },
+   {
+      "id":"1041",
+      "question":"I hold two meanings. With one I may be broken, with the other I hold on. What am I?",
+      "answer":"Tie"
+   },
+   {
+      "id":"1042",
+      "question":"Slithery critters with a taste for dirt.",
+      "answer":"Earthworm"
+   },
+   {
+      "id":"1043",
+      "question":"What is used by man, tossed by trees, everywhere but unseen?",
+      "answer":"Air"
+   },
+   {
+      "id":"1044",
+      "question":"What is a witch's favorite school subject?",
+      "answer":"Spelling"
+   },
+   {
+      "id":"1045",
+      "question":"What is a foot long and slippery?",
+      "answer":"Slipper"
+   },
+   {
+      "id":"1046",
+      "question":"What can get you there in eco style, pushed by your legs mile after mile?",
+      "answer":"Bicycle"
+   },
+   {
+      "id":"1047",
+      "question":"Flat as a leaf, round as a ring. Has two eyes, can't see a thing?",
+      "answer":"Button"
+   },
+   {
+      "id":"1048",
+      "question":"What goes inside boots and outside shoes?",
+      "answer":"Ankles"
+   },
+   {
+      "id":"1049",
+      "question":"Mary's child slept in one of these",
+      "answer":"Manger"
+   },
+   {
+      "id":"1050",
+      "question":"Bumpy form of transportation in desert cultures.",
+      "answer":"Camel"
+   },
+   {
+      "id":"1051",
+      "question":"What traps a star in its belly but can be held in your hand.",
+      "answer":"Apple"
+   },
+   {
+      "id":"1052",
+      "question":"Enter through one, exit through three. Once you succeed I am on thee. What am I?",
+      "answer":"Tshirt"
+   },
+   {
+      "id":"1053",
+      "question":"Brings the sky a lot closer.",
+      "answer":"Telescope"
+   },
+   {
+      "id":"1054",
+      "question":"It's real until the trick is revealed.",
+      "answer":"Magic"
+   },
+   {
+      "id":"1055",
+      "question":"How far will a blind dog walk into a forest?",
+      "answer":"Halfway"
+   },
+   {
+      "id":"1056",
+      "question":"I'm used in a dance but also on food. What am I?",
+      "answer":"Salsa"
+   },
+   {
+      "id":"1057",
+      "question":"A gentleman whose offspring have successfully produced offspring of their own.",
+      "answer":"Grandpa"
+   },
+   {
+      "id":"1058",
+      "question":"This baked dish consists of an open-topped pastry case with a savory or sweet filling.",
+      "answer":"Flan"
+   },
+   {
+      "id":"1059",
+      "question":"I met a man and drew his name. He tipped his hat and played my game. What is his name?",
+      "answer":"Andrew"
+   },
+   {
+      "id":"1060",
+      "question":"What has a big mouth, yet never speaks?",
+      "answer":"Jar"
+   },
+   {
+      "id":"1061",
+      "question":"These are the bumpy parts of your digits.",
+      "answer":"Knuckle"
+   },
+   {
+      "id":"1062",
+      "question":"If you multiply this number by any other number the answer will always be the same. What number is this?",
+      "answer":"Zero"
+   },
+   {
+      "id":"1063",
+      "question":"He died for people's entertainment.",
+      "answer":"Gladiator"
+   },
+   {
+      "id":"1064",
+      "question":"What do you call a teacher with no arms, no legs and no body?",
+      "answer":"Head"
+   },
+   {
+      "id":"1065",
+      "question":"What can be filled with empty hands?",
+      "answer":"Gloves"
+   },
+   {
+      "id":"1066",
+      "question":"It's held in the hand when going out.",
+      "answer":"Doorknob"
+   },
+   {
+      "id":"1067",
+      "question":"You can do this with your friends. You can do this with your nose. But don't do it with your friend's nose!",
+      "answer":"Pick"
+   },
+   {
+      "id":"1068",
+      "question":"It is known as the best real estate for toys.",
+      "answer":"Dollhouse"
+   },
+   {
+      "id":"1069",
+      "question":"It's black and every time it speaks it says its name.",
+      "answer":"Crow"
+   },
+   {
+      "id":"1070",
+      "question":"I am the second L in LOL. What am I?",
+      "answer":"Loud"
+   },
+   {
+      "id":"1071",
+      "question":"The profession of Jimi Hendrix and Eric Clapton.",
+      "answer":"Guitarist"
+   },
+   {
+      "id":"1072",
+      "question":"The Titanic is still here. What am I?",
+      "answer":"Atlantic"
+   },
+   {
+      "id":"1073",
+      "question":"Everyone loses us as a child, and neglecting us makes us holy. What are we?",
+      "answer":"Teeth"
+   },
+   {
+      "id":"1074",
+      "question":"You will have this response if you would go salivating at the mention of a cheeseburger.",
+      "answer":"Pavlovian"
+   },
+   {
+      "id":"1075",
+      "question":"People in love are often bound to this.",
+      "answer":"Married"
+   },
+   {
+      "id":"1076",
+      "question":"I am yellow on the outside, white inside, and very appealing. What am I?",
+      "answer":"Banana"
+   },
+   {
+      "id":"1077",
+      "question":"A little house full of meat, no door to go in and eat.",
+      "answer":"Nut"
+   },
+   {
+      "id":"1078",
+      "question":"I am a sister but I may not have any siblings. Who am I?",
+      "answer":"Nun"
+   },
+   {
+      "id":"1079",
+      "question":"Both guys and women enhance their visual organs with this item.",
+      "answer":"Eyeliner"
+   },
+   {
+      "id":"1080",
+      "question":"Dry though I may be, I am still a sea.",
+      "answer":"Dessert"
+   },
+   {
+      "id":"1081",
+      "question":"What can you serve but not eat?",
+      "answer":"Napkins"
+   },
+   {
+      "id":"1082",
+      "question":"One strand dangles. Two strands twist.Three or more can fashion this.",
+      "answer":"Braids"
+   },
+   {
+      "id":"1083",
+      "question":"Where do tadpoles change?",
+      "answer":"Croakroom"
+   },
+   {
+      "id":"1084",
+      "question":"What kind of apple has a short temper?",
+      "answer":"Crabapple"
+   },
+   {
+      "id":"1085",
+      "question":"What is that which, though black itself, enlightens the world without burning?",
+      "answer":"Ink"
+   },
+   {
+      "id":"1086",
+      "question":"The French word for ‘fun size’ in women’s clothing.",
+      "answer":"Petite"
+   },
+   {
+      "id":"1087",
+      "question":"It is the electronic version of junk mail or a salty meat in a can.",
+      "answer":"Spam"
+   },
+   {
+      "id":"1088",
+      "question":"What do you call a three humped camel?",
+      "answer":"Pregnant"
+   },
+   {
+      "id":"1089",
+      "question":"What common English verb becomes its own past tense by rearranging its letters?",
+      "answer":"Eat"
+   },
+   {
+      "id":"1090",
+      "question":"Deep, deep, do they go. Spreading out as they go. Never needing any air. They are sometimes as fine as hair. What are they?",
+      "answer":"Roots"
+   },
+   {
+      "id":"1091",
+      "question":"Small and bearded, both in the real world and in stories.",
+      "answer":"Dwarf"
+   },
+   {
+      "id":"1092",
+      "question":"I have no eyes, no legs or ears and I help move the earth. What am I?",
+      "answer":"Worm"
+   },
+   {
+      "id":"1093",
+      "question":"I am an animal and a hair product. What am I?",
+      "answer":"Moose"
+   },
+   {
+      "id":"1094",
+      "question":"It has no top or bottom, but it can hold flesh, bones, and blood all at the same time.",
+      "answer":"Ring"
+   },
+   {
+      "id":"1095",
+      "question":"You do this into someone's ear when you want to be discreet.",
+      "answer":"Whisper"
+   },
+   {
+      "id":"1096",
+      "question":"An open ended barrel, it is shaped like a hive. It is filled with the flesh, and the flesh is alive!",
+      "answer":"Thimble"
+   },
+   {
+      "id":"1097",
+      "question":"When we stand up it lies flat. When we lie back it stands up.",
+      "answer":"Foot"
+   },
+   {
+      "id":"1098",
+      "question":"What word in the dictionary is hilarious?",
+      "answer":"Hilarious"
+   },
+   {
+      "id":"1099",
+      "question":"Sugar on a stick. The kids love licking them.",
+      "answer":"Lollipop"
+   },
+   {
+      "id":"1100",
+      "question":"What do you call a dog that sweats so much?",
+      "answer":"Hotdog"
+   },
+   {
+      "id":"1101",
+      "question":"What is half of two plus two?",
+      "answer":"Three"
+   },
+   {
+      "id":"1102",
+      "question":"Surname of the pilot of the Millennium Falcon.",
+      "answer":"Solo"
+   },
+   {
+      "id":"1103",
+      "question":"You have it even if there is none.",
+      "answer":"Hope"
+   },
+   {
+      "id":"1104",
+      "question":"You might accuse someone living with a stolen identity of being this.",
+      "answer":"Imposter"
+   },
+   {
+      "id":"1105",
+      "question":"A shimmering field that reaches far. Yet it has no tracks, And is crossed without paths.",
+      "answer":"Ocean"
+   },
+   {
+      "id":"1106",
+      "question":"I am a small paradise surrounded by dryness and heat. What am I?",
+      "answer":"Oasis"
+   },
+   {
+      "id":"1107",
+      "question":"Whats beautiful and natural, but gets prickly if it isnt trimmed regularly?",
+      "answer":"Grass"
+   },
+   {
+      "id":"1108",
+      "question":"I am pinched by grandmas. What am I?",
+      "answer":"Cheeks"
+   },
+   {
+      "id":"1109",
+      "question":"He's small but he can climb a tower.",
+      "answer":"Ant"
+   },
+   {
+      "id":"1110",
+      "question":"I'm a vegetable that is a long, green stalk. I'm usually eaten at thanksgiving with cheese or peanut butter.",
+      "answer":"Celery"
+   },
+   {
+      "id":"1111",
+      "question":"Both cockroaches and illegal drug laboratories or syndicates do fear this.",
+      "answer":"Raid"
+   },
+   {
+      "id":"1112",
+      "question":"Edible items purchased in large quantities.",
+      "answer":"Groceries"
+   },
+   {
+      "id":"1113",
+      "question":"I help you carry your books. What am I?",
+      "answer":"Backpack"
+   },
+   {
+      "id":"1114",
+      "question":"Doing something of this nature is likely to land you in court.",
+      "answer":"Illegal"
+   },
+   {
+      "id":"1115",
+      "question":"What was was, before was was was?",
+      "answer":"Is"
+   },
+   {
+      "id":"1116",
+      "question":"You'll have me at night and if you remove the first letter I denote the top, such as on a train.",
+      "answer":"Supper"
+   },
+   {
+      "id":"1117",
+      "question":"You can have it, and be at it,But it never lasts forever.",
+      "answer":"Peace"
+   },
+   {
+      "id":"1118",
+      "question":"It is a gruesome form of betray.",
+      "answer":"Backstab"
+   },
+   {
+      "id":"1119",
+      "question":"A building where people and stories are on stage.",
+      "answer":"Theatre"
+   },
+   {
+      "id":"1120",
+      "question":"What is often returned, but never borrowed?",
+      "answer":"Thanks"
+   },
+   {
+      "id":"1121",
+      "question":"I am an animal named after the animal that I eat.",
+      "answer":"Anteater"
+   },
+   {
+      "id":"1122",
+      "question":"I suck. What am I?",
+      "answer":"Vaccuum"
+   },
+   {
+      "id":"1123",
+      "question":"One of the best things you can hope for after whacking a ball with a stick.",
+      "answer":"Homerun"
+   },
+   {
+      "id":"1124",
+      "question":"If you're on a diet, smelling a fresh pan of brownies could be described as this.",
+      "answer":"Torture"
+   },
+   {
+      "id":"1125",
+      "question":"I am always around, but in the morning I show. You'll know its me from my golden glow. What am I?",
+      "answer":"Sunlight"
+   },
+   {
+      "id":"1126",
+      "question":"Makes dough grow.",
+      "answer":"Yeast"
+   },
+   {
+      "id":"1127",
+      "question":"The alphabet goes from A to Z. What goes from Z to A?",
+      "answer":"Zebra"
+   },
+   {
+      "id":"1128",
+      "question":"Large as a mountain, small as a pea,Endlessly swimming in a waterless sea.",
+      "answer":"Asteroids"
+   },
+   {
+      "id":"1129",
+      "question":"Bury deep, Pile on stones, My mind will always Dig up them bones.",
+      "answer":"Memories"
+   },
+   {
+      "id":"1130",
+      "question":"These women make princesses scrub floors and sometimes try to poison them with apples.",
+      "answer":"Stepmother"
+   },
+   {
+      "id":"1131",
+      "question":"The plant that is responsible for spreading a lot of gossip.",
+      "answer":"Grapevine"
+   },
+   {
+      "id":"1132",
+      "question":"When it's dirty this should never be aired in public.",
+      "answer":"Laundry"
+   },
+   {
+      "id":"1133",
+      "question":"You answer me, but I never ask you a question. What am I?",
+      "answer":"Telephone"
+   },
+   {
+      "id":"1134",
+      "question":"It holds no blessings in disguise. Its rhymes are aimed at your demise, it's cast only to ruin, Whatever you are doin'.",
+      "answer":"Curse"
+   },
+   {
+      "id":"1135",
+      "question":"What scientists might call your pooch.",
+      "answer":"Canine"
+   },
+   {
+      "id":"1136",
+      "question":"I go around all the places; cities, towns and villages, but never come inside. What am I?",
+      "answer":"Street"
+   },
+   {
+      "id":"1137",
+      "question":"What always comes into the house through the keyhole?",
+      "answer":"Key"
+   },
+   {
+      "id":"1138",
+      "question":"I have many letters, And though it's strange to say, I stay the same no matter how many I give away.",
+      "answer":"Mailman"
+   },
+   {
+      "id":"1139",
+      "question":"What can you blow up and keep intact?",
+      "answer":"Balloon"
+   },
+   {
+      "id":"1140",
+      "question":"A spent round or a slimy critter.",
+      "answer":"Slug"
+   },
+   {
+      "id":"1141",
+      "question":"What can't you see, hear or feel, until it's too late. What shadows love, and shopkeepers hate?",
+      "answer":"Thief"
+   },
+   {
+      "id":"1142",
+      "question":"What do people want the least on their hands?",
+      "answer":"Handcuffs"
+   },
+   {
+      "id":"1143",
+      "question":"I am a type of weapon for SCI-FI characters. What am I?",
+      "answer":"Laser"
+   },
+   {
+      "id":"1144",
+      "question":"This dish consists of a rolled tortilla with a filling typically of beef or chicken and served with a chili sauce.",
+      "answer":"Enchelada"
+   },
+   {
+      "id":"1145",
+      "question":"When they are caught, they are thrown away.When they escape, you itch all day.",
+      "answer":"Fleas"
+   },
+   {
+      "id":"1146",
+      "question":"I am the minerals vital for your good health. What am I?",
+      "answer":"Vitamin"
+   },
+   {
+      "id":"1147",
+      "question":"This is the drinkable phase of matter.",
+      "answer":"Liquid"
+   },
+   {
+      "id":"1148",
+      "question":"Many people own a copy of me. Without me the world would fall. What am I?",
+      "answer":"Atlas"
+   },
+   {
+      "id":"1149",
+      "question":"Cut the wrong wire and it goes boom.",
+      "answer":"Bomb"
+   }
+]

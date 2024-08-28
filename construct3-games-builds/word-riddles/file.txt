@@ -1,0 +1,35 @@
+https://www.facebook.com/embed/instantgames/605432373818032/player?game_url=https://localhost:8080
+App ID - 605432373818032
+Interstitial Ads ID
+605432373818032_605443360483600
+
+Reward Ad ID
+605432373818032_605443723816897
+
+
+
+1. Install the http-server package via npm. If you don't have npm installed, follow the install instructions on the Node.JS website. After that, run the following command:
+> $ npm install -g http-server
+2. Create a private key and a certificate via openssl. This is necessary to run the secure local server.
+> $ cd path/to/my/game/
+> $ openssl genrsa 2048 > key.pem
+> $ openssl req -x509 -days 1000 -new -key key.pem -out cert.pem
+# Fill out necessary information
+3. Run the game from localhost with SSL. Once the key and certificate are ready, you can serve from localhost using SSL.
+# Starts to serve via HTTPS, with cache disabled
+> $ http-server --ssl -c-1 -p 8080 -a 127.0.0.1 
+Starting up http-server, serving ./ through https
+Available on:
+https://127.0.0.1:8080
+Hit CTRL-C to stop the server
+4. After this, pointing your browser to https://localhost:8080 should show you the game running.
+Note: You must try to access it at least once, as you might need to approve a security warning from your browser before continuing. If that is the case and you skip this step, your game will not load.
+
+Running the embedded player from your browser
+Now that the game is being served from localhost via a secure connection, you can embed it in our player. Point your browser here:
+
+https://www.facebook.com/embed/instantgames/YOUR_GAME_ID/player?game_url=https://localhost:8080
+
+
+MACBOOK :
+sendCommand(SecurityInterstitialCommandId.CMD_PROCEED) to proceed unsecure https ssl

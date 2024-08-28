@@ -1,0 +1,14 @@
+{
+	"teams":[
+		{
+			"players":[{"name":"Kartik", "color":"pink", "team":1, "tankSkin":"" }]
+		},
+		{
+		"players": [{"name":"Bot", "color":"red", "team":2, "tankSkin":"" }]
+		}
+	],
+	
+	"Difficulties":[1,2,3]
+	
+}
+

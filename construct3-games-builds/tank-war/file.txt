@@ -1,0 +1,11 @@
+1. admob
+2. how to play
+3. coin
+4. revive
+5. star system based on health remaining
+--------------------------------------
+full health = 3 stars
+50% health = 2 stars
+health<50  = 1 star
+1 star = 100 coins
+
