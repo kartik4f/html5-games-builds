@@ -1,0 +1,125 @@
+[
+  {
+    "question": "Pergunta: O que é a luz?",
+    "options": [
+      { "option": "Uma forma de som", "isCorrect": false },
+      { "option": "Uma partícula sólida", "isCorrect": false },
+      { "option": "Uma onda eletromagnética", "isCorrect": true },
+      { "option": "Uma força gravitacional", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual é a velocidade da luz no vácuo?",
+    "options": [
+      { "option": "300.000 km/s", "isCorrect": true },
+      { "option": "150.000 km/s", "isCorrect": false },
+      { "option": "450.000 km/s", "isCorrect": false },
+      { "option": "600.000 km/s", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual fenômeno ocorre quando a luz passa de um meio para outro e muda de direção?",
+    "options": [
+      { "option": "Reflexão", "isCorrect": false },
+      { "option": "Refração", "isCorrect": true },
+      { "option": "Difração", "isCorrect": false },
+      { "option": "Polarização", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "O que é difração?",
+    "options": [
+      {
+        "option": "A separação da luz em cores diferentes",
+        "isCorrect": false
+      },
+      {
+        "option": "A curvatura da luz ao passar por uma borda",
+        "isCorrect": true
+      },
+      { "option": "A reflexão da luz em um espelho", "isCorrect": false },
+      { "option": "A absorção da luz por um material", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual fenômeno explica a separação da luz branca em um espectro de cores ao passar por um prisma?",
+    "options": [
+      { "option": "Difração", "isCorrect": false },
+      { "option": "Interferência", "isCorrect": false },
+      { "option": "Dispersão", "isCorrect": true },
+      { "option": "Reflexão", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual é o fenômeno em que as ondas de luz se sobrepõem, criando padrões de luz e sombra?",
+    "options": [
+      { "option": "Interferência", "isCorrect": true },
+      { "option": "Refração", "isCorrect": false },
+      { "option": "Difração", "isCorrect": false },
+      { "option": "Reflexão", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual é o nome do fenômeno em que a luz muda de direção ao passar através de uma fenda ou ao contornar um obstáculo?",
+    "options": [
+      { "option": "Refração", "isCorrect": false },
+      { "option": "Difração", "isCorrect": true },
+      { "option": "Reflexão", "isCorrect": false },
+      { "option": "Dispersão", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual é o fenômeno que explica por que o céu é azul?",
+    "options": [
+      { "option": "Refração", "isCorrect": false },
+      { "option": "Dispersão de Rayleigh", "isCorrect": true },
+      { "option": "Interferência", "isCorrect": false },
+      { "option": "Reflexão", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "O que ocorre durante o fenômeno da polarização da luz?",
+    "options": [
+      {
+        "option": "A luz é separada em suas cores componentes",
+        "isCorrect": false
+      },
+      {
+        "option": "A direção de oscilação da luz é restrita",
+        "isCorrect": true
+      },
+      { "option": "A luz é refletida em um espelho", "isCorrect": false },
+      { "option": "A velocidade da luz aumenta", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual aplicação da luz utiliza o fenômeno da refração para corrigir problemas de visão?",
+    "options": [
+      { "option": "Lentes de óculos", "isCorrect": true },
+      { "option": "Fibra óptica", "isCorrect": false },
+      { "option": "Laser", "isCorrect": false },
+      { "option": "Telescópio", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "QQual fenômeno é responsável pela formação de arcoíris?",
+    "options": [
+      { "option": "Reflexão", "isCorrect": false },
+      { "option": "Refração", "isCorrect": false },
+      { "option": "Difração", "isCorrect": false },
+      { "option": "Dispersão", "isCorrect": true }
+    ]
+  },
+  {
+    "question": "O que é um laser?",
+    "options": [
+      {
+        "option": "Uma fonte de luz coerente e monocromática",
+        "isCorrect": true
+      },
+      { "option": "Uma onda de som amplificada", "isCorrect": false },
+      { "option": "Uma partícula carregada", "isCorrect": false },
+      { "option": "Um campo magnético forte", "isCorrect": false }
+    ]
+  }
+]
