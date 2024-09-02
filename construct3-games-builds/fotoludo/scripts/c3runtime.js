@@ -5115,7 +5115,7 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => and(".", v0.GetValue());
 		},
-		() => 0.15,
+		() => 0.2,
 		() => "Touch Events",
 		p => {
 			const n0 = p._GetNode(0);
@@ -5130,6 +5130,7 @@ self.C3_ExpressionFuncs = [
 		() => 1,
 		() => "",
 		() => 1770,
+		() => 0.15,
 		() => 100,
 		() => "Functions",
 		p => {
@@ -5216,7 +5217,7 @@ self.C3_ExpressionFuncs = [
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => (v0.GetValue() * 2.5);
+			return () => (v0.GetValue() * 0.8);
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -5230,7 +5231,7 @@ self.C3_ExpressionFuncs = [
 			const n1 = p._GetNode(1);
 			return () => (f0(0) - (n1.ExpObject() / 2));
 		},
-		() => 1.05,
+		() => 1.55,
 		() => "Roll",
 		() => 15,
 		p => {
@@ -5241,7 +5242,12 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => f0(1, 2, 3, 1.3, 1.2, 2.5, 3.3, 2.1);
 		},
+		() => 1.5,
 		() => "Idle",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (v0.GetValue() * 3);
+		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() * 4);
@@ -5251,7 +5257,7 @@ self.C3_ExpressionFuncs = [
 			const v1 = p._GetNode(1).GetVar();
 			return () => (v0.GetValue() - v1.GetValue());
 		},
-		() => 665,
+		() => 460,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() * 2);
