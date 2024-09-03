@@ -4928,6 +4928,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Exps.Height,
 		C3.Plugins.Sprite.Acts.SetOpacity,
 		C3.Plugins.System.Exps.viewportbottom,
+		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.System.Cnds.CompareVar,
 		C3.Plugins.AJAX.Acts.RequestFile,
 		C3.Plugins.System.Cnds.Else,
@@ -4936,7 +4937,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Cnds.IsOverlapping,
 		C3.Plugins.Sprite.Acts.AddChild,
 		C3.Plugins.AJAX.Cnds.OnComplete,
-		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.Json.Acts.Parse,
 		C3.Plugins.AJAX.Exps.LastData,
 		C3.Plugins.System.Cnds.IsGroupActive,
@@ -4957,6 +4957,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.CreateObject,
 		C3.Plugins.Particles.Acts.SetAngle,
 		C3.Plugins.System.Exps.viewportright,
+		C3.Plugins.Audio.Acts.Play,
 		C3.Plugins.System.Acts.Wait,
 		C3.Plugins.System.Acts.GoToLayout,
 		C3.Plugins.Sprite.Cnds.OnCreated,
@@ -4968,12 +4969,10 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Exps.viewportmidx,
 		C3.Plugins.System.Acts.WaitForPreviousActions,
 		C3.Plugins.Touch.Cnds.OnTapGestureObject,
-		C3.Plugins.Audio.Acts.Play,
 		C3.Plugins.Sprite.Exps.UID,
 		C3.Plugins.System.Cnds.PickAll,
 		C3.Plugins.System.Cnds.PickByEvaluate,
 		C3.Plugins.Sprite.Acts.SetSize,
-		C3.Plugins.Audio.Cnds.IsTagPlaying,
 		C3.Plugins.Sprite.Acts.SetScale,
 		C3.Plugins.Sprite.Acts.SetAnim,
 		C3.Plugins.Sprite.Acts.SetAnimSpeed,
@@ -5027,6 +5026,7 @@ self.C3_JsPropNameTable = [
 	{score: 0},
 	{isQuestionsLoaded: 0},
 	{attemptedQuestionsIndeces: 0},
+	{won: 0},
 	{qID: 0},
 	{tt: 0},
 	{tween_time: 0},
@@ -5265,6 +5265,10 @@ self.C3_ExpressionFuncs = [
 		() => 2,
 		() => 50,
 		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (2 + v0.GetValue());
+		},
+		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const n1 = p._GetNode(1);
 			return () => f0(n1.ExpObject());
@@ -5285,10 +5289,15 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() * 0.8);
 		},
+		() => "swish",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
 			return () => (v0.GetValue() + v1.GetValue());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (v0.GetValue() * 2);
 		},
 		() => 162,
 		() => 0.5,
@@ -5307,8 +5316,6 @@ self.C3_ExpressionFuncs = [
 			const n1 = p._GetNode(1);
 			return () => (f0(0) - (n1.ExpObject() / 2));
 		},
-		() => "bgm",
-		() => -25,
 		() => 1.55,
 		() => "Roll",
 		() => 15,
@@ -5324,10 +5331,6 @@ self.C3_ExpressionFuncs = [
 		() => "Idle",
 		p => {
 			const v0 = p._GetNode(0).GetVar();
-			return () => (v0.GetValue() * 3);
-		},
-		p => {
-			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() * 4);
 		},
 		p => {
@@ -5336,10 +5339,6 @@ self.C3_ExpressionFuncs = [
 			return () => (v0.GetValue() - v1.GetValue());
 		},
 		() => 460,
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => (v0.GetValue() * 2);
-		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() * 1.2);
