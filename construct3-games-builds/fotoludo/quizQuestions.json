@@ -121,5 +121,168 @@
       { "option": "Uma partícula carregada", "isCorrect": false },
       { "option": "Um campo magnético forte", "isCorrect": false }
     ]
+  },
+  {
+    "question": "O que ocorre com a luz quando ela é absorvida por um material?",
+    "options": [
+      {
+        "option": "Ela é refletida",
+        "isCorrect": false
+      },
+      { "option": "Ela é refratada", "isCorrect": false },
+      { "option": "Ela é transformada em calor", "isCorrect": true },
+      { "option": "Ela continua a se mover sem alteração", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual fenômeno é utilizado em óculos de sol para reduzir o brilho?",
+    "options": [
+      {
+        "option": "Polarização",
+        "isCorrect": true
+      },
+      { "option": "Refração", "isCorrect": false },
+      { "option": "Dispersão", "isCorrect": false },
+      { "option": "Difração", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual é o princípio básico da fibra óptica?",
+    "options": [
+      { "option": "Reflexão interna total", "isCorrect": true },
+      { "option": "Refração parcial", "isCorrect": false },
+      { "option": "Difração", "isCorrect": false },
+      { "option": "Polarização", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "O que ocorre quando a luz passa por uma fenda estreita?",
+    "options": [
+      { "option": "Ela se refrata", "isCorrect": false },
+      { "option": "Ela se difrata", "isCorrect": true },
+      { "option": "Ela se polariza", "isCorrect": false },
+      { "option": "Ela se dispersa", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual fenômeno óptico é responsável por ilusões como miragens?",
+    "options": [
+      { "option": "Refração", "isCorrect": true },
+      { "option": "Reflexão", "isCorrect": false },
+      { "option": "Difração", "isCorrect": false },
+      { "option": "Interferência", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual tecnologia depende da reflexão da luz para visualizar objetos a grandes distâncias?",
+    "options": [
+      { "option": "Telescópio", "isCorrect": true },
+      { "option": "Microscópio", "isCorrect": false },
+      { "option": "Câmera", "isCorrect": false },
+      { "option": "Espelho", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "O que é uma onda eletromagnética?",
+    "options": [
+      {
+        "option": "Uma onda que se propaga através de materiais sólidos",
+        "isCorrect": false
+      },
+      {
+        "option": "Uma onda que transporta energia sem necessidade de um meio material",
+        "isCorrect": true
+      },
+      { "option": "Uma onda de pressão", "isCorrect": false },
+      { "option": "Uma onda estacionária", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual fenômeno é explorado em holografia?",
+    "options": [
+      { "option": "Difração e interferência", "isCorrect": true },
+      { "option": "Reflexão e refração", "isCorrect": false },
+      { "option": "Polarização e dispersão", "isCorrect": false },
+      { "option": "Refração e difração", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual é a propriedade da luz que permite a criação de sombras?",
+    "options": [
+      { "option": "Propagação retilínea", "isCorrect": true },
+      { "option": "Refração", "isCorrect": false },
+      { "option": "Difração", "isCorrect": false },
+      { "option": "Dispersão", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual é o princípio por trás da formação de imagens em espelhos planos?",
+    "options": [
+      { "option": "Reflexão regular", "isCorrect": true },
+      { "option": "Reflexão difusa", "isCorrect": false },
+      { "option": "Refração", "isCorrect": false },
+      { "option": "Difração", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "O que é a velocidade da luz em um meio diferente do vácuo?",
+    "options": [
+      { "option": "Sempre menor que no vácuo", "isCorrect": true },
+      { "option": "Sempre igual ao vácuo", "isCorrect": false },
+      { "option": "Sempre maior que no vácuo", "isCorrect": false },
+      {
+        "option": "Pode ser maior ou menor, dependendo do meio",
+        "isCorrect": false
+      }
+    ]
+  },
+
+  {
+    "question": "O que é um prisma óptico?",
+    "options": [
+      {
+        "option": "Um dispositivo que separa a luz em suas cores componentes",
+        "isCorrect": true
+      },
+      { "option": "Um dispositivo que polariza a luz", "isCorrect": false },
+      { "option": "Um dispositivo que absorve a luz", "isCorrect": false },
+      { "option": "Um dispositivo que amplifica a luz", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual fenômeno óptico é usado para aumentar a resolução em microscópios ópticos?",
+    "options": [
+      { "option": "Imersão em óleo", "isCorrect": true },
+      { "option": "Refração", "isCorrect": false },
+      { "option": "Reflexão", "isCorrect": false },
+      { "option": "Dispersão", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "O que é a dispersão da luz?",
+    "options": [
+      { "option": "Separação da luz em diferentes cores", "isCorrect": true },
+      { "option": "Reflexão da luz em uma superfície", "isCorrect": false },
+      { "option": "Absorção da luz por um material", "isCorrect": false },
+      { "option": "Polarização da luz", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual é a principal função dos filtros polarizadores em fotografia?",
+    "options": [
+      { "option": "Reduzir reflexos e brilho", "isCorrect": true },
+      { "option": "Aumentar a saturação das cores", "isCorrect": false },
+      { "option": "Aumentar a nitidez", "isCorrect": false },
+      { "option": "Ampliar a imagem", "isCorrect": false }
+    ]
+  },
+  {
+    "question": "Qual fenômeno é utilizado para estudar as propriedades da luz e das superfícies?",
+    "options": [
+      { "option": "Reflexão", "isCorrect": false },
+      { "option": "Interferometria", "isCorrect": true },
+      { "option": "Difração", "isCorrect": false },
+      { "option": "Polarização", "isCorrect": false }
+    ]
   }
 ]
