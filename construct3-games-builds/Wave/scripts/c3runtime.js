@@ -4864,7 +4864,6 @@ self.C3_ExpressionFuncs = [
 			const n3 = p._GetNode(3);
 			return () => C3.clamp((n0.ExpObject() + (f1() * 40)), n2.ExpInstVar(), n3.ExpInstVar());
 		},
-		() => 1.8,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const f1 = p._GetNode(1).GetBoundMethod();
@@ -4874,6 +4873,8 @@ self.C3_ExpressionFuncs = [
 		() => 0.5,
 		() => "",
 		() => 1,
+		() => 5,
+		() => 16757504,
 		p => {
 			const n0 = p._GetNode(0);
 			return () => (n0.ExpObject() - 5);
