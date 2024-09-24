@@ -4829,6 +4829,7 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject();
 		},
+		() => 0,
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => and("Score: ", v0.GetValue());
@@ -4839,7 +4840,6 @@ self.C3_ExpressionFuncs = [
 			return () => f0(0);
 		},
 		() => "Layer 1",
-		() => 0,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => and("Obstacle", f0(1, 2));
