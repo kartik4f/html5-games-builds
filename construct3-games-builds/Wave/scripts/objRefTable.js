@@ -10,11 +10,6 @@ self.C3_GetObjectRefTable = function () {
 		C3.Behaviors.Tween,
 		C3.Behaviors.Rotate,
 		C3.Plugins.System.Cnds.OnLayoutStart,
-		C3.Plugins.System.Exps.choose,
-		C3.Plugins.System.Exps.random,
-		C3.Plugins.System.Exps.viewportleft,
-		C3.Plugins.System.Exps.viewportright,
-		C3.Plugins.System.Exps.viewporttop,
 		C3.Plugins.System.Acts.SetVar,
 		C3.Plugins.Sprite.Exps.Y,
 		C3.Plugins.Text.Acts.SetText,
@@ -24,12 +19,15 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Acts.SetLayerVisible,
 		C3.Plugins.System.Acts.SetLayerInteractive,
 		C3.Plugins.System.Acts.SetBoolVar,
-		C3.Plugins.System.Cnds.CompareVar,
-		C3.Plugins.System.Acts.CreateObjectByName,
-		C3.Plugins.System.Cnds.Else,
+		C3.Plugins.System.Exps.viewporttop,
+		C3.Plugins.System.Exps.choose,
 		C3.Plugins.Touch.Cnds.IsInTouch,
+		C3.Plugins.System.Cnds.CompareVar,
 		C3.Plugins.Sprite.Acts.SetY,
 		C3.Plugins.System.Exps.dt,
+		C3.Plugins.System.Cnds.PickLastCreated,
+		C3.Plugins.System.Cnds.Compare,
+		C3.Plugins.System.Exps.random,
 		C3.Plugins.System.Cnds.Every,
 		C3.Plugins.System.Cnds.CompareBoolVar,
 		C3.Plugins.Sprite.Cnds.OnCreated,
@@ -45,6 +43,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.Destroy,
 		C3.Plugins.System.Acts.AddVar,
 		C3.Plugins.Touch.Cnds.OnTapGestureObject,
+		C3.Plugins.System.Acts.ResetGlobals,
 		C3.Plugins.System.Acts.RestartLayout,
 		C3.Behaviors.Sin.Cnds.IsEnabled,
 		C3.Plugins.Sprite.Acts.Spawn,
@@ -52,7 +51,9 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Acts.SetSize,
 		C3.Plugins.Sprite.Exps.Width,
 		C3.Plugins.Sprite.Exps.Height,
-		C3.Behaviors.Tween.Acts.TweenTwoProperties
+		C3.Behaviors.Tween.Acts.TweenTwoProperties,
+		C3.Plugins.System.Acts.CreateObjectByName,
+		C3.Plugins.System.Cnds.Else
 	];
 };
 self.C3_JsPropNameTable = [
@@ -61,6 +62,7 @@ self.C3_JsPropNameTable = [
 	{Sine: 0},
 	{Player: 0},
 	{Type: 0},
+	{DistanceCovered: 0},
 	{Obstacle3: 0},
 	{Collectible1: 0},
 	{Obstacle2: 0},
@@ -79,12 +81,11 @@ self.C3_JsPropNameTable = [
 	{Collactibles: 0},
 	{ObstaclesScrollingSpeed: 0},
 	{canScroll: 0},
+	{isFirstTime: 0},
 	{PlayerY: 0},
+	{LastObstacleDistanceCovered: 0},
 	{Score: 0},
-	{type: 0},
-	{x: 0},
 	{y: 0},
-	{count: 0},
 	{combination: 0}
 ];
 

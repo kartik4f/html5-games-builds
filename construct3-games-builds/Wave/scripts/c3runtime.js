@@ -4805,27 +4805,6 @@ function or(l, r)
 
 self.C3_ExpressionFuncs = [
 		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(1, 2, 3);
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			const f1 = p._GetNode(1).GetBoundMethod();
-			const f2 = p._GetNode(2).GetBoundMethod();
-			return () => f0((f1(0) + 200), (f2(0) - 200));
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			const f1 = p._GetNode(1).GetBoundMethod();
-			const f2 = p._GetNode(2).GetBoundMethod();
-			return () => f0(f1(0), (f2(0) - 100));
-		},
-		() => 1,
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => f0(1, 2, 3, 4);
-		},
-		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject();
 		},
@@ -4842,17 +4821,75 @@ self.C3_ExpressionFuncs = [
 		() => "Layer 1",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => (f0(0) - 100);
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0(1, 2, 3, 4);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			const v2 = p._GetNode(2).GetVar();
+			return () => (n0.ExpObject() + (f1() * v2.GetValue()));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			const n2 = p._GetNode(2);
+			const n3 = p._GetNode(3);
+			return () => C3.clamp((n0.ExpObject() - (f1() * 40)), n2.ExpInstVar(), n3.ExpInstVar());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const f1 = p._GetNode(1).GetBoundMethod();
+			return () => C3.clamp((v0.GetValue() + (f1() * 100)), 400, 1000);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const n1 = p._GetNode(1);
+			return () => (n0.ExpObject() - n1.ExpInstVar_Family());
+		},
+		() => 600,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const f1 = p._GetNode(1).GetBoundMethod();
+			const f2 = p._GetNode(2).GetBoundMethod();
+			return () => f0((f1(0) - 100), f2(0));
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const f1 = p._GetNode(1).GetBoundMethod();
+			const n2 = p._GetNode(2);
+			const n3 = p._GetNode(3);
+			return () => C3.clamp((n0.ExpObject() + (f1() * 40)), n2.ExpInstVar(), n3.ExpInstVar());
+		},
+		() => 1.8,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			const f1 = p._GetNode(1).GetBoundMethod();
+			const n2 = p._GetNode(2);
+			return () => f0(f1(n2.ExpObject(), 1));
+		},
+		() => 0.5,
+		() => "",
+		() => 1,
+		p => {
+			const n0 = p._GetNode(0);
+			return () => (n0.ExpObject() - 5);
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => v0.GetValue();
+		},
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => and("Obstacle", f0(1, 2));
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (f0(0) - 160);
 		},
-		p => {
-			const v0 = p._GetNode(0).GetVar();
-			return () => v0.GetValue();
-		},
-		() => "",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (f0(0) + 160);
@@ -4871,43 +4908,6 @@ self.C3_ExpressionFuncs = [
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (v0.GetValue() - 300);
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const f1 = p._GetNode(1).GetBoundMethod();
-			const v2 = p._GetNode(2).GetVar();
-			return () => (n0.ExpObject() + (f1() * v2.GetValue()));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const f1 = p._GetNode(1).GetBoundMethod();
-			const n2 = p._GetNode(2);
-			const n3 = p._GetNode(3);
-			return () => C3.clamp((n0.ExpObject() - (f1() * 40)), n2.ExpInstVar(), n3.ExpInstVar());
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const f1 = p._GetNode(1).GetBoundMethod();
-			const n2 = p._GetNode(2);
-			const n3 = p._GetNode(3);
-			return () => C3.clamp((n0.ExpObject() + (f1() * 40)), n2.ExpInstVar(), n3.ExpInstVar());
-		},
-		() => 1.8,
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			const f1 = p._GetNode(1).GetBoundMethod();
-			return () => add(f0(0), multiply(f1((-1), 0, 1), 150));
-		},
-		p => {
-			const f0 = p._GetNode(0).GetBoundMethod();
-			const f1 = p._GetNode(1).GetBoundMethod();
-			const n2 = p._GetNode(2);
-			return () => f0(f1(n2.ExpObject(), 1));
-		},
-		() => 0.5,
-		p => {
-			const n0 = p._GetNode(0);
-			return () => (n0.ExpObject() - 5);
 		}
 ];
 
