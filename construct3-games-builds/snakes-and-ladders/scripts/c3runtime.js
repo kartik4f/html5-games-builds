@@ -5115,13 +5115,17 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
 			const v2 = p._GetNode(2).GetVar();
-			return () => f0(v1.GetValue(), v2.GetValue());
+			const f3 = p._GetNode(3).GetBoundMethod();
+			const v4 = p._GetNode(4).GetVar();
+			const v5 = p._GetNode(5).GetVar();
+			return () => (f0(v1.GetValue(), v2.GetValue()) + f3(v4.GetValue(), v5.GetValue()));
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			const v1 = p._GetNode(1).GetVar();
-			return () => and((and("start: ", v0.GetValue()) + "end: "), v1.GetValue());
+			return () => and((and("fill ladder array with -  start: ", v0.GetValue()) + ", end: "), v1.GetValue());
 		},
+		() => "Ladder arra filled ...................",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => Math.floor(f0(11, 100));
@@ -5133,8 +5137,32 @@ self.C3_ExpressionFuncs = [
 			return () => Math.floor(f0(2, ((v1.GetValue() - (v2.GetValue() % 10)) + 1)));
 		},
 		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			return () => and((and("fill snake array with -  start: ", v0.GetValue()) + ", end: "), v1.GetValue());
+		},
+		() => "Snake array filled ...................",
+		p => {
 			const n0 = p._GetNode(0);
 			return () => n0.ExpObject();
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			return () => and((and("ArrayLadder(", v0.GetValue()) + "): "), n1.ExpObject(v2.GetValue()));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			const v2 = p._GetNode(2).GetVar();
+			return () => and((and((and("returnValue in ladder: ", v0.GetValue()) + "  "), v1.GetValue()) + ","), v2.GetValue());
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const n1 = p._GetNode(1);
+			const v2 = p._GetNode(2).GetVar();
+			return () => and((and("ArraySnake(", v0.GetValue()) + "): "), n1.ExpObject(v2.GetValue()));
 		},
 		p => {
 			const n0 = p._GetNode(0);
@@ -5145,6 +5173,12 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			const v1 = p._GetNode(1).GetVar();
 			return () => n0.ExpObject((v1.GetValue() + 1));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			const v1 = p._GetNode(1).GetVar();
+			const v2 = p._GetNode(2).GetVar();
+			return () => and((and((and("returnValue in snake: ", v0.GetValue()) + "  "), v1.GetValue()) + ","), v2.GetValue());
 		},
 		p => {
 			const n0 = p._GetNode(0);

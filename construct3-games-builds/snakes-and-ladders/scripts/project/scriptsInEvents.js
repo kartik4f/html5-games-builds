@@ -3,7 +3,7 @@
 
 const scriptsInEvents = {
 
-	async EventSheet1_Event37_Act3(runtime, localVars)
+	async EventSheet1_Event39_Act3(runtime, localVars)
 	{
 		let start_xy = runtime.callFunction('getXYByPos',[runtime.objects.ArrayLadders.getFirstInstance().getAt(localVars.count)]);
 		let end_xy = runtime.callFunction('getXYByPos',[runtime.objects.ArrayLadders.getFirstInstance().getAt(localVars.count+1)])
@@ -16,7 +16,7 @@ const scriptsInEvents = {
 		localVars.endY = endXY[1]
 	},
 
-	async EventSheet1_Event40_Act3(runtime, localVars)
+	async EventSheet1_Event42_Act3(runtime, localVars)
 	{
 		let start_xy = runtime.callFunction('getXYByPos',[runtime.objects.ArraySnakes.getFirstInstance().getAt(localVars.count)]);
 		let end_xy = runtime.callFunction('getXYByPos',[runtime.objects.ArraySnakes.getFirstInstance().getAt(localVars.count+1)])
@@ -29,7 +29,7 @@ const scriptsInEvents = {
 		localVars.endY = endXY[1]
 	},
 
-	async EventSheet1_Event41_Act1(runtime, localVars)
+	async EventSheet1_Event43_Act1(runtime, localVars)
 	{
 		let [x, y] = [0, 0];
 		let ind = localVars.position -1;
@@ -59,7 +59,7 @@ const scriptsInEvents = {
 		runtime.setReturnValue(x+","+y)
 	},
 
-	async EventSheet1_Event59_Act1(runtime, localVars)
+	async EventSheet1_Event61_Act1(runtime, localVars)
 	{
 		const player = runtime.objects.Player.getFirstInstance();
 		const xy = (runtime.callFunction('getXYByPos', [player.instVars.Position])).split(',')
@@ -67,7 +67,7 @@ const scriptsInEvents = {
 		localVars.targetY = xy[1]
 	},
 
-	async EventSheet1_Event62_Act1(runtime, localVars)
+	async EventSheet1_Event64_Act1(runtime, localVars)
 	{
 		const player = runtime.objects.Player.getFirstInstance();
 		const xy = (runtime.callFunction('getXYByPos', [player.instVars.Position])).split(',')
