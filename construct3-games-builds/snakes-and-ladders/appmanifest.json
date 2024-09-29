@@ -1,6 +1,6 @@
 {
-	"name": "snake-and-ladders",
-	"short_name": "snake-and-ladders",
+	"name": "snakes-and-ladders",
+	"short_name": "snakes-and-ladders",
 	"description": "",
 	"start_url": "index.html",
 	"display": "fullscreen",
