@@ -5027,6 +5027,8 @@ self.C3_ExpressionFuncs = [
 		() => "Popup",
 		() => 0,
 		() => 1,
+		() => 10,
+		() => 20,
 		() => 25,
 		() => 0.5,
 		() => "",
@@ -5100,16 +5102,20 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			return () => (43 * v0.GetValue());
 		},
-		() => 10,
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
-			return () => Math.floor(f0(2, (100 - 10)));
+			return () => Math.floor(f0(2, (100 - 9)));
+		},
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (v0.GetValue() % 10);
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
 			const v2 = p._GetNode(2).GetVar();
-			return () => Math.floor(f0((((v1.GetValue() + 10) - (v2.GetValue() % 10)) + 1), 100));
+			const v3 = p._GetNode(3).GetVar();
+			return () => Math.floor(f0((v1.GetValue() + ((((v2.GetValue()) === (0) ? 1 : 0)) ? (1) : ((11 - v3.GetValue())))), 100));
 		},
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
@@ -5134,7 +5140,8 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const v1 = p._GetNode(1).GetVar();
 			const v2 = p._GetNode(2).GetVar();
-			return () => Math.floor(f0(2, ((v1.GetValue() - (v2.GetValue() % 10)) + 1)));
+			const v3 = p._GetNode(3).GetVar();
+			return () => Math.floor(f0(2, (v1.GetValue() - ((((v2.GetValue()) === (0) ? 1 : 0)) ? (10) : ((v3.GetValue() + 1))))));
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -5162,17 +5169,10 @@ self.C3_ExpressionFuncs = [
 			const v0 = p._GetNode(0).GetVar();
 			const n1 = p._GetNode(1);
 			const v2 = p._GetNode(2).GetVar();
-			return () => and((and("ArraySnake(", v0.GetValue()) + "): "), n1.ExpObject(v2.GetValue()));
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const v1 = p._GetNode(1).GetVar();
-			return () => n0.ExpObject(v1.GetValue());
-		},
-		p => {
-			const n0 = p._GetNode(0);
-			const v1 = p._GetNode(1).GetVar();
-			return () => n0.ExpObject((v1.GetValue() + 1));
+			const v3 = p._GetNode(3).GetVar();
+			const n4 = p._GetNode(4);
+			const v5 = p._GetNode(5).GetVar();
+			return () => and((and(((and((and("ArraySnake(", v0.GetValue()) + "): "), n1.ExpObject(v2.GetValue())) + "\n") + "ArraySnake("), (v3.GetValue() + 1)) + "): "), n4.ExpObject((v5.GetValue() + 1)));
 		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
@@ -5222,9 +5222,13 @@ self.C3_ExpressionFuncs = [
 			const n0 = p._GetNode(0);
 			return () => n0.ExpInstVar();
 		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject((v1.GetValue() + 1));
+		},
 		() => "uhoh",
 		() => "uhohSound",
-		() => 20,
 		() => 0.1,
 		() => "sparkle",
 		() => "sparkleSound",
@@ -5235,6 +5239,11 @@ self.C3_ExpressionFuncs = [
 			const f0 = p._GetNode(0).GetBoundMethod();
 			const f1 = p._GetNode(1).GetBoundMethod();
 			return () => (((f0() + f1())) > (0) ? 1 : 0);
+		},
+		p => {
+			const n0 = p._GetNode(0);
+			const v1 = p._GetNode(1).GetVar();
+			return () => n0.ExpObject(v1.GetValue());
 		},
 		p => {
 			const n0 = p._GetNode(0);
