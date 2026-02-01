@@ -204,7 +204,7 @@
             }));
 
 
-            const finalUrl = window.location.origin == 'http://127.0.0.1:5500' ? `http://127.0.0.1:5500/index.html?data=${encoded}` : `${window.location.origin}/valentine-game/index.html?data=${encoded}`;
+            let finalUrl = window.location.origin == 'http://127.0.0.1:5500' ? `http://127.0.0.1:5500/index.html?data=${encoded}` : `${window.location.href.replace('form.html', 'index.html')} ? data = ${encoded}`;
 
             const resultDiv = document.getElementById('result-link');
             resultDiv.style.display = 'block';
