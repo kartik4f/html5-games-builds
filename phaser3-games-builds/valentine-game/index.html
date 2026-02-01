@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Heartbeat Hero - The Proposal</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser-arcade-physics.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        body {
+            margin: 0;
+            background: #ffeef2;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        /* The "Girl" Character UI */
+        #girl-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: center;
+            z-index: 5;
+        }
+
+        #girl-avatar {
+            font-size: 80px;
+            transition: transform 0.3s;
+            /* margin: 10px; */
+            /* transform: translateY(10px); */
+        }
+
+        #meter-container {
+            width: 150px;
+            height: 20px;
+            background: #ddd;
+            border-radius: 10px;
+            border: 3px solid #ff4d6d;
+            overflow: hidden;
+            margin: 10px;
+        }
+
+        #meter-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff4d6d, #ff85a1);
+            transition: width 0.3s;
+        }
+
+        #overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            border: 8px solid #ff4d6d;
+            text-align: center;
+            display: none;
+            z-index: 100;
+            width: 350px;
+            box-shadow: 0 0 50px rgba(255, 77, 109, 0.5);
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #yes-btn {
+            background: #ff4d6d;
+            color: white;
+        }
+
+        #no-btn {
+            background: #eee;
+            color: #777;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="girl-container">
+        <div id="girl-avatar">👧</div>
+        <div id="meter-container">
+            <div id="meter-fill"></div>
+        </div>
+        <p style="color: #ff4d6d; font-weight: bold;">Love Meter</p>
+    </div>
+
+    <div id="overlay">
+        <h2 id='title' style="font-family: 'Pacifico'; color: #ff4d6d;">My Heart is Yours!</h2>
+        <p>You've filled my heart to the bursting point... <br>Will you marry me?</p>
+        <div style="display:flex; justify-content: space-around; margin-top:20px;">
+            <button id="yes-btn" onclick="celebrate()">YES!</button>
+            <button id="no-btn" onmouseover="dodge()">No</button>
+        </div>
+    </div>
+
+    <script>
+        let loverData = '';
+        window.onload = () => {
+            // get the name from encoded URL params
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('data')) {
+                const decoded = atob(params.get('data'));
+                const data = JSON.parse(decoded);
+                data.start_emoji = decodeURIComponent(data.start_emoji);
+                data.end_emoji = decodeURIComponent(data.end_emoji);
+                name = data.lover_name || '';
+                loverData = data;
+                decodeURIComponent(loverData.start_emoji)
+                document.getElementById('girl-avatar').innerText = data.start_emoji || '👧';
+
+            }
+        }
+        const config = {
+            type: Phaser.AUTO,
+            width: 800, height: 600,
+            backgroundColor: '#fff5f7',
+            physics: { default: 'arcade', arcade: { gravity: { y: 200 } } },
+            scene: { preload: preload, create: create, update: update }
+        };
+
+        let game = new Phaser.Game(config);
+        let player, items, score = 0, maxScore = 10;
+
+        function preload() {
+            // Draw a realistic-ish 3D heart (with gradients/shading)
+            let graphics = this.make.graphics({ x: 0, y: 0, add: false });
+            graphics.fillStyle(0xff4d6d, 1);
+            graphics.fillCircle(10, 10, 10);
+            graphics.fillCircle(25, 10, 10);
+            graphics.fillTriangle(2, 15, 33, 15, 17.5, 35);
+            // Add a "highlight" for 3D effect
+            graphics.fillStyle(0xffffff, 0.3);
+            graphics.fillCircle(10, 8, 3);
+            graphics.generateTexture('heart', 35, 40);
+            // this.add.sound('Heartbeat',)
+        }
+
+        function create() {
+            // Player (The Heart Paddle)
+            player = this.add.image(400, 550, 'heart').setScale(2);
+            this.physics.add.existing(player);
+            player.body.setAllowGravity(false);
+
+            // BEATING EFFECT: Constant pulse
+            this.tweens.add({
+                targets: player,
+                scale: 2.3,
+                duration: 400,
+                yoyo: true,
+                repeat: -1,
+                ease: 'Back.easeInOut'
+            });
+
+            items = this.physics.add.group();
+
+            this.time.addEvent({
+                delay: 1000,
+                callback: () => {
+                    let x = Phaser.Math.Between(50, 750);
+                    let h = this.add.image(x, -50, 'heart').setTint(0xff85a1);
+                    this.physics.add.existing(h);
+                    items.add(h);
+                },
+                loop: true
+            });
+
+            this.physics.add.overlap(player, items, (p, h) => {
+                h.destroy();
+                score++;
+                updateUI();
+
+                // "Catch Feedback": Pulse the player heart even bigger briefly
+                this.tweens.add({
+                    targets: player,
+                    scale: 3,
+                    duration: 100,
+                    yoyo: true
+                });
+
+                if (score >= maxScore) burstAndAsk(this);
+            });
+        }
+
+        function update() {
+            player.x = Phaser.Math.Linear(player.x, this.input.activePointer.x, 0.2);
+        }
+
+        function updateUI() {
+            let percent = (score / maxScore) * 100;
+            document.getElementById('meter-fill').style.width = percent + '%';
+
+            // Change girl's reaction
+            const girl = document.getElementById('girl-avatar');
+            if (score > 3) girl.innerText = "😊";
+            if (score > 7) girl.innerText = "😍";
+            girl.style.transform = `scale(${1 + (score / 15)})`;
+        }
+
+        function burstAndAsk(scene) {
+            scene.physics.pause();
+
+            // BURST ANIMATION
+            scene.tweens.add({
+                targets: player,
+                scale: 15,
+                alpha: 0,
+                duration: 500,
+                onComplete: () => {
+                    // Explode into tiny hearts
+                    const emitter = scene.add.particles(400, 300, 'heart', {
+                        speed: { min: -400, max: 400 },
+                        angle: { min: 0, max: 360 },
+                        scale: { start: 0.5, end: 0 },
+                        lifespan: 2000,
+                        gravityY: 200
+                    });
+                    emitter.explode(100);
+                    document.getElementById('overlay').style.display = 'block';
+                    document.getElementById('title').innerText = loverData.message || ("Will you marry me?, " + loverData.lover_name || "Beloved.");
+                }
+            });
+        }
+
+        function dodge() {
+            const btn = document.getElementById('no-btn');
+            btn.style.left = (Math.random() * 200 - 100) + 'px';
+            btn.style.top = (Math.random() * 200 - 100) + 'px';
+        }
+
+        function celebrate() {
+            document.getElementById('girl-avatar').innerText = loverData.end_emoji || '👰';
+            document.getElementById('overlay').innerHTML = `<h1>❤️ FOREVER YES! ❤️</h1><p>${loverData.lover_name}, You've unlocked: Infinite Happiness!</p>`;
+        }
+    </script>
+
+</body>
+
+</html>

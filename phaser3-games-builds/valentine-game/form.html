@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Valentine Quest - Local Dev Config</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+
+        body {
+            background: #fff5f7;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 40px 0;
+        }
+
+        .form-card {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            border: 4px solid #ff4d6d;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            width: 480px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #ff4d6d;
+            margin-bottom: 25px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            color: #ff4d6d;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ffb6c1;
+            border-radius: 10px;
+            box-sizing: border-box;
+            margin-bottom: 5px;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        .char-count {
+            font-size: 12px;
+            color: #ff85a1;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            background: #fff0f3;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .emoji-option {
+            font-size: 28px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 10px;
+            transition: 0.2s;
+            text-align: center;
+        }
+
+        .emoji-option:hover {
+            background: white;
+        }
+
+        .emoji-option.selected {
+            border: 2px solid #ff4d6d;
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .gen-btn {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 18px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        #result-link {
+            margin-top: 25px;
+            display: none;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 10px;
+            font-size: 11px;
+            color: #666;
+            word-break: break-all;
+            border: 1px dashed #ff4d6d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-card">
+        <h2>Quest Configuration</h2>
+
+        <div class="section">
+            <label>Lover's Name</label>
+            <input type="text" id="loverName" placeholder="Enter her name...">
+
+            <label>Custom Love Message (Max 100 chars)</label>
+            <textarea id="customMessage" maxlength="100" placeholder="e.g. My heart beats in 60fps for you..."
+                oninput="updateCount()"></textarea>
+            <div class="char-count"><span id="currentCount">0</span>/100</div>
+        </div>
+
+        <div class="section">
+            <label>Starting Character</label>
+            <div class="emoji-grid" id="startGrid">
+                <div class="emoji-option selected" onclick="selectEmoji('start', '👧')">👧</div>
+                <div class="emoji-option" onclick="selectEmoji('start', '👩')">👩</div>
+                <div class="emoji-option" onclick="selectEmoji('start', '👸')">👸</div>
+                <div class="emoji-option" onclick="selectEmoji('start', '💃')">💃</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <label>Marriage Reward</label>
+            <div class="emoji-grid" id="targetGrid">
+                <div class="emoji-option selected" onclick="selectEmoji('target', '👰')">👰</div>
+                <div class="emoji-option" onclick="selectEmoji('target', '👰‍♀️')">👰‍♀️</div>
+                <div class="emoji-option" onclick="selectEmoji('target', '💍')">💍</div>
+                <div class="emoji-option" onclick="selectEmoji('target', '💖')">💖</div>
+            </div>
+        </div>
+
+        <button class="gen-btn" onclick="generateLoveLink()">Generate & Copy Local Link</button>
+
+        <div id="result-link"></div>
+    </div>
+
+    <script>
+        let selectedStart = '👧';
+        let selectedTarget = '👰';
+
+        function updateCount() {
+            const text = document.getElementById('customMessage').value;
+            document.getElementById('currentCount').innerText = text.length;
+        }
+
+        function selectEmoji(type, emoji) {
+            const gridId = type === 'start' ? 'startGrid' : 'targetGrid';
+            const options = document.getElementById(gridId).getElementsByClassName('emoji-option');
+            for (let opt of options) {
+                opt.classList.remove('selected');
+                if (opt.innerText === emoji) opt.classList.add('selected');
+            }
+            const encodedEmoji = encodeURIComponent(emoji); // Result: '%F0%9F%91%8D'
+            if (type === 'start') selectedStart = encodedEmoji;
+
+            else selectedTarget = encodedEmoji;
+        }
+
+        function generateLoveLink() {
+            const name = document.getElementById('loverName').value || "Beloved";
+            const msg = document.getElementById('customMessage').value || "Will you marry me?";
+
+            const dataPayload = {
+                lover_name: name,
+                message: msg,
+                start_emoji: selectedStart,
+                end_emoji: selectedTarget,
+                timestamp: new Date().getTime()
+            };
+
+            // Encoding logic to handle UTF-8 characters (like emojis) safely
+            const jsonStr = JSON.stringify(dataPayload);
+            const encoded = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+                return String.fromCharCode('0x' + p1);
+            }));
+
+
+            const finalUrl = window.location.origin == 'http://127.0.0.1:5500' ? `http://127.0.0.1:5500/index.html?data=${encoded}` : `${window.location.origin}/valentine-game/index.html?data=${encoded}`;
+
+            const resultDiv = document.getElementById('result-link');
+            resultDiv.style.display = 'block';
+            resultDiv.innerText = finalUrl;
+
+            navigator.clipboard.writeText(finalUrl);
+            alert("Local Link Generated & Copied!");
+        }
+    </script>
+
+</body>
+
+</html>
