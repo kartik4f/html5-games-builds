@@ -251,14 +251,33 @@
                 this.setupAvatarGrid('proposer-avatars', 'cAvatar', 'Liam');
                 this.setupAvatarGrid('beloved-avatars', 'pAvatar', 'Andrea');
 
-                document.getElementById('genBtn').addEventListener('click', async () => {
+                const handleGeneration = async () => {
                     const data = { cid: document.getElementById('cID').value || "Admirer", n: document.getElementById('pName').value || "Love", av: document.getElementById('pAvatar').value, cav: document.getElementById('cAvatar').value, m: document.getElementById('pMsg').value, gs: document.getElementById('gStyle').value };
                     const url = window.location.origin + window.location.pathname + '?game=' + btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+
+                    // Show link in UI
                     document.getElementById('finalUrl').innerText = url;
                     document.getElementById('shareSection').style.display = 'block';
                     document.getElementById('copyWrapper').onclick = () => { navigator.clipboard.writeText(url); alert("Link secured! ❤️"); };
+
+                    // Trigger Native Share
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({
+                                title: `A Message for ${data.n}`,
+                                text: `I have a romantic missive for you! Play here:`,
+                                url: url
+                            });
+                        } catch (err) { }
+                    } else {
+                        navigator.clipboard.writeText(url);
+                        alert("Link copied to clipboard! ❤️");
+                    }
+
                     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-                });
+                };
+
+                document.getElementById('genBtn').addEventListener('click', handleGeneration);
 
                 document.getElementById('appShareBtn').addEventListener('click', async () => {
                     const appUrl = window.location.origin + window.location.pathname;
@@ -312,12 +331,7 @@
                 this.gameTimer = 0; this.difficultyLevel = 0;
                 this.add.graphics().fillGradientStyle(0xe0d8cc, 0xe0d8cc, 0xf9f6f0, 0xf9f6f0, 1).fillRect(0, 0, 1080, 1920);
 
-                // ADD BRANDING FOOTER TO GAMESCENE
-                this.add.text(540, 1880, BRANDING_TEXT, {
-                    fontFamily: 'Cinzel',
-                    fontSize: '20px',
-                    fill: '#b8860b'
-                }).setOrigin(0.5).setAlpha(0.6).setDepth(5);
+                this.add.text(540, 1880, BRANDING_TEXT, { fontFamily: 'Cinzel', fontSize: '20px', fill: '#b8860b' }).setOrigin(0.5).setAlpha(0.6).setDepth(5);
 
                 if (!this.sys.game.device.input.touch) this.input.setDefaultCursor('pointer');
                 this.input.on('pointerdown', (p) => { this.createTouchEffect(p.x, p.y); });
