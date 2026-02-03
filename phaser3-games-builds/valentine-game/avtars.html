@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Picker</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #fff0f3;
+            border-radius: 20px;
+            padding: 15px;
+            border: 4px solid transparent;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #ff85a1;
+        }
+
+        .card.selected {
+            border-color: #ff4d6d;
+            background: #ffe3e8;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 15px;
+            background: white;
+        }
+
+        .name {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #590d22;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Pick Your Valentine ❤️</h1>
+        <div class="grid" id="mainGrid"></div>
+    </div>
+
+    <script>
+        const characters = [
+            { name: 'Andrea', seed: 'Andrea', style: 'adventurer' },
+            { name: 'Liam', seed: 'Liam', style: 'adventurer' },
+            { name: 'Sarah', seed: 'Sarah', style: 'adventurer' },
+            { name: 'Oliver', seed: 'Oliver', style: 'adventurer' },
+            { name: 'Emma', seed: 'Emma', style: 'big-ears' },
+            { name: 'Jack', seed: 'Jack', style: 'big-ears' }
+        ];
+
+        const grid = document.getElementById('mainGrid');
+
+        characters.forEach(char => {
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.onclick = () => {
+                document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+                div.classList.add('selected');
+            };
+
+            const img = document.createElement('img');
+            // Using 'Adventurer' and 'Big-Ears' for high-color depth and detailed faces
+            // Adding a warm background color directly to the SVG
+            img.src = `https://api.dicebear.com/7.x/${char.style}/svg?seed=${char.seed}&backgroundColor=ffd1dc,ffecd2`;
+
+            const name = document.createElement('span');
+            name.className = 'name';
+            name.innerText = char.name;
+
+            div.appendChild(img);
+            div.appendChild(name);
+            grid.appendChild(div);
+        });
+    </script>
+
+</body>
+
+</html>

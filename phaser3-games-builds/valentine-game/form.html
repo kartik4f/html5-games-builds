@@ -3,218 +3,352 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Valentine Quest - Local Dev Config</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A Romantic Missive ❤️</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;1,400&display=swap');
 
-        body {
-            background: #fff5f7;
-            font-family: 'Quicksand', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 40px 0;
+        :root {
+            --gold-leaf: #b8860b;
+            --accent-red: #8b0000;
+            --ivory: #f9f6f0;
+            --ink: #2a241e;
+            --paper-texture: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
         }
 
-        .form-card {
-            background: white;
-            padding: 40px;
-            border-radius: 30px;
-            border: 4px solid #ff4d6d;
-            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
-            width: 480px;
+        body {
+            margin: 0;
+            padding: 0;
+            background: #e0d8cc;
+            overflow: hidden;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .valentine-panel {
+            background: var(--ivory);
+            background-image: var(--paper-texture);
+            border-radius: 8px;
+            padding: 50px 60px;
+            width: 850px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+            color: var(--ink);
+            border: 1px solid rgba(184, 134, 11, 0.3);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
             text-align: center;
         }
 
-        h2 {
-            color: #ff4d6d;
-            margin-bottom: 25px;
+        .valentine-panel h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--ink);
+            font-weight: 400;
+            font-size: 52px;
+            margin: 0 0 5px 0;
+            letter-spacing: 6px;
         }
 
-        .section {
-            margin-bottom: 20px;
+        .subtitle {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 38px;
+            color: var(--gold-leaf);
+            margin-bottom: 30px;
+        }
+
+        .ui-button {
+            padding: 20px 45px;
+            background: var(--ink);
+            color: var(--ivory);
+            border: 1px solid var(--gold-leaf);
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            font-size: 26px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 15px;
+        }
+
+        .ui-button:hover {
+            background: var(--accent-red);
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
             text-align: left;
         }
 
-        label {
+        .form-group label {
             display: block;
-            color: #ff4d6d;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 14px;
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            color: var(--ink);
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(42, 36, 30, 0.1);
         }
 
         input,
+        select,
         textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #ffb6c1;
-            border-radius: 10px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(42, 36, 30, 0.2);
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-style: italic;
             box-sizing: border-box;
-            margin-bottom: 5px;
-            font-family: inherit;
+            color: var(--ink);
+            border-radius: 4px;
         }
 
-        textarea {
-            resize: none;
-            height: 80px;
-        }
-
-        .char-count {
-            font-size: 12px;
-            color: #ff85a1;
-            text-align: right;
-            margin-bottom: 10px;
-        }
-
-        .emoji-grid {
+        #avatar-selector {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            background: #fff0f3;
-            padding: 10px;
-            border-radius: 15px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            padding: 10px 0;
         }
 
-        .emoji-option {
-            font-size: 28px;
+        #avatar-selector img {
+            width: 100px;
+            height: 100px;
+            border: 1px solid rgba(184, 134, 11, 0.3);
+            filter: sepia(0.3);
             cursor: pointer;
-            padding: 10px;
-            border-radius: 10px;
-            transition: 0.2s;
-            text-align: center;
+            background: #fff;
         }
 
-        .emoji-option:hover {
-            background: white;
-        }
-
-        .emoji-option.selected {
-            border: 2px solid #ff4d6d;
-            background: white;
+        #avatar-selector img.active {
+            border: 2px solid var(--gold-leaf);
+            filter: sepia(0);
             transform: scale(1.1);
         }
 
-        .gen-btn {
-            background: #ff4d6d;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 18px;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 18px;
-            margin-top: 20px;
+        #shareSection {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px dashed var(--gold-leaf);
+            border-radius: 8px;
         }
 
-        #result-link {
-            margin-top: 25px;
-            display: none;
+        .share-url {
+            font-size: 16px;
+            background: #fff;
             padding: 15px;
-            background: #f8f8f8;
-            border-radius: 10px;
-            font-size: 11px;
-            color: #666;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
             word-break: break-all;
-            border: 1px dashed #ff4d6d;
+            color: var(--ink);
+            font-family: monospace;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-
-    <div class="form-card">
-        <h2>Quest Configuration</h2>
-
-        <div class="section">
-            <label>Lover's Name</label>
-            <input type="text" id="loverName" placeholder="Enter her name...">
-
-            <label>Custom Love Message (Max 100 chars)</label>
-            <textarea id="customMessage" maxlength="100" placeholder="e.g. My heart beats in 60fps for you..."
-                oninput="updateCount()"></textarea>
-            <div class="char-count"><span id="currentCount">0</span>/100</div>
-        </div>
-
-        <div class="section">
-            <label>Starting Character</label>
-            <div class="emoji-grid" id="startGrid">
-                <div class="emoji-option selected" onclick="selectEmoji('start', '👧')">👧</div>
-                <div class="emoji-option" onclick="selectEmoji('start', '👩')">👩</div>
-                <div class="emoji-option" onclick="selectEmoji('start', '👸')">👸</div>
-                <div class="emoji-option" onclick="selectEmoji('start', '💃')">💃</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <label>Marriage Reward</label>
-            <div class="emoji-grid" id="targetGrid">
-                <div class="emoji-option selected" onclick="selectEmoji('target', '👰')">👰</div>
-                <div class="emoji-option" onclick="selectEmoji('target', '👰‍♀️')">👰‍♀️</div>
-                <div class="emoji-option" onclick="selectEmoji('target', '💍')">💍</div>
-                <div class="emoji-option" onclick="selectEmoji('target', '💖')">💖</div>
-            </div>
-        </div>
-
-        <button class="gen-btn" onclick="generateLoveLink()">Generate & Copy Local Link</button>
-
-        <div id="result-link"></div>
-    </div>
+    <div id="phaser-game"></div>
 
     <script>
-        let selectedStart = '👧';
-        let selectedTarget = '👰';
+        const AVATAR_LIST = ['Andrea', 'Liam', 'Sarah', 'Oliver', 'Emma', 'Jack'];
 
-        function updateCount() {
-            const text = document.getElementById('customMessage').value;
-            document.getElementById('currentCount').innerText = text.length;
-        }
+        class FormScene extends Phaser.Scene {
+            constructor() { super('FormScene'); }
+            create() {
+                const bg = this.add.graphics();
+                bg.fillGradientStyle(0xe0d8cc, 0xe0d8cc, 0xf9f6f0, 0xf9f6f0, 1);
+                bg.fillRect(0, 0, 1080, 1920);
 
-        function selectEmoji(type, emoji) {
-            const gridId = type === 'start' ? 'startGrid' : 'targetGrid';
-            const options = document.getElementById(gridId).getElementsByClassName('emoji-option');
-            for (let opt of options) {
-                opt.classList.remove('selected');
-                if (opt.innerText === emoji) opt.classList.add('selected');
+                const formHTML = `
+                <div class="valentine-panel">
+                    <h2>A Love Note</h2>
+                    <div class="subtitle">Compose your digital missive...</div>
+                    <div class="form-group"><label>The Sender</label><textarea id="cID" placeholder="Your name..." rows="1"></textarea></div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                        <div class="form-group"><label>Game Style</label><select id="gStyle"><option value="catcher">Catcher</option><option value="tap">Tap Reveal</option></select></div>
+                        <div class="form-group"><label>Recipient</label><input type="text" id="pName"></div>
+                    </div>
+                    <div class="form-group"><label>Portraits</label><div id="avatar-selector"></div></div>
+                    <input type="hidden" id="pAvatar" value="Andrea">
+                    <div class="form-group"><label>The Proposal</label><textarea id="pMsg" rows="1">Will you be my Valentine?</textarea></div>
+                    <button id="genBtn" class="ui-button">SEAL & SEND 💌</button>
+                    <div id="shareSection">
+                        <div class="share-url" id="finalUrl" title="Click to copy"></div>
+                        <button id="shareNative" class="ui-button" style="background:#b8860b">SHARE LINK 📱</button>
+                    </div>
+                </div>`;
+
+                this.add.dom(540, 960).createFromHTML(formHTML);
+                const selector = document.getElementById('avatar-selector');
+                AVATAR_LIST.forEach((seed, idx) => {
+                    const img = document.createElement('img');
+                    img.src = `https://api.dicebear.com/7.x/adventurer/svg?seed=${seed}&backgroundColor=ffd1dc`;
+                    if (idx === 0) img.classList.add('active');
+                    img.onclick = () => {
+                        document.querySelectorAll('#avatar-selector img').forEach(i => i.classList.remove('active'));
+                        img.classList.add('active');
+                        document.getElementById('pAvatar').value = seed;
+                    };
+                    selector.appendChild(img);
+                });
+
+                document.getElementById('genBtn').addEventListener('click', (e) => {
+                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#b8860b', '#8b0000', '#f9f6f0'] });
+                    const data = { cid: document.getElementById('cID').value || "An Admirer", gs: document.getElementById('gStyle').value, n: document.getElementById('pName').value || "Valentine", av: document.getElementById('pAvatar').value, m: document.getElementById('pMsg').value, fy: true };
+                    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+                    const url = window.location.origin + window.location.pathname + '?game=' + encoded;
+
+                    const urlDisplay = document.getElementById('finalUrl');
+                    urlDisplay.innerText = url;
+                    document.getElementById('shareSection').style.display = 'block';
+                    e.target.innerText = "SEALED ✨";
+
+                    urlDisplay.onclick = () => {
+                        navigator.clipboard.writeText(url);
+                        alert("URL copied to clipboard!");
+                    };
+
+                    document.getElementById('shareNative').onclick = async () => {
+                        navigator.clipboard.writeText(url); // Copy anyway
+                        if (navigator.share) {
+                            try { await navigator.share({ title: 'A Love Note', text: `My dearest ${data.n}, please open this letter...`, url: url }); } catch (err) { }
+                        } else { alert("Link copied to clipboard!"); }
+                    };
+                });
             }
-            const encodedEmoji = encodeURIComponent(emoji); // Result: '%F0%9F%91%8D'
-            if (type === 'start') selectedStart = encodedEmoji;
-
-            else selectedTarget = encodedEmoji;
         }
 
-        function generateLoveLink() {
-            const name = document.getElementById('loverName').value || "Beloved";
-            const msg = document.getElementById('customMessage').value || "Will you marry me?";
+        class GameScene extends Phaser.Scene {
+            constructor() { super('GameScene'); }
+            init() {
+                const params = new URLSearchParams(window.location.search);
+                try { this.userData = JSON.parse(decodeURIComponent(escape(atob(params.get('game'))))); }
+                catch (e) { this.userData = { cid: "An Admirer", gs: "catcher", n: "Valentine", av: "Andrea", m: "Be mine?", fy: true }; }
+            }
+            preload() {
+                this.load.svg('partner', `https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.av}&backgroundColor=ffccd5`, { width: 300, height: 300 });
+            }
+            create() {
+                const bg = this.add.graphics();
+                bg.fillGradientStyle(0xe0d8cc, 0xe0d8cc, 0xf9f6f0, 0xf9f6f0, 1);
+                bg.fillRect(0, 0, 1080, 1920);
 
-            const dataPayload = {
-                lover_name: name,
-                message: msg,
-                start_emoji: selectedStart,
-                end_emoji: selectedTarget,
-                timestamp: new Date().getTime()
-            };
+                this.score = 0;
+                this.lovePoints = 0;
+                this.isGamePaused = false;
+                this.proposalTriggered = false;
 
-            // Encoding logic to handle UTF-8 characters (like emojis) safely
-            const jsonStr = JSON.stringify(dataPayload);
-            const encoded = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => {
-                return String.fromCharCode('0x' + p1);
-            }));
+                this.scoreText = this.add.text(540, 260, `Score: 0`, { fontFamily: 'Playfair Display', fontSize: '40px', fill: '#2a241e' }).setOrigin(0.5);
+                this.add.text(540, 150, `To ${this.userData.n}`, { fontFamily: 'Pinyon Script', fontSize: '100px', fill: '#2a241e' }).setOrigin(0.5);
 
+                if (this.userData.gs === 'catcher') {
+                    this.add.dom(540, 320).createFromHTML(`<div style="width:500px; height:12px; background:#ccc; border-radius:6px; overflow:hidden;"><div id="fill" style="width:0%; height:100%; background:#b8860b; transition:0.3s;"></div></div>`);
+                    this.player = this.add.image(540, 1650, 'partner');
+                    this.input.on('pointermove', (p) => { if (!this.isGamePaused) this.player.x = Phaser.Math.Clamp(p.x, 150, 930); });
+                    this.spawnTimer = this.time.addEvent({ delay: 900, loop: true, callback: this.spawnItem, callbackScope: this });
+                } else {
+                    const tapTarget = this.add.image(540, 960, 'partner').setScale(2.5).setInteractive();
+                    tapTarget.on('pointerdown', () => this.showProposal());
+                }
+            }
 
-            let finalUrl = window.location.origin == 'http://127.0.0.1:5500' ? `http://127.0.0.1:5500/index.html?data=${encoded}` : `${window.location.href.replace('form.html', 'index.html')}?data=${encoded}`;
+            spawnItem() {
+                if (this.isGamePaused) return;
+                const isObstacle = Math.random() > 0.7;
+                const content = isObstacle ? (Math.random() > 0.5 ? "💣" : "🪨") : "❤";
+                const item = this.add.text(Phaser.Math.Between(100, 980), -100, content, { fontSize: isObstacle ? '80px' : '95px' });
 
-            const resultDiv = document.getElementById('result-link');
-            resultDiv.style.display = 'block';
-            resultDiv.innerText = finalUrl;
+                // Increase speed as score goes up
+                const duration = Math.max(2000, 4000 - (this.score * 50));
 
-            navigator.clipboard.writeText(finalUrl);
-            alert("Local Link Generated & Copied!");
+                this.tweens.add({
+                    targets: item, y: 2000, duration: duration, onUpdate: () => {
+                        if (item.active && Phaser.Geom.Intersects.RectangleToRectangle(item.getBounds(), this.player.getBounds())) {
+                            if (content === "❤") {
+                                this.score++;
+                                if (!this.proposalTriggered) this.lovePoints++;
+                                this.updateUI();
+                                if (this.lovePoints >= 5 && !this.proposalTriggered) {
+                                    this.proposalTriggered = true;
+                                    this.showProposal();
+                                }
+                            } else {
+                                this.lovePoints = Math.max(0, this.lovePoints - 1);
+                                this.updateUI();
+                                this.cameras.main.shake(200, 0.01);
+                            }
+                            item.destroy();
+                        }
+                    },
+                    onComplete: () => item.destroy()
+                });
+            }
+
+            updateUI() {
+                this.scoreText.setText(`Score: ${this.score}`);
+                const fill = document.getElementById('fill');
+                if (fill) fill.style.width = Math.min(100, (this.lovePoints * 20)) + "%";
+            }
+
+            showProposal() {
+                this.isGamePaused = true;
+                const html = `
+                <div class="valentine-panel" id="modal">
+                    <h2 style="font-size:38px;">Dearest...</h2>
+                    <p class="subtitle" style="font-size:42px;">${this.userData.m}</p>
+                    <button id="yes" class="ui-button">I DO! 😍</button>
+                </div>`;
+                const dom = this.add.dom(540, 960).createFromHTML(html);
+                document.getElementById('yes').onclick = () => {
+                    dom.destroy();
+                    this.revealIdentity();
+                };
+            }
+
+            revealIdentity() {
+                const html = `
+                <div class="valentine-panel">
+                    <h2>Forever Yours</h2>
+                    <p class="subtitle" style="font-size:48px;">${this.userData.cid}</p>
+                    <button id="continue" class="ui-button" style="font-size:18px;">Continue Game</button>
+                </div>`;
+                const dom = this.add.dom(540, 960).createFromHTML(html);
+                confetti({ particleCount: 200, spread: 100, origin: { y: 0.7 }, colors: ['#b8860b', '#2a241e'] });
+
+                document.getElementById('continue').onclick = () => {
+                    dom.destroy();
+                    this.isGamePaused = false;
+                };
+            }
         }
+
+        const config = {
+            type: Phaser.AUTO, width: 1080, height: 1920, parent: 'phaser-game',
+            dom: { createContainer: true },
+            scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
+            scene: [FormScene, GameScene]
+        };
+        new Phaser.Game(config);
+
+        window.addEventListener('load', () => {
+            if (window.location.search.includes('game=')) {
+                const itv = setInterval(() => {
+                    const gameInstance = Phaser.GAMES[0];
+                    if (gameInstance && gameInstance.scene.isActive('FormScene')) {
+                        gameInstance.scene.stop('FormScene');
+                        gameInstance.scene.start('GameScene');
+                        clearInterval(itv);
+                    }
+                }, 50);
+            }
+        });
     </script>
-
 </body>
 
 </html>
