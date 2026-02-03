@@ -243,9 +243,7 @@
 
                     <div id="shareSection" style="display:none;"><div class="url-container" id="copyWrapper"><div id="finalUrl"></div><svg class="copy-svg" viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z"/></svg></div></div>
                     
-                    <div class="footer-branding">
-                        ${BRANDING_TEXT}
-                    </div>
+                    <div class="footer-branding">${BRANDING_TEXT}</div>
                 </div>`;
                 this.add.dom(540, 960).createFromHTML(formHTML);
                 this.setupAvatarGrid('proposer-avatars', 'cAvatar', 'Liam');
@@ -258,7 +256,7 @@
                     document.getElementById('shareSection').style.display = 'block';
                     document.getElementById('copyWrapper').onclick = () => { navigator.clipboard.writeText(url); alert("Link secured! ❤️"); };
                     if (navigator.share) {
-                        try { await navigator.share({ title: `A Message for ${data.n}`, text: `I have a romantic missive for you!`, url: url }); } catch (err) { }
+                        try { await navigator.share({ title: `A Message for ${data.n}`, text: `I have a romantic trial for you!`, url: url }); } catch (err) { }
                     } else {
                         navigator.clipboard.writeText(url);
                         alert("Link copied! ❤️");
@@ -269,10 +267,9 @@
                 document.getElementById('appShareBtn').addEventListener('click', async () => {
                     const appUrl = window.location.origin + window.location.pathname;
                     if (navigator.share) {
-                        try { await navigator.share({ title: 'The Trials of True Love', text: 'Create a romantic game!', url: appUrl }); } catch (err) { }
+                        try { await navigator.share({ title: 'The Trials of True Love', text: 'Create your own romantic trial!', url: appUrl }); } catch (err) { }
                     } else {
-                        navigator.clipboard.writeText(appUrl);
-                        alert("App link copied! 🔗");
+                        navigator.clipboard.writeText(appUrl); alert("App link copied! 🔗");
                     }
                 });
             }
@@ -324,6 +321,7 @@
                 this.scoreText = this.add.text(540, 260, `Eternity Score: 0`, { fontFamily: 'Cinzel', fontSize: '40px', fill: '#2a241e' }).setOrigin(0.5).setDepth(1500);
                 this.add.text(540, 150, `To My Dearest ${this.userData.n}`, { fontFamily: 'Pinyon Script', fontSize: '100px', fill: '#2a241e' }).setOrigin(0.5).setDepth(1500);
                 this.add.dom(540, 320).createFromHTML(`<div style="width:500px; height:15px; background:#ccc; border-radius:8px; overflow:hidden;"><div id="fill-bar" style="width:0%; height:100%; background:#d00000; transition:0.3s;"></div></div>`).setDepth(1000);
+
                 this.player = this.add.image(540, 1650, 'partner').setDepth(2500).setScale(0.8);
                 const maskShape = this.make.graphics().fillStyle(0xffffff).fillCircle(0, 0, this.collisionRadius);
                 this.player.setMask(maskShape.createGeometryMask());
@@ -365,10 +363,11 @@
             update(time, delta) {
                 if (this.isGamePaused) return;
 
-                // Normalizing movement to 60fps baseline
-                const dtScale = delta / 16.666;
+                // SMOOTH DELTA FIX: Cap delta to 32ms and normalize to 60fps
+                const smoothDelta = Math.min(delta, 32);
+                const dtScale = smoothDelta / 16.666;
 
-                this.gameTimer += delta;
+                this.gameTimer += smoothDelta;
                 let currentDifficulty = Math.floor(this.gameTimer / 10000);
                 if (currentDifficulty > this.difficultyLevel) { this.difficultyLevel = currentDifficulty; this.refreshSpawnTimer(); }
 
@@ -377,7 +376,7 @@
                     const item = this.itemsList[i];
                     if (!item.active) { this.itemsList.splice(i, 1); continue; }
 
-                    // Framerate Independent Physics
+                    // Apply smooth physics
                     item.x += item.vx * dtScale;
                     item.y += item.vy * dtScale;
                     item.vy += gravity;
@@ -398,7 +397,7 @@
                 }
             }
 
-            handlePointLoss() { this.lovePoints = Math.max(0, this.lovePoints - 1); this.cameras.main.shake(100, 0.013); if (this.proposalAccepted && this.lovePoints <= 0) this.gameOver(); }
+            handlePointLoss() { this.lovePoints = Math.max(0, this.lovePoints - 1); this.cameras.main.shake(200, 0.02); if (this.proposalAccepted && this.lovePoints <= 0) this.gameOver(); }
 
             createCatchEffect(x, y, val) {
                 const txt = this.add.text(x, y, `+${val}`, { fontFamily: 'Cinzel', fontSize: '50px', fill: '#d00000', stroke: '#fff', strokeThickness: 4 }).setOrigin(0.5).setDepth(3000);
