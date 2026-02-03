@@ -15,7 +15,6 @@
             --ivory: #f9f6f0;
             --ink: #2a241e;
             --red: #d00000;
-            --glow: rgba(208, 0, 0, 0.3);
         }
 
         body {
@@ -42,11 +41,25 @@
             justify-content: space-evenly;
             text-align: center;
             pointer-events: auto !important;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Logo Styling */
+        .valentine-panel::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to top, rgba(249, 246, 240, 0.95), rgba(249, 246, 240, 0));
+            pointer-events: none;
+            z-index: 1;
+        }
+
         .logo-box {
             margin-bottom: -15px;
+            z-index: 2;
         }
 
         .app-logo {
@@ -68,6 +81,8 @@
             transition: 0.15s;
             display: inline-block;
             pointer-events: auto !important;
+            position: relative;
+            z-index: 5;
         }
 
         .ui-button:hover {
@@ -78,6 +93,8 @@
         .form-group {
             text-align: left;
             width: 100%;
+            position: relative;
+            z-index: 2;
         }
 
         .form-group label {
@@ -139,6 +156,8 @@
             border: 2px dashed var(--gold);
             padding: 25px;
             cursor: pointer;
+            position: relative;
+            z-index: 10;
         }
 
         #finalUrl {
@@ -162,7 +181,7 @@
     <div id="phaser-game"></div>
 
     <script>
-        const AVATAR_LIST = ['Andrea', 'Liam', 'Sarah', 'Oliver', 'Emma', 'Jack', 'Leo', 'Mia', 'Milo', 'Luna', 'Lily', 'Zoe'];
+        const AVATAR_LIST = ['Liam', 'Oliver', 'Jack', 'Leo', 'Milo', 'Felix', 'Max', 'Jude', 'Finn', 'Arlo', 'Ryker', 'Andrea', 'Sarah', 'Emma', 'Mia', 'Luna', 'Lily', 'Zoe'];
 
         class FormScene extends Phaser.Scene {
             constructor() { super('FormScene'); }
@@ -170,22 +189,20 @@
                 this.add.graphics().fillGradientStyle(0xe0d8cc, 0xe0d8cc, 0xf9f6f0, 0xf9f6f0, 1).fillRect(0, 0, 1080, 1920);
                 this.createRomanticParticles();
 
+                if (!this.sys.game.device.input.touch) this.input.setDefaultCursor('pointer');
+
                 const formHTML = `
                 <div class="valentine-panel">
                     <div class="logo-box">
                         <svg class="app-logo" viewBox="0 0 64 64">
                             <path d="M32 54.4l-3.3-3C16.8 41.2 9.1 34.2 9.1 25.6 9.1 18.6 14.6 13.1 21.6 13.1c4 0 7.8 1.8 10.4 4.7 2.6-2.9 6.4-4.7 10.4-4.7 7 0 12.5 5.5 12.5 12.5 0 8.6-7.7 15.6-19.6 25.8l-3.3 3zM21.6 16.5c-5.1 0-9.1 4-9.1 9.1 0 6.6 6.3 12.5 17.1 21.8l2.4 2.1 2.4-2.1c10.8-9.3 17.1-15.2 17.1-21.8 0-5.1-4-9.1-9.1-9.1-3.2 0-6.2 1.6-8 4.2l-2.4 3.5-2.4-3.5c-1.8-2.6-4.8-4.2-8-4.2z"/>
-                            <path d="M32 8c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm0 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zM48 16c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm0 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zM16 16c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4zm0 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/>
                         </svg>
                     </div>
                     <h2 style="font-family:'Cinzel';font-size:55px; margin:0;">The Trials of True Love</h2>
                     <p style="font-family:'Pinyon Script'; font-size:38px; margin: -10px 0 10px 0; color: var(--gold);">The Romantic Missive</p>
-                    
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:35px;">
-                        <div class="form-group"><label>The Proposer</label><input type="text" id="cID" placeholder="Your name...">
-                        <div class="avatar-grid" id="proposer-avatars"></div></div>
-                        <div class="form-group"><label>The Beloved</label><input type="text" id="pName" maxlength="10" placeholder="Max 10 chars">
-                        <div class="avatar-grid" id="beloved-avatars"></div></div>
+                        <div class="form-group"><label>The Proposer</label><input type="text" id="cID" placeholder="Your name..."><div class="avatar-grid" id="proposer-avatars"></div></div>
+                        <div class="form-group"><label>The Beloved</label><input type="text" id="pName" maxlength="10" placeholder="Max 10 chars"><div class="avatar-grid" id="beloved-avatars"></div></div>
                     </div>
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:35px;">
                         <div class="form-group"><label>Game Style</label><select id="gStyle"><option value="catcher">🏹 The Catcher</option></select></div>
@@ -193,25 +210,17 @@
                     </div>
                     <input type="hidden" id="pAvatar" value="Andrea"><input type="hidden" id="cAvatar" value="Liam">
                     <div><button id="genBtn" class="ui-button">SEAL WITH A KISS 💌</button></div>
-                    <div id="shareSection" style="display:none;">
-                        <div class="url-container" id="copyWrapper">
-                            <div id="finalUrl"></div>
-                            <svg class="copy-svg" viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z"/></svg>
-                        </div>
-                    </div>
+                    <div id="shareSection" style="display:none;"><div class="url-container" id="copyWrapper"><div id="finalUrl"></div><svg class="copy-svg" viewBox="0 0 24 24"><path d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM19 5H8C6.9 5 6 5.9 6 7V21C6 22.1 6.9 23 8 23H19C20.1 23 21 22.1 21 21V7C21 5.9 20.1 5 19 5ZM19 21H8V7H19V21Z"/></svg></div></div>
                 </div>`;
-
                 this.add.dom(540, 960).createFromHTML(formHTML);
                 this.setupAvatarGrid('proposer-avatars', 'cAvatar', 'Liam');
                 this.setupAvatarGrid('beloved-avatars', 'pAvatar', 'Andrea');
-
                 document.getElementById('genBtn').addEventListener('click', async () => {
                     const data = { cid: document.getElementById('cID').value || "Admirer", n: document.getElementById('pName').value || "Love", av: document.getElementById('pAvatar').value, cav: document.getElementById('cAvatar').value, m: document.getElementById('pMsg').value, gs: document.getElementById('gStyle').value };
                     const url = window.location.origin + window.location.pathname + '?game=' + btoa(unescape(encodeURIComponent(JSON.stringify(data))));
                     document.getElementById('finalUrl').innerText = url;
                     document.getElementById('shareSection').style.display = 'block';
                     document.getElementById('copyWrapper').onclick = () => { navigator.clipboard.writeText(url); alert("Link secured! ❤️"); };
-                    try { if (navigator.share) await navigator.share({ title: `A Message for ${data.n}`, url: url }); } catch (err) { }
                     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
                 });
             }
@@ -243,18 +252,22 @@
                     this.userData = JSON.parse(decodeURIComponent(escape(atob(raw))));
                 } catch (e) { this.userData = { cid: "Admirer", n: "Love", av: "Andrea", cav: "Liam", m: "Be mine?", gs: "catcher" }; }
                 this.highScore = parseInt(localStorage.getItem('trialsOfLove_highScore')) || 0;
-                this.spawnDelay = 800;
+                this.itemsList = [];
+                this.gameTimer = 0;
+                this.difficultyLevel = 0;
             }
-            preload() {
-                this.load.svg('partner', `https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.av}&backgroundColor=ffccd5`, { width: 300, height: 300 });
-                this.load.svg('proposer', `https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.cav}&backgroundColor=cceeff`, { width: 300, height: 300 });
-            }
+            preload() { this.load.svg('partner', `https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.av}&backgroundColor=ffccd5`, { width: 300, height: 300 }); }
             create() { this.setupGame(); }
 
             setupGame() {
-                this.children.removeAll();
+                this.children.removeAll(); this.itemsList = [];
                 this.score = 0; this.lovePoints = 0; this.isGamePaused = false; this.proposalAccepted = false; this.proposalTriggered = false;
+                this.gameTimer = 0; this.difficultyLevel = 0;
                 this.add.graphics().fillGradientStyle(0xe0d8cc, 0xe0d8cc, 0xf9f6f0, 0xf9f6f0, 1).fillRect(0, 0, 1080, 1920);
+
+                if (!this.sys.game.device.input.touch) this.input.setDefaultCursor('pointer');
+                this.input.on('pointerdown', (p) => { this.createTouchEffect(p.x, p.y); });
+
                 this.scoreText = this.add.text(540, 260, `Eternity Score: 0`, { fontFamily: 'Cinzel', fontSize: '40px', fill: '#2a241e' }).setOrigin(0.5).setDepth(1500);
                 this.add.text(540, 150, `To My Dearest ${this.userData.n}`, { fontFamily: 'Pinyon Script', fontSize: '100px', fill: '#2a241e' }).setOrigin(0.5).setDepth(1500);
                 this.add.dom(540, 320).createFromHTML(`<div style="width:500px; height:15px; background:#ccc; border-radius:8px; overflow:hidden;"><div id="fill-bar" style="width:0%; height:100%; background:#d00000; transition:0.3s;"></div></div>`).setDepth(1000);
@@ -265,70 +278,97 @@
                 this.events.on('update', () => { maskShape.x = this.player.x; maskShape.y = this.player.y; });
 
                 this.input.on('pointermove', (p) => { if (!this.isGamePaused) this.player.x = Phaser.Math.Clamp(p.x, 150, 930); });
-
                 this.refreshSpawnTimer();
                 this.updateUI();
             }
 
+            createTouchEffect(x, y) {
+                const ring = this.add.graphics().setDepth(3500);
+                ring.lineStyle(4, 0xf9f6f0, 0.8).strokeCircle(x, y, 10);
+                this.tweens.add({
+                    targets: ring, alpha: 0, scale: 4, duration: 600,
+                    onUpdate: () => { ring.clear().lineStyle(4, 0xf9f6f0, ring.alpha).strokeCircle(x, y, 10 * ring.scale); },
+                    onComplete: () => ring.destroy()
+                });
+            }
+
             refreshSpawnTimer() {
                 if (this.spawnTimer) this.spawnTimer.remove();
-                this.spawnDelay = Math.max(450, 900 - (Math.floor(this.score / 10) * 80));
-                this.spawnTimer = this.time.addEvent({ delay: this.spawnDelay, loop: true, callback: this.spawnTrajectoryItem, callbackScope: this });
+                // Difficulty ramps based on time-based difficultyLevel
+                this.spawnTimer = this.time.addEvent({
+                    delay: Math.max(450, 900 - (this.difficultyLevel * 100)),
+                    loop: true,
+                    callback: this.spawnTrajectoryItem,
+                    callbackScope: this
+                });
             }
 
             spawnTrajectoryItem() {
                 if (this.isGamePaused) return;
-
-                let items = ["❤️", "❤️", "🌹", "🧸"];
+                let pool = ["❤️", "❤️", "🌹", "🧸"];
                 if (this.proposalAccepted) {
-                    const badCount = Math.min(6, 1 + Math.floor(this.score / 50));
-                    for (let i = 0; i < badCount; i++) items.push("💔", "💣");
-                    items.push("😘", "💎", "💰", "🥀", "❤️‍🔥", "😈");
+                    const badCount = Math.min(6, 1 + this.difficultyLevel);
+                    for (let i = 0; i < badCount; i++) pool.push("💔", "💣");
+                    pool.push("😘", "💎", "🥀", "❤️‍🔥", "😈", "💍");
+                }
+                const content = Phaser.Utils.Array.GetRandom(pool);
+                const side = Math.random() < 0.5 ? 'left' : 'right';
+                const item = this.add.text(side === 'left' ? -100 : 1130, Phaser.Math.Between(800, 1100), content, { fontSize: content === "❤️" ? '120px' : '90px' }).setOrigin(0.5).setDepth(2000);
+
+                item.vx = (side === 'left' ? Phaser.Math.Between(3, 14) : Phaser.Math.Between(-14, -3));
+                item.vy = Phaser.Math.Between(-8, -12);
+                item.isGood = ["❤️", "🌹", "🧸", "😘", "💍"].includes(content);
+                item.content = content;
+                this.itemsList.push(item);
+            }
+
+            update(time, delta) {
+                if (this.isGamePaused) return;
+
+                const dtScale = delta / 16.666;
+                this.gameTimer += delta;
+
+                // Trigger difficulty increase every 10 seconds of play
+                let currentDifficulty = Math.floor(this.gameTimer / 10000);
+                if (currentDifficulty > this.difficultyLevel) {
+                    this.difficultyLevel = currentDifficulty;
+                    this.refreshSpawnTimer();
                 }
 
-                const content = Phaser.Utils.Array.GetRandom(items);
-                const isGood = ["❤️", "🌹", "🧸", "😘", "💍"].includes(content);
+                const gravity = 0.6 * dtScale;
+                for (let i = this.itemsList.length - 1; i >= 0; i--) {
+                    const item = this.itemsList[i];
+                    if (!item.active) { this.itemsList.splice(i, 1); continue; }
 
-                const side = Math.random() < 0.5 ? 'left' : 'right';
-                const startX = side === 'left' ? -100 : 1130;
-                const startY = Phaser.Math.Between(800, 1200);
+                    item.x += item.vx * dtScale;
+                    item.y += item.vy * dtScale;
+                    item.vy += gravity;
 
-                const item = this.add.text(startX, startY, content, { fontSize: content === "❤️" ? '120px' : '90px' }).setOrigin(0.5).setDepth(2000);
-
-                const speedMod = 1 + (this.score / 200);
-                let vx = (side === 'left' ? Phaser.Math.Between(7, 13) : Phaser.Math.Between(-13, -7)) * speedMod;
-                let vy = Phaser.Math.Between(-12, -22) * speedMod;
-                const gravity = 0.85 + (this.score / 400);
-
-                this.tweens.addCounter({
-                    from: 0, to: 1, duration: 8000,
-                    onUpdate: () => {
-                        if (this.isGamePaused || !item.active) return;
-
-                        item.x += vx;
-                        item.y += vy;
-                        vy += gravity;
-
-                        const dist = Phaser.Math.Distance.Between(item.x, item.y, this.player.x, this.player.y);
-                        if (dist < 140) {
-                            const oldScoreBase = Math.floor(this.score / 10);
-                            if (isGood) {
-                                this.score += (content === "❤️" ? 10 : 5);
-                                if (content === "❤️") this.lovePoints = Math.min(5, this.lovePoints + 1);
-                                this.updateUI();
-                                if (this.lovePoints >= 5 && !this.proposalTriggered) { this.proposalTriggered = true; this.showProposal(); }
-                            } else {
-                                this.lovePoints = Math.max(0, this.lovePoints - 1);
-                                this.updateUI();
-                                this.cameras.main.shake(200, 0.02);
-                                if (this.proposalAccepted && this.lovePoints <= 0) this.gameOver();
-                            }
-                            if (Math.floor(this.score / 10) > oldScoreBase) this.refreshSpawnTimer();
-                            item.destroy();
+                    if (Phaser.Math.Distance.Between(item.x, item.y, this.player.x, this.player.y) < 140) {
+                        if (item.isGood) {
+                            const val = (item.content === "❤️" ? 10 : 5); this.score += val;
+                            if (item.content === "❤️") this.lovePoints = Math.min(5, this.lovePoints + 1);
+                            this.createCatchEffect(item.x, item.y, val);
+                        } else {
+                            this.lovePoints = Math.max(0, this.lovePoints - 1); this.cameras.main.shake(200, 0.02);
+                            if (this.proposalAccepted && this.lovePoints <= 0) this.gameOver();
                         }
-                        if (item.y > 2000) item.destroy();
-                    }
-                });
+                        this.updateUI();
+                        if (this.lovePoints >= 5 && !this.proposalTriggered) { this.proposalTriggered = true; this.showProposal(); }
+                        item.destroy(); this.itemsList.splice(i, 1);
+                    } else if (item.y > 2000) { item.destroy(); this.itemsList.splice(i, 1); }
+                }
+            }
+
+            createCatchEffect(x, y, val) {
+                const txt = this.add.text(x, y, `+${val}`, { fontFamily: 'Cinzel', fontSize: '50px', fill: '#d00000', stroke: '#fff', strokeThickness: 4 }).setOrigin(0.5).setDepth(3000);
+                this.tweens.add({ targets: txt, y: y - 100, alpha: 0, duration: 800, onComplete: () => txt.destroy() });
+                for (let i = 0; i < 12; i++) {
+                    const spark = this.add.text(x, y, '❤️', { fontSize: Phaser.Math.Between(20, 40) + 'px' }).setOrigin(0.5).setDepth(2800);
+                    const angle = Phaser.Math.FloatBetween(0, Math.PI * 2);
+                    const speed = Phaser.Math.Between(200, 500);
+                    this.tweens.add({ targets: spark, x: x + Math.cos(angle) * speed, y: y + Math.sin(angle) * speed, alpha: 0, scale: 0.2, duration: Phaser.Math.Between(600, 1000), onComplete: () => spark.destroy() });
+                }
             }
 
             updateUI() {
@@ -339,14 +379,7 @@
 
             showProposal() {
                 this.isGamePaused = true;
-                const html = `<div class="valentine-panel" style="height:auto; min-height:600px; padding:40px;">
-                    <h2 style="font-family:'Cinzel'; color:var(--gold); font-size:40px;">A Message from ${this.userData.cid}</h2>
-                    <p style="font-family:'Pinyon Script'; font-size:60px; color:var(--red); margin:40px 0;">${this.userData.m}</p>
-                    <div style="display:flex; justify-content:center; gap:30px; position:relative; height:120px;">
-                        <button id="yes" class="ui-button" style="font-size:35px;">YES! 😍</button>
-                        <button id="no" class="ui-button" style="background:#555; font-size:35px;">No</button>
-                    </div>
-                </div>`;
+                const html = `<div class="valentine-panel" style="height:auto; min-height:600px; padding:40px;"><h2 style="font-family:'Cinzel'; color:var(--gold); font-size:40px;">A Message from ${this.userData.cid}</h2><p style="font-family:'Pinyon Script'; font-size:60px; color:var(--red); margin:40px 0;">${this.userData.m}</p><div style="display:flex; justify-content:center; gap:30px; position:relative; height:120px;"><button id="yes" class="ui-button" style="font-size:35px;">YES! 😍</button><button id="no" class="ui-button" style="background:#555; font-size:35px;">No</button></div></div>`;
                 const dom = this.add.dom(540, 960).createFromHTML(html).setDepth(3000);
                 const noBtn = document.getElementById('no');
                 const glitchMove = (e) => { if (e) e.preventDefault(); noBtn.style.position = 'absolute'; noBtn.style.left = (Math.random() * 400 - 200) + 'px'; noBtn.style.top = (Math.random() * 100 - 50) + 'px'; };
@@ -355,16 +388,7 @@
             }
 
             revealIdentity() {
-                const html = `<div class="valentine-panel" style="height:auto; min-height:700px; padding:50px;">
-                    <div style="display:flex; justify-content:center; align-items:center; gap:40px; margin-bottom:30px;">
-                        <div style="text-align:center;"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.cav}&backgroundColor=cceeff" style="width:220px; border:5px solid var(--gold); border-radius:50%;"><p style="font-family:'Cinzel'; font-size:28px; margin-top:15px;">${this.userData.cid}</p></div>
-                        <span style="font-size:90px; animation: pulse-heart 1s infinite alternate;">❤️</span>
-                        <div style="text-align:center;"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.av}&backgroundColor=ffccd5" style="width:220px; border:5px solid var(--gold); border-radius:50%;"><p style="font-family:'Cinzel'; font-size:28px; margin-top:15px;">${this.userData.n}</p></div>
-                    </div>
-                    <h2 style="font-family:'Cinzel'; font-size:45px;">Forever Yours</h2>
-                    <p style="font-family:'Playfair Display'; font-style:italic; font-size:30px; color:var(--gold); margin: 30px 0;">“Ward off the shadows that seek to dim our light; let only love's treasures reach your heart.”</p>
-                    <button id="cont" class="ui-button" style="font-size:32px;">Protect Our Love 💝</button>
-                </div>`;
+                const html = `<div class="valentine-panel" style="height:auto; min-height:700px; padding:50px;"><div style="display:flex; justify-content:center; align-items:center; gap:40px; margin-bottom:30px;"><div style="text-align:center;"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.cav}&backgroundColor=cceeff" style="width:220px; border:5px solid var(--gold); border-radius:50%;"><p style="font-family:'Cinzel'; font-size:28px; margin-top:15px;">${this.userData.cid}</p></div><span style="font-size:90px; animation: pulse-heart 1s infinite alternate;">❤️</span><div style="text-align:center;"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.av}&backgroundColor=ffccd5" style="width:220px; border:5px solid var(--gold); border-radius:50%;"><p style="font-family:'Cinzel'; font-size:28px; margin-top:15px;">${this.userData.n}</p></div></div><h2 style="font-family:'Cinzel'; font-size:45px;">Forever Yours</h2><p style="font-family:'Playfair Display'; font-style:italic; font-size:28px; color:var(--gold); margin: 30px 0;">“Ward off the shadows that seek to dim our light; let only love's treasures reach your heart.”</p><button id="cont" class="ui-button" style="font-size:32px;">Protect Our Love 💝</button></div>`;
                 const dom = this.add.dom(540, 960).createFromHTML(html).setDepth(3000);
                 confetti({ particleCount: 200, spread: 100, origin: { y: 0.7 } });
                 document.getElementById('cont').onclick = () => { dom.destroy(); this.isGamePaused = false; };
@@ -373,20 +397,7 @@
             gameOver() {
                 this.isGamePaused = true;
                 if (this.score > this.highScore) { this.highScore = this.score; localStorage.setItem('trialsOfLove_highScore', this.highScore); }
-                const html = `<div class="valentine-panel" style="height:auto; min-height:850px; padding:40px; pointer-events: auto !important;">
-                    <div style="display:flex; justify-content:center; align-items:center; gap:30px; margin-bottom:20px;">
-                        <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.cav}&backgroundColor=cceeff" style="width:180px; border:3px solid var(--gold); border-radius:50%;">
-                        <span style="font-size:70px;">💔</span>
-                        <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.av}&backgroundColor=ffccd5" style="width:180px; border:3px solid var(--gold); border-radius:50%;">
-                    </div>
-                    <h2 style="font-size:50px; margin:0;">Love Overwhelmed</h2>
-                    <p style="font-weight:bold; font-size:40px; color:var(--red); margin:10px 0;">Score: ${this.score}</p>
-                    <p style="font-family:'Cinzel'; font-size:24px; color:var(--gold);">Best Devotion: ${this.highScore}</p>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top:30px;">
-                        <button id="restartBtn" class="ui-button">🔄 Renew</button><button id="shareScoreBtn" class="ui-button">📢 Share</button>
-                        <button id="newProposalBtn" class="ui-button">✨ Forge</button><button id="exitGameBtn" class="ui-button" style="background:#555">🕊️ Exit</button>
-                    </div>
-                </div>`;
+                const html = `<div class="valentine-panel" style="height:auto; min-height:850px; padding:40px; pointer-events: auto !important;"><div style="display:flex; justify-content:center; align-items:center; gap:30px; margin-bottom:20px;"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.cav}&backgroundColor=cceeff" style="width:180px; border:3px solid var(--gold); border-radius:50%;"><span style="font-size:70px;">💔</span><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.av}&backgroundColor=ffccd5" style="width:180px; border:3px solid var(--gold); border-radius:50%;"></div><h2 style="font-size:50px; margin:0;">Love Overwhelmed</h2><p style="font-weight:bold; font-size:40px; color:var(--red); margin:10px 0;">Score: ${this.score}</p><p style="font-family:'Cinzel'; font-size:24px; color:var(--gold);">Best Devotion: ${this.highScore}</p><div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; margin-top:30px;"><button id="restartBtn" class="ui-button">🔄 Renew</button><button id="shareScoreBtn" class="ui-button">📢 Share</button><button id="newProposalBtn" class="ui-button">✨ Forge</button><button id="exitGameBtn" class="ui-button" style="background:#555">🕊️ Exit</button></div></div>`;
                 const dom = this.add.dom(540, 960).createFromHTML(html).setDepth(4000);
                 dom.addListener('click').on('click', (ev) => {
                     const id = ev.target.id || ev.target.closest('button')?.id;
@@ -400,11 +411,7 @@
 
         const config = { type: Phaser.AUTO, width: 1080, height: 1920, parent: 'phaser-game', dom: { createContainer: true }, scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, scene: [FormScene, GameScene] };
         const gameInstance = new Phaser.Game(config);
-        window.addEventListener('load', () => {
-            if (new URLSearchParams(window.location.search).has('game')) {
-                const check = setInterval(() => { if (gameInstance.scene.isActive('FormScene')) { gameInstance.scene.stop('FormScene'); gameInstance.scene.start('GameScene'); clearInterval(check); } }, 100);
-            }
-        });
+        window.addEventListener('load', () => { if (new URLSearchParams(window.location.search).has('game')) { const check = setInterval(() => { if (gameInstance.scene.isActive('FormScene')) { gameInstance.scene.stop('FormScene'); gameInstance.scene.start('GameScene'); clearInterval(check); } }, 100); } });
     </script>
 </body>
 
