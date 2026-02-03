@@ -397,7 +397,7 @@
                 }
             }
 
-            handlePointLoss() { this.lovePoints = Math.max(0, this.lovePoints - 1); this.cameras.main.shake(200, 0.02); if (this.proposalAccepted && this.lovePoints <= 0) this.gameOver(); }
+            handlePointLoss() { this.lovePoints = Math.max(0, this.lovePoints - 1); this.cameras.main.shake(10, 0.005); if (this.proposalAccepted && this.lovePoints <= 0) this.gameOver(); }
 
             createCatchEffect(x, y, val) {
                 const txt = this.add.text(x, y, `+${val}`, { fontFamily: 'Cinzel', fontSize: '50px', fill: '#d00000', stroke: '#fff', strokeThickness: 4 }).setOrigin(0.5).setDepth(3000);
