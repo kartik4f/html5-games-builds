@@ -188,7 +188,6 @@
             create() {
                 this.add.graphics().fillGradientStyle(0xe0d8cc, 0xe0d8cc, 0xf9f6f0, 0xf9f6f0, 1).fillRect(0, 0, 1080, 1920);
                 this.createRomanticParticles();
-
                 if (!this.sys.game.device.input.touch) this.input.setDefaultCursor('pointer');
 
                 const formHTML = `
@@ -255,6 +254,7 @@
                 this.itemsList = [];
                 this.gameTimer = 0;
                 this.difficultyLevel = 0;
+                this.collisionRadius = 110; // SMALLER PLAYER RADIUS
             }
             preload() { this.load.svg('partner', `https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.av}&backgroundColor=ffccd5`, { width: 300, height: 300 }); }
             create() { this.setupGame(); }
@@ -272,8 +272,9 @@
                 this.add.text(540, 150, `To My Dearest ${this.userData.n}`, { fontFamily: 'Pinyon Script', fontSize: '100px', fill: '#2a241e' }).setOrigin(0.5).setDepth(1500);
                 this.add.dom(540, 320).createFromHTML(`<div style="width:500px; height:15px; background:#ccc; border-radius:8px; overflow:hidden;"><div id="fill-bar" style="width:0%; height:100%; background:#d00000; transition:0.3s;"></div></div>`).setDepth(1000);
 
-                this.player = this.add.image(540, 1650, 'partner').setDepth(2500);
-                const maskShape = this.make.graphics().fillStyle(0xffffff).fillCircle(0, 0, 140);
+                // SMALLER PLAYER AVATAR AT BOTTOM
+                this.player = this.add.image(540, 1650, 'partner').setDepth(2500).setScale(0.8);
+                const maskShape = this.make.graphics().fillStyle(0xffffff).fillCircle(0, 0, this.collisionRadius);
                 this.player.setMask(maskShape.createGeometryMask());
                 this.events.on('update', () => { maskShape.x = this.player.x; maskShape.y = this.player.y; });
 
@@ -285,22 +286,12 @@
             createTouchEffect(x, y) {
                 const ring = this.add.graphics().setDepth(3500);
                 ring.lineStyle(4, 0xf9f6f0, 0.8).strokeCircle(x, y, 10);
-                this.tweens.add({
-                    targets: ring, alpha: 0, scale: 4, duration: 600,
-                    onUpdate: () => { ring.clear().lineStyle(4, 0xf9f6f0, ring.alpha).strokeCircle(x, y, 10 * ring.scale); },
-                    onComplete: () => ring.destroy()
-                });
+                this.tweens.add({ targets: ring, alpha: 0, scale: 4, duration: 600, onUpdate: () => { ring.clear().lineStyle(4, 0xf9f6f0, ring.alpha).strokeCircle(x, y, 10 * ring.scale); }, onComplete: () => ring.destroy() });
             }
 
             refreshSpawnTimer() {
                 if (this.spawnTimer) this.spawnTimer.remove();
-                // Difficulty ramps based on time-based difficultyLevel
-                this.spawnTimer = this.time.addEvent({
-                    delay: Math.max(450, 900 - (this.difficultyLevel * 100)),
-                    loop: true,
-                    callback: this.spawnTrajectoryItem,
-                    callbackScope: this
-                });
+                this.spawnTimer = this.time.addEvent({ delay: Math.max(450, 900 - (this.difficultyLevel * 100)), loop: true, callback: this.spawnTrajectoryItem, callbackScope: this });
             }
 
             spawnTrajectoryItem() {
@@ -327,13 +318,8 @@
 
                 const dtScale = delta / 16.666;
                 this.gameTimer += delta;
-
-                // Trigger difficulty increase every 10 seconds of play
                 let currentDifficulty = Math.floor(this.gameTimer / 10000);
-                if (currentDifficulty > this.difficultyLevel) {
-                    this.difficultyLevel = currentDifficulty;
-                    this.refreshSpawnTimer();
-                }
+                if (currentDifficulty > this.difficultyLevel) { this.difficultyLevel = currentDifficulty; this.refreshSpawnTimer(); }
 
                 const gravity = 0.6 * dtScale;
                 for (let i = this.itemsList.length - 1; i >= 0; i--) {
@@ -344,20 +330,33 @@
                     item.y += item.vy * dtScale;
                     item.vy += gravity;
 
-                    if (Phaser.Math.Distance.Between(item.x, item.y, this.player.x, this.player.y) < 140) {
+                    // UPDATED COLLISION RADIUS
+                    if (Phaser.Math.Distance.Between(item.x, item.y, this.player.x, this.player.y) < this.collisionRadius) {
                         if (item.isGood) {
                             const val = (item.content === "❤️" ? 10 : 5); this.score += val;
                             if (item.content === "❤️") this.lovePoints = Math.min(5, this.lovePoints + 1);
                             this.createCatchEffect(item.x, item.y, val);
                         } else {
-                            this.lovePoints = Math.max(0, this.lovePoints - 1); this.cameras.main.shake(200, 0.02);
-                            if (this.proposalAccepted && this.lovePoints <= 0) this.gameOver();
+                            this.handlePointLoss();
                         }
                         this.updateUI();
                         if (this.lovePoints >= 5 && !this.proposalTriggered) { this.proposalTriggered = true; this.showProposal(); }
                         item.destroy(); this.itemsList.splice(i, 1);
-                    } else if (item.y > 2000) { item.destroy(); this.itemsList.splice(i, 1); }
+                    } else if (item.y > 2000) {
+                        // PENALTY IF PLAYER MISSES A GOOD ITEM
+                        if (item.isGood) {
+                            this.handlePointLoss();
+                            this.updateUI();
+                        }
+                        item.destroy(); this.itemsList.splice(i, 1);
+                    }
                 }
+            }
+
+            handlePointLoss() {
+                this.lovePoints = Math.max(0, this.lovePoints - 1);
+                this.cameras.main.shake(200, 0.02);
+                if (this.proposalAccepted && this.lovePoints <= 0) this.gameOver();
             }
 
             createCatchEffect(x, y, val) {
