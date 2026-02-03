@@ -254,38 +254,25 @@
                 const handleGeneration = async () => {
                     const data = { cid: document.getElementById('cID').value || "Admirer", n: document.getElementById('pName').value || "Love", av: document.getElementById('pAvatar').value, cav: document.getElementById('cAvatar').value, m: document.getElementById('pMsg').value, gs: document.getElementById('gStyle').value };
                     const url = window.location.origin + window.location.pathname + '?game=' + btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-
-                    // Show link in UI
                     document.getElementById('finalUrl').innerText = url;
                     document.getElementById('shareSection').style.display = 'block';
                     document.getElementById('copyWrapper').onclick = () => { navigator.clipboard.writeText(url); alert("Link secured! ❤️"); };
-
-                    // Trigger Native Share
                     if (navigator.share) {
-                        try {
-                            await navigator.share({
-                                title: `A Message for ${data.n}`,
-                                text: `I have a romantic missive for you! Play here:`,
-                                url: url
-                            });
-                        } catch (err) { }
+                        try { await navigator.share({ title: `A Message for ${data.n}`, text: `I have a romantic missive for you!`, url: url }); } catch (err) { }
                     } else {
                         navigator.clipboard.writeText(url);
-                        alert("Link copied to clipboard! ❤️");
+                        alert("Link copied! ❤️");
                     }
-
                     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
                 };
-
                 document.getElementById('genBtn').addEventListener('click', handleGeneration);
-
                 document.getElementById('appShareBtn').addEventListener('click', async () => {
                     const appUrl = window.location.origin + window.location.pathname;
                     if (navigator.share) {
-                        try { await navigator.share({ title: 'The Trials of True Love', text: 'Create a romantic game for your partner!', url: appUrl }); } catch (err) { }
+                        try { await navigator.share({ title: 'The Trials of True Love', text: 'Create a romantic game!', url: appUrl }); } catch (err) { }
                     } else {
                         navigator.clipboard.writeText(appUrl);
-                        alert("App link copied to clipboard! 🔗");
+                        alert("App link copied! 🔗");
                     }
                 });
             }
@@ -330,7 +317,6 @@
                 this.score = 0; this.lovePoints = 0; this.isGamePaused = false; this.proposalAccepted = false; this.proposalTriggered = false;
                 this.gameTimer = 0; this.difficultyLevel = 0;
                 this.add.graphics().fillGradientStyle(0xe0d8cc, 0xe0d8cc, 0xf9f6f0, 0xf9f6f0, 1).fillRect(0, 0, 1080, 1920);
-
                 this.add.text(540, 1880, BRANDING_TEXT, { fontFamily: 'Cinzel', fontSize: '20px', fill: '#b8860b' }).setOrigin(0.5).setAlpha(0.6).setDepth(5);
 
                 if (!this.sys.game.device.input.touch) this.input.setDefaultCursor('pointer');
@@ -378,15 +364,24 @@
 
             update(time, delta) {
                 if (this.isGamePaused) return;
+
+                // Normalizing movement to 60fps baseline
                 const dtScale = delta / 16.666;
+
                 this.gameTimer += delta;
                 let currentDifficulty = Math.floor(this.gameTimer / 10000);
                 if (currentDifficulty > this.difficultyLevel) { this.difficultyLevel = currentDifficulty; this.refreshSpawnTimer(); }
+
                 const gravity = 0.6 * dtScale;
                 for (let i = this.itemsList.length - 1; i >= 0; i--) {
                     const item = this.itemsList[i];
                     if (!item.active) { this.itemsList.splice(i, 1); continue; }
-                    item.x += item.vx * dtScale; item.y += item.vy * dtScale; item.vy += gravity;
+
+                    // Framerate Independent Physics
+                    item.x += item.vx * dtScale;
+                    item.y += item.vy * dtScale;
+                    item.vy += gravity;
+
                     if (Phaser.Math.Distance.Between(item.x, item.y, this.player.x, this.player.y) < this.collisionRadius) {
                         if (item.isGood) {
                             const val = (item.content === "❤️" ? 10 : 5); this.score += val;
@@ -403,7 +398,7 @@
                 }
             }
 
-            handlePointLoss() { this.lovePoints = Math.max(0, this.lovePoints - 1); this.cameras.main.shake(200, 0.02); if (this.proposalAccepted && this.lovePoints <= 0) this.gameOver(); }
+            handlePointLoss() { this.lovePoints = Math.max(0, this.lovePoints - 1); this.cameras.main.shake(100, 0.013); if (this.proposalAccepted && this.lovePoints <= 0) this.gameOver(); }
 
             createCatchEffect(x, y, val) {
                 const txt = this.add.text(x, y, `+${val}`, { fontFamily: 'Cinzel', fontSize: '50px', fill: '#d00000', stroke: '#fff', strokeThickness: 4 }).setOrigin(0.5).setDepth(3000);
@@ -449,7 +444,7 @@
                     if (id === 'restartBtn') { dom.destroy(); this.scene.restart(); }
                     else if (id === 'shareScoreBtn') { if (navigator.share) navigator.share({ title: 'My Score', text: `My devotion reached ${this.score}! ❤️`, url: window.location.href }); }
                     else if (id === 'newProposalBtn') { window.location.href = window.location.origin + window.location.pathname; }
-                    else if (id === 'exitGameBtn') { window.close(); }
+                    else if (id === 'exitGameBtn') { window.location.reload(); }
                 });
             }
         }
