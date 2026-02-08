@@ -233,7 +233,7 @@
         }
 
         #playerSlider {
-            -webkit-appearance: none;
+            /* -webkit-appearance: none; */
             width: 100%;
             height: 100%;
             background: transparent;
@@ -688,16 +688,17 @@
 
                 document.getElementById('invShare').onclick = async () => {
                     const txt = `${i18n[currentLang].affection} Trial Score: ${this.score}! ❤️ Check out this secret message for you: `;
+                    const my_profile_link = 'https://www.instagram.com/imsinghkartik?igsh=MXQ1Z2Y1d2V3aHNjNw%3D%3D&utm_source=qr'
                     if (navigator.share) {
                         try {
                             await navigator.share({
                                 title: dict.title,
                                 text: txt,
-                                url: window.location.href,
+                                url: my_profile_link,
                             });
                         } catch (err) { console.log("System Share cancelled"); }
                     } else {
-                        window.open(`https://wa.me/?text=${encodeURIComponent(txt + " " + window.location.href)}`);
+                        window.open(`https://wa.me/?text=${encodeURIComponent(txt + " " + my_profile_link)}`);
                     }
                 };
             }

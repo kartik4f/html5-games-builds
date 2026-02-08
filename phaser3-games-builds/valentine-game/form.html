@@ -233,7 +233,7 @@
         }
 
         #playerSlider {
-            -webkit-appearance: none;
+            /* -webkit-appearance: none; */
             width: 100%;
             height: 100%;
             background: transparent;
@@ -383,31 +383,6 @@
             }).setOrigin(0.5).setDepth(30000);
         }
 
-        // Robust clipboard copy helper: uses Clipboard API when available (secure contexts), falls back to textarea+execCommand
-        function copyToClipboard(text) {
-            if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
-                return navigator.clipboard.writeText(text);
-            }
-            return new Promise((resolve, reject) => {
-                try {
-                    const ta = document.createElement('textarea');
-                    ta.value = text;
-                    // Prevent scrolling to bottom
-                    ta.style.position = 'fixed';
-                    ta.style.left = '-9999px';
-                    ta.style.top = '0';
-                    document.body.appendChild(ta);
-                    ta.focus();
-                    ta.select();
-                    const successful = document.execCommand('copy');
-                    document.body.removeChild(ta);
-                    if (successful) resolve(); else reject(new Error('execCommand copy failed'));
-                } catch (err) {
-                    reject(err);
-                }
-            });
-        }
-
         function addNativeLangToggle(scene) {
             const btn = scene.add.text(1040, 40, i18n[currentLang].btn, {
                 fontFamily: 'Cinzel', fontSize: '38px', color: '#ffffff',
@@ -506,16 +481,11 @@
                 document.getElementById('formPanel').innerHTML = `<h2 style="font-family:${dict.font}; color:var(--red); font-size:50px;">SHARE LINK</h2><button id="sendDirect" class="pill-button btn-primary" style="margin-top:20px; font-family:${dict.font};"><i class="fa-solid fa-share-nodes"></i> ${dict.shareWithLove}</button><div class="share-url-container"><div class="url-text-scroll">${url}</div><i class="fa-solid fa-copy copy-btn" id="copyAction"></i></div><button onclick="window.location.reload()" class="pill-button btn-secondary" style="font-family:${dict.font};">BACK</button>`;
 
                 document.getElementById('copyAction').onclick = () => {
-                    copyToClipboard(url).then(() => {
-                        const sb = document.getElementById("snackbar");
-                        sb.innerText = dict.copied;
-                        sb.style.visibility = "visible";
-                        setTimeout(() => sb.style.visibility = "hidden", 3000);
-                    }).catch((err) => {
-                        console.warn('Copy failed', err);
-                        // As a last resort, open share dialog with the URL so user can copy manually
-                        alert('Could not access clipboard automatically. The link is:\n' + url);
-                    });
+                    navigator.clipboard.writeText(url);
+                    const sb = document.getElementById("snackbar");
+                    sb.innerText = dict.copied;
+                    sb.style.visibility = "visible";
+                    setTimeout(() => sb.style.visibility = "hidden", 3000);
                 };
 
                 document.getElementById('sendDirect').onclick = async () => {
@@ -718,16 +688,17 @@
 
                 document.getElementById('invShare').onclick = async () => {
                     const txt = `${i18n[currentLang].affection} Trial Score: ${this.score}! ❤️ Check out this secret message for you: `;
+                    const my_profile_link = 'https://www.instagram.com/imsinghkartik?igsh=MXQ1Z2Y1d2V3aHNjNw%3D%3D&utm_source=qr'
                     if (navigator.share) {
                         try {
                             await navigator.share({
                                 title: dict.title,
                                 text: txt,
-                                url: window.location.href,
+                                url: my_profile_link,
                             });
                         } catch (err) { console.log("System Share cancelled"); }
                     } else {
-                        window.open(`https://wa.me/?text=${encodeURIComponent(txt + " " + window.location.href)}`);
+                        window.open(`https://wa.me/?text=${encodeURIComponent(txt + " " + my_profile_link)}`);
                     }
                 };
             }
