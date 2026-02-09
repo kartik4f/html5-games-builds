@@ -458,10 +458,29 @@
                 this.setupScroll('pro-av', 'cAvatar', 'Liam');
                 this.setupScroll('bel-av', 'pAvatar', 'Andrea');
 
+
+
+
+
+
                 document.getElementById('genBtn').onclick = async () => {
-                    const data = { l: currentLang, cid: document.getElementById('cID').value || "Admirer", n: document.getElementById('pName').value || "Love", av: document.getElementById('pAvatar').value, cav: document.getElementById('cAvatar').value, m: document.getElementById('pMsg').value || "❤️" };
-                    const url = window.location.origin + window.location.pathname + '?game=' + btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-                    this.showFallbackShare(url, data.n);
+                    const data = {
+                        l: currentLang,
+                        cid: document.getElementById('cID').value || "Admirer",
+                        n: document.getElementById('pName').value || "Love",
+                        av: document.getElementById('pAvatar').value,
+                        cav: document.getElementById('cAvatar').value,
+                        m: document.getElementById('pMsg').value || "❤️"
+                    };
+
+                    // FIX: UTF-8 Safe Base64 Encoding
+                    const jsonStr = JSON.stringify(data);
+                    const utf8Data = encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+                        return String.fromCharCode('0x' + p1);
+                    });
+                    const base64Game = btoa(utf8Data);
+
+                    const url = window.location.origin + window.location.pathname + '?game=' + base64Game;
                     if (navigator.share) {
                         try {
                             await navigator.share({
@@ -469,7 +488,10 @@
                                 text: `${dict.dear} ${name}, Check this secret message Trial of Love! ❤️`,
                                 url: url,
                             });
-                        } catch (err) { console.log("System Share cancelled"); }
+                        } catch (err) {
+                            console.log("System Share cancelled");
+                            this.showFallbackShare(url, data.n);
+                        }
                     } else {
                         this.showFallbackShare(url, data.n);
                     }
@@ -519,10 +541,25 @@
         class GameScene extends Phaser.Scene {
             constructor() { super('GameScene'); }
             init() {
+                // const params = new URLSearchParams(window.location.search);
+                // try {
+                //     this.userData = JSON.parse(decodeURIComponent(escape(atob(params.get('game')))));
+                // } catch (e) { this.userData = { cid: "Admirer", n: "Love", av: "Andrea", cav: "Liam", m: "❤️" }; }
+
+
+
                 const params = new URLSearchParams(window.location.search);
                 try {
-                    this.userData = JSON.parse(decodeURIComponent(escape(atob(params.get('game')))));
-                } catch (e) { this.userData = { cid: "Admirer", n: "Love", av: "Andrea", cav: "Liam", m: "❤️" }; }
+                    const base64 = params.get('game');
+                    // FIX: UTF-8 Safe Base64 Decoding
+                    const utf8Data = atob(base64).split('').map((c) => {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join('');
+                    this.userData = JSON.parse(decodeURIComponent(utf8Data));
+                } catch (e) {
+                    console.error("Decoding failed", e);
+                    this.userData = { cid: "Admirer", n: "Love", av: "Andrea", cav: "Liam", m: "❤️" };
+                }
                 this.itemsList = []; this.score = 0; this.lovePoints = 2.5; this.isGamePaused = true; this.isOver = false; this.proposalAccepted = false; this.elapsedSeconds = 0;
                 this.sprayTimer = null; // To manage Dynamic Love Spray
             }

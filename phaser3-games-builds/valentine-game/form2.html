@@ -461,15 +461,19 @@
                 document.getElementById('genBtn').onclick = async () => {
                     const data = { l: currentLang, cid: document.getElementById('cID').value || "Admirer", n: document.getElementById('pName').value || "Love", av: document.getElementById('pAvatar').value, cav: document.getElementById('cAvatar').value, m: document.getElementById('pMsg').value || "❤️" };
                     const url = window.location.origin + window.location.pathname + '?game=' + btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-                    this.showFallbackShare(url, data.n);
+
+
                     if (navigator.share) {
                         try {
                             await navigator.share({
                                 title: dict.title,
-                                text: `${dict.dear} ${name}, Check this secret message Trial of Love! ❤️`,
+                                text: `${dict.dear} ${data.n}, Check this secret message Trial of Love! ❤️`,
                                 url: url,
                             });
-                        } catch (err) { console.log("System Share cancelled"); }
+                        } catch (err) {
+                            console.log("System Share cancelled");
+                            this.showFallbackShare(url, data.n);
+                        }
                     } else {
                         this.showFallbackShare(url, data.n);
                     }
@@ -481,11 +485,17 @@
                 document.getElementById('formPanel').innerHTML = `<h2 style="font-family:${dict.font}; color:var(--red); font-size:50px;">SHARE LINK</h2><button id="sendDirect" class="pill-button btn-primary" style="margin-top:20px; font-family:${dict.font};"><i class="fa-solid fa-share-nodes"></i> ${dict.shareWithLove}</button><div class="share-url-container"><div class="url-text-scroll">${url}</div><i class="fa-solid fa-copy copy-btn" id="copyAction"></i></div><button onclick="window.location.reload()" class="pill-button btn-secondary" style="font-family:${dict.font};">BACK</button>`;
 
                 document.getElementById('copyAction').onclick = () => {
-                    navigator.clipboard.writeText(url);
-                    const sb = document.getElementById("snackbar");
-                    sb.innerText = dict.copied;
-                    sb.style.visibility = "visible";
-                    setTimeout(() => sb.style.visibility = "hidden", 3000);
+                    try {
+                        navigator.clipboard.writeText(url);
+                        const sb = document.getElementById("snackbar");
+                        sb.innerText = dict.copied;
+                        sb.style.visibility = "visible";
+                        setTimeout(() => sb.style.visibility = "hidden", 3000);
+                    }
+                    catch (e) {
+                        console.error("Clipboard API failed", e);
+                        window.open(`https://wa.me/?text=${encodeURIComponent(url)}`);
+                    }
                 };
 
                 document.getElementById('sendDirect').onclick = async () => {
