@@ -401,6 +401,8 @@
                 belovedName: "Beloved's Name",
                 msgHint: "Pop a question, make them smile...",
                 defaultMsg: "You've captured my heart! Will you be my Valentine? ❤️",
+                yourAv: "Choose Your Avatar:",
+                belovedAv: "Choose Their Avatar:",
                 seal: "SEND WITH LOVE",
                 shareWithLove: "Share with Love",
                 start: "START TRIAL",
@@ -429,6 +431,8 @@
                 belovedName: "प्रिय का नाम",
                 msgHint: "एक सवाल पूछें, उन्हें मुस्कुराने दें...",
                 defaultMsg: "तुमने मेरा दिल जीत लिया है! क्या तुम मेरे वैलेंटाइन बनोगे? ❤️",
+                yourAv: "अपना अवतार चुनें:",
+                belovedAv: "उनका अवतार चुनें:",
                 seal: "प्यार से भेजें",
                 shareWithLove: "प्यार से साझा करें",
                 start: "शुरू करें",
@@ -457,13 +461,15 @@
                 belovedName: "प्रिय व्यक्तीचे नाव",
                 msgHint: "एक प्रश्न विचारा, त्यांना हसवा...",
                 defaultMsg: "तू माझं हृदय जिंकलं आहेस! तू माझी व्हॅलेंटाईन होशील का? ❤️",
+                yourAv: "तुमचा अवतार निवडा:",
+                belovedAv: "त्यांचा अवतार निवडा:",
                 seal: "प्रेमाने पाठवा",
                 shareWithLove: "प्रेमाने शेअर करा",
                 start: "चाचणी सुरू करा",
-                catch: "पकડા: ❤️ 💐 🌹 🧸 🍫 🍩",
-                avoid: "વાચા: 🕷️ 🪳 🧟 💣 🦂 🥀",
+                catch: "पकडा: ❤️ 💐 🌹 🧸 🍫 🍩",
+                avoid: "टाळा: 🕷️ 🪳 🧟 💣 🦂 🥀",
                 affection: "प्रेम",
-                admirerDetails: "चाहत्याचे तपशील: ",
+                admirerDetails: "प्रशंसकाचा तपशील: ",
                 yes: "हो! 😍",
                 no: "नाही",
                 lost: "प्रेम संपले",
@@ -485,6 +491,8 @@
                 belovedName: "પ્રિયનું નામ",
                 msgHint: "એક પ્રશ્ન પૂછો, તેમને સ્મિત કરાવો...",
                 defaultMsg: "તે મારું દિલ જીતી લીધું છે! શું તું મારી વેલેન્ટાઇન બનીશ? ❤️",
+                yourAv: "તમારો અવતાર પસંદ કરો:",
+                belovedAv: "તેમનો અવતાર પસંદ કરો:",
                 seal: "પ્રેમથી મોકલો",
                 shareWithLove: "પ્રેમથી શેર કરો",
                 start: "કસોટી શરૂ કરો",
@@ -513,6 +521,8 @@
                 belovedName: "প্রিয়জনের নাম",
                 msgHint: "একটি প্রশ্ন করুন, তাদের হাসাতে দিন...",
                 defaultMsg: "তুমি আমার মন জয় করেছো! তুমি কি আমার ভ্যালেন্টাইন হবে? ❤️",
+                yourAv: "আপনার অবতার চয়ন করুন:",
+                belovedAv: "তাদের অবতার চয়ন করুন:",
                 seal: "ভালোবাসার সাথে পাঠান",
                 shareWithLove: "ভালোবাসার সাথে শেয়ার করুন",
                 start: "শুরু করুন",
@@ -541,6 +551,8 @@
                 belovedName: "பெயர்",
                 msgHint: "ஒரு கேள்வியைக் கேளுங்கள், அவர்களை சிரிக்க வைக்கவும்...",
                 defaultMsg: "என் இதயத்தை வென்றுவிட்டாய்! நீ என் காதலியாக இருப்பாயா? ❤️",
+                yourAv: "உங்கள் அவதாரைத் தேர்வுசெய்க:",
+                belovedAv: "அவர்களின் அவதாரைத் தேர்வுசெய்க:",
                 seal: "அனுப்பவும்",
                 shareWithLove: "அன்புடன் பகிரவும்",
                 start: "தொடங்கு",
@@ -559,7 +571,6 @@
                 copied: "லிங்க் காப்பி செய்யப்பட்டது! ❤️"
             }
         };
-
         let langOrder = ['en', 'hi', 'mr', 'gu', 'bn', 'ta'];
         let currentLangIdx = 0;
         let currentLang = 'en';
@@ -710,11 +721,8 @@
                 }
             }
             renderForm() {
-                // 1. Capture current values
                 const textarea = document.getElementById('pMsg');
                 const currentText = textarea ? textarea.value : "";
-
-                // Check if the current text matches ANY of the default messages in our i18n
                 const isDefaultMsg = Object.values(i18n).some(lang => lang.defaultMsg === currentText);
 
                 const existingYourName = document.getElementById('cID')?.value;
@@ -723,18 +731,9 @@
                 const existingCAvatar = document.getElementById('cAvatar')?.value;
 
                 if (this.formDom) this.formDom.destroy();
-
                 const dict = i18n[currentLang];
 
-                // 2. SMART TRANSLATION LOGIC:
-                // If the box is empty OR contains a default message from any language, 
-                // update it to the current language's default.
-                let textToDisplay;
-                if (!currentText || currentText === "" || isDefaultMsg) {
-                    textToDisplay = dict.defaultMsg;
-                } else {
-                    textToDisplay = currentText; // User typed something custom, keep it!
-                }
+                let textToDisplay = (!currentText || currentText === "" || isDefaultMsg) ? dict.defaultMsg : currentText;
 
                 const html = `
     <div class="glass-panel" id="formPanel">
@@ -746,14 +745,21 @@
             <input type="text" id="pName" maxlength="12" placeholder="${dict.belovedName}" value="${existingBelovedName || ''}"
                 style="padding:22px; border-radius:20px; border:2px solid #ffccd5; font-size:28px;">
         </div>
-
-<textarea id="pMsg" rows="3" maxlength="160"
-    placeholder="${dict.msgHint}" 
-    style="width:100%; padding:22px; border-radius:15px; border:2px solid #ffccd5; font-size:28px; margin-bottom:20px; resize:none; font-family:inherit;">${textToDisplay}</textarea>
+        
+        <textarea id="pMsg" rows="3" maxlength="160" placeholder="${dict.msgHint}" 
+            style="width:100%; padding:22px; border-radius:15px; border:2px solid #ffccd5; font-size:28px; margin-bottom:10px; resize:none; font-family:inherit;">${textToDisplay}</textarea>
+        
+        <div style="width:100%; text-align:left; margin-top:10px;">
+            <label style="font-family:${dict.font}; font-size:24px; color:var(--deep-pink); font-weight:bold;">${dict.yourAv}</label>
+        </div>
         <div id="pro-av" class="avatar-scroll"></div>
+        
+        <div style="width:100%; text-align:left; margin-top:10px;">
+            <label style="font-family:${dict.font}; font-size:24px; color:var(--deep-pink); font-weight:bold;">${dict.belovedAv}</label>
+        </div>
         <div id="bel-av" class="avatar-scroll"></div>
         
-        <button id="genBtn" class="pill-button btn-primary" style="font-family:${dict.font};">
+        <button id="genBtn" class="pill-button btn-primary" style="font-family:${dict.font}; margin-top:20px;">
             <i class="fa-solid fa-paper-plane"></i> ${dict.seal}
         </button>
         
@@ -797,16 +803,22 @@
 
                     const url = window.location.origin + window.location.pathname + '?game=' + base64Game;
                     // Sharing logic...
+                    const shareMsg = `${dict.dear} ${data.n}, ${dict.shareText}`;
+
                     if (navigator.share) {
                         try {
                             await navigator.share({
                                 title: dict.title,
-                                text: `${dict.dear} ${data.n}, Check this secret message Trial of Love! ❤️`,
+                                text: shareMsg,
                                 url: url,
                             });
-                        } catch (err) { this.showFallbackShare(url, data.n); }
+                        } catch (err) {
+                            this.showFallbackShare(url, data.n);
+                        }
                     } else {
-                        this.showFallbackShare(url, data.n);
+                        // WhatsApp fallback
+                        const waUrl = `https://wa.me/?text=${encodeURIComponent(shareMsg + " " + url)}`;
+                        window.open(waUrl);
                     }
                 };
 
@@ -840,18 +852,25 @@
 
                 document.getElementById('sendDirect').onclick = async () => {
                     this.burstHearts();
+                    // Sharing logic...
+                    const shareMsg = `${dict.dear} ${name}, ${dict.shareText}`;
+
                     if (navigator.share) {
                         try {
                             await navigator.share({
                                 title: dict.title,
-                                text: `${dict.dear} ${data.n}, Check this secret message Trial of Love! ❤️`,
+                                text: shareMsg,
                                 url: url,
                             });
                         } catch (err) {
-
+                            // WhatsApp fallback
+                            // const waUrl = `https://wa.me/?text=${encodeURIComponent(shareMsg + " " + url)}`;
+                            // window.open(waUrl);
                         }
                     } else {
-                        window.open(`https://wa.me/?text=${encodeURIComponent(url)}`);
+                        // WhatsApp fallback
+                        const waUrl = `https://wa.me/?text=${encodeURIComponent(shareMsg + " " + url)}`;
+                        window.open(waUrl);
                     }
 
                 };
@@ -1129,7 +1148,10 @@
                 this.tweens.add({ targets: this.gameOverDom, scale: 1, duration: 500, ease: 'Back.easeOut' });
 
                 document.getElementById('invShare').onclick = async () => {
-                    const txt = `${i18n[currentLang].affection} Trial Score: ${this.score}! ❤️ Check out this secret message for you: `;
+                    const dict = i18n[currentLang];
+                    // Assembling the localized message: 
+                    // "Affection Trial Score: 450! ❤️ Check out this secret message for you: [Link]"
+                    const txt = `${dict.affection} ${dict.scoreShare}: ${this.score}! ❤️ ${dict.checkSecret}`;
                     const my_profile_link = 'https://www.instagram.com/codinginterface?igsh=anVuY3JlYzJ5cWhy&utm_source=qr'
                     if (navigator.share) {
                         try {
@@ -1138,7 +1160,7 @@
                                 text: txt,
                                 url: my_profile_link,
                             });
-                        } catch (err) { console.log("System Share cancelled"); }
+                        } catch (err) { }
                     } else {
                         window.open(`https://wa.me/?text=${encodeURIComponent(txt + " " + my_profile_link)}`);
                     }
