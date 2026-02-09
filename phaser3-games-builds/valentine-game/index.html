@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>The Trials of True Love ❤️ - v3.0.7</title>
+    <title>The Trials of True Love ❤️ - v3.1.0</title>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -27,7 +27,6 @@
             background: #ffe5ec;
             overflow: hidden;
             font-family: 'Playfair Display', serif;
-            /* Prevent accidental text selection while playing */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -233,7 +232,6 @@
         }
 
         #playerSlider {
-
             width: 100%;
             height: 100%;
             background: transparent;
@@ -241,11 +239,9 @@
             z-index: 10;
             position: absolute;
             cursor: pointer;
-
             -moz-appearance: none;
             -ms-appearance: none;
             -o-appearance: none;
-
             -webkit-appearance: none;
         }
 
@@ -349,6 +345,40 @@
             width: 100%;
             margin: 10px 0;
         }
+
+        .lang-dropdown-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 30000;
+        }
+
+        .lang-select {
+            background: var(--red);
+            color: white;
+            border: 3px solid white;
+            border-radius: 25px;
+            padding: 10px 40px 10px 20px;
+            font-family: 'Cinzel', sans-serif;
+            font-size: 20px;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .lang-dropdown-container::after {
+            content: '\f0d7';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            pointer-events: none;
+        }
     </style>
 </head>
 
@@ -360,79 +390,251 @@
 
     <script>
         const i18n = {
-            en: { font: "'Cinzel', serif", scriptFont: "'Pinyon Script', cursive", dear: "Dear", btn: "हिंदी", title: "LOVE TRIAL", yourName: "Your Name", belovedName: "Beloved's Name", msgHint: "Type your secret message and keep it short!!", seal: "SEND WITH LOVE", shareWithLove: "Share with Love", start: "START TRIAL", catch: "Catch: ❤️ 💐 🌹 🧸 🍫 🍩", avoid: "Avoid: 🕷️ 🪳 🧟 💣 🦂 🥀", affection: "Affection", admirerDetails: "Admirer's Details: ", yes: "YES! 😍", no: "No", lost: "Affection Lost", tryAgain: "TRY AGAIN", share: "SHARE SCORE", create: "CREATE NEW", exit: "EXIT", trolls: ["Too slow!", "Boomer clicks?", "Is that all?", "Click better!", "Try harder!", "Missed me!"], copied: "Link Secured! ❤️" },
-            hi: { font: "'Noto Sans Devanagari', sans-serif", scriptFont: "'Noto Sans Devanagari', sans-serif", dear: "प्रिय", btn: "मराठी", title: "प्रेम परीक्षा", yourName: "आपका नाम", belovedName: "प्रिय का नाम", msgHint: "अपना गुप्त संदेश लिखें!!", seal: "प्यार से भेजें", shareWithLove: "प्यार से साझा करें", start: "शुरू करें", catch: "पकड़ो: ❤️ 💐 🌹 🧸 🍫 🍩", avoid: "बचो: 🕷️ 🪳 🧟 💣 🦂 🥀 ", affection: "स्नेह", admirerDetails: "प्रशंसक का विवरण: ", yes: "हाँ! 😍", no: "नहीं", lost: "स्नेह समाप्त", tryAgain: "फिर कोशिश करें", share: "साझा करें", create: "नया बनाएं", exit: "बाहर निकलें", trolls: ["बहुत धीरे!", "क्या कर रहे हो?", "बस इतना ही?"], copied: "लिंक कॉपी हो गया! ❤️" },
-            mr: { font: "'Noto Sans Devanagari', sans-serif", scriptFont: "'Noto Sans Devanagari', sans-serif", dear: "प्रिय", btn: "ગુજરાતી", title: "प्रेम चाचणी", yourName: "तुमचे नाव", belovedName: "प्रिय व्यक्तीचे नाव", msgHint: "संदेश लिहा!!", seal: "प्रेमाने पाठवा", shareWithLove: "प्रेमाने शेअर करा", start: "चाचणी सुरू करा", catch: "पकડા: ❤️ 💐 🌹 🧸 🍫 🍩", avoid: "વાચા: 🕷️ 🪳 🧟 💣 🦂 🥀", affection: "प्रेम", admirerDetails: "चाहत्याचे तपशील: ", yes: "हो! 😍", no: "नाही", lost: "प्रेम संपले", tryAgain: "पुन्हा प्रयत्न करा", share: "स्कोअर शेअर करा", create: "नवीन तयार करा", exit: "બાहेर પડા", trolls: ["खूप સ્લો!", "काय करतोयस?"], copied: "लिंक कॉपी झाली! ❤️" },
-            gu: { font: "'Noto Sans Gujarati', sans-serif", scriptFont: "'Noto Sans Gujarati', sans-serif", dear: "વહાલા", btn: "বাংলা", title: "પ્રેમ કસોટી", yourName: "તમારું નામ", belovedName: "પ્રિયનું નામ", msgHint: "સંદેશ લખો!!", seal: "પ્રેમથી મોકલો", shareWithLove: "પ્રેમથી શેર કરો", start: "કસોટી શરૂ કરો", catch: "પકડો: ❤️ 💐 🌹 🧸 🍫 🍩", avoid: "બચો: 🕷️ 🪳 🧟 💣 🦂 🥀", affection: "સ્નેહ", admirerDetails: "પ્રશંસકની વિગતો: ", yes: "હા! 😍", no: "ના", lost: "સ્નેહ સમાપ્ત", tryAgain: "ફરી પ્રયાસ કરો", share: "સ્કોર શેર કરો", create: "નવું બનાવો", exit: "બહાર નીકળો", trolls: ["બહુ ધીમા!", "શું કરે છે?"], copied: "લિન્ક કોપી થઈ! ❤️" },
-            bn: { font: "'Noto Sans Bengali', sans-serif", scriptFont: "'Noto Sans Bengali', sans-serif", dear: "প্রিয়", btn: "தமிழ்", title: "প্রেম পরীক্ষা", yourName: "আপনার নাম", belovedName: "প্রিয়জনের নাম", msgHint: "বার্তা লিখুন!!", seal: "ভালোবাসার সাথে পাঠান", shareWithLove: "ভালোবাসার সাথে শেয়ার করুন", start: "শুরু করুন", catch: "ধরুন: ❤️ 💐 🌹 🧸 🍫 🍩", avoid: "বাঁচুন: 🕷️ 🪳 🧟 💣 🦂 🥀", affection: "স্নেহ", admirerDetails: "প্রশংসকের বিবরণ: ", yes: "হ্যাঁ! 😍", no: "না", lost: "স্নেহ সমাপ্ত", tryAgain: "আবার চেষ্টা করুন", share: "স্কোর শেয়ার করুন", create: "নতুন তৈরি করুন", exit: "প্রস্থান করুন", trolls: ["খুব ধীর!", "কি করছো?"], copied: "লিঙ্ক কপি হয়েছে! ❤️" },
-            ta: { font: "'Noto Sans Tamil', sans-serif", scriptFont: "'Noto Sans Tamil', sans-serif", dear: "அன்புள்ள", btn: "English", title: "காதல் சோதனை", yourName: "உங்கள் பெயர்", belovedName: "பெயர்", msgHint: "செய்தி!!", seal: "அனுப்பவும்", shareWithLove: "அன்புடன் பகிரவும்", start: "தொடங்கு", catch: "பிடி: ❤️ 💐 🌹 🧸 🍫 🍩", avoid: "தவிர்: 🕷️ 🪳 🧟 💣 🦂 🥀", affection: "அன்பு", admirerDetails: "ரசிகர் விவரங்கள்: ", yes: "ஆம்! 😍", no: "இல்லை", lost: "அன்பு குறைந்தது", tryAgain: "மீண்டும் முயல்க", share: "பகிர்", create: "புதிதாக உருவாக்கு", exit: "வெளியேறு", trolls: ["மிக மெது!", "என்ன செய்கிறாய்?"], copied: "லிங்க் காப்பி செய்யப்பட்டது! ❤️" }
+            en: {
+                langName: "English",
+                font: "'Cinzel', serif",
+                scriptFont: "'Pinyon Script', cursive",
+                dear: "Dear",
+                btn: "हिंदी",
+                title: "LOVE TRIAL",
+                yourName: "Your Name",
+                belovedName: "Beloved's Name",
+                msgHint: "Pop a question, make them smile...",
+                defaultMsg: "You've captured my heart! Will you be my Valentine? ❤️",
+                seal: "SEND WITH LOVE",
+                shareWithLove: "Share with Love",
+                start: "START TRIAL",
+                catch: "Catch: ❤️ 💐 🌹 🧸 🍫 🍩",
+                avoid: "Avoid: 🕷️ 🪳 🧟 💣 🦂 🥀",
+                affection: "Affection",
+                admirerDetails: "Admirer's Details: ",
+                yes: "YES! 😍",
+                no: "No",
+                lost: "Affection Lost",
+                tryAgain: "TRY AGAIN",
+                share: "SHARE SCORE",
+                create: "CREATE NEW",
+                exit: "EXIT",
+                trolls: ["Too slow!", "Boomer clicks?", "Is that all?", "Click better!", "Try harder!", "Missed me!"],
+                copied: "Link Secured! ❤️"
+            },
+            hi: {
+                langName: "हिन्दी",
+                font: "'Noto Sans Devanagari', sans-serif",
+                scriptFont: "'Noto Sans Devanagari', sans-serif",
+                dear: "प्रिय",
+                btn: "मराठी",
+                title: "प्रेम परीक्षा",
+                yourName: "आपका नाम",
+                belovedName: "प्रिय का नाम",
+                msgHint: "एक सवाल पूछें, उन्हें मुस्कुराने दें...",
+                defaultMsg: "तुमने मेरा दिल जीत लिया है! क्या तुम मेरे वैलेंटाइन बनोगे? ❤️",
+                seal: "प्यार से भेजें",
+                shareWithLove: "प्यार से साझा करें",
+                start: "शुरू करें",
+                catch: "पकड़ो: ❤️ 💐 🌹 🧸 🍫 🍩",
+                avoid: "बचो: 🕷️ 🪳 🧟 💣 🦂 🥀 ",
+                affection: "स्नेह",
+                admirerDetails: "प्रशंसक का विवरण: ",
+                yes: "हाँ! 😍",
+                no: "नहीं",
+                lost: "स्नेह समाप्त",
+                tryAgain: "फिर कोशिश करें",
+                share: "साझा करें",
+                create: "नया बनाएं",
+                exit: "बाहर निकलें",
+                trolls: ["बहुत धीरे!", "क्या कर रहे हो?", "बस इतना ही?"],
+                copied: "लिंक कॉपी हो गया! ❤️"
+            },
+            mr: {
+                langName: "मराठी",
+                font: "'Noto Sans Devanagari', sans-serif",
+                scriptFont: "'Noto Sans Devanagari', sans-serif",
+                dear: "प्रिय",
+                btn: "ગુજરાતી",
+                title: "प्रेम चाचणी",
+                yourName: "तुमचे नाव",
+                belovedName: "प्रिय व्यक्तीचे नाव",
+                msgHint: "एक प्रश्न विचारा, त्यांना हसवा...",
+                defaultMsg: "तू माझं हृदय जिंकलं आहेस! तू माझी व्हॅलेंटाईन होशील का? ❤️",
+                seal: "प्रेमाने पाठवा",
+                shareWithLove: "प्रेमाने शेअर करा",
+                start: "चाचणी सुरू करा",
+                catch: "पकડા: ❤️ 💐 🌹 🧸 🍫 🍩",
+                avoid: "વાચા: 🕷️ 🪳 🧟 💣 🦂 🥀",
+                affection: "प्रेम",
+                admirerDetails: "चाहत्याचे तपशील: ",
+                yes: "हो! 😍",
+                no: "नाही",
+                lost: "प्रेम संपले",
+                tryAgain: "पुन्हा प्रयत्न करा",
+                share: "स्कोअर शेअर करा",
+                create: "नवीन तयार करा",
+                exit: "बाहेर पडा",
+                trolls: ["खूप स्लो!", "काय करतोयस?"],
+                copied: "लिंक कॉपी झाली! ❤️"
+            },
+            gu: {
+                langName: "ગુજરાતી",
+                font: "'Noto Sans Gujarati', sans-serif",
+                scriptFont: "'Noto Sans Gujarati', sans-serif",
+                dear: "વહાલા",
+                btn: "বাংলা",
+                title: "પ્રેમ કસોટી",
+                yourName: "તમારું નામ",
+                belovedName: "પ્રિયનું નામ",
+                msgHint: "એક પ્રશ્ન પૂછો, તેમને સ્મિત કરાવો...",
+                defaultMsg: "તે મારું દિલ જીતી લીધું છે! શું તું મારી વેલેન્ટાઇન બનીશ? ❤️",
+                seal: "પ્રેમથી મોકલો",
+                shareWithLove: "પ્રેમથી શેર કરો",
+                start: "કસોટી શરૂ કરો",
+                catch: "પકડો: ❤️ 💐 🌹 🧸 🍫 🍩",
+                avoid: "બચો: 🕷️ 🪳 🧟 💣 🦂 🥀",
+                affection: "સ્નેહ",
+                admirerDetails: "પ્રશંસકની વિગતો: ",
+                yes: "હા! 😍",
+                no: "ના",
+                lost: "સ્નેહ સમાપ્ત",
+                tryAgain: "ફરી પ્રયાસ કરો",
+                share: "સ્કોર શેર કરો",
+                create: "નવું બનાવો",
+                exit: "બહાર નીકળો",
+                trolls: ["બહુ ધીમા!", "શું કરે છે?"],
+                copied: "લિન્ક કોપી થઈ! ❤️"
+            },
+            bn: {
+                langName: "বাংলা",
+                font: "'Noto Sans Bengali', sans-serif",
+                scriptFont: "'Noto Sans Bengali', sans-serif",
+                dear: "প্রিয়",
+                btn: "தமிழ்",
+                title: "প্রেম পরীক্ষা",
+                yourName: "আপনার নাম",
+                belovedName: "প্রিয়জনের নাম",
+                msgHint: "একটি প্রশ্ন করুন, তাদের হাসাতে দিন...",
+                defaultMsg: "তুমি আমার মন জয় করেছো! তুমি কি আমার ভ্যালেন্টাইন হবে? ❤️",
+                seal: "ভালোবাসার সাথে পাঠান",
+                shareWithLove: "ভালোবাসার সাথে শেয়ার করুন",
+                start: "শুরু করুন",
+                catch: "ধরুন: ❤️ 💐 🌹 🧸 🍫 🍩",
+                avoid: "বাঁচুন: 🕷️ 🪳 🧟 💣 🦂 🥀",
+                affection: "স্নেহ",
+                admirerDetails: "প্রশংসকের বিবরণ: ",
+                yes: "হ্যাঁ! 😍",
+                no: "না",
+                lost: "স্নেহ সমাপ্ত",
+                tryAgain: "আবার চেষ্টা করুন",
+                share: "স্কোর শেয়ার করুন",
+                create: "নতুন তৈরি করুন",
+                exit: "প্রস্থান করুন",
+                trolls: ["খুব ধীর!", "কি করছো?"],
+                copied: "লিঙ্ক কপি হয়েছে! ❤️"
+            },
+            ta: {
+                langName: "தமிழ்",
+                font: "'Noto Sans Tamil', sans-serif",
+                scriptFont: "'Noto Sans Tamil', sans-serif",
+                dear: "அன்புள்ள",
+                btn: "English",
+                title: "காதல் சோதனை",
+                yourName: "உங்கள் பெயர்",
+                belovedName: "பெயர்",
+                msgHint: "ஒரு கேள்வியைக் கேளுங்கள், அவர்களை சிரிக்க வைக்கவும்...",
+                defaultMsg: "என் இதயத்தை வென்றுவிட்டாய்! நீ என் காதலியாக இருப்பாயா? ❤️",
+                seal: "அனுப்பவும்",
+                shareWithLove: "அன்புடன் பகிரவும்",
+                start: "தொடங்கு",
+                catch: "பிடி: ❤️ 💐 🌹 🧸 🍫 🍩",
+                avoid: "தவிர்: 🕷️ 🪳 🧟 💣 🦂 🥀",
+                affection: "அன்பு",
+                admirerDetails: "ரசிகர் விவரங்கள்: ",
+                yes: "ஆம்! 😍",
+                no: "இல்லை",
+                lost: "அன்பு குறைந்தது",
+                tryAgain: "மீண்டும் முயல்க",
+                share: "பகிர்",
+                create: "புதிதாக உருவாக்கு",
+                exit: "வெளியேறு",
+                trolls: ["மிக மெது!", "என்ன செய்கிறாய்?"],
+                copied: "லிங்க் காப்பி செய்யப்பட்டது! ❤️"
+            }
         };
 
         let langOrder = ['en', 'hi', 'mr', 'gu', 'bn', 'ta'];
         let currentLangIdx = 0;
         let currentLang = 'en';
 
-        // const urlParamsInitial = new URLSearchParams(window.location.search);
-        // if (urlParamsInitial.has('game')) {
-        //     try {
-        //         const decoded = JSON.parse(decodeURIComponent(escape(atob(urlParamsInitial.get('game')))));
-        //         if (decoded.l && langOrder.includes(decoded.l)) {
-        //             currentLang = decoded.l; currentLangIdx = langOrder.indexOf(currentLang);
-        //         }
-        //     } catch (e) { console.error("URL Lang failed"); }
-        // }
-
-        const urlParamsInitial = new URLSearchParams(window.location.search);
-        if (urlParamsInitial.has('game')) {
+        // UTF-8 Safe Decoding Helper
+        function decodeSafeData(base64) {
             try {
-                const base64 = urlParamsInitial.get('game');
-                // FIX: UTF-8 Safe Base64 Decoding
                 const utf8Data = atob(base64).split('').map((c) => {
                     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
                 }).join('');
-                this.userData = JSON.parse(decodeURIComponent(utf8Data));
-                if (this.userData.l && langOrder.includes(this.userData.l)) {
-                    currentLang = this.userData.l; currentLangIdx = langOrder.indexOf(currentLang);
-                }
-            } catch (e) {
-                console.error("Decoding failed", e);
-                this.userData = { cid: "Admirer", n: "Love", av: "Andrea", cav: "Liam", m: "❤️" };
-            }
+                return JSON.parse(decodeURIComponent(utf8Data));
+            } catch (e) { return null; }
         }
 
 
-
-        // Native Copyright Label
         function addNativeFooter(scene) {
-            scene.add.text(540, 1890, 'version:1.0.0 © 2026 Coding Interface', {
+            scene.add.text(540, 1890, 'version:1.1.0 © 2026 Coding Interface', {
                 fontFamily: 'Playfair Display', fontSize: '22px', color: '#590d22', alpha: 0.6
             }).setOrigin(0.5).setDepth(30000);
         }
 
-        function addNativeLangToggle(scene) {
-            const btn = scene.add.text(1040, 40, i18n[currentLang].btn, {
-                fontFamily: 'Cinzel', fontSize: '38px', color: '#ffffff',
-                padding: { x: 25, y: 12 }
-            }).setOrigin(1, 0).setInteractive({ useHandCursor: true }).setDepth(30000);
+        function addNativeLangDropdown(scene) {
+            const dict = i18n[currentLang];
 
-            const bg = scene.add.graphics().setDepth(29999);
-            const drawBg = () => {
-                bg.clear().fillStyle(0xff4d6d, 1).fillRoundedRect(btn.x - btn.width - 10, btn.y - 10, btn.width + 20, btn.height + 20, 30).lineStyle(4, 0xffffff, 1).strokeRoundedRect(btn.x - btn.width - 10, btn.y - 10, btn.width + 20, btn.height + 20, 30);
+            // Increased padding (15px 50px) and font-size (26px) for better touch targets
+            const html = `
+        <div class="lang-dropdown-container" style="position: relative; top: 0; right: 0;">
+            <select class="lang-select" id="langSelectElement" 
+                style="padding: 15px 55px 15px 25px; font-size: 26px; border-radius: 35px; min-width: 180px;">
+                ${langOrder.map(langCode => `
+                    <option value="${langCode}" ${langCode === currentLang ? 'selected' : ''}>
+                        ${i18n[langCode].langName}
+                    </option>
+                `).join('')}
+            </select>
+        </div>
+    `;
+
+            // Adjusted coordinates slightly (930, 80) to account for the larger size
+            const langDom = scene.add.dom(930, 80).createFromHTML(html);
+
+            const select = document.getElementById('langSelectElement');
+            select.onchange = (e) => {
+                currentLang = e.target.value;
+                currentLangIdx = langOrder.indexOf(currentLang);
+                window.game.scene.getScenes(true).forEach(s => {
+                    if (s.refreshUI) s.refreshUI();
+                });
             };
-            drawBg();
 
-            btn.on('pointerdown', () => {
-                currentLangIdx = (currentLangIdx + 1) % langOrder.length;
-                currentLang = langOrder[currentLangIdx];
-                btn.setText(i18n[currentLang].btn);
-                drawBg();
-                window.game.scene.getScenes(true).forEach(s => { if (s.refreshUI) s.refreshUI(); });
-            });
-            return btn;
+            return langDom;
         }
-
         class FormScene extends Phaser.Scene {
             constructor() { super('FormScene'); }
+            init() {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('game')) {
+                    const gameData = decodeSafeData(urlParams.get('game'));
+                    if (gameData) {
+                        currentLang = gameData.l;
+                        currentLangIdx = langOrder.indexOf(currentLang);
+                        this.scene.start('GameScene', { gameData });
+                        return;
+                    }
+                }
+
+                // if (urlParamsInitial.has('game')) {
+                //     const decoded = decodeSafeData(urlParamsInitial.get('game'));
+                //     if (decoded && decoded.l && langOrder.includes(decoded.l)) {
+                //         currentLang = decoded.l;
+                //         currentLangIdx = langOrder.indexOf(currentLang);
+                //     }
+                // }
+
+            }
             preload() {
                 this.load.image('gameLogo', 'logo.png');
             }
@@ -440,7 +642,8 @@
                 const params = new URLSearchParams(window.location.search);
                 if (params.has('game')) { this.scene.start('GameScene'); return; }
                 this.add.graphics().fillGradientStyle(0xffe5ec, 0xffe5ec, 0xfff0f3, 0xfff0f3, 1).fillRect(0, 0, 1080, 1920);
-                addNativeLangToggle(this);
+                // Replace the old call with:
+                addNativeLangDropdown(this);
                 addNativeFooter(this);
 
                 if (this.textures.exists('gameLogo')) {
@@ -466,29 +669,55 @@
                 }
             }
             renderForm() {
+                // 1. Capture any text the user already typed before we destroy the old DOM
+                const existingMsg = document.getElementById('pMsg')?.value;
+                const existingYourName = document.getElementById('cID')?.value;
+                const existingBelovedName = document.getElementById('pName')?.value;
+                const existingPAvatar = document.getElementById('pAvatar')?.value;
+                const existingCAvatar = document.getElementById('cAvatar')?.value;
+
                 if (this.formDom) this.formDom.destroy();
+
                 const dict = i18n[currentLang];
-                const html = `<div class="glass-panel" id="formPanel">
-                    <h1 style="font-family:${dict.font}; font-size:75px; color:var(--red); margin:0;">${dict.title}</h1>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%; margin:20px 0;">
-                        <input type="text" id="cID" placeholder="${dict.yourName}" style="padding:22px; border-radius:20px; border:2px solid #ffccd5; font-size:28px;">
-                        <input type="text" id="pName" maxlength="12" placeholder="${dict.belovedName}" style="padding:22px; border-radius:20px; border:2px solid #ffccd5; font-size:28px;">
-                    </div>
-                    <textarea id="pMsg" rows="3" placeholder="${dict.msgHint}" style="width:100%; padding:22px; border-radius:15px; border:2px solid #ffccd5; font-size:28px; margin-bottom:20px; resize:none; font-family:inherit;"></textarea>
-                    <div id="pro-av" class="avatar-scroll"></div>
-                    <div id="bel-av" class="avatar-scroll"></div>
-                    <button id="genBtn" class="pill-button btn-primary" style="font-family:${dict.font};"><i class="fa-solid fa-paper-plane"></i> ${dict.seal}</button>
-                    <input type="hidden" id="pAvatar" value="Andrea"><input type="hidden" id="cAvatar" value="Liam">
-                </div>`;
+
+                // 2. Logic: If user hasn't typed anything, use the localized default question
+                // If they have typed something, keep their custom message
+                const textToDisplay = (existingMsg && existingMsg !== "") ? existingMsg : dict.defaultMsg;
+
+                const html = `
+    <div class="glass-panel" id="formPanel">
+        <h1 style="font-family:${dict.font}; font-size:75px; color:var(--red); margin:0;">${dict.title}</h1>
+        
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%; margin:20px 0;">
+            <input type="text" id="cID" placeholder="${dict.yourName}" 
+                value="${existingYourName || ''}"
+                style="padding:22px; border-radius:20px; border:2px solid #ffccd5; font-size:28px;">
+            <input type="text" id="pName" maxlength="12" placeholder="${dict.belovedName}" 
+                value="${existingBelovedName || ''}"
+                style="padding:22px; border-radius:20px; border:2px solid #ffccd5; font-size:28px;">
+        </div>
+        
+        <textarea id="pMsg" rows="3" placeholder="${dict.msgHint}" 
+            style="width:100%; padding:22px; border-radius:15px; border:2px solid #ffccd5; font-size:28px; margin-bottom:20px; resize:none; font-family:inherit;">${textToDisplay}</textarea>
+        
+        <div id="pro-av" class="avatar-scroll"></div>
+        <div id="bel-av" class="avatar-scroll"></div>
+        
+        <button id="genBtn" class="pill-button btn-primary" style="font-family:${dict.font};">
+            <i class="fa-solid fa-paper-plane"></i> ${dict.seal}
+        </button>
+        
+        <input type="hidden" id="pAvatar" value="${existingPAvatar || 'Andrea'}">
+        <input type="hidden" id="cAvatar" value="${existingCAvatar || 'Liam'}">
+    </div>`;
+
                 this.formDom = this.add.dom(540, 960).createFromHTML(html);
-                this.setupScroll('pro-av', 'cAvatar', 'Liam');
-                this.setupScroll('bel-av', 'pAvatar', 'Andrea');
 
+                // 3. Re-initialize scrolls with the existing or default selections
+                this.setupScroll('pro-av', 'cAvatar', existingCAvatar || 'Liam');
+                this.setupScroll('bel-av', 'pAvatar', existingPAvatar || 'Andrea');
 
-
-
-
-
+                // 4. Handle the URL generation and sharing
                 document.getElementById('genBtn').onclick = async () => {
                     const data = {
                         l: currentLang,
@@ -496,10 +725,10 @@
                         n: document.getElementById('pName').value || "Love",
                         av: document.getElementById('pAvatar').value,
                         cav: document.getElementById('cAvatar').value,
-                        m: document.getElementById('pMsg').value || "❤️"
+                        m: document.getElementById('pMsg').value || dict.defaultMsg
                     };
 
-                    // FIX: UTF-8 Safe Base64 Encoding
+                    // UTF-8 Safe Base64 Encoding
                     const jsonStr = JSON.stringify(data);
                     const utf8Data = encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, (match, p1) => {
                         return String.fromCharCode('0x' + p1);
@@ -507,6 +736,7 @@
                     const base64Game = btoa(utf8Data);
 
                     const url = window.location.origin + window.location.pathname + '?game=' + base64Game;
+
                     if (navigator.share) {
                         try {
                             await navigator.share({
@@ -515,13 +745,11 @@
                                 url: url,
                             });
                         } catch (err) {
-                            console.log("System Share cancelled");
                             this.showFallbackShare(url, data.n);
                         }
                     } else {
                         this.showFallbackShare(url, data.n);
                     }
-
                 };
             }
             async showFallbackShare(url, name) {
@@ -529,45 +757,27 @@
                 document.getElementById('formPanel').innerHTML = `<h2 style="font-family:${dict.font}; color:var(--red); font-size:50px;">SHARE LINK</h2><button id="sendDirect" class="pill-button btn-primary" style="margin-top:20px; font-family:${dict.font};"><i class="fa-solid fa-share-nodes"></i> ${dict.shareWithLove}</button><div class="share-url-container"><div class="url-text-scroll">${url}</div><i class="fa-solid fa-copy copy-btn" id="copyAction"></i></div><button onclick="window.location.reload()" class="pill-button btn-secondary" style="font-family:${dict.font};">BACK</button>`;
 
                 document.getElementById('copyAction').onclick = () => {
-                    const urlToCopy = url; // The 'url' variable from your share scope
+                    const urlToCopy = url;
 
                     if (navigator.clipboard && navigator.clipboard.writeText) {
-                        // Modern approach (requires HTTPS)
                         navigator.clipboard.writeText(urlToCopy).then(() => {
-                            showLinkCopiedFeedback();
+                            this.showLinkCopiedFeedback();
                         });
                     } else {
-                        // Fallback for IP addresses / HTTP
                         const textArea = document.createElement("textarea");
                         textArea.value = urlToCopy;
-
-                        // Ensure the textarea is not visible but part of the DOM
                         textArea.style.position = "fixed";
                         textArea.style.left = "-9999px";
                         textArea.style.top = "0";
                         document.body.appendChild(textArea);
-
                         textArea.focus();
                         textArea.select();
-
                         try {
-                            const successful = document.execCommand('copy');
-                            if (successful) showLinkCopiedFeedback();
-                        } catch (err) {
-                            console.error('Fallback copy failed', err);
-                        }
-
+                            if (document.execCommand('copy')) this.showLinkCopiedFeedback();
+                        } catch (err) { }
                         document.body.removeChild(textArea);
                     }
                 };
-
-                // Helper to keep code clean
-                function showLinkCopiedFeedback() {
-                    const sb = document.getElementById("snackbar");
-                    sb.innerText = i18n[currentLang].copied;
-                    sb.style.visibility = "visible";
-                    setTimeout(() => sb.style.visibility = "hidden", 3000);
-                }
 
                 document.getElementById('sendDirect').onclick = async () => {
                     this.burstHearts();
@@ -575,15 +785,26 @@
                         try {
                             await navigator.share({
                                 title: dict.title,
-                                text: `${dict.dear} ${name}, Check this secret message Trial of Love! ❤️`,
+                                text: `${dict.dear} ${data.n}, Check this secret message Trial of Love! ❤️`,
                                 url: url,
                             });
-                        } catch (err) { console.log("System Share cancelled"); }
+                        } catch (err) {
+
+                        }
                     } else {
                         window.open(`https://wa.me/?text=${encodeURIComponent(url)}`);
                     }
+
                 };
             }
+
+            showLinkCopiedFeedback() {
+                const sb = document.getElementById("snackbar");
+                sb.innerText = i18n[currentLang].copied;
+                sb.style.visibility = "visible";
+                setTimeout(() => sb.style.visibility = "hidden", 3000);
+            }
+
             createAmbientHearts() { for (let i = 0; i < 40; i++) { const heart = this.add.text(Phaser.Math.Between(0, 1080), Phaser.Math.Between(0, 1920), '💗', { fontSize: Phaser.Math.Between(30, 60) + 'px' }).setAlpha(0.12).setOrigin(0.5); this.tweens.add({ targets: heart, y: heart.y - 1920, duration: Phaser.Math.Between(10000, 20000), repeat: -1 }); } }
             setupScroll(id, hId, def) {
                 const ALL_AVATARS = ['Liam', 'Jack', 'Leo', 'Milo', 'Felix', 'Max', 'Finn', 'George', 'Henry', 'Arthur', 'Oscar', 'Jasper', 'Andrea', 'Emma', 'Mia', 'Luna', 'Lily', 'Zoe', 'Chloe', 'Ruby', 'Maya', 'Sophie', 'Alice', 'Clara', 'Grace', 'Ivy', 'Jade', 'Nora', 'Rose'];
@@ -600,37 +821,30 @@
         class GameScene extends Phaser.Scene {
             constructor() { super('GameScene'); }
             init() {
-                // const params = new URLSearchParams(window.location.search);
-                // try {
-                //     this.userData = JSON.parse(decodeURIComponent(escape(atob(params.get('game')))));
-                // } catch (e) { this.userData = { cid: "Admirer", n: "Love", av: "Andrea", cav: "Liam", m: "❤️" }; }
-
-
-
                 const params = new URLSearchParams(window.location.search);
-                try {
-                    const base64 = params.get('game');
-                    // FIX: UTF-8 Safe Base64 Decoding
-                    const utf8Data = atob(base64).split('').map((c) => {
-                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                    }).join('');
-                    this.userData = JSON.parse(decodeURIComponent(utf8Data));
-                } catch (e) {
-                    console.error("Decoding failed", e);
-                    this.userData = { cid: "Admirer", n: "Love", av: "Andrea", cav: "Liam", m: "❤️" };
-                }
+                const decoded = decodeSafeData(params.get('game'));
+                this.userData = decoded || { cid: "Admirer", n: "Love", av: "Andrea", cav: "Liam", m: "❤️" };
                 this.itemsList = []; this.score = 0; this.lovePoints = 2.5; this.isGamePaused = true; this.isOver = false; this.proposalAccepted = false; this.elapsedSeconds = 0;
-                this.sprayTimer = null; // To manage Dynamic Love Spray
+                this.sprayTimer = null;
             }
             preload() { this.load.svg('partner', `https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.av}&backgroundColor=transparent`, { width: 300, height: 300 }); }
             create() {
                 this.bgGlow = this.add.graphics().setDepth(0); this.updateBg();
-                addNativeLangToggle(this);
+                addNativeLangDropdown(this);
                 addNativeFooter(this);
                 this.createAmbientHearts();
-                this.scoreText = this.add.text(540, 260, `${i18n[currentLang].affection}: 0`, { fontFamily: i18n[currentLang].font, fontSize: '60px', color: '#590d22' }).setOrigin(0.5).setDepth(2);
+                // Store references to the text objects
+                this.scoreText = this.add.text(540, 260, `${i18n[currentLang].affection}: ${this.score}`, {
+                    fontFamily: i18n[currentLang].font,
+                    fontSize: '60px',
+                    color: '#590d22'
+                }).setOrigin(0.5).setDepth(2);
                 const titleSize = currentLang === 'en' ? '110px' : '85px';
-                this.sceneTitle = this.add.text(540, 140, `${i18n[currentLang].dear} ${this.userData.n}`, { fontFamily: i18n[currentLang].scriptFont, fontSize: titleSize, color: '#ff4d6d' }).setOrigin(0.5).setDepth(2);
+                this.sceneTitle = this.add.text(540, 140, `${i18n[currentLang].dear} ${this.userData.n}`, {
+                    fontFamily: i18n[currentLang].scriptFont,
+                    fontSize: titleSize,
+                    color: '#ff4d6d'
+                }).setOrigin(0.5).setDepth(2);
                 this.add.dom(540, 360).createFromHTML(`<div class="progress-container"><div id="fill-bar" class="progress-bar"></div><div id="partner-marker" class="hud-circle partner-marker" style="left:50%"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.av}&backgroundColor=transparent"></div><div class="hud-circle goal-marker"><img src="https://api.dicebear.com/7.x/adventurer/svg?seed=${this.userData.cav}&backgroundColor=transparent"></div></div>`).setDepth(2);
                 this.player = this.add.image(540, 1550, 'partner').setScale(0.78).setDepth(10);
                 const mask = this.make.graphics().fillCircle(0, 0, 110); this.player.setMask(mask.createGeometryMask());
@@ -651,11 +865,34 @@
                 if (this.lovePoints < 1 && !this.isOver) { const alpha = (Math.sin(this.time.now / 150) + 1) / 4; this.bgGlow.fillStyle(0xff4d6d, alpha).fillRect(0, 0, 1080, 1920); }
             }
             refreshUI() {
-                this.scoreText.setText(`${i18n[currentLang].affection}: ${this.score}`).setFontFamily(i18n[currentLang].font);
-                this.sceneTitle.setText(`${i18n[currentLang].dear} ${this.userData.n}`).setFontFamily(i18n[currentLang].scriptFont).setFontSize(currentLang === 'en' ? 110 : 85);
-                if (this.popupDom) this.animatePopup(); if (this.propDom) this.showProposal(); if (this.gameOverDom) this.gameOver(); this.updateUI();
+                const dict = i18n[currentLang];
+
+                // 1. Update Score Text
+                if (this.scoreText) {
+                    this.scoreText.setText(`${dict.affection}: ${this.score}`);
+                    this.scoreText.setFontFamily(dict.font);
+                }
+
+                // 2. Update Title (Dear [Name])
+                if (this.sceneTitle) {
+                    this.sceneTitle.setText(`${dict.dear} ${this.userData.n}`);
+                    this.sceneTitle.setFontFamily(dict.scriptFont);
+                    this.sceneTitle.setFontSize(currentLang === 'en' ? '110px' : '85px');
+                }
+
+                // 3. Update Instructions Popup if it's currently visible
+                if (this.popupDom) {
+                    this.animatePopup(); // This will recreate the popup with the new language
+                }
+
+                // 4. Update Game Over or Proposal screens if they are active
+                if (this.isOver) {
+                    this.gameOver();
+                } else if (this.isGamePaused && !this.popupDom) {
+                    this.showProposal();
+                }
             }
-            createAmbientHearts() { for (let i = 0; i < 40; i++) { const heart = this.add.text(Phaser.Math.Between(0, 1080), Phaser.Math.Between(0, 1920), '💗', { fontSize: Phaser.Math.Between(30, 60) + 'px' }).setAlpha(0.12).setOrigin(0.5); this.tweens.add({ targets: heart, y: heart.y - 1920, duration: Phaser.Math.Between(10000, 20000), repeat: -1 }); } }
+            createAmbientHearts() { for (let i = 0; i < 30; i++) { const heart = this.add.text(Phaser.Math.Between(0, 1080), Phaser.Math.Between(0, 1920), '💗', { fontSize: Phaser.Math.Between(30, 60) + 'px' }).setAlpha(0.12).setOrigin(0.5); this.tweens.add({ targets: heart, y: heart.y - 1920, duration: Phaser.Math.Between(20000, 50000), repeat: -1 }); } }
             animatePopup() {
                 if (this.popupDom) this.popupDom.destroy();
                 const dict = i18n[currentLang];
@@ -666,22 +903,60 @@
                     this.isGamePaused = false;
                     const ghost = document.getElementById('ghostGuide');
                     if (ghost) ghost.classList.add('tutorial-active');
-                    this.time.addEvent({ delay: 1000, loop: true, callback: () => this.elapsedSeconds++ });
+                    this.time.addEvent({ delay: 1200, loop: true, callback: () => this.elapsedSeconds++ });
                     this.spawnLoop();
                 };
             }
             spawnLoop() { if (this.isOver) return; this.spawnItem(); const currentDelay = Math.max(450, 1300 - (this.elapsedSeconds * 12)); this.time.delayedCall(currentDelay, this.spawnLoop, [], this); }
             spawnItem() {
                 if (this.isGamePaused || this.isOver) return;
-                const heartWeight = Math.max(5, 40 - (this.elapsedSeconds * 0.3));
+
+                // 1. RARITY LOGIC: Red Heart gets rare (min 2%)
+                const heartWeight = Math.max(2, 40 - (this.elapsedSeconds * 0.4));
+                const dangerWeight = Math.min(60, 20 + (this.elapsedSeconds * 0.5));
+
                 const rolls = Math.random() * 100;
                 const goodOnes = ["❤️", "💐", "🧸", "🌹", '🍫', '🍩'];
                 const badOnes = ["🕷️", "🪳", "🧟‍♀️", "🧟‍♂️", "💣", "🦂", "🥀"];
-                let content = rolls < heartWeight ? "❤️" : Phaser.Utils.Array.GetRandom(goodOnes.concat(badOnes));
-                const isGood = goodOnes.includes(content);
+
+                let content;
+                let isGood = true;
+
+                if (rolls < heartWeight) {
+                    content = "❤️";
+                } else if (rolls < (heartWeight + dangerWeight)) {
+                    content = Phaser.Utils.Array.GetRandom(badOnes);
+                    isGood = false;
+                } else {
+                    content = Phaser.Utils.Array.GetRandom(goodOnes.filter(e => e !== "❤️"));
+                    isGood = true;
+                }
+
                 const side = Math.random() < 0.5 ? -100 : 1180;
-                const item = this.add.text(side, Phaser.Math.Between(400, 1000), content, { fontSize: content === "❤️" ? '140px' : '110px', stroke: isGood ? '#ffffff' : '#000000', strokeThickness: isGood ? 10 : 0 }).setOrigin(0.5).setDepth(5);
-                item.vx = side < 0 ? Phaser.Math.Between(5, 10) : Phaser.Math.Between(-10, -5); item.vy = Phaser.Math.Between(-16, -10); item.gravity = 0.45 + (Math.floor(this.score / 250) * 0.05); item.angularVelocity = Phaser.Math.Between(-6, 6); item.isGood = isGood; this.itemsList.push(item);
+                const item = this.add.text(side, Phaser.Math.Between(400, 800), content, {
+                    fontSize: content === "❤️" ? '140px' : '110px',
+                    stroke: isGood ? '#ffffff' : '#000000',
+                    strokeThickness: isGood ? 10 : 0
+                }).setOrigin(0.5).setDepth(5);
+
+                // 2. SMART SPEED SCALING: 
+                // We increase Vertical Speed (vy) and Gravity to make items fall faster.
+                // We keep Horizontal Speed (vx) stable or slightly inward-pointing 
+                // to ensure they cross the player's path.
+
+                const speedFactor = 1 + (this.elapsedSeconds * 0.015); // Gradual increase
+
+                // Inward velocity: if starting from left (-100), push right. If right (1180), push left.
+                // We don't scale vx with speedFactor to prevent items flying off-screen.
+                item.vx = side < 0 ? Phaser.Math.Between(6, 9) : Phaser.Math.Between(-9, -6);
+
+                // Vertical velocity and gravity scale up, making the "window" to catch them smaller
+                item.vy = Phaser.Math.Between(-20, -14) * speedFactor;
+                item.gravity = 0.45 + (this.elapsedSeconds * 0.008);
+
+                item.angularVelocity = Phaser.Math.Between(-8, 8);
+                item.isGood = isGood;
+                this.itemsList.push(item);
             }
             update() {
                 if (this.isGamePaused || this.isOver) return;
@@ -712,38 +987,50 @@
                     this.sprayTimer.delay = Math.max(50, dynamicDelay);
                 }
             }
-
             showProposal() {
                 if (this.propDom) this.propDom.destroy();
                 const dict = i18n[currentLang];
                 if (this.overlay) this.overlay.destroy();
                 this.overlay = this.add.graphics().fillStyle(0x000000, 0.4).fillRect(0, 0, 1080, 1920).setDepth(150);
+
                 const html = `<div class="glass-panel" id="proposalPanel" style="z-index: 200; position: relative;">
-                    <h2 style="font-family:${dict.font}; color:var(--ink); font-size:45px;">${dict.admirerDetails}${this.userData.cid}</h2>
-                    <div class="scroll-box">
-                        <p style="font-family:${dict.scriptFont}; font-size:80px; color:var(--red); line-height:1.2; margin:0;">${this.userData.m}</p>
-                    </div>
-                    <div style="display: flex; gap: 20px; width: 100%; justify-content: center; position: relative; height: 150px; margin-top: 10px;">
-                        <button id="yesBtn" class="pill-button btn-primary" style="width: 350px; font-family:${dict.font};">${dict.yes}</button>
-                        <button id="noBtn" class="pill-button btn-no-troll" style="width: 250px; position: absolute; left: 55%; font-family:${dict.font};">${dict.no}</button>
-                    </div>
-                </div>`;
+        <h2 style="font-family:${dict.font}; color:var(--ink); font-size:45px;">${dict.admirerDetails}${this.userData.cid}</h2>
+        <div class="scroll-box">
+            <p style="font-family:${dict.scriptFont}; font-size:80px; color:var(--red); line-height:1.2; margin:0;">${this.userData.m}</p>
+        </div>
+        <div style="display: flex; gap: 20px; width: 100%; justify-content: center; position: relative; height: 150px; margin-top: 10px;">
+            <button id="yesBtn" class="pill-button btn-primary" style="width: 350px; font-family:${dict.font};">${dict.yes}</button>
+            <button id="noBtn" class="pill-button btn-no-troll" style="width: 250px; position: absolute; left: 55%; font-family:${dict.font};">${dict.no}</button>
+        </div>
+    </div>`;
+
                 this.propDom = this.add.dom(540, 960).createFromHTML(html).setDepth(200);
-                const noBtn = document.getElementById('noBtn'); const yesBtn = document.getElementById('yesBtn'); let trollCount = 0;
+
+                const noBtn = document.getElementById('noBtn');
+                const yesBtn = document.getElementById('yesBtn');
+                let trollCount = 0;
+
                 noBtn.onmouseover = noBtn.ontouchstart = () => {
                     trollCount++;
-                    const newX = Math.random() * 500 - 250; const newY = Math.random() * 300 - 150;
+                    const newX = Math.random() * 500 - 250;
+                    const newY = Math.random() * 300 - 150;
                     noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
                     noBtn.innerText = dict.trolls[trollCount % dict.trolls.length];
+
                     if (trollCount > 5) yesBtn.style.transform = `scale(${1 + (trollCount * 0.1)})`;
+
                     if (trollCount > 10) {
                         noBtn.innerText = currentLang === 'en' ? "Fine, Yes!" : (currentLang === 'hi' ? "ठीक है, हाँ!" : (currentLang === 'mr' ? "ठीक आहे, हो!" : "Fine, Yes!"));
                         noBtn.onclick = yesBtn.onclick;
                     }
                 };
+
                 yesBtn.onclick = () => {
-                    this.overlay.destroy(); this.propDom.destroy(); this.propDom = null;
-                    this.proposalAccepted = true; this.isGamePaused = false;
+                    this.overlay.destroy();
+                    this.propDom.destroy();
+                    this.propDom = null;
+                    this.proposalAccepted = true;
+                    this.isGamePaused = false;
                     confetti();
 
                     this.sprayTimer = this.time.addEvent({
@@ -799,7 +1086,12 @@
                 };
             }
         }
-        window.game = new Phaser.Game({ type: Phaser.AUTO, width: 1080, height: 1920, parent: 'phaser-game', dom: { createContainer: true }, scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, scene: [FormScene, GameScene] });
+
+        window.onload = () => {
+            document.getElementById('snackbar').style.visibility = 'hidden';
+            // const urlParamsInitial = new URLSearchParams(window.location.search);
+            window.game = new Phaser.Game({ type: Phaser.AUTO, width: 1080, height: 1920, parent: 'phaser-game', dom: { createContainer: true }, scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH }, scene: [FormScene, GameScene] });
+        };
     </script>
 </body>
 
