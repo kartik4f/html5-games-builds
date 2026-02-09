@@ -233,7 +233,7 @@
         }
 
         #playerSlider {
-            -webkit-appearance: none;
+
             width: 100%;
             height: 100%;
             background: transparent;
@@ -241,6 +241,12 @@
             z-index: 10;
             position: absolute;
             cursor: pointer;
+            border: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+            -o-appearance: none;
+
+            -webkit-appearance: none;
         }
 
         #playerSlider::-webkit-slider-thumb {
@@ -376,10 +382,10 @@
         //     } catch (e) { console.error("URL Lang failed"); }
         // }
 
-        const params = new URLSearchParams(window.location.search);
+        const urlParamsInitial = new URLSearchParams(window.location.search);
         if (urlParamsInitial.has('game')) {
             try {
-                const base64 = params.get('game');
+                const base64 = urlParamsInitial.get('game');
                 // FIX: UTF-8 Safe Base64 Decoding
                 const utf8Data = atob(base64).split('').map((c) => {
                     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
