@@ -366,15 +366,35 @@
         let currentLangIdx = 0;
         let currentLang = 'en';
 
-        const urlParamsInitial = new URLSearchParams(window.location.search);
+        // const urlParamsInitial = new URLSearchParams(window.location.search);
+        // if (urlParamsInitial.has('game')) {
+        //     try {
+        //         const decoded = JSON.parse(decodeURIComponent(escape(atob(urlParamsInitial.get('game')))));
+        //         if (decoded.l && langOrder.includes(decoded.l)) {
+        //             currentLang = decoded.l; currentLangIdx = langOrder.indexOf(currentLang);
+        //         }
+        //     } catch (e) { console.error("URL Lang failed"); }
+        // }
+
+        const params = new URLSearchParams(window.location.search);
         if (urlParamsInitial.has('game')) {
             try {
-                const decoded = JSON.parse(decodeURIComponent(escape(atob(urlParamsInitial.get('game')))));
-                if (decoded.l && langOrder.includes(decoded.l)) {
-                    currentLang = decoded.l; currentLangIdx = langOrder.indexOf(currentLang);
+                const base64 = params.get('game');
+                // FIX: UTF-8 Safe Base64 Decoding
+                const utf8Data = atob(base64).split('').map((c) => {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join('');
+                this.userData = JSON.parse(decodeURIComponent(utf8Data));
+                if (this.userData.l && langOrder.includes(this.userData.l)) {
+                    currentLang = this.userData.l; currentLangIdx = langOrder.indexOf(currentLang);
                 }
-            } catch (e) { console.error("URL Lang failed"); }
+            } catch (e) {
+                console.error("Decoding failed", e);
+                this.userData = { cid: "Admirer", n: "Love", av: "Andrea", cav: "Liam", m: "❤️" };
+            }
         }
+
+
 
         // Native Copyright Label
         function addNativeFooter(scene) {
