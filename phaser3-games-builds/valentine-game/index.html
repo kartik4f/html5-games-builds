@@ -565,15 +565,56 @@
         let currentLang = 'en';
 
         // UTF-8 Safe Decoding Helper
-        function decodeSafeData(base64) {
-            try {
-                const utf8Data = atob(base64).split('').map((c) => {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                }).join('');
-                return JSON.parse(decodeURIComponent(utf8Data));
-            } catch (e) { return null; }
-        }
+        // function decodeSafeData(base64) {
+        //     try {
+        //         const utf8Data = atob(base64).split('').map((c) => {
+        //             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        //         }).join('');
+        //         return JSON.parse(decodeURIComponent(utf8Data));
+        //     } catch (e) { return null; }
+        // }
 
+        // function decodeSafeData(base64) {
+        //     try {
+        //         // Step 1: Base64 to raw bytes
+        //         const binary = atob(base64);
+        //         // Step 2: Raw bytes to percent-encoded string
+        //         const percentEncoded = binary.split('').map((c) => {
+        //             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        //         }).join('');
+        //         // Step 3: Decode the URI component back to a JS Object
+        //         return JSON.parse(decodeURIComponent(percentEncoded));
+        //     } catch (e) {
+        //         console.error("Decoding error:", e);
+        //         return null;
+        //     }
+        // }
+        function decodeSafeData(base64) {
+            if (!base64) return null;
+            try {
+                let str = base64.replace(/-/g, '+').replace(/_/g, '/');
+                while (str.length % 4) { str += '='; }
+
+                const binaryString = atob(str);
+                const bytes = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+
+                const decodedString = new TextDecoder().decode(bytes);
+
+                // CHECK: Is the JSON complete?
+                if (!decodedString.endsWith('}')) {
+                    throw new Error("JSON string clipped");
+                }
+
+                return JSON.parse(decodedString);
+            } catch (e) {
+                console.error("Link is broken or too long:", e);
+                // Fallback: Return null so the app can redirect to the form
+                return null;
+            }
+        }
 
         function addNativeFooter(scene) {
             scene.add.text(540, 1890, 'version:1.1.0 © 2026 Coding Interface', {
@@ -705,10 +746,10 @@
             <input type="text" id="pName" maxlength="12" placeholder="${dict.belovedName}" value="${existingBelovedName || ''}"
                 style="padding:22px; border-radius:20px; border:2px solid #ffccd5; font-size:28px;">
         </div>
-        
-        <textarea id="pMsg" rows="3" placeholder="${dict.msgHint}" 
-            style="width:100%; padding:22px; border-radius:15px; border:2px solid #ffccd5; font-size:28px; margin-bottom:20px; resize:none; font-family:inherit;">${textToDisplay}</textarea>
-        
+
+<textarea id="pMsg" rows="3" maxlength="160"
+    placeholder="${dict.msgHint}" 
+    style="width:100%; padding:22px; border-radius:15px; border:2px solid #ffccd5; font-size:28px; margin-bottom:20px; resize:none; font-family:inherit;">${textToDisplay}</textarea>
         <div id="pro-av" class="avatar-scroll"></div>
         <div id="bel-av" class="avatar-scroll"></div>
         
@@ -724,9 +765,51 @@
 
                 this.setupScroll('pro-av', 'cAvatar', existingCAvatar || 'Liam');
                 this.setupScroll('bel-av', 'pAvatar', existingPAvatar || 'Andrea');
+                // 4. Handle the URL generation and sharing
 
-                // Re-bind the click event
-                document.getElementById('genBtn').onclick = () => { /* ... sharing logic ... */ };
+                document.getElementById('genBtn').onclick = async () => {
+                    const dict = i18n[currentLang];
+                    const data = {
+                        l: currentLang,
+                        cid: document.getElementById('cID').value || "Admirer",
+                        n: document.getElementById('pName').value || "Love",
+                        av: document.getElementById('pAvatar').value,
+                        cav: document.getElementById('cAvatar').value,
+                        m: document.getElementById('pMsg').value || dict.defaultMsg
+                    };
+
+                    // 1. Convert Object to UTF-8 Byte Array
+                    const jsonStr = JSON.stringify(data);
+                    const encoder = new TextEncoder();
+                    const bytes = encoder.encode(jsonStr);
+
+                    // 2. Convert Byte Array to Binary String
+                    let binaryString = "";
+                    for (let i = 0; i < bytes.byteLength; i++) {
+                        binaryString += String.fromCharCode(bytes[i]);
+                    }
+
+                    // 3. Convert to Base64 and make it URL-Safe
+                    let base64Game = btoa(binaryString)
+                        .replace(/\+/g, '-')
+                        .replace(/\//g, '_')
+                        .replace(/=+$/, '');
+
+                    const url = window.location.origin + window.location.pathname + '?game=' + base64Game;
+                    // Sharing logic...
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({
+                                title: dict.title,
+                                text: `${dict.dear} ${data.n}, Check this secret message Trial of Love! ❤️`,
+                                url: url,
+                            });
+                        } catch (err) { this.showFallbackShare(url, data.n); }
+                    } else {
+                        this.showFallbackShare(url, data.n);
+                    }
+                };
+
             }
             async showFallbackShare(url, name) {
                 const dict = i18n[currentLang];
