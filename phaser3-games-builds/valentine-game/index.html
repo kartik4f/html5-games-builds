@@ -378,7 +378,7 @@
 
         // Native Copyright Label
         function addNativeFooter(scene) {
-            scene.add.text(540, 1890, '© 2026 Coding Interface', {
+            scene.add.text(540, 1890, 'version:1.0.0 © 2026 Coding Interface', {
                 fontFamily: 'Playfair Display', fontSize: '22px', color: '#590d22', alpha: 0.6
             }).setOrigin(0.5).setDepth(30000);
         }
@@ -503,12 +503,45 @@
                 document.getElementById('formPanel').innerHTML = `<h2 style="font-family:${dict.font}; color:var(--red); font-size:50px;">SHARE LINK</h2><button id="sendDirect" class="pill-button btn-primary" style="margin-top:20px; font-family:${dict.font};"><i class="fa-solid fa-share-nodes"></i> ${dict.shareWithLove}</button><div class="share-url-container"><div class="url-text-scroll">${url}</div><i class="fa-solid fa-copy copy-btn" id="copyAction"></i></div><button onclick="window.location.reload()" class="pill-button btn-secondary" style="font-family:${dict.font};">BACK</button>`;
 
                 document.getElementById('copyAction').onclick = () => {
-                    navigator.clipboard.writeText(url);
+                    const urlToCopy = url; // The 'url' variable from your share scope
+
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        // Modern approach (requires HTTPS)
+                        navigator.clipboard.writeText(urlToCopy).then(() => {
+                            showLinkCopiedFeedback();
+                        });
+                    } else {
+                        // Fallback for IP addresses / HTTP
+                        const textArea = document.createElement("textarea");
+                        textArea.value = urlToCopy;
+
+                        // Ensure the textarea is not visible but part of the DOM
+                        textArea.style.position = "fixed";
+                        textArea.style.left = "-9999px";
+                        textArea.style.top = "0";
+                        document.body.appendChild(textArea);
+
+                        textArea.focus();
+                        textArea.select();
+
+                        try {
+                            const successful = document.execCommand('copy');
+                            if (successful) showLinkCopiedFeedback();
+                        } catch (err) {
+                            console.error('Fallback copy failed', err);
+                        }
+
+                        document.body.removeChild(textArea);
+                    }
+                };
+
+                // Helper to keep code clean
+                function showLinkCopiedFeedback() {
                     const sb = document.getElementById("snackbar");
-                    sb.innerText = dict.copied;
+                    sb.innerText = i18n[currentLang].copied;
                     sb.style.visibility = "visible";
                     setTimeout(() => sb.style.visibility = "hidden", 3000);
-                };
+                }
 
                 document.getElementById('sendDirect').onclick = async () => {
                     this.burstHearts();
