@@ -926,7 +926,8 @@
                 const yesBtn = document.getElementById('yesBtn');
                 let trollCount = 0;
 
-                noBtn.onmouseover = noBtn.ontouchstart = () => {
+                noBtn.onmouseover = noBtn.ontouchstart = (e) => {
+                    e.preventDefault();
                     trollCount++;
                     const newX = Math.random() * 500 - 250;
                     const newY = Math.random() * 300 - 150;
@@ -941,7 +942,8 @@
                     }
                 };
 
-                yesBtn.onclick = () => {
+                yesBtn.onmousedown = yesBtn.ontouchstart = (e) => {
+                    e.preventDefault();
                     this.overlay.destroy();
                     this.propDom.destroy();
                     this.propDom = null;
