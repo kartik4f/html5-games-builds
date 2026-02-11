@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Neon Lexical - Virtual Joystick</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser-arcade-physics.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        const config = {
+            type: Phaser.AUTO,
+            width: window.innerWidth, height: window.innerHeight,
+            physics: { default: 'arcade' },
+            scene: { preload: preload, create: create, update: update }
+        };
+
+        const game = new Phaser.Game(config);
+
+        let player, letters, scoreText, bgGrid, particles, vacuumBeam;
+        let joyBase, joyStick; // Joystick UI
+        let bodySegments = [];
+        let pathHistory = [];
+        let currentString = "";
+        let currentHue = 0.5;
+        let targetAngle = 0;
+        let isSteering = false;
+
+        const DICT = new Set(["CAB", "CAT", "BAT", "NEON", "SNAKE", "GAME", "CODE", "FAST", "GLOW", "CITY", "RUN", "BIT", "BOX", "STAR", "VOID"]);
+
+        function preload() {
+            const dot = this.make.graphics({ x: 0, y: 0, add: false });
+            dot.fillStyle(0xffffff, 1).fillCircle(4, 4, 4);
+            dot.generateTexture('particle', 8, 8);
+        }
+
+        function create() {
+            this.cameras.main.setZoom(1.1);
+
+            // 1. Parallax Grid
+            const gridGfx = this.make.graphics({ x: 0, y: 0, add: false });
+            gridGfx.lineStyle(2, 0x00ffff, 0.08).strokeRect(0, 0, 160, 160);
+            gridGfx.generateTexture('grid', 160, 160);
+            bgGrid = this.add.tileSprite(0, 0, window.innerWidth * 10, window.innerHeight * 10, 'grid').setOrigin(0.5).setScrollFactor(0.02);
+
+            // 2. Joystick UI (Hidden by default)
+            joyBase = this.add.circle(0, 0, 50, 0x00ffff, 0.1).setStrokeStyle(2, 0x00ffff, 0.3).setScrollFactor(0).setVisible(false).setDepth(100);
+            joyStick = this.add.circle(0, 0, 25, 0x00ffff, 0.2).setStrokeStyle(2, 0x00ffff, 0.6).setScrollFactor(0).setVisible(false).setDepth(101);
+
+            vacuumBeam = this.add.graphics().setAlpha(0);
+
+            // 3. Snake Textures
+            const plateGfx = this.make.graphics({ x: 0, y: 0, add: false });
+            plateGfx.fillStyle(0xffffff, 0.15).lineStyle(3, 0xffffff, 1).fillRoundedRect(2, 2, 56, 56, 12).strokeRoundedRect(2, 2, 56, 56, 12);
+            plateGfx.generateTexture('plate', 60, 60);
+
+            const headGfx = this.make.graphics({ x: 0, y: 0, add: false });
+            headGfx.lineStyle(4, 0xffffff, 1).strokeCircle(30, 30, 25).fillStyle(0xffffff, 0.9).fillCircle(30, 30, 25);
+            headGfx.generateTexture('snakeHead', 60, 60);
+
+            particles = this.add.particles(0, 0, 'particle', {
+                speed: { min: 100, max: 400 }, scale: { start: 1, end: 0 }, lifespan: 800, emitting: false
+            });
+
+            player = this.physics.add.sprite(0, 0, 'snakeHead');
+            player.setCircle(25, 5, 5);
+            this.cameras.main.startFollow(player, true, 0.07, 0.07);
+
+            letters = this.physics.add.group();
+            for (let i = 0; i < 70; i++) { spawnLetterRandomly.call(this); }
+
+            this.physics.add.overlap(player, letters, collectLetter, null, this);
+            scoreText = this.add.text(20, 20, "WORDS PLANTED: 0", { fontSize: '24px', fill: '#00ffff', fontStyle: 'bold' }).setScrollFactor(0);
+
+            // 4. Input Events for Joystick
+            this.input.on('pointerdown', (pointer) => {
+                isSteering = true;
+                joyBase.setPosition(pointer.x, pointer.y).setVisible(true);
+                joyStick.setPosition(pointer.x, pointer.y).setVisible(true);
+            });
+
+            this.input.on('pointermove', (pointer) => {
+                if (!isSteering) return;
+
+                const dist = Phaser.Math.Distance.Between(joyBase.x, joyBase.y, pointer.x, pointer.y);
+                const angle = Phaser.Math.Angle.Between(joyBase.x, joyBase.y, pointer.x, pointer.y);
+                const maxDist = 50;
+
+                // Update target angle for snake
+                targetAngle = angle;
+
+                // Move visual joystick thumb
+                const clampedDist = Math.min(dist, maxDist);
+                joyStick.x = joyBase.x + Math.cos(angle) * clampedDist;
+                joyStick.y = joyBase.y + Math.sin(angle) * clampedDist;
+            });
+
+            this.input.on('pointerup', () => {
+                isSteering = false;
+                joyBase.setVisible(false);
+                joyStick.setVisible(false);
+            });
+        }
+
+        function update(time, delta) {
+            // Constant speed + Nitro boost when steering
+            const speed = isSteering ? 600 : 380;
+            player.setVelocity(Math.cos(targetAngle) * speed, Math.sin(targetAngle) * speed);
+            player.setRotation(targetAngle + Math.PI / 2);
+
+            pathHistory.unshift({ x: player.x, y: player.y, angle: player.rotation });
+            if (pathHistory.length > 2000) pathHistory.pop();
+
+            // --- TAIL LOGIC ---
+            const spacing = 11;
+            bodySegments.forEach((container, index) => {
+                const pathIndex = (index + 1) * spacing;
+                if (pathHistory[pathIndex]) {
+                    const hist = pathHistory[pathIndex];
+                    container.x = hist.x; container.y = hist.y;
+                    container.rotation = hist.angle;
+                    container.list[1].rotation = -hist.angle;
+                    const segmentHue = (currentHue + (index * 0.015)) % 1;
+                    container.list[0].setTint(Phaser.Display.Color.HSLToColor(segmentHue, 0.8, 0.5).color);
+                }
+            });
+
+            // --- VACUUM BEAM (Active during steering) ---
+            vacuumBeam.clear();
+            if (isSteering) {
+                vacuumBeam.setAlpha(1);
+                vacuumBeam.fillStyle(Phaser.Display.Color.HSLToColor(currentHue, 1, 0.5).color, 0.12);
+                vacuumBeam.beginPath();
+                vacuumBeam.moveTo(player.x, player.y);
+                vacuumBeam.arc(player.x, player.y, 500, targetAngle - 0.5, targetAngle + 0.5);
+                vacuumBeam.fill();
+
+                letters.getChildren().forEach(l => {
+                    const dist = Phaser.Math.Distance.Between(player.x, player.y, l.x, l.y);
+                    if (dist < 500) {
+                        const angleToLetter = Phaser.Math.Angle.Between(player.x, player.y, l.x, l.y);
+                        if (Math.abs(Phaser.Math.Angle.Wrap(angleToLetter - targetAngle)) < 0.5) {
+                            this.physics.moveToObject(l, player, 350);
+                        } else if (l.body) l.body.setVelocity(0, 0);
+                    }
+                });
+            } else {
+                vacuumBeam.setAlpha(0);
+                letters.getChildren().forEach(l => { if (l.body) l.body.setVelocity(0, 0); });
+            }
+
+            letters.getChildren().forEach(l => {
+                if (Phaser.Math.Distance.Between(player.x, player.y, l.x, l.y) > 2800) repositionLetter.call(this, l);
+            });
+
+            bgGrid.tilePositionX = player.x * 0.03;
+            bgGrid.tilePositionY = player.y * 0.03;
+        }
+
+        function collectLetter(p, l) {
+            currentString += l.letterChar;
+            particles.emitParticleAt(l.x, l.y, 12);
+            let plate = this.add.image(0, 0, 'plate');
+            let txt = this.add.text(0, 0, l.letterChar, { fontSize: '32px', fill: '#fff', fontStyle: 'bold' }).setOrigin(0.5);
+            let segment = this.add.container(player.x, player.y, [plate, txt]);
+            bodySegments.unshift(segment);
+            repositionLetter.call(this, l);
+            checkWord.call(this);
+        }
+
+        function checkWord() {
+            let found = null;
+            for (let word of DICT) {
+                if (currentString.includes(word)) { found = word; break; }
+            }
+            if (found) {
+                currentHue = Math.random();
+                this.cameras.main.flash(500, 255, 255, 255, 0.2);
+                let winMsg = this.add.text(player.x, player.y - 150, found.toUpperCase(), {
+                    fontSize: '100px', fill: '#fff', fontStyle: 'bold', stroke: '#000', strokeThickness: 10
+                }).setOrigin(0.5);
+                this.tweens.add({ targets: winMsg, y: '-=300', alpha: 0, scale: 2, duration: 2000, onComplete: () => winMsg.destroy() });
+                bodySegments.forEach(s => s.destroy());
+                bodySegments = [];
+                currentString = "";
+            }
+        }
+
+        function repositionLetter(l) {
+            const angle = targetAngle + Phaser.Math.FloatBetween(-0.8, 0.8);
+            l.x = player.x + Math.cos(angle) * Phaser.Math.Between(1500, 2200);
+            l.y = player.y + Math.sin(angle) * Phaser.Math.Between(1500, 2200);
+        }
+
+        function spawnLetterRandomly() {
+            const alphabet = "EEEEAARRIIOOTTTNNNSLCCUUUUPPMDGBBHHFFYYWWKKVVXZJQ";
+            const char = alphabet[Math.floor(Math.random() * alphabet.length)];
+            createLetterSprite.call(this, player.x + Phaser.Math.Between(-1500, 1500), player.y + Phaser.Math.Between(-1500, 1500), char);
+        }
+
+        function createLetterSprite(x, y, char) {
+            let bg = this.add.rectangle(0, 0, 100, 100, 0xffffff, 0.05).setStrokeStyle(3, 0xffffff, 0.4);
+            let txt = this.add.text(0, 0, char, { fontSize: '66px', fill: '#fff', fontStyle: 'bold' }).setOrigin(0.5);
+            let container = this.add.container(x, y, [bg, txt]);
+            this.physics.world.enable(container);
+            container.body.setSize(100, 100);
+            container.letterChar = char;
+            letters.add(container);
+        }
+    </script>
+</body>
+
+</html>

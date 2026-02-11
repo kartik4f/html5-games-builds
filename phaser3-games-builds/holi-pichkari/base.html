@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pichkari Protocol - Holi Special</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2d2d2d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        #game-container {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        #instructions {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            pointer-events: none;
+            text-shadow: 1px 1px 2px black;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+</head>
+
+<body>
+
+    <div id="instructions">
+        <h3>The Pichkari Protocol</h3>
+        <p>Mouse: Aim & Shoot</p>
+        <p>Keys 1, 2, 3: Change Color (Red, Green, Blue)</p>
+        <p><b>Goal:</b> Color the Grumpy Gray people!</p>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        const config = {
+            type: Phaser.AUTO,
+            width: 800,
+            height: 600,
+            parent: 'game-container', // Attaches game to the body if no ID found, or specific div
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: { y: 0 },
+                    debug: false
+                }
+            },
+            scene: {
+                preload: preload,
+                create: create,
+                update: update
+            }
+        };
+
+        const game = new Phaser.Game(config);
+
+        // --- GLOBAL VARIABLES ---
+        let player;
+        let bullets;
+        let enemies;
+        let cursors;
+        let score = 0;
+        let scoreText;
+        let gameOverText;
+        let isGameOver = false;
+
+        // Holi Colors
+        const COLORS = {
+            RED: 0xff0044,
+            GREEN: 0x00ff44,
+            BLUE: 0x0088ff,
+            YELLOW: 0xffcc00
+        };
+
+        let currentColor = COLORS.RED;
+        let uiColorIndicator;
+
+        // --- SCENE FUNCTIONS ---
+
+        function preload() {
+            // No external assets needed! We will draw them in create().
+        }
+
+        function create() {
+            // 1. GENERATE ASSETS (Programmatic Textures)
+            createTextures(this);
+
+            // 2. SETUP WORLD
+            this.cameras.main.setBackgroundColor('#1a1a1a');
+
+            // 3. CREATE PLAYER (The Pichkari)
+            player = this.physics.add.sprite(400, 550, 'pichkari');
+            player.setOrigin(0.5, 0.7); // Pivot point for rotation
+            player.setCollideWorldBounds(true);
+
+            // 4. CREATE GROUPS
+            bullets = this.physics.add.group({
+                defaultKey: 'drop',
+                maxSize: 100
+            });
+
+            enemies = this.physics.add.group();
+
+            // 5. INPUTS
+            this.input.on('pointermove', (pointer) => {
+                if (isGameOver) return;
+                // Angle between player and mouse
+                let angle = Phaser.Math.Angle.Between(player.x, player.y, pointer.x, pointer.y);
+                player.setRotation(angle + 1.57); // +1.57 (90 deg) because sprite points up by default
+            });
+
+            this.input.on('pointerdown', (pointer) => {
+                if (isGameOver) {
+                    restartGame(this);
+                } else {
+                    firePichkari(this, pointer);
+                }
+            });
+
+            // Key inputs for changing colors
+            this.input.keyboard.on('keydown-ONE', () => changeColor(COLORS.RED));
+            this.input.keyboard.on('keydown-TWO', () => changeColor(COLORS.GREEN));
+            this.input.keyboard.on('keydown-THREE', () => changeColor(COLORS.BLUE));
+
+            // 6. SPAWN ENEMIES LOOP
+            this.time.addEvent({
+                delay: 1000, // Spawn every 1 second
+                callback: spawnEnemy,
+                callbackScope: this,
+                loop: true
+            });
+
+            // 7. UI & SCORING
+            scoreText = this.add.text(16, 550, 'Happy People: 0', { fontSize: '24px', fill: '#fff' });
+
+            // Color Indicator (Shows current ammo color)
+            uiColorIndicator = this.add.rectangle(750, 560, 40, 40, currentColor);
+            this.add.text(730, 520, 'Ammo', { fontSize: '14px', fill: '#fff' });
+
+            gameOverText = this.add.text(400, 300, 'VIBE RUINED!\nClick to Restart', {
+                fontSize: '48px',
+                fill: '#fff',
+                align: 'center',
+                backgroundColor: '#000000aa'
+            });
+            gameOverText.setOrigin(0.5);
+            gameOverText.setVisible(false);
+
+            // 8. COLLISIONS
+            this.physics.add.collider(bullets, enemies, hitEnemy, null, this);
+            this.physics.add.collider(player, enemies, triggerGameOver, null, this);
+        }
+
+        function update() {
+            if (isGameOver) return;
+
+            // Cleanup bullets that go off screen
+            bullets.children.each((b) => {
+                if (b.active && (b.y < 0 || b.y > 600 || b.x < 0 || b.x > 800)) {
+                    b.setActive(false);
+                    b.setVisible(false);
+                }
+            });
+
+            // Rotate enemies slightly as they fall for visual flair
+            enemies.children.each((e) => {
+                if (e.active) {
+                    e.rotation += 0.01;
+                }
+            });
+        }
+
+        // --- GAME LOGIC HELPER FUNCTIONS ---
+
+        function createTextures(scene) {
+            // Create Pichkari (Gun) Texture
+            let gfx = scene.make.graphics({ x: 0, y: 0, add: false });
+            gfx.fillStyle(0xcccccc, 1);
+            gfx.fillRect(10, 0, 10, 40); // Barrel
+            gfx.fillStyle(0xffaa00, 1);
+            gfx.fillCircle(15, 40, 15); // Base/Tank
+            gfx.generateTexture('pichkari', 30, 60);
+
+            // Create Water Drop Texture
+            gfx.clear();
+            gfx.fillStyle(0xffffff, 1);
+            gfx.fillCircle(5, 5, 5);
+            gfx.generateTexture('drop', 10, 10);
+
+            // Create Grumpy Enemy Texture (Gray Square with sad face)
+            gfx.clear();
+            gfx.fillStyle(0x888888, 1);
+            gfx.fillRect(0, 0, 40, 40);
+            gfx.fillStyle(0x000000, 1);
+            gfx.fillRect(10, 15, 5, 5); // Eye L
+            gfx.fillRect(25, 15, 5, 5); // Eye R
+            gfx.fillRect(10, 30, 20, 2); // Mouth
+            gfx.generateTexture('enemy', 40, 40);
+        }
+
+        function changeColor(color) {
+            currentColor = color;
+            uiColorIndicator.fillColor = color;
+        }
+
+        function firePichkari(scene, pointer) {
+            // Fire 3 drops rapidly to simulate a liquid stream
+            for (let i = 0; i < 3; i++) {
+                scene.time.delayedCall(i * 50, () => {
+                    let bullet = bullets.get(player.x, player.y - 20);
+                    if (bullet) {
+                        bullet.setActive(true);
+                        bullet.setVisible(true);
+                        bullet.setTint(currentColor); // Set bullet to current ammo color
+
+                        // Add some "spray" randomness to the angle
+                        let angle = player.rotation - 1.57; // Correct for sprite offset
+                        let randomSpread = Phaser.Math.FloatBetween(-0.1, 0.1);
+
+                        scene.physics.velocityFromRotation(angle + randomSpread, 600, bullet.body.velocity);
+                    }
+                });
+            }
+        }
+
+        function spawnEnemy() {
+            if (isGameOver) return;
+
+            let x = Phaser.Math.Between(50, 750);
+            let enemy = enemies.create(x, -50, 'enemy');
+            enemy.setTint(0xffffff); // Reset tint
+
+            // Move towards player
+            game.scene.scenes[0].physics.moveToObject(enemy, player, 100 + (score * 2)); // Gets faster as score goes up
+        }
+
+        function hitEnemy(bullet, enemy) {
+            bullet.setActive(false);
+            bullet.setVisible(false);
+
+            // Only count if enemy is still "active" (not already colored)
+            if (enemy.body.enable) {
+                enemy.body.enable = false; // Disable physics
+                enemy.setVelocity(0, 0);   // Stop moving
+                enemy.setTint(bullet.tintTopLeft); // Turn enemy the color of the water
+
+                // Celebration tween
+                game.scene.scenes[0].tweens.add({
+                    targets: enemy,
+                    scaleX: 1.5,
+                    scaleY: 1.5,
+                    alpha: 0,
+                    rotation: 5,
+                    duration: 500,
+                    onComplete: () => {
+                        enemy.destroy();
+                    }
+                });
+
+                // Increase Score
+                score++;
+                scoreText.setText('Happy People: ' + score);
+            }
+        }
+
+        function triggerGameOver(player, enemy) {
+            isGameOver = true;
+            this.physics.pause();
+            player.setTint(0x555555); // Darken player
+            gameOverText.setVisible(true);
+        }
+
+        function restartGame(scene) {
+            isGameOver = false;
+            score = 0;
+            scoreText.setText('Happy People: 0');
+            gameOverText.setVisible(false);
+
+            // Clear all enemies and bullets
+            enemies.clear(true, true);
+            bullets.clear(true, true);
+
+            player.setTint(0xffffff);
+            scene.physics.resume();
+        }
+
+    </script>
+
+</body>
+
+</html>

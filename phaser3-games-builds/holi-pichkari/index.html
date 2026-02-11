@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Holi Gali Wars</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            background: #87CEEB;
+            overflow: hidden;
+            touch-action: none;
+            user-select: none;
+        }
+
+        #ui {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .hud {
+            font-family: 'Fredoka One';
+            color: white;
+            font-size: 30px;
+            text-shadow: 2px 2px 0 #000;
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        #hand {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            border: 5px solid #ff0055;
+            text-align: center;
+            font-family: 'Fredoka One';
+            color: #333;
+            font-size: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .icon {
+            font-size: 40px;
+            display: block;
+            margin: 10px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+</head>
+
+<body>
+
+    <div id="ui">
+        <div class="hud" id="scoreText">SCORE: 0</div>
+        <div class="hud" id="livesText" style="color: #ff4d6d">❤❤❤</div>
+        <div class="hud" id="comboText" style="color: #ffd700; display:none">COMBO x2!</div>
+    </div>
+
+    <div id="hand">
+        <span class="icon">👨🏻 ✅ HIT UNCLE</span>
+        <span class="icon">👩🏻 ❌ SAVE AUNTY</span>
+        <br>TAP TO START!
+    </div>
+
+    <script>
+        const PALETTE = [0xff0055, 0x00cc44, 0x00a8ff, 0xffff00, 0xff6600];
+
+        const config = {
+            type: Phaser.AUTO,
+            scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH, width: 480, height: 854 },
+            backgroundColor: '#87CEEB',
+            physics: { default: 'arcade', arcade: { debug: false } },
+            scene: { preload: preload, create: create, update: update }
+        };
+
+        const game = new Phaser.Game(config);
+
+        let windows = [];
+        let characters = [];
+        let score = 0;
+        let lives = 3;
+        let combo = 1;
+        let gameSpeed = 1200; // Slower start to let player learn
+        let nextPopTime = 0;
+        let isGameOver = false;
+        let hasStarted = false;
+        let audioCtx;
+
+        function preload() { /* assets generated in create */ }
+
+        function create() {
+            generateAssets(this);
+            initAudio();
+
+            // 1. BUILDING BACKGROUND
+            let bg = this.add.graphics();
+            bg.fillStyle(0xffeebb); // Cream Wall
+            bg.fillRect(20, 100, 440, 700);
+            // Decorations (Festive Bunting)
+            for (let i = 20; i < 460; i += 40) {
+                bg.fillStyle(Phaser.Utils.Array.GetRandom(PALETTE));
+                bg.fillTriangle(i, 100, i + 40, 100, i + 20, 140);
+            }
+
+            // 2. CREATE WINDOWS (2 Columns, 3 Rows)
+            createWindow(this, 130, 280);
+            createWindow(this, 350, 280);
+
+            createWindow(this, 130, 480);
+            createWindow(this, 350, 480);
+
+            createWindow(this, 130, 680);
+            createWindow(this, 350, 680);
+
+            // 3. START INPUT
+            this.input.on('pointerdown', () => {
+                if (!hasStarted) {
+                    hasStarted = true;
+                    document.getElementById('hand').style.display = 'none';
+                }
+                if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+                if (isGameOver) location.reload();
+            });
+        }
+
+        function update(time, delta) {
+            if (!hasStarted || isGameOver) return;
+
+            if (time > nextPopTime) {
+                popUpCharacter(this);
+                // Speed ramps up, capping at 400ms (Very fast)
+                gameSpeed = Math.max(400, gameSpeed * 0.98);
+                nextPopTime = time + gameSpeed;
+            }
+        }
+
+        // --- CORE GAMEPLAY ---
+
+        function createWindow(scene, x, y) {
+            // Window Frame
+            let gfx = scene.add.graphics();
+            gfx.fillStyle(0x222222);
+            gfx.fillRect(x - 70, y - 70, 140, 140); // Dark Interior
+            gfx.lineStyle(8, 0xffffff);
+            gfx.strokeRect(x - 70, y - 70, 140, 140); // Frame
+
+            // Shutters (Visual only)
+            gfx.fillStyle(0xcc6633);
+            gfx.fillRect(x - 85, y - 70, 15, 140); // Left Shutter
+            gfx.fillRect(x + 70, y - 70, 15, 140); // Right Shutter
+
+            // The Character Sprite (Hidden initially)
+            // We create a container or reuse a sprite. We'll swap textures later.
+            let char = scene.add.sprite(x, y + 150, 'uncle');
+            char.setInteractive();
+            char.mask = new Phaser.Display.Masks.GeometryMask(scene, gfx);
+            char.windowY = y;
+            char.isUp = false;
+            char.type = 'uncle'; // 'uncle' or 'aunty' or 'gold'
+
+            char.on('pointerdown', () => {
+                if (char.isUp && !char.isHit) {
+                    handleTap(scene, char);
+                }
+            });
+
+            characters.push(char);
+        }
+
+        function popUpCharacter(scene) {
+            // 1. Pick free window
+            let available = characters.filter(c => !c.isUp);
+            if (available.length === 0) return;
+            let char = Phaser.Utils.Array.GetRandom(available);
+
+            // 2. Decide Type (Risk vs Reward)
+            let roll = Math.random();
+            if (roll < 0.2) {
+                char.setTexture('aunty'); // 20% Chance Aunty (Don't Hit)
+                char.type = 'aunty';
+            } else if (roll > 0.95) {
+                char.setTexture('gold_uncle'); // 5% Chance Gold Uncle (Bonus)
+                char.type = 'gold';
+            } else {
+                char.setTexture('uncle'); // 75% Chance Normal Uncle
+                char.type = 'uncle';
+            }
+
+            // 3. Reset State
+            char.isUp = true;
+            char.isHit = false;
+            char.setTint(0xffffff);
+            char.setScale(1);
+
+            // 4. Animation UP
+            scene.tweens.add({
+                targets: char,
+                y: char.windowY + 20, // Pop Up
+                duration: 250,
+                ease: 'Back.out',
+                onComplete: () => {
+                    // Stay up briefly then go down
+                    scene.time.delayedCall(gameSpeed * 0.7, () => {
+                        if (char.isUp && !char.isHit) {
+                            popDownCharacter(scene, char);
+                        }
+                    });
+                }
+            });
+        }
+
+        function popDownCharacter(scene, char) {
+            scene.tweens.add({
+                targets: char,
+                y: char.windowY + 150,
+                duration: 200,
+                onComplete: () => {
+                    char.isUp = false;
+                    // If we missed an Uncle, Reset Combo!
+                    if (char.type !== 'aunty' && !char.isHit) {
+                        resetCombo();
+                    }
+                }
+            });
+        }
+
+        function handleTap(scene, char) {
+            char.isHit = true;
+
+            if (char.type === 'aunty') {
+                // --- BAD TAP (Hit Aunty) ---
+                scene.cameras.main.shake(300, 0.02); // Big Shake
+                playSound('scream');
+
+                let txt = scene.add.text(char.x, char.y, "SORRY!", { fontFamily: 'Fredoka One', fontSize: '40px', color: '#ff0000', stroke: '#fff', strokeThickness: 6 }).setOrigin(0.5);
+                scene.tweens.add({ targets: txt, y: char.y - 100, alpha: 0, duration: 1000 });
+
+                lives--;
+                updateUI();
+                resetCombo();
+
+                if (lives <= 0) gameOver(scene);
+
+            } else {
+                // --- GOOD TAP (Hit Uncle) ---
+                let points = (char.type === 'gold' ? 50 : 10) * combo;
+                score += points;
+                combo++;
+                if (combo > 1) showCombo(scene);
+                updateUI();
+                playSound('splat');
+
+                // Visuals
+                let color = (char.type === 'gold') ? 0xffd700 : Phaser.Utils.Array.GetRandom(PALETTE);
+
+                // Splat on face
+                let splat = scene.add.image(char.x, char.y, 'splat');
+                splat.setTint(color);
+                splat.setScale(0);
+                scene.tweens.add({ targets: splat, scale: 1.5, alpha: 0, duration: 500, onComplete: () => splat.destroy() });
+
+                // Uncle Reaction (Turn color and squish)
+                char.setTint(color);
+                scene.tweens.add({
+                    targets: char,
+                    scaleY: 0.8, scaleX: 1.2, // Squish
+                    y: char.windowY + 150, // Fall down fast
+                    duration: 150,
+                    delay: 100,
+                    onComplete: () => { char.isUp = false; }
+                });
+            }
+        }
+
+        // --- UI HELPERS ---
+
+        function updateUI() {
+            document.getElementById('scoreText').innerText = "SCORE: " + score;
+            let hearts = "❤".repeat(Math.max(0, lives));
+            document.getElementById('livesText').innerText = hearts;
+        }
+
+        function showCombo(scene) {
+            let el = document.getElementById('comboText');
+            el.style.display = 'inline-block';
+            el.innerText = "COMBO x" + combo + "!";
+            el.style.transform = "scale(1.5)";
+            setTimeout(() => { el.style.transform = "scale(1)"; }, 100);
+        }
+
+        function resetCombo() {
+            combo = 1;
+            document.getElementById('comboText').style.display = 'none';
+        }
+
+        function gameOver(scene) {
+            isGameOver = true;
+            scene.physics.pause();
+
+            scene.add.rectangle(240, 427, 480, 854, 0x000000, 0.8).setDepth(200);
+            scene.add.text(240, 350, "GAME OVER", { fontFamily: 'Fredoka One', fontSize: '50px', color: '#ff0055' }).setOrigin(0.5).setDepth(201);
+            scene.add.text(240, 420, "Final Score: " + score, { fontFamily: 'Fredoka One', fontSize: '30px', color: '#fff' }).setOrigin(0.5).setDepth(201);
+
+            let btn = scene.add.text(240, 550, "Tap to Restart", { fontFamily: 'Fredoka One', fontSize: '24px', color: '#fff' }).setOrigin(0.5).setDepth(201);
+            scene.tweens.add({ targets: btn, scale: 1.1, duration: 500, yoyo: true, repeat: -1 });
+        }
+
+        // --- AUDIO ---
+        function initAudio() {
+            window.AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+        }
+        function playSound(type) {
+            if (!audioCtx) return;
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.connect(gain); gain.connect(audioCtx.destination);
+
+            if (type === 'splat') {
+                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.1);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+            } else if (type === 'scream') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.3);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+            }
+        }
+
+        // --- ASSETS ---
+        function generateAssets(scene) {
+            let gfx = scene.make.graphics({ x: 0, y: 0, add: false });
+
+            // 1. UNCLE (Mustache)
+            gfx.clear();
+            gfx.fillStyle(0xffccaa); gfx.fillCircle(60, 60, 50); // Face
+            gfx.fillStyle(0x000000); gfx.fillCircle(45, 50, 5); gfx.fillCircle(75, 50, 5); // Eyes
+            gfx.fillRect(35, 75, 50, 8); // Big Mustache
+            gfx.generateTexture('uncle', 120, 120);
+
+            // 2. AUNTY (Bun & Bindi)
+            gfx.clear();
+            gfx.fillStyle(0xffccaa); gfx.fillCircle(60, 60, 50); // Face
+            gfx.fillStyle(0x333333); gfx.fillCircle(60, 10, 25); // Hair Bun
+            gfx.fillStyle(0x000000); gfx.fillCircle(45, 50, 5); gfx.fillCircle(75, 50, 5); // Eyes
+            gfx.fillStyle(0xff0000); gfx.fillCircle(60, 45, 6); // Red Bindi
+            gfx.lineStyle(3, 0xcc0000); gfx.strokeCircle(60, 80, 10); // Smile
+            gfx.generateTexture('aunty', 120, 120);
+
+            // 3. GOLD UNCLE (Sunglasses)
+            gfx.clear();
+            gfx.fillStyle(0xffd700); gfx.fillCircle(60, 60, 50); // Gold Face
+            gfx.fillStyle(0x000000); gfx.fillRect(35, 45, 50, 15); // Sunglasses
+            gfx.fillRect(35, 75, 50, 8); // Mustache
+            gfx.generateTexture('gold_uncle', 120, 120);
+
+            // 4. Splat
+            gfx.clear(); gfx.fillStyle(0xffffff);
+            gfx.fillCircle(20, 20, 15); gfx.fillCircle(10, 10, 8);
+            gfx.fillCircle(30, 15, 10); gfx.fillCircle(25, 30, 8);
+            gfx.generateTexture('splat', 40, 40);
+        }
+    </script>
+</body>
+
+</html>
