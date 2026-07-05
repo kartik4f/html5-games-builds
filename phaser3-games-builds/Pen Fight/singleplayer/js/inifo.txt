@@ -1,0 +1,139 @@
+For a multiplayer physics game, it's much easier to get the networking right first and then layer gameplay on top.
+
+The order I'd recommend
+Phase 1 ✅ (Current)
+
+Physics Sandbox
+
+✅ Pen physics
+✅ Input
+✅ Collisions
+✅ Stable architecture
+Phase 2
+
+Server-Authoritative Multiplayer
+
+Don't add gameplay yet.
+
+Just make two players able to:
+
+Join the same room
+See the same pens
+Take turns flicking
+Watch identical physics
+Wait until all pens stop
+
+That's enough.
+
+At this stage there is still:
+
+No score
+No winner
+No UI
+No sounds
+
+Just synchronized physics.
+
+Phase 3
+
+Turn System
+
+Once multiplayer works:
+
+Player 1's turn
+Player 2's turn
+Turn timer
+Wait until all pens stop
+Next player
+Phase 4
+
+Game Rules
+
+Now add:
+
+Out-of-bounds
+Elimination
+Score
+Round end
+Victory
+Phase 5
+
+Polish
+
+Only now add:
+
+Sounds
+Particles
+Camera shake
+Better graphics
+UI
+Animations
+Why this order?
+
+Imagine you spend weeks building:
+
+Beautiful UI
+Scoreboard
+Win screen
+Sound effects
+Particles
+
+…and then you switch to server-authoritative multiplayer.
+
+You'll often need to refactor a lot of those systems because the server, not the client, decides when a shot starts, when it ends, and who wins.
+
+If you build the networking first, everything else naturally plugs into the server state.
+
+I would prioritize like this
+Feature	Before Multiplayer?	Why
+Better physics feel	✅ Yes	Essential
+Better input	✅ Yes	Essential
+Camera	✅ Yes	Improves feel
+Turn system	⚠️ Minimal	Only what's needed to enforce turns
+Multiplayer	✅ Yes	Core architecture
+Score	❌ No	Easy to add later
+Win/Lose	❌ No	Depends on game rules
+UI	❌ No	Easier after networking
+Sounds	❌ No	Pure polish
+Particles	❌ No	Pure polish
+AI	❌ No	Separate concern
+Networking	✅ Yes	Foundation
+The architecture I'd build
+Client A                  Server                 Client B
+---------                 ------                 ---------
+
+Input  ───────────────►
+
+                     Physics World
+                     PenManager
+                     TurnManager
+
+      ◄────────────── Game State ──────────────►
+
+Render                                         Render
+
+The server owns:
+
+Physics
+Turn order
+Valid shots
+Game state
+
+The clients own:
+
+Rendering
+Input
+Prediction (optional)
+Effects
+
+This is a classic server-authoritative architecture and is well-suited to a turn-based physics game.
+
+One small thing I would add before multiplayer
+
+I would add a minimal TurnManager now—not with scoring or timers, but just enough to answer:
+
+Whose turn is it?
+Can the local player shoot?
+Are all pens stationary?
+
+That keeps the multiplayer protocol simple from the beginning without pulling in the rest of the gameplay systems.

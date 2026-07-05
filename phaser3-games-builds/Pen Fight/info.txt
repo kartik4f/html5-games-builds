@@ -1,0 +1,308 @@
+PenPen Fight - Multiplayer Physics Game (Phaser 3 + Socket.IO)
+Overview
+
+PenPen Fight is a real-time multiplayer tabletop physics game. Each player controls a pen placed around a table. After all players join and position their pens, the match starts and players flick/push their pens to knock opponents off the table.
+
+Technical Stack
+Phaser 3
+Matter.js physics
+Socket.IO
+Node.js server
+Resolution: 1920×1080
+Scale:
+scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
+}
+
+Use a server-authoritative approach where the server controls room state and synchronizes player positions.
+
+Game Flow
+1. Main Menu
+
+Options:
+
+Create Room
+Join Random Room
+2. Room Creation
+Create Room
+
+Server generates a unique room code.
+
+Room ABCD
+Players 1/4
+Waiting for players...
+Join Random Room
+
+Find an existing room with free slots.
+
+If none exist, create a new room automatically.
+
+Maximum players: 4.
+
+3. Waiting State
+
+Scene contains:
+
+A table positioned at the center.
+Each player joining the room spawns a pen around the table.
+
+Example:
+
+           Pen1
+
+     ----------------
+     |              |
+     |    TABLE     |
+     |              |
+     ----------------
+
+           Pen2
+
+Pens are distributed evenly around the table.
+
+4. Placement Phase
+
+When all players have joined:
+
+Game state changes to:
+
+PLACE_PENS
+
+Display countdown:
+
+Place your pens
+
+3
+2
+1
+GO
+
+During this phase:
+
+Players can drag their pen.
+Players can rotate their pen.
+Position changes are synchronized through Socket.IO.
+
+When countdown ends:
+
+Pen positions become locked.
+5. Fight Phase
+
+Game state:
+
+FIGHT
+
+Players control only their own pen.
+
+Controls:
+
+Desktop:
+
+Click and drag backwards.
+Release to apply force.
+
+Mobile:
+
+Swipe to apply force.
+
+Matter.js handles:
+
+Collision
+Rotation
+Friction
+Bounce
+
+Goal:
+
+Knock other pens off the table.
+
+Last remaining player wins.
+
+Room State Machine
+WAITING
+    ↓
+PLACE_PENS
+    ↓
+FIGHT
+    ↓
+GAME_OVER
+Server Architecture
+Node Server
+│
+├── Room Manager
+├── Player Manager
+├── Match State
+├── Socket Events
+└── Physics Synchronization
+Room Structure
+rooms = {
+    ABCD: {
+        state: "waiting",
+        maxPlayers: 4,
+
+        players: {
+            socketId1: {
+                id,
+                x,
+                y,
+                angle,
+                ready
+            }
+        }
+    }
+};
+Socket Events
+Create Room
+
+Client:
+
+socket.emit("createRoom");
+
+Server:
+
+socket.emit("roomCreated");
+Join Random Room
+
+Client:
+
+socket.emit("joinRandom");
+
+Server:
+
+socket.emit("joinedRoom");
+Player Joined
+
+Broadcast:
+
+playerJoined
+
+Contains:
+
+{
+    players
+}
+Start Placement
+
+Server broadcasts:
+
+startPlacement
+
+Starts countdown.
+
+Update Pen Position
+
+Client sends:
+
+{
+    x,
+    y,
+    angle
+}
+
+Server broadcasts:
+
+playerUpdate
+Start Fight
+
+Server broadcasts:
+
+fightStart
+
+Locks pen placement.
+
+Physics Updates
+
+Players send input only.
+
+Server broadcasts:
+
+physicsUpdate
+
+Containing:
+
+{
+    x,
+    y,
+    angle,
+    velocityX,
+    velocityY,
+    angularVelocity
+}
+Player Eliminated
+
+Broadcast:
+
+playerOut
+Game Over
+
+Broadcast:
+
+gameOver
+
+Contains winner information.
+
+Folder Structure
+penpen-fight/
+
+client/
+│
+├── index.html
+├── main.js
+│
+├── scenes/
+│     BootScene.js
+│     MenuScene.js
+│     RoomScene.js
+│     GameScene.js
+│
+├── objects/
+│     Pen.js
+│     Table.js
+│
+├── managers/
+│     SocketManager.js
+│     RoomManager.js
+│     PlayerManager.js
+│
+└── assets/
+
+server/
+│
+├── index.js
+├── RoomManager.js
+├── PlayerManager.js
+├── MatchManager.js
+└── utils/
+      generateRoomCode.js
+Future Extensions
+Pen Types
+Ball Pen
+Marker
+Pencil
+Fountain Pen
+
+Each with different:
+
+Weight
+Friction
+Speed
+Modes
+1v1
+2v2
+Free For All (4 players)
+Tournament Mode
+Powerups
+Spin Boost
+Sticky Ink
+Double Force
+Freeze Opponent
+Recommended Architecture
+
+Use:
+
+Phaser 3 + Matter.js
+Socket.IO
+Server-authoritative game state
+Fixed tick rate (20–30 updates/sec)
+Input-based networking rather than sending full physics state from clients to prevent cheating.
