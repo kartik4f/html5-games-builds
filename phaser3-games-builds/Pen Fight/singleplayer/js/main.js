@@ -19,13 +19,14 @@ const config = {
   scene: [GameScene],
 
   scale: {
+    parent: 'game',
     mode: Phaser.Scale.FIT,
-
     autoCenter: Phaser.Scale.CENTER_BOTH,
 
     width: GAME.WIDTH,
 
     height: GAME.HEIGHT,
+    // parent: 'game',
   },
 
   fps: {
