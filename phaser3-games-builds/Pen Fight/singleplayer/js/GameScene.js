@@ -9,10 +9,12 @@ import DebugRenderer from './DebugRenderer.js';
 import GameRules from './GameRules.js';
 
 import TurnTimer from './ui/TurnTimer.js';
+import MatchTimer from './ui/MatchTimer.js';
 import TurnIndicator from './ui/TurnIndicator.js';
 import WinPopup from './ui/WinPopup.js';
 
 import { GAME, TABLE, INPUT } from './Constants.js';
+import { THEME } from './Theme.js';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -70,8 +72,6 @@ export default class GameScene extends Phaser.Scene {
     // -----------------------------------------
     this.gameRules = new GameRules(this, this.penManager);
 
-    this.gameRules.start();
-
     //------------------------------------------
     // Camera
     //------------------------------------------
@@ -119,28 +119,57 @@ export default class GameScene extends Phaser.Scene {
 
       this.turnText.setText(`PLAYER ${index + 1} TURN`);
     });
+
+    this.events.on('chaos-started', () => {
+      this.turnText.setText('FREE FOR ALL');
+
+      this.turnIndicator.hide();
+    });
+
+    //------------------------------------------
+    // Start Match
+    // (must come after all 'turn-changed' / 'chaos-started' listeners
+    // above, since start() emits them synchronously)
+    //------------------------------------------
+
+    this.gameRules.start();
   }
 
   addUIItems() {
     this.turnText = this.add.text(GAME.WIDTH / 2, 40, 'PLAYER 1 TURN', {
-      fontSize: '28px',
-      color: '#ffffff',
+      fontFamily: THEME.FONT_HEADING,
+      fontSize: '30px',
+      color: THEME.TEXT_INK,
     });
 
     this.turnText.setOrigin(0.5);
     this.turnText.setScrollFactor(0);
 
     this.turnTimer = new TurnTimer(this);
+    this.matchTimer = new MatchTimer(this);
 
     this.events.on('turn-changed', () => {
-      this.turnTimer.show();
+      if (this.gameRules.useTurnTimer) this.turnTimer.show();
+
+      if (this.gameRules.useMatchTimer) this.matchTimer.show();
+    });
+
+    this.events.on('chaos-started', () => {
+      // Chaos has no per-turn timer, only the whole-match countdown
+      if (this.gameRules.useMatchTimer) this.matchTimer.show();
     });
 
     this.events.on('turn-timer', (timeLeft) => {
-      this.turnTimer.setTime(timeLeft);
+      this.turnTimer.setTime(timeLeft, this.gameRules.turnTimeLimit);
     });
+
+    this.events.on('match-timer', (timeLeft) => {
+      this.matchTimer.setTime(timeLeft);
+    });
+
     this.events.on('game-over', (result) => {
       this.turnTimer.hide();
+      this.matchTimer.hide();
       this.turnIndicator.hide();
       this.inputController.cancel();
 
@@ -159,7 +188,7 @@ export default class GameScene extends Phaser.Scene {
     };
 
     this.winPopup.onMainMenu = () => {
-      this.scene.restart(); // Replace with MainMenu later
+      this.scene.start('MenuScene');
     };
   }
 

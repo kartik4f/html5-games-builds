@@ -16,7 +16,8 @@ export const GAME = {
   WIDTH: 1280,
   HEIGHT: 720,
 
-  BACKGROUND: 0xc2c2c2,
+  // Notebook paper backdrop
+  BACKGROUND: 0xfbf3df,
 
   FPS: 60,
 };
@@ -32,81 +33,66 @@ export const TABLE = {
   WIDTH: 1080,
   HEIGHT: 600,
 
-  BORDER: 6,
+  // Wooden chalkboard frame
+  BORDER: 14,
 
-  COLOR: 0x684082,
+  // Chalkboard green playing surface
+  COLOR: 0x2f4a3d,
 
-  BORDER_COLOR: 0x5d4037,
+  // Wood frame
+  BORDER_COLOR: 0x7a5230,
 
   CORNER_RADIUS: 16,
 };
 
 //--------------------------------------------------
-// Pen Physics
+// Pen
 //--------------------------------------------------
-/* 
-export const PEN = {
-  LENGTH: 120,
-
-  WIDTH: 14,
-
-  END_RADIUS: 7,
-
-  DENSITY: 1.0,
-
-  FRICTION: 0.35,
-
-  RESTITUTION: 0.25,
-
-  LINEAR_DAMPING: 0.4,
-
-  ANGULAR_DAMPING: 1.8,
-
-  COLORS: [0x1e88e5, 0x43a047, 0xe53935],
-}; */
 
 export const PEN = {
-  LENGTH: 120,
-  WIDTH: 14,
-  END_RADIUS: 7,
+  LENGTH: 145,
 
-  DENSITY: 0.5, // was 1.0
+  WIDTH: 16,
 
-  FRICTION: 0.75, // was 0.35
+  END_RADIUS: 8,
 
-  RESTITUTION: 1, // was 0.25
+  // Medium-weight pen
+  DENSITY: 1.2,
 
-  LINEAR_DAMPING: 1.8, // was 0.40
+  // Moderate table friction
+  FRICTION: 0.5,
 
-  ANGULAR_DAMPING: 3.5, // was 1.8
+  // A little rebound on collisions, without turning into a bouncy ball
+  RESTITUTION: 1,
+
+  // Slides naturally
+  LINEAR_DAMPING: 1.9,
+
+  // Stable rotation
+  ANGULAR_DAMPING: 2.2,
 
   COLORS: [0x1e88e5, 0x43a047, 0xe53935],
 
-  // Elimination uses a slightly smaller body
-  ELIMINATION_PADDING: 4,
+  ELIMINATION_PADDING: 6,
 };
-
 //--------------------------------------------------
 // Input
 //--------------------------------------------------
 
 export const INPUT = {
-  // Maximum drag distance (pixels)
-  MAX_DRAG_DISTANCE: 180,
+  // Maximum pull distance
+  MAX_DRAG_DISTANCE: 160,
 
   // Ignore tiny drags
-  MIN_DRAG_DISTANCE: 10,
+  MIN_DRAG_DISTANCE: 8,
 
-  // Convert drag distance to impulse
-  IMPULSE_MULTIPLIER: 0.06,
+  // Base impulse (scaled by mass)
+  IMPULSE_MULTIPLIER: 0.2,
 
-  // Easier finger selection
-  TOUCH_RADIUS: 20,
+  TOUCH_RADIUS: 34,
 
-  // Desktop + multitouch
   MAX_POINTERS: 4,
 };
-
 //--------------------------------------------------
 // Debug
 //--------------------------------------------------

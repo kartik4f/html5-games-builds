@@ -3,6 +3,7 @@
 //==================================================
 
 import { GAME } from './Constants.js';
+import MenuScene from './MenuScene.js';
 import GameScene from './GameScene.js';
 
 const config = {
@@ -16,7 +17,7 @@ const config = {
 
   backgroundColor: GAME.BACKGROUND,
 
-  scene: [GameScene],
+  scene: [MenuScene, GameScene],
 
   scale: {
     parent: 'game',
@@ -37,7 +38,15 @@ const config = {
 };
 
 window.addEventListener('load', () => {
-  new Phaser.Game(config);
+  // Phaser renders text onto canvas, so if a webfont finishes loading
+  // after a Text object is created, it won't automatically re-render
+  // with the new font. Wait for fonts to be ready first to avoid a
+  // fallback-font flash on the title screen.
+  const ready = document.fonts ? document.fonts.ready : Promise.resolve();
+
+  ready.then(() => {
+    new Phaser.Game(config);
+  });
 });
 
 /* At this point, we have a clean architecture

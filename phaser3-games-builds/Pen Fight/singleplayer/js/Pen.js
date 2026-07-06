@@ -271,14 +271,28 @@ export default class Pen {
   // Helpers
   //--------------------------------------------------
 
-  containsPoint(x, y) {
-    return PhysicsUtils.bodyContainsPoint(
-      this.body,
+  containsPoint(x, y, tolerance = 0) {
+    if (PhysicsUtils.bodyContainsPoint(this.body, x, y)) return true;
 
-      x,
+    if (tolerance <= 0) return false;
 
-      y,
-    );
+    // Fall back to a capsule distance check so small screens / fat
+    // fingers get some slack when selecting the pen.
+    const local = this.getLocalPoint(x, y);
+
+    const halfBody = PhysicsUtils.toWorld(PEN.LENGTH / 2 - PEN.END_RADIUS);
+
+    const clampedX = Phaser.Math.Clamp(local.x, -halfBody, halfBody);
+
+    const dx = local.x - clampedX;
+    const dy = local.y;
+
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    const radius =
+      PhysicsUtils.toWorld(PEN.END_RADIUS) + PhysicsUtils.toWorld(tolerance);
+
+    return dist <= radius;
   }
 
   getLocalPoint(x, y) {
@@ -287,6 +301,25 @@ export default class Pen {
 
   isMoving() {
     return PhysicsUtils.isBodyMoving(this.body);
+  }
+
+  // Pure velocity check, ignoring Planck's isAwake() sleep timer.
+  // Used by the optional turn-based settle wait (GameConfig.WAIT_FOR_SETTLE).
+  isSettled(linearThreshold, angularThreshold) {
+    const v = this.body.getLinearVelocity();
+    const av = this.body.getAngularVelocity();
+
+    const speed = v.x * v.x + v.y * v.y;
+
+    if (speed > linearThreshold) return false;
+    if (Math.abs(av) > angularThreshold) return false;
+
+    return true;
+  }
+
+  // Snap velocity to zero (used when the settle wait times out)
+  stop() {
+    PhysicsUtils.stopBody(this.body);
   }
 
   isMoving() {

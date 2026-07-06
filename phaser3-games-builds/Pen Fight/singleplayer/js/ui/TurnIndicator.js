@@ -2,6 +2,8 @@
 // TurnIndicator.js
 //==================================================
 
+import { THEME } from '../Theme.js';
+
 export default class TurnIndicator {
   constructor(scene) {
     this.scene = scene;
@@ -16,24 +18,27 @@ export default class TurnIndicator {
     this.container.setAlpha(0);
 
     //------------------------------------------
-    // Background
+    // Background — chalk-written note card
     //------------------------------------------
 
     this.background = scene.add.graphics();
 
-    this.background.fillStyle(0x000000, 0.55);
+    this.background.fillStyle(THEME.CHALK, 0.95);
 
-    this.background.fillRoundedRect(-140, -25, 280, 50, 12);
+    this.background.fillRoundedRect(-150, -27, 300, 54, 14);
+
+    this.background.lineStyle(3, THEME.WOOD_BROWN_DARK, 1);
+
+    this.background.strokeRoundedRect(-150, -27, 300, 54, 14);
 
     //------------------------------------------
     // Text
     //------------------------------------------
 
     this.text = scene.add.text(0, 0, '', {
-      fontFamily: 'Arial',
+      fontFamily: THEME.FONT_HEADING,
       fontSize: '24px',
-      fontStyle: 'bold',
-      color: '#ffffff',
+      color: THEME.TEXT_INK,
     });
 
     this.text.setOrigin(0.5);

@@ -10,14 +10,10 @@ export default class InputController {
     this.penManager = penManager;
     this.gameRules = gameRules;
 
-    this.selectedPen = null;
-
-    this.dragStart = null;
-    this.dragCurrent = null;
-
-    this.localPoint = null;
-
-    this.activePointerId = null;
+    // pointer.id -> { pen, dragStart, dragCurrent, localPoint }
+    // A Map (instead of single-drag fields) so chaos mode can support
+    // several players dragging different pens at the same time.
+    this.drags = new Map();
 
     this.aimGraphics = scene.add.graphics();
 
@@ -49,40 +45,58 @@ export default class InputController {
   //--------------------------------------------------
 
   onPointerDown(pointer) {
-    if (!this.gameRules.canPlayerInteract()) return;
+    if (this.drags.has(pointer.id)) return;
 
-    if (this.activePointerId !== null) return;
-    // Another pointer is already aiming
-    if (this.activePointerId !== null) return;
+    const tolerance = pointer.wasTouch ? INPUT.TOUCH_RADIUS : 0;
 
-    const pen = this.gameRules.getCurrentPen();
+    const pen = this.findPenForPointer(pointer, tolerance);
 
     if (!pen) return;
 
-    // Must actually touch the active pen
-    if (!pen.containsPoint(pointer.worldX, pointer.worldY)) return;
+    if (!this.gameRules.canPlayerInteract(pen)) return;
 
-    if (pen.isMoving()) return;
+    // Pen is already being dragged by another pointer
+    for (const drag of this.drags.values()) {
+      if (drag.pen === pen) return;
+    }
 
-    this.activePointerId = pointer.id;
+    // Must actually touch the pen (with extra slack for touch input,
+    // since fingers are far less precise than a mouse pointer)
+    if (!pen.containsPoint(pointer.worldX, pointer.worldY, tolerance)) return;
 
-    if (!pen) return;
-
-    if (!this.gameRules.alivePens.has(pen)) return;
-
-    this.selectedPen = pen;
-    this.penManager.selectPen(pen);
-
-    this.dragStart = {
+    const dragStart = {
       x: pointer.worldX,
       y: pointer.worldY,
     };
 
-    this.dragCurrent = {
-      ...this.dragStart,
-    };
+    this.drags.set(pointer.id, {
+      pen,
+      dragStart,
+      dragCurrent: { ...dragStart },
+      localPoint: pen.getLocalPoint(pointer.worldX, pointer.worldY),
+    });
 
-    this.localPoint = pen.getLocalPoint(pointer.worldX, pointer.worldY);
+    if (this.gameRules.isChaos) {
+      this.penManager.setPenSelected(pen, true);
+    } else {
+      this.penManager.selectPen(pen);
+    }
+  }
+
+  //--------------------------------------------------
+  // Which pen does this pointer target?
+  //--------------------------------------------------
+
+  findPenForPointer(pointer, tolerance) {
+    if (this.gameRules.isChaos) {
+      return this.penManager.getPenAt(
+        pointer.worldX,
+        pointer.worldY,
+        tolerance,
+      );
+    }
+
+    return this.gameRules.getCurrentPen();
   }
 
   //--------------------------------------------------
@@ -90,10 +104,12 @@ export default class InputController {
   //--------------------------------------------------
 
   onPointerMove(pointer) {
-    if (pointer.id !== this.activePointerId) return;
+    const drag = this.drags.get(pointer.id);
 
-    this.dragCurrent.x = pointer.worldX;
-    this.dragCurrent.y = pointer.worldY;
+    if (!drag) return;
+
+    drag.dragCurrent.x = pointer.worldX;
+    drag.dragCurrent.y = pointer.worldY;
   }
 
   //--------------------------------------------------
@@ -101,27 +117,31 @@ export default class InputController {
   //--------------------------------------------------
 
   onPointerUp(pointer) {
-    if (pointer.id !== this.activePointerId) return;
+    const drag = this.drags.get(pointer.id);
 
-    this.fire();
+    if (!drag) return;
+
+    this.fire(pointer.id, drag);
   }
 
   //--------------------------------------------------
   // Fire
   //--------------------------------------------------
 
-  fire() {
-    if (!this.gameRules.canPlayerInteract()) {
-      this.cancel();
+  fire(pointerId, drag) {
+    if (!this.gameRules.canPlayerInteract(drag.pen)) {
+      this.cancelDrag(pointerId);
+
       return;
     }
-    let dx = this.dragStart.x - this.dragCurrent.x;
-    let dy = this.dragStart.y - this.dragCurrent.y;
+
+    let dx = drag.dragStart.x - drag.dragCurrent.x;
+    let dy = drag.dragStart.y - drag.dragCurrent.y;
 
     let length = Math.sqrt(dx * dx + dy * dy);
 
     if (length < INPUT.MIN_DRAG_DISTANCE) {
-      this.cancel();
+      this.cancelDrag(pointerId);
 
       return;
     }
@@ -135,36 +155,72 @@ export default class InputController {
       length = INPUT.MAX_DRAG_DISTANCE;
     }
 
-    const impulse = {
-      x: dx * INPUT.IMPULSE_MULTIPLIER,
+    //--------------------------------------------------
+    // Calculate impulse
+    //--------------------------------------------------
 
-      y: dy * INPUT.IMPULSE_MULTIPLIER,
-    };
+    const mass = drag.pen.body.getMass();
 
-    this.selectedPen.shoot(
-      this.localPoint,
+    // Normalized drag (0..1)
+    const dragAmount = length / INPUT.MAX_DRAG_DISTANCE;
 
-      impulse,
+    // Smooth power curve
+    const power = Phaser.Math.Easing.Cubic.Out(
+      Phaser.Math.Clamp(dragAmount, 0, 1),
     );
 
-    this.cancel();
+    // Final impulse
+    const impulse = {
+      x: dx * INPUT.IMPULSE_MULTIPLIER * power * mass,
+
+      y: dy * INPUT.IMPULSE_MULTIPLIER * power * mass,
+    };
+
+    drag.pen.shoot(drag.localPoint, impulse);
+
+    this.gameRules.onPlayerAction(drag.pen);
+
+    this.cancelDrag(pointerId);
   }
 
   //--------------------------------------------------
-  // Cancel
+  // Cancel One Drag
+  //--------------------------------------------------
+
+  cancelDrag(pointerId) {
+    const drag = this.drags.get(pointerId);
+
+    if (!drag) return;
+
+    if (this.gameRules.isChaos) {
+      this.penManager.setPenSelected(drag.pen, false);
+    } else {
+      this.penManager.clearSelection();
+    }
+
+    this.drags.delete(pointerId);
+  }
+
+  //--------------------------------------------------
+  // Cancel Any Drag On A Specific Pen (e.g. it was just eliminated)
+  //--------------------------------------------------
+
+  cancelPen(pen) {
+    for (const pointerId of [...this.drags.keys()]) {
+      if (this.drags.get(pointerId).pen === pen) {
+        this.cancelDrag(pointerId);
+      }
+    }
+  }
+
+  //--------------------------------------------------
+  // Cancel All Drags
   //--------------------------------------------------
 
   cancel() {
-    this.penManager.clearSelection();
-
-    this.selectedPen = null;
-
-    this.dragStart = null;
-    this.dragCurrent = null;
-
-    this.localPoint = null;
-
-    this.activePointerId = null;
+    for (const pointerId of [...this.drags.keys()]) {
+      this.cancelDrag(pointerId);
+    }
 
     this.aimGraphics.clear();
   }
@@ -176,11 +232,18 @@ export default class InputController {
   update() {
     this.aimGraphics.clear();
 
-    if (!this.selectedPen) return;
+    for (const drag of this.drags.values()) {
+      this.drawAim(drag);
+    }
+  }
 
-    let dx = this.dragCurrent.x - this.dragStart.x;
+  //--------------------------------------------------
+  // Draw Aim Line
+  //--------------------------------------------------
 
-    let dy = this.dragCurrent.y - this.dragStart.y;
+  drawAim(drag) {
+    const dx = drag.dragCurrent.x - drag.dragStart.x;
+    const dy = drag.dragCurrent.y - drag.dragStart.y;
 
     const length = Math.sqrt(dx * dx + dy * dy);
 
@@ -194,19 +257,19 @@ export default class InputController {
 
     this.aimGraphics.beginPath();
 
-    this.aimGraphics.moveTo(this.dragStart.x, this.dragStart.y);
+    this.aimGraphics.moveTo(drag.dragStart.x, drag.dragStart.y);
 
-    this.aimGraphics.lineTo(this.dragCurrent.x, this.dragCurrent.y);
+    this.aimGraphics.lineTo(drag.dragCurrent.x, drag.dragCurrent.y);
 
     this.aimGraphics.strokePath();
 
     this.aimGraphics.fillStyle(color);
 
-    this.aimGraphics.fillCircle(this.dragCurrent.x, this.dragCurrent.y, 6);
+    this.aimGraphics.fillCircle(drag.dragCurrent.x, drag.dragCurrent.y, 6);
   }
 }
 
-/* 
+/*
   Pointer
      │
      ▼

@@ -71,14 +71,14 @@ export default class PenManager {
   // Find Pen Under Cursor
   //--------------------------------------------------
 
-  getPenAt(x, y) {
+  getPenAt(x, y, tolerance = 0) {
     // Search from top-most to bottom-most.
     // This matters if pens overlap.
 
     for (let i = this.pens.length - 1; i >= 0; i--) {
       const pen = this.pens[i];
 
-      if (!pen.containsPoint(x, y)) continue;
+      if (!pen.containsPoint(x, y, tolerance)) continue;
 
       return pen;
     }
@@ -109,6 +109,17 @@ export default class PenManager {
   }
 
   //--------------------------------------------------
+  // Set One Pen's Selection Without Touching Others
+  // (chaos mode: several pens can be highlighted at once)
+  //--------------------------------------------------
+
+  setPenSelected(pen, selected) {
+    if (pen) {
+      pen.setSelected(selected);
+    }
+  }
+
+  //--------------------------------------------------
   // Are Any Pens Moving?
   //--------------------------------------------------
 
@@ -126,6 +137,28 @@ export default class PenManager {
 
   areAllSleeping() {
     return !this.areAnyMoving();
+  }
+
+  //--------------------------------------------------
+  // Are All Pens Settled? (velocity-based, ignores sleep timer)
+  //--------------------------------------------------
+
+  areAllSettled(linearThreshold, angularThreshold) {
+    for (const pen of this.pens) {
+      if (!pen.isSettled(linearThreshold, angularThreshold)) return false;
+    }
+
+    return true;
+  }
+
+  //--------------------------------------------------
+  // Stop All Pens
+  //--------------------------------------------------
+
+  stopAll() {
+    for (const pen of this.pens) {
+      pen.stop();
+    }
   }
 
   //--------------------------------------------------

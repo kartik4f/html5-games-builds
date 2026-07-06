@@ -2,6 +2,8 @@
 // WinPopup.js
 //==================================================
 
+import { THEME } from '../Theme.js';
+
 export default class WinPopup {
   constructor(scene) {
     this.scene = scene;
@@ -45,9 +47,9 @@ export default class WinPopup {
     // Panel
     //------------------------------------------
 
-    this.panel = scene.add.rectangle(0, 0, 420, 300, 0xffffff);
+    this.panel = scene.add.rectangle(0, 0, 420, 300, THEME.PAPER);
 
-    this.panel.setStrokeStyle(4, 0x333333);
+    this.panel.setStrokeStyle(5, THEME.WOOD_BROWN_DARK);
     // this.panel.setInteractive(true);
 
     //------------------------------------------
@@ -55,10 +57,9 @@ export default class WinPopup {
     //------------------------------------------
 
     this.title = scene.add.text(0, -70, '', {
-      fontSize: '36px',
-      color: '#222',
-      fontStyle: 'bold',
-      fontFamily: 'Arial',
+      fontSize: '40px',
+      color: THEME.TEXT_INK,
+      fontFamily: THEME.FONT_HEADING,
     });
 
     this.title.setOrigin(0.5);
@@ -67,8 +68,8 @@ export default class WinPopup {
 
     this.subtitle = scene.add.text(0, -20, '', {
       fontSize: '22px',
-      color: '#666',
-      fontFamily: 'Arial',
+      color: THEME.TEXT_MUTED,
+      fontFamily: THEME.FONT_BODY,
     });
 
     this.subtitle.setOrigin(0.5);
@@ -114,15 +115,14 @@ export default class WinPopup {
   createButton(x, y, label) {
     const button = this.scene.add.container(x, y);
 
-    const bg = this.scene.add.rectangle(0, 0, 220, 48, 0x1976d2);
+    const bg = this.scene.add.rectangle(0, 0, 220, 48, THEME.INK_BLUE);
 
-    bg.setStrokeStyle(2, 0xffffff);
+    bg.setStrokeStyle(3, THEME.TEXT_INK);
 
     const text = this.scene.add.text(0, 0, label, {
       fontSize: '22px',
-      color: '#ffffff',
-      fontFamily: 'Arial',
-      fontStyle: 'bold',
+      color: THEME.TEXT_PAPER,
+      fontFamily: THEME.FONT_BODY,
     });
 
     text.setOrigin(0.5);
@@ -137,11 +137,11 @@ export default class WinPopup {
     );
 
     button.on('pointerover', () => {
-      bg.setFillStyle(0x1565c0);
+      bg.setFillStyle(THEME.INK_BLUE_DARK);
     });
 
     button.on('pointerout', () => {
-      bg.setFillStyle(0x1976d2);
+      bg.setFillStyle(THEME.INK_BLUE);
     });
 
     // button.setInteractive(
@@ -158,10 +158,12 @@ export default class WinPopup {
   show(result) {
     if (result.result === 'draw') {
       this.title.setText('DRAW!');
+      this.title.setColor(THEME.TEXT_INK);
 
       this.subtitle.setText('Nobody Wins');
     } else {
       this.title.setText(`PLAYER ${result.winner.playerId + 1} WINS!`);
+      this.title.setColor('#c1272d');
 
       this.subtitle.setText('Congratulations!');
     }
