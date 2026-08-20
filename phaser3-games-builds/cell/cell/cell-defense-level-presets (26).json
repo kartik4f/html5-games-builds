@@ -1,0 +1,736 @@
+{
+  "game": "Cell Defense: Cancer Awareness",
+  "version": 2,
+  "exportedAt": "2026-07-19T22:50:19.921Z",
+  "presetOrder": ["level1", "level2", "level3", "level4", "level5"],
+  "presets": {
+    "tutorial": {
+      "id": "tutorial",
+      "name": "Tutorial: Immune Response",
+      "difficulty": "Tutorial",
+      "totalCellsCount": 6,
+      "totalSurvivalTime": 300,
+      "totalPlayTime": 300,
+      "playerHealth": 999,
+      "playerHealthDangerThresholdPercent": 1,
+      "maxCells": 20,
+      "cancerDamageInterval": 999,
+      "allowCancerCellDragging": false,
+      "maxAttackersPerCancer": 6,
+      "distribution": {
+        "R_CELL": 34,
+        "T_CELL": 17,
+        "K_CELL": 17,
+        "VISIBLE_CANCER_CELL": 16,
+        "HIDDEN_CANCER_CELL": 16
+      },
+      "splitTimes": {
+        "R_CELL": 999,
+        "T_CELL": 999,
+        "K_CELL": 999,
+        "VISIBLE_CANCER_CELL": 999,
+        "HIDDEN_CANCER_CELL": 999
+      },
+      "splitTimeRanges": {
+        "R_CELL": {
+          "min": 999,
+          "max": 999
+        },
+        "T_CELL": {
+          "min": 999,
+          "max": 999
+        },
+        "K_CELL": {
+          "min": 999,
+          "max": 999
+        },
+        "VISIBLE_CANCER_CELL": {
+          "min": 999,
+          "max": 999
+        },
+        "HIDDEN_CANCER_CELL": {
+          "min": 999,
+          "max": 999
+        }
+      },
+      "lifeTimes": {
+        "R_CELL": 999,
+        "T_CELL": 999,
+        "K_CELL": 999
+      },
+      "impacts": {
+        "VISIBLE_CANCER_CELL": 0,
+        "HIDDEN_CANCER_CELL": 0
+      },
+      "cellDamage": {
+        "T_CELL": 20,
+        "K_CELL": 20
+      },
+      "damagePerSecond": {
+        "T_CELL": 10,
+        "K_CELL": 10
+      },
+      "cancerHealth": {
+        "VISIBLE_CANCER_CELL": 40,
+        "HIDDEN_CANCER_CELL": 40
+      },
+      "winOnAllCancerDestroyed": true,
+      "cancerCellsCanAttackHealthy": false,
+      "cancerAttackDamagePerSecond": {
+        "VISIBLE_CANCER_CELL": 0,
+        "HIDDEN_CANCER_CELL": 0
+      },
+      "healthyCellHealth": {
+        "R_CELL": 0,
+        "T_CELL": 0,
+        "K_CELL": 0
+      },
+      "cellAppearance": {
+        "R_CELL": {
+          "radius": 40,
+          "color": "#ff4d4d"
+        },
+        "T_CELL": {
+          "radius": 45,
+          "color": "#dbeafe"
+        },
+        "K_CELL": {
+          "radius": 45,
+          "color": "#ffffff"
+        },
+        "VISIBLE_CANCER_CELL": {
+          "radius": 50,
+          "color": "#00d4ff"
+        },
+        "HIDDEN_CANCER_CELL": {
+          "radius": 50,
+          "color": "#ff4d4d"
+        }
+      }
+    },
+    "level1": {
+      "id": "level1",
+      "name": "Level 1: First Response",
+      "difficulty": "Easy",
+      "totalCellsCount": 34,
+      "totalSurvivalTime": 60,
+      "totalPlayTime": 60,
+      "playerHealth": 115,
+      "playerHealthDangerThresholdPercent": 25,
+      "maxCells": 115,
+      "cancerDamageInterval": 6,
+      "maxAttackersPerCancer": 3,
+      "allowCancerCellDragging": true,
+      "cancerCellsCanAttackHealthy": false,
+      "cancerAttackDamagePerSecond": {
+        "VISIBLE_CANCER_CELL": 0,
+        "HIDDEN_CANCER_CELL": 0
+      },
+      "healthyCellHealth": {
+        "R_CELL": 0,
+        "T_CELL": 0,
+        "K_CELL": 0
+      },
+      "winOnAllCancerDestroyed": true,
+      "cellAppearance": {
+        "R_CELL": {
+          "radius": 40,
+          "color": "#ff4d4d"
+        },
+        "T_CELL": {
+          "radius": 45,
+          "color": "#dbeafe"
+        },
+        "K_CELL": {
+          "radius": 45,
+          "color": "#ffffff"
+        },
+        "VISIBLE_CANCER_CELL": {
+          "radius": 50,
+          "color": "#00d4ff"
+        },
+        "HIDDEN_CANCER_CELL": {
+          "radius": 50,
+          "color": "#ff4d4d"
+        }
+      },
+      "distribution": {
+        "R_CELL": 60,
+        "T_CELL": 13,
+        "K_CELL": 11,
+        "VISIBLE_CANCER_CELL": 10,
+        "HIDDEN_CANCER_CELL": 6
+      },
+      "cellDamage": {
+        "T_CELL": 6,
+        "K_CELL": 5
+      },
+      "damagePerSecond": {
+        "T_CELL": 2.4,
+        "K_CELL": 2
+      },
+      "cancerHealth": {
+        "VISIBLE_CANCER_CELL": 130,
+        "HIDDEN_CANCER_CELL": 115
+      },
+      "splitTimes": {
+        "R_CELL": 18.5,
+        "T_CELL": 29,
+        "K_CELL": 32,
+        "VISIBLE_CANCER_CELL": 36,
+        "HIDDEN_CANCER_CELL": 39
+      },
+      "splitTimeRanges": {
+        "R_CELL": {
+          "min": 15,
+          "max": 22
+        },
+        "T_CELL": {
+          "min": 24,
+          "max": 34
+        },
+        "K_CELL": {
+          "min": 26,
+          "max": 38
+        },
+        "VISIBLE_CANCER_CELL": {
+          "min": 30,
+          "max": 42
+        },
+        "HIDDEN_CANCER_CELL": {
+          "min": 32,
+          "max": 46
+        }
+      },
+      "lifeTimes": {
+        "R_CELL": 95,
+        "T_CELL": 100,
+        "K_CELL": 100
+      },
+      "impacts": {
+        "VISIBLE_CANCER_CELL": 1,
+        "HIDDEN_CANCER_CELL": 1
+      }
+    },
+    "level2": {
+      "id": "level2",
+      "name": "Level 2: Hidden Threats",
+      "difficulty": "Medium",
+      "totalCellsCount": 42,
+      "totalSurvivalTime": 90,
+      "totalPlayTime": 90,
+      "playerHealth": 118,
+      "playerHealthDangerThresholdPercent": 25,
+      "maxCells": 135,
+      "cancerDamageInterval": 5.5,
+      "allowCancerCellDragging": true,
+      "maxAttackersPerCancer": 3,
+      "distribution": {
+        "R_CELL": 55,
+        "T_CELL": 15,
+        "K_CELL": 12,
+        "VISIBLE_CANCER_CELL": 10,
+        "HIDDEN_CANCER_CELL": 8
+      },
+      "splitTimes": {
+        "R_CELL": 16.5,
+        "T_CELL": 26,
+        "K_CELL": 29,
+        "VISIBLE_CANCER_CELL": 31.5,
+        "HIDDEN_CANCER_CELL": 33
+      },
+      "splitTimeRanges": {
+        "R_CELL": {
+          "min": 13,
+          "max": 20
+        },
+        "T_CELL": {
+          "min": 21,
+          "max": 31
+        },
+        "K_CELL": {
+          "min": 23,
+          "max": 35
+        },
+        "VISIBLE_CANCER_CELL": {
+          "min": 25,
+          "max": 38
+        },
+        "HIDDEN_CANCER_CELL": {
+          "min": 26,
+          "max": 40
+        }
+      },
+      "lifeTimes": {
+        "R_CELL": 85,
+        "T_CELL": 95,
+        "K_CELL": 95
+      },
+      "impacts": {
+        "VISIBLE_CANCER_CELL": 1.1,
+        "HIDDEN_CANCER_CELL": 1.25
+      },
+      "cellDamage": {
+        "T_CELL": 9,
+        "K_CELL": 8
+      },
+      "damagePerSecond": {
+        "T_CELL": 4.2,
+        "K_CELL": 3.6
+      },
+      "cancerHealth": {
+        "VISIBLE_CANCER_CELL": 140,
+        "HIDDEN_CANCER_CELL": 132
+      },
+      "winOnAllCancerDestroyed": true,
+      "cancerCellsCanAttackHealthy": false,
+      "cancerAttackDamagePerSecond": {
+        "VISIBLE_CANCER_CELL": 0,
+        "HIDDEN_CANCER_CELL": 0
+      },
+      "healthyCellHealth": {
+        "R_CELL": 0,
+        "T_CELL": 0,
+        "K_CELL": 0
+      },
+      "cellAppearance": {
+        "R_CELL": {
+          "radius": 40,
+          "color": "#ff4d4d"
+        },
+        "T_CELL": {
+          "radius": 45,
+          "color": "#dbeafe"
+        },
+        "K_CELL": {
+          "radius": 45,
+          "color": "#ffffff"
+        },
+        "VISIBLE_CANCER_CELL": {
+          "radius": 50,
+          "color": "#00d4ff"
+        },
+        "HIDDEN_CANCER_CELL": {
+          "radius": 50,
+          "color": "#ff4d4d"
+        }
+      }
+    },
+    "level3": {
+      "id": "level3",
+      "name": "Level 3: Rapid Mutation",
+      "difficulty": "Hard",
+      "totalCellsCount": 48,
+      "totalSurvivalTime": 60,
+      "totalPlayTime": 60,
+      "playerHealth": 128,
+      "playerHealthDangerThresholdPercent": 20,
+      "maxCells": 165,
+      "cancerDamageInterval": 5.2,
+      "allowCancerCellDragging": true,
+      "maxAttackersPerCancer": 2,
+      "distribution": {
+        "R_CELL": 50,
+        "T_CELL": 17,
+        "K_CELL": 14,
+        "VISIBLE_CANCER_CELL": 11,
+        "HIDDEN_CANCER_CELL": 8
+      },
+      "splitTimes": {
+        "R_CELL": 15,
+        "T_CELL": 24,
+        "K_CELL": 26.5,
+        "VISIBLE_CANCER_CELL": 30,
+        "HIDDEN_CANCER_CELL": 32.5
+      },
+      "splitTimeRanges": {
+        "R_CELL": {
+          "min": 12,
+          "max": 18
+        },
+        "T_CELL": {
+          "min": 19,
+          "max": 29
+        },
+        "K_CELL": {
+          "min": 21,
+          "max": 32
+        },
+        "VISIBLE_CANCER_CELL": {
+          "min": 24,
+          "max": 36
+        },
+        "HIDDEN_CANCER_CELL": {
+          "min": 26,
+          "max": 39
+        }
+      },
+      "lifeTimes": {
+        "R_CELL": 82,
+        "T_CELL": 92,
+        "K_CELL": 92
+      },
+      "impacts": {
+        "VISIBLE_CANCER_CELL": 1.1,
+        "HIDDEN_CANCER_CELL": 1.35
+      },
+      "cellDamage": {
+        "T_CELL": 12,
+        "K_CELL": 11
+      },
+      "damagePerSecond": {
+        "T_CELL": 5.3,
+        "K_CELL": 4.9
+      },
+      "cancerHealth": {
+        "VISIBLE_CANCER_CELL": 152,
+        "HIDDEN_CANCER_CELL": 148
+      },
+      "winOnAllCancerDestroyed": true,
+      "cancerCellsCanAttackHealthy": false,
+      "cancerAttackDamagePerSecond": {
+        "VISIBLE_CANCER_CELL": 0,
+        "HIDDEN_CANCER_CELL": 0
+      },
+      "healthyCellHealth": {
+        "R_CELL": 0,
+        "T_CELL": 0,
+        "K_CELL": 0
+      },
+      "cellAppearance": {
+        "R_CELL": {
+          "radius": 40,
+          "color": "#ff4d4d"
+        },
+        "T_CELL": {
+          "radius": 45,
+          "color": "#dbeafe"
+        },
+        "K_CELL": {
+          "radius": 45,
+          "color": "#ffffff"
+        },
+        "VISIBLE_CANCER_CELL": {
+          "radius": 50,
+          "color": "#00d4ff"
+        },
+        "HIDDEN_CANCER_CELL": {
+          "radius": 50,
+          "color": "#ff4d4d"
+        }
+      }
+    },
+    "level4": {
+      "id": "level4",
+      "name": "Level 4: Adaptive Cancer",
+      "difficulty": "Advanced",
+      "totalCellsCount": 55,
+      "totalSurvivalTime": 45,
+      "totalPlayTime": 45,
+      "playerHealth": 135,
+      "playerHealthDangerThresholdPercent": 20,
+      "maxCells": 180,
+      "cancerDamageInterval": 5,
+      "maxAttackersPerCancer": 2,
+      "allowCancerCellDragging": true,
+      "cancerCellsCanAttackHealthy": true,
+      "cancerAttackDamagePerSecond": {
+        "VISIBLE_CANCER_CELL": 3.2,
+        "HIDDEN_CANCER_CELL": 3.8
+      },
+      "healthyCellHealth": {
+        "R_CELL": 24,
+        "T_CELL": 28,
+        "K_CELL": 28
+      },
+      "winOnAllCancerDestroyed": true,
+      "cellAppearance": {
+        "R_CELL": {
+          "radius": 40,
+          "color": "#ff4d4d"
+        },
+        "T_CELL": {
+          "radius": 45,
+          "color": "#dbeafe"
+        },
+        "K_CELL": {
+          "radius": 45,
+          "color": "#ffffff"
+        },
+        "VISIBLE_CANCER_CELL": {
+          "radius": 50,
+          "color": "#00d4ff"
+        },
+        "HIDDEN_CANCER_CELL": {
+          "radius": 50,
+          "color": "#ff4d4d"
+        }
+      },
+      "distribution": {
+        "R_CELL": 48,
+        "T_CELL": 18,
+        "K_CELL": 15,
+        "VISIBLE_CANCER_CELL": 11,
+        "HIDDEN_CANCER_CELL": 8
+      },
+      "cellDamage": {
+        "T_CELL": 11,
+        "K_CELL": 10
+      },
+      "damagePerSecond": {
+        "T_CELL": 5,
+        "K_CELL": 4.4
+      },
+      "cancerHealth": {
+        "VISIBLE_CANCER_CELL": 165,
+        "HIDDEN_CANCER_CELL": 155
+      },
+      "splitTimes": {
+        "R_CELL": 14,
+        "T_CELL": 22,
+        "K_CELL": 24.5,
+        "VISIBLE_CANCER_CELL": 38.3,
+        "HIDDEN_CANCER_CELL": 35.7
+      },
+      "splitTimeRanges": {
+        "R_CELL": {
+          "min": 11,
+          "max": 17
+        },
+        "T_CELL": {
+          "min": 17,
+          "max": 27
+        },
+        "K_CELL": {
+          "min": 19,
+          "max": 30
+        },
+        "VISIBLE_CANCER_CELL": {
+          "min": 32.3,
+          "max": 44.3
+        },
+        "HIDDEN_CANCER_CELL": {
+          "min": 29.2,
+          "max": 42.2
+        }
+      },
+      "lifeTimes": {
+        "R_CELL": 78,
+        "T_CELL": 88,
+        "K_CELL": 88
+      },
+      "impacts": {
+        "VISIBLE_CANCER_CELL": 1.15,
+        "HIDDEN_CANCER_CELL": 1.35
+      }
+    },
+    "level5": {
+      "id": "level5",
+      "name": "Level 5: Full Assault",
+      "difficulty": "Expert",
+      "totalCellsCount": 60,
+      "totalSurvivalTime": 45,
+      "totalPlayTime": 45,
+      "playerHealth": 140,
+      "playerHealthDangerThresholdPercent": 20,
+      "maxCells": 195,
+      "cancerDamageInterval": 5,
+      "allowCancerCellDragging": false,
+      "maxAttackersPerCancer": 2,
+      "cancerCellsCanAttackHealthy": true,
+      "cancerAttackDamagePerSecond": {
+        "VISIBLE_CANCER_CELL": 4,
+        "HIDDEN_CANCER_CELL": 4.6
+      },
+      "healthyCellHealth": {
+        "R_CELL": 16,
+        "T_CELL": 20,
+        "K_CELL": 20
+      },
+      "distribution": {
+        "R_CELL": 45,
+        "T_CELL": 19,
+        "K_CELL": 16,
+        "VISIBLE_CANCER_CELL": 11,
+        "HIDDEN_CANCER_CELL": 9
+      },
+      "splitTimes": {
+        "R_CELL": 13,
+        "T_CELL": 20,
+        "K_CELL": 22.5,
+        "VISIBLE_CANCER_CELL": 30.7,
+        "HIDDEN_CANCER_CELL": 48
+      },
+      "splitTimeRanges": {
+        "R_CELL": {
+          "min": 10,
+          "max": 16
+        },
+        "T_CELL": {
+          "min": 15,
+          "max": 25
+        },
+        "K_CELL": {
+          "min": 17,
+          "max": 28
+        },
+        "VISIBLE_CANCER_CELL": {
+          "min": 24.7,
+          "max": 36.7
+        },
+        "HIDDEN_CANCER_CELL": {
+          "min": 41.5,
+          "max": 54.5
+        }
+      },
+      "lifeTimes": {
+        "R_CELL": 76,
+        "T_CELL": 86,
+        "K_CELL": 86
+      },
+      "impacts": {
+        "VISIBLE_CANCER_CELL": 1.2,
+        "HIDDEN_CANCER_CELL": 1.4
+      },
+      "cellDamage": {
+        "T_CELL": 14,
+        "K_CELL": 13
+      },
+      "damagePerSecond": {
+        "T_CELL": 6.3,
+        "K_CELL": 5.6
+      },
+      "cancerHealth": {
+        "VISIBLE_CANCER_CELL": 178,
+        "HIDDEN_CANCER_CELL": 168
+      },
+      "winOnAllCancerDestroyed": true,
+      "cellAppearance": {
+        "R_CELL": {
+          "radius": 40,
+          "color": "#ff4d4d"
+        },
+        "T_CELL": {
+          "radius": 45,
+          "color": "#dbeafe"
+        },
+        "K_CELL": {
+          "radius": 45,
+          "color": "#ffffff"
+        },
+        "VISIBLE_CANCER_CELL": {
+          "radius": 50,
+          "color": "#00d4ff"
+        },
+        "HIDDEN_CANCER_CELL": {
+          "radius": 50,
+          "color": "#ff4d4d"
+        }
+      }
+    }
+  },
+  "currentConfig": {
+    "id": "level1",
+    "name": "Level 1: First Response",
+    "difficulty": "Easy",
+    "totalCellsCount": 34,
+    "totalSurvivalTime": 60,
+    "totalPlayTime": 60,
+    "playerHealth": 115,
+    "playerHealthDangerThresholdPercent": 25,
+    "maxCells": 115,
+    "cancerDamageInterval": 6,
+    "maxAttackersPerCancer": 3,
+    "allowCancerCellDragging": true,
+    "cancerCellsCanAttackHealthy": false,
+    "cancerAttackDamagePerSecond": {
+      "VISIBLE_CANCER_CELL": 0,
+      "HIDDEN_CANCER_CELL": 0
+    },
+    "healthyCellHealth": {
+      "R_CELL": 0,
+      "T_CELL": 0,
+      "K_CELL": 0
+    },
+    "winOnAllCancerDestroyed": true,
+    "cellAppearance": {
+      "R_CELL": {
+        "radius": 40,
+        "color": "#ff4d4d"
+      },
+      "T_CELL": {
+        "radius": 45,
+        "color": "#dbeafe"
+      },
+      "K_CELL": {
+        "radius": 45,
+        "color": "#ffffff"
+      },
+      "VISIBLE_CANCER_CELL": {
+        "radius": 50,
+        "color": "#00d4ff"
+      },
+      "HIDDEN_CANCER_CELL": {
+        "radius": 50,
+        "color": "#ff4d4d"
+      }
+    },
+    "distribution": {
+      "R_CELL": 60,
+      "T_CELL": 13,
+      "K_CELL": 11,
+      "VISIBLE_CANCER_CELL": 10,
+      "HIDDEN_CANCER_CELL": 6
+    },
+    "cellDamage": {
+      "T_CELL": 6,
+      "K_CELL": 5
+    },
+    "damagePerSecond": {
+      "T_CELL": 2.4,
+      "K_CELL": 2
+    },
+    "cancerHealth": {
+      "VISIBLE_CANCER_CELL": 130,
+      "HIDDEN_CANCER_CELL": 115
+    },
+    "splitTimes": {
+      "R_CELL": 18.5,
+      "T_CELL": 29,
+      "K_CELL": 32,
+      "VISIBLE_CANCER_CELL": 36,
+      "HIDDEN_CANCER_CELL": 39
+    },
+    "splitTimeRanges": {
+      "R_CELL": {
+        "min": 15,
+        "max": 22
+      },
+      "T_CELL": {
+        "min": 24,
+        "max": 34
+      },
+      "K_CELL": {
+        "min": 26,
+        "max": 38
+      },
+      "VISIBLE_CANCER_CELL": {
+        "min": 30,
+        "max": 42
+      },
+      "HIDDEN_CANCER_CELL": {
+        "min": 32,
+        "max": 46
+      }
+    },
+    "lifeTimes": {
+      "R_CELL": 95,
+      "T_CELL": 100,
+      "K_CELL": 100
+    },
+    "impacts": {
+      "VISIBLE_CANCER_CELL": 1,
+      "HIDDEN_CANCER_CELL": 1
+    }
+  }
+}

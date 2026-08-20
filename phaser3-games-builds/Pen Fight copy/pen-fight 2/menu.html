@@ -1,0 +1,263 @@
+<div id="menu-overlay">
+    <!--
+      menu.html — loaded by js/MenuScene.js via this.load.html() and
+      injected as a Phaser DOM Element
+      (this.add.dom(...).createFromCache(...)). This file must have
+      exactly one root element — this outer #menu-overlay div — with
+      nothing (not even a comment) before its opening tag, since
+      Phaser's DOM loader takes the very first node of the parsed
+      fragment as the element it wraps.
+
+      All CSS for this markup lives in index.html's <style> block,
+      shared with the rest of the page — Phaser's DOM container is a
+      normal part of the document, so ordinary global CSS applies to
+      it just fine.
+    -->
+
+    <!-- Mute toggle — a sibling of every screen panel below (not
+         nested inside any one of them), so it floats in the corner
+         and stays visible no matter which screen showScreen() (see
+         MenuScene.js) currently has shown. Its icon/aria-label are set
+         by MenuScene.js from AudioFX.js's own persisted muted state,
+         not hardcoded here. -->
+    <button class="menu-mute-btn" id="btn-mute" aria-label="Mute" title="Mute">🔊</button>
+
+    <!-- ============== HOME ============== -->
+    <div id="screen-home" class="menu-panel">
+        <h1>PEN FIGHT</h1>
+        <p class="subtitle">Choose how to play</p>
+
+        <button class="menu-btn primary" id="btn-home-online">PLAY ONLINE</button>
+        <button class="menu-btn" id="btn-home-classroom">PLAY IN CLASSROOM</button>
+        <button class="menu-btn" id="btn-home-computer">PLAY AGAINST COMPUTER</button>
+        <button class="menu-btn" id="btn-home-pen-locker">🖊️ MY PEN</button>
+    </div>
+
+    <!-- ============== PEN LOCKER (select + customize your pen) ============== -->
+    <div id="screen-pen-locker" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">MY PEN</h1>
+        <p class="subtitle">Win matches to unlock more</p>
+
+        <div class="locker-level-row">
+            <span class="locker-level-name" id="locker-level-name">Rookie</span>
+            <span id="locker-wins-text">0 wins</span>
+        </div>
+        <div class="locker-progress-track">
+            <div class="locker-progress-fill" id="locker-progress-fill" style="width: 0%;"></div>
+        </div>
+
+        <div class="locker-preview">
+            <div class="locker-preview-pen" id="locker-preview-pen">
+                <div class="locker-preview-sticker" id="locker-preview-sticker"></div>
+            </div>
+        </div>
+
+        <p class="locker-section-title">Pen Color</p>
+        <div class="pen-grid" id="pen-grid"></div>
+
+        <p class="locker-section-title">Sticker</p>
+        <div class="sticker-grid" id="sticker-grid"></div>
+
+        <p class="locker-section-title">Or type/paste your own emoji</p>
+        <div class="locker-custom-row">
+            <input id="sticker-custom-input" maxlength="8" placeholder="😀" autocomplete="off" />
+            <button class="menu-btn primary" id="btn-use-custom-sticker">USE</button>
+        </div>
+
+        <p class="locker-section-title">Texture</p>
+        <div class="texture-grid" id="texture-grid"></div>
+
+        <button class="menu-back" id="back-from-pen-locker">← Back</button>
+    </div>
+
+    <!-- ============== CLASSROOM SETUP (local hotseat) ============== -->
+    <div id="screen-classroom" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">PLAY IN CLASSROOM</h1>
+        <p class="subtitle">Pass the device between players</p>
+
+        <div class="btn-row">
+            <button class="choice-btn" id="classroom-mode-turn-based" data-value="turn-based">TURN-BASED</button>
+            <button class="choice-btn" id="classroom-mode-chaos" data-value="chaos">CHAOS</button>
+        </div>
+
+        <div class="btn-row">
+            <button class="choice-btn" id="classroom-flick-pullback" data-value="pullback">PULL BACK</button>
+            <button class="choice-btn" id="classroom-flick-swipe" data-value="swipe">SWIPE</button>
+        </div>
+        <span class="field-hint">Pull Back: drag away, release to fling the opposite way · Swipe: flick across the pen in the direction you want it to go</span>
+
+        <div class="field-row">
+            <span>Players</span>
+            <div class="stepper">
+                <button id="classroom-players-minus">−</button>
+                <span id="classroom-players-value">3</span>
+                <button id="classroom-players-plus">+</button>
+            </div>
+        </div>
+
+        <div class="field-row" id="classroom-row-turn-timer">
+            <span>Turn Timer</span>
+            <button class="toggle-btn on" id="classroom-toggle-turn-timer" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="classroom-row-wait-settle">
+            <span>Wait For Settle</span>
+            <button class="toggle-btn on" id="classroom-toggle-wait-settle" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="classroom-row-match-time">
+            <span>Match Time Limit</span>
+            <button class="toggle-btn" id="classroom-toggle-match-time" data-on="false">OFF</button>
+        </div>
+
+        <div class="field-row">
+            <span>Power-Ups</span>
+            <button class="toggle-btn" id="classroom-toggle-power-ups" data-on="false">OFF</button>
+        </div>
+        <span class="field-hint">⚡ Speed boosts your next shot · 🚁 Helicopter Shot spins hard and hits harder · 🛡️ Shield saves you from your next elimination · dark puddle slows any pen that crosses it — look for a glowing pen</span>
+
+        <button class="menu-btn accent" id="btn-classroom-start">START</button>
+        <button class="menu-back" id="back-from-classroom">← Back</button>
+    </div>
+
+    <!-- ============== VS COMPUTER SETUP ============== -->
+    <div id="screen-vs-computer" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">VS COMPUTER</h1>
+        <p class="subtitle">You're Player 1</p>
+
+        <div class="btn-row">
+            <button class="choice-btn" id="vc-mode-turn-based" data-value="turn-based">TURN-BASED</button>
+            <button class="choice-btn" id="vc-mode-chaos" data-value="chaos">CHAOS</button>
+        </div>
+
+        <div class="btn-row">
+            <button class="choice-btn" id="vc-diff-easy" data-value="easy">EASY</button>
+            <button class="choice-btn" id="vc-diff-medium" data-value="medium">MEDIUM</button>
+            <button class="choice-btn" id="vc-diff-hard" data-value="hard">HARD</button>
+        </div>
+        <span class="field-hint">Difficulty auto-adjusts a little from here based on how your recent matches go</span>
+
+        <div class="btn-row">
+            <button class="choice-btn" id="vc-flick-pullback" data-value="pullback">PULL BACK</button>
+            <button class="choice-btn" id="vc-flick-swipe" data-value="swipe">SWIPE</button>
+        </div>
+        <span class="field-hint">Pull Back: drag away, release to fling the opposite way · Swipe: flick across the pen in the direction you want it to go</span>
+
+        <div class="field-row">
+            <span>Computer Opponents</span>
+            <div class="stepper">
+                <button id="vc-opponents-minus">−</button>
+                <span id="vc-opponents-value">1</span>
+                <button id="vc-opponents-plus">+</button>
+            </div>
+        </div>
+
+        <div class="field-row" id="vc-row-turn-timer">
+            <span>Turn Timer</span>
+            <button class="toggle-btn on" id="vc-toggle-turn-timer" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="vc-row-wait-settle">
+            <span>Wait For Settle</span>
+            <button class="toggle-btn on" id="vc-toggle-wait-settle" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="vc-row-match-time">
+            <span>Match Time Limit</span>
+            <button class="toggle-btn" id="vc-toggle-match-time" data-on="false">OFF</button>
+        </div>
+
+        <div class="field-row">
+            <span>Power-Ups</span>
+            <button class="toggle-btn" id="vc-toggle-power-ups" data-on="false">OFF</button>
+        </div>
+        <span class="field-hint">⚡ Speed boosts your next shot · 🚁 Helicopter Shot spins hard and hits harder · 🛡️ Shield saves you from your next elimination · dark puddle slows any pen that crosses it — look for a glowing pen</span>
+
+        <button class="menu-btn accent" id="btn-vc-start">START</button>
+        <button class="menu-back" id="back-from-vc">← Back</button>
+    </div>
+
+    <!-- ============== ONLINE MAIN ============== -->
+    <div id="screen-online-main" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">PLAY ONLINE</h1>
+        <p class="subtitle">Play with friends over the internet</p>
+
+        <button class="menu-btn primary" id="btn-quick-play">QUICK PLAY</button>
+        <button class="menu-btn" id="btn-create-room">CREATE ROOM</button>
+        <button class="menu-btn" id="btn-join-room">JOIN ROOM</button>
+        <button class="menu-back" id="back-from-online-main">← Back</button>
+    </div>
+
+    <!-- Create room -->
+    <div id="screen-create" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">CREATE ROOM</h1>
+
+        <div class="field-row">
+            <span>Players</span>
+            <div class="stepper">
+                <button id="players-minus">−</button>
+                <span id="players-value">2</span>
+                <button id="players-plus">+</button>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <button class="choice-btn" id="flick-pullback" data-value="pullback">PULL BACK</button>
+            <button class="choice-btn" id="flick-swipe" data-value="swipe">SWIPE</button>
+        </div>
+        <span class="field-hint">Pull Back: drag away, release to fling the opposite way · Swipe: flick across the pen in the direction you want it to go — everyone in the room uses the same style</span>
+
+        <div class="field-row" id="row-chaos-mode">
+            <span>Chaos Mode</span>
+            <button class="toggle-btn" id="toggle-chaos-mode" data-on="false">OFF</button>
+        </div>
+
+        <div class="field-row" id="row-turn-timer">
+            <span>Turn Timer</span>
+            <button class="toggle-btn on" id="toggle-turn-timer" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="row-wait-settle">
+            <span>Wait For Settle</span>
+            <button class="toggle-btn on" id="toggle-wait-settle" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="row-match-time">
+            <span>Match Time Limit</span>
+            <button class="toggle-btn" id="toggle-match-time" data-on="false">OFF</button>
+        </div>
+
+        <div class="field-row">
+            <span>Power-Ups</span>
+            <button class="toggle-btn" id="toggle-power-ups" data-on="false">OFF</button>
+        </div>
+        <span class="field-hint">⚡ Speed boosts your next shot · 🚁 Helicopter Shot spins hard and hits harder · 🛡️ Shield saves you from your next elimination · dark puddle slows any pen that crosses it — look for a glowing pen</span>
+
+        <div class="field-row">
+            <span>Best of 3</span>
+            <button class="toggle-btn" id="toggle-best-of-3" data-on="false">OFF</button>
+        </div>
+
+        <button class="menu-btn accent" id="btn-do-create">CREATE</button>
+        <button class="menu-back" id="back-from-create">← Back</button>
+    </div>
+
+    <!-- Join room -->
+    <div id="screen-join" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">JOIN ROOM</h1>
+        <p class="subtitle">Enter the code your friend shared</p>
+
+        <input id="room-code-input" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters" />
+        <div id="join-error"></div>
+
+        <button class="menu-btn primary" id="btn-do-join">JOIN</button>
+        <button class="menu-back" id="back-from-join">← Back</button>
+    </div>
+
+    <!-- Connecting / status -->
+    <div id="screen-status" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">PEN FIGHT</h1>
+        <p id="status-text">Connecting…</p>
+    </div>
+
+</div>

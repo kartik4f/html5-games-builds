@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+
+    <title>Pen Fight</title>
+
+    <!-- School-themed handwriting fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Patrick+Hand&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Patrick Hand', OpenSans-Regular;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #d8c9a3;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        body {
+            overflow: hidden;
+            display: block;
+            background-color: #d8c9a3;
+        }
+
+        /* The one and only visual root now — both the menu (MenuScene)
+           and the game (GameScene/NetGameScene) render into this same
+           canvas + Phaser DOM container, so it's always full-viewport
+           and always visible (no more show/hide toggling between a
+           separate overlay and the canvas). Fixed/fully-sized (not
+           just auto-block) so Phaser's Scale.FIT has a real box to
+           measure — without this, an unstyled parent can report a
+           0-height box on some mobile browsers and the canvas never
+           gets scaled/centered correctly. Portrait canvas (see
+           js/Constants.js GAME) is letterboxed to fit here, so this
+           works whether the device itself is held in portrait or
+           landscape. */
+        #game {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /*------------------------------------------
+          Menu (MenuScene's Phaser DOM Element — see menu.html /
+          js/MenuScene.js). Position is left to Phaser (it sets that on
+          the node itself to keep it tracking the canvas); this only
+          covers visual styling. Sized in JS to GAME.WIDTH x
+          GAME.HEIGHT, same authored-pixel space as everything else.
+        ------------------------------------------*/
+
+        #menu-overlay {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fbf3df;
+            background-image:
+                repeating-linear-gradient(#fbf3df 0 43px, #aecbeb44 43px 45px),
+                linear-gradient(90deg, transparent 88px, #e08a8a88 88px, #e08a8a88 91px, transparent 91px);
+            overflow-y: auto;
+            box-sizing: border-box;
+            padding: 24px 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Mute toggle — a sibling of every screen panel (see
+           menu.html), absolutely positioned against #menu-overlay
+           itself (position: relative above) so it stays pinned to the
+           same corner regardless of which panel/scroll state is
+           currently showing, instead of scrolling away with a tall
+           panel's content. */
+        .menu-mute-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 10;
+
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            background: #fffdf6;
+            border: 3px solid #3b2a20;
+            border-radius: 50%;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #00000022;
+        }
+
+        .menu-mute-btn:hover {
+            filter: brightness(1.06);
+        }
+
+        .menu-mute-btn.muted {
+            background: #e5dcc3;
+            color: #8a7a63;
+        }
+
+        .menu-panel {
+            width: min(92%, 480px);
+            box-sizing: border-box;
+            padding: 32px 32px;
+            background: #fffdf6;
+            border: 4px solid #3b2a20;
+            border-radius: 14px;
+            box-shadow: 0 10px 0 #00000022;
+            text-align: center;
+        }
+
+        .menu-panel h1 {
+            font-family: 'Architects Daughter', cursive;
+            font-size: 44px;
+            color: #2f6fb3;
+            margin: 0 0 4px;
+            transform: rotate(-1deg);
+        }
+
+        .menu-panel .subtitle {
+            color: #8a7a63;
+            font-size: 20px;
+            margin: 0 0 22px;
+        }
+
+        .menu-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin: 10px 0;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 24px;
+            color: #fbf3df;
+            background: #9c7b52;
+            border: 3px solid #3b2a20;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .menu-btn:hover {
+            filter: brightness(1.08);
+        }
+
+        .menu-btn.primary {
+            background: #2f6fb3;
+        }
+
+        .menu-btn.accent {
+            background: #d1495b;
+        }
+
+        .menu-btn:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .menu-back {
+            margin-top: 16px;
+            background: none;
+            border: none;
+            color: #8a7a63;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 18px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .field-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 14px 0;
+            font-size: 20px;
+            color: #3b2a20;
+        }
+
+        /* Short explainer under a toggle (e.g. Power-Ups) — pulled up
+           against the row above via negative margin so it reads as
+           "belongs to that row" rather than a separate line item. */
+        .field-hint {
+            display: block;
+            margin: -8px 0 10px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 14px;
+            line-height: 1.35;
+            color: #8a7a63;
+        }
+
+        .stepper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stepper button {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            border: 2px solid #3b2a20;
+            background: #fbf3df;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .stepper span {
+            min-width: 22px;
+            font-weight: bold;
+        }
+
+        .toggle-btn {
+            padding: 6px 16px;
+            border-radius: 8px;
+            border: 2px solid #3b2a20;
+            background: #9c7b52;
+            color: #fbf3df;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .toggle-btn.on {
+            background: #3f8556;
+        }
+
+        /* Mode / difficulty choice groups (e.g. Turn-Based vs Chaos) */
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin: 6px 0 18px;
+        }
+
+        .choice-btn {
+            flex: 1;
+            padding: 12px 6px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 18px;
+            color: #fbf3df;
+            background: #9c7b52;
+            border: 3px solid #3b2a20;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .choice-btn.active {
+            background: #2f6fb3;
+        }
+
+        #room-code-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            margin: 8px 0 6px;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 30px;
+            letter-spacing: 6px;
+            text-align: center;
+            text-transform: uppercase;
+            border: 3px solid #3b2a20;
+            border-radius: 10px;
+            background: #fbf3df;
+            color: #3b2a20;
+        }
+
+        #join-error {
+            min-height: 22px;
+            color: #c1272d;
+            font-size: 16px;
+        }
+
+        #status-text {
+            font-size: 22px;
+            color: #3b2a20;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /*------------------------------------------
+          Pen Locker (menu.html's screen-pen-locker — see
+          js/MenuScene.js's wirePenLocker()). Pen/sticker grids are
+          built at runtime from js/PenLibrary.js's catalog, not
+          hardcoded in menu.html, since the catalog can grow without a
+          markup change.
+        ------------------------------------------*/
+
+        .locker-level-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 4px 0 4px;
+            font-size: 18px;
+            color: #3b2a20;
+        }
+
+        .locker-level-name {
+            font-family: 'Architects Daughter', cursive;
+            color: #2f6fb3;
+        }
+
+        .locker-progress-track {
+            width: 100%;
+            height: 10px;
+            box-sizing: border-box;
+            border: 2px solid #3b2a20;
+            border-radius: 6px;
+            background: #fbf3df;
+            margin: 4px 0 16px;
+            overflow: hidden;
+        }
+
+        .locker-progress-fill {
+            height: 100%;
+            background: #3f8556;
+        }
+
+        .locker-preview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 70px;
+            margin: 6px 0 18px;
+            border: 3px dashed #c9b489;
+            border-radius: 12px;
+            background: #fbf3df;
+        }
+
+        .locker-preview-pen {
+            position: relative;
+            width: 130px;
+            height: 22px;
+            border-radius: 11px;
+            border: 2px solid #3b2a20;
+        }
+
+        .locker-preview-sticker {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .locker-section-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 18px;
+            color: #6b5a42;
+            text-align: left;
+            margin: 4px 0 8px;
+        }
+
+        .pen-grid,
+        .sticker-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 0 0 18px;
+        }
+
+        .pen-swatch {
+            position: relative;
+            height: 44px;
+            border-radius: 10px;
+            border: 3px solid #3b2a20;
+            cursor: pointer;
+        }
+
+        .pen-swatch.selected {
+            box-shadow: 0 0 0 3px #fbf3df, 0 0 0 6px #2f6fb3;
+        }
+
+        .pen-swatch.locked {
+            cursor: default;
+            filter: grayscale(0.55) brightness(0.8);
+        }
+
+        .sticker-swatch {
+            position: relative;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            border-radius: 10px;
+            border: 3px solid #3b2a20;
+            background: #fbf3df;
+            cursor: pointer;
+        }
+
+        .sticker-swatch.selected {
+            box-shadow: 0 0 0 3px #fbf3df, 0 0 0 6px #2f6fb3;
+        }
+
+        .sticker-swatch.locked {
+            cursor: default;
+            filter: grayscale(0.7) brightness(0.85);
+        }
+
+        .swatch-lock {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1px;
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 7px;
+            color: #fbf3df;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 10px;
+            line-height: 1.1;
+            text-align: center;
+        }
+
+        .swatch-lock .lock-icon {
+            font-size: 13px;
+        }
+
+        .locker-custom-row {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 18px;
+        }
+
+        .locker-custom-row input {
+            flex: 1;
+            min-width: 0;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 22px;
+            text-align: center;
+            border: 3px solid #3b2a20;
+            border-radius: 10px;
+            background: #fbf3df;
+            color: #3b2a20;
+        }
+
+        .locker-custom-row .menu-btn {
+            width: auto;
+            padding: 10px 18px;
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .texture-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin: 0 0 18px;
+        }
+
+        .texture-swatch {
+            position: relative;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 15px;
+            color: #3b2a20;
+            border-radius: 10px;
+            border: 3px solid #3b2a20;
+            background: #fbf3df;
+            cursor: pointer;
+        }
+
+        .texture-swatch.holo-preview {
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcbef, #a78bfa);
+            color: #241832;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+        }
+
+        .texture-swatch.selected {
+            box-shadow: 0 0 0 3px #fbf3df, 0 0 0 6px #2f6fb3;
+        }
+
+        .texture-swatch.locked {
+            cursor: default;
+            filter: grayscale(0.6) brightness(0.85);
+        }
+
+        /*==================================================
+          In-game HUD (GameScene + NetGameScene Phaser DOM Elements)
+          ==================================================
+          pointer-events:none on anything purely informational, so it
+          never steals drag/shoot input away from the canvas beneath
+          it — only actually-clickable pieces (room code, home button,
+          popup buttons) allow pointer events.
+        ==================================================*/
+
+        /* Fixed width/height (not auto-sized) so js/*.js can compute an
+           exact top-left pixel position for setOrigin(0,0) anchoring —
+           Phaser DOM Elements measure this.width/this.height once, at
+           creation time, before their content is laid out as a real
+           block box, so relying on auto-sizing + a non-zero origin
+           produces an unreliable/incorrect on-screen position. Every
+           HUD element below is sized explicitly for this reason. */
+
+        /* Now docked at the bottom, just above the turn timer bar
+           (see GameScene.js's BOTTOM_DOCK layout) — sized down from
+           its old top-of-screen size so the whole dock stays compact
+           within the space below the table. */
+        .hud-text {
+            width: 460px;
+            height: 32px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 23px;
+            color: #3b2a20;
+            text-align: center;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .hud-sub-text {
+            width: 500px;
+            height: 26px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 20px;
+            color: #8a7a63;
+            text-align: center;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        /* Match timer badge (GameScene) — a compact single-line pill
+           that sits in the bottom dock next to the turn timer bar (see
+           GameScene.js's BOTTOM_DOCK layout), not a standalone
+           two-line badge anymore. */
+        .hud-badge {
+            width: 130px;
+            height: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: #2f4a3d;
+            border: 3px solid #7a5230;
+            border-radius: 12px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .hud-badge .label {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 13px;
+            color: #cfe8d8;
+        }
+
+        .hud-badge .value {
+            font-family: 'Architects Daughter', cursive;
+            font-size: 17px;
+            color: #f5f0e6;
+        }
+
+        /* Turn timer bar (GameScene) — the bottom dock's hero element */
+        .hud-timer-track {
+            width: 400px;
+            height: 30px;
+            box-sizing: border-box;
+            padding: 4px;
+            border: 3px solid #7a5f3e;
+            border-radius: 14px;
+            background: #fbf3df;
+            position: relative;
+            pointer-events: none;
+        }
+
+        .hud-timer-fill {
+            height: 100%;
+            width: 100%;
+            border-radius: 8px;
+            background: #3f8556;
+        }
+
+        .hud-timer-label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 18px;
+            color: #3b2a20;
+            text-shadow: 0 0 3px #f5f0e6, 0 0 3px #f5f0e6, 0 0 3px #f5f0e6;
+        }
+
+        /* "Player N's Turn" toast (GameScene) */
+        .hud-turn-indicator {
+            width: 400px;
+            height: 60px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f0e6;
+            border: 3px solid #7a5f3e;
+            border-radius: 14px;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 24px;
+            color: #3b2a20;
+            text-align: center;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(-30px);
+            transition: opacity 250ms ease, transform 250ms ease;
+            pointer-events: none;
+        }
+
+        .hud-turn-indicator.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Player status row (GameScene, top of screen) — one dot per
+           pen, color-matched. .eliminated fades the dot and reveals
+           the ✕; .active adds a glowing ring for whoever's turn it is
+           (turn-based only — see PlayerStatusRow.js). */
+        .hud-player-status {
+            width: 320px;
+            height: 50px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            pointer-events: none;
+        }
+
+        .hud-player-dot {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid #3b2a20;
+            box-shadow: 0 3px 0 #00000022;
+            transition: opacity 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+        }
+
+        .hud-player-dot.active {
+            box-shadow: 0 0 0 4px #fbf3df, 0 0 0 7px #2f6fb3, 0 3px 0 #00000022;
+            transform: scale(1.12);
+        }
+
+        .hud-player-dot.eliminated {
+            opacity: 0.32;
+            box-shadow: none;
+            transform: scale(0.92);
+        }
+
+        .hud-player-dot-x {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #3b2a20;
+            opacity: 0;
+            transition: opacity 200ms ease;
+        }
+
+        .hud-player-dot.eliminated .hud-player-dot-x {
+            opacity: 1;
+        }
+
+        /* Top-left "← Home" pill — shared by every in-game scene
+           (GameScene, NetGameScene). Fixed-size, setOrigin(0,0) with a
+           literal top-left pixel position computed in JS (see
+           createHud() in each scene) — no more "band width"
+           positioning hacks needed now that setOrigin() is known to
+           work correctly. */
+        .hud-home-btn {
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            width: 160px;
+            height: 38px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 20px;
+            color: #8a7a63;
+            cursor: pointer;
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        .hud-home-btn:hover {
+            color: #3b2a20;
+        }
+
+        /* Track+thumb switch — shared by the flick-mode toggle
+           (ui/FlickModeToggle.js) and the day/night toggle
+           (ui/DayNightToggle.js, via the shared ui/SwitchToggle.js
+           widget). Reads as an actual two-state switch at a glance,
+           not just a clickable line of text. */
+        .hud-switch {
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            width: 172px;
+            height: 40px;
+            padding: 0 12px;
+            background: #fbf3df;
+            border: 2px solid #c9b489;
+            border-radius: 20px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 15px;
+            color: #8a7a63;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .hud-switch:hover {
+            border-color: #9c7b52;
+        }
+
+        .hud-switch.on {
+            color: #3b2a20;
+        }
+
+        .hud-switch-icon {
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .hud-switch-label {
+            flex: 1;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .hud-switch-track {
+            position: relative;
+            flex-shrink: 0;
+            width: 44px;
+            height: 24px;
+            border-radius: 12px;
+            background: #c9b489;
+            transition: background 0.18s ease;
+        }
+
+        .hud-switch-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fffdf6;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+            transition: left 0.18s ease;
+        }
+
+        .hud-switch.on .hud-switch-track {
+            background: #2f6fb3;
+        }
+
+        .hud-switch.on .hud-switch-thumb {
+            left: 22px;
+        }
+
+        .hud-switch--daynight.on .hud-switch-track {
+            background: #3a3f5c;
+        }
+
+        /* Cheer panel — spectators only, docked to the left-middle of
+           the screen (see js/ui/CheerButton.js / NetGameScene.js's
+           createHud()/updateSpectatorControls()). A vertical stack of
+           round preset-emoji buttons rather than one generic button,
+           so a spectator picks *which* emoji to cheer with; picking
+           any one puts the whole stack into its shared cooldown. */
+        .hud-cheer-panel {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 8px;
+            background: #fbf3df;
+            border: 2px solid #c9b489;
+            border-radius: 28px;
+        }
+
+        .cheer-emoji-btn {
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: #ffd93d;
+            border: 2px solid #d9a900;
+            border-radius: 50%;
+            font-size: 22px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .cheer-emoji-btn:hover {
+            background: #ffe066;
+        }
+
+        /* The whole panel disables together (see COOLDOWN_MS in
+           CheerButton.js — one shared cooldown, not per-emoji), so
+           this is set on .hud-cheer-panel, not on individual buttons.
+           The clicked button additionally gets its emoji swapped for
+           a live countdown label (see CheerButton.js's render()). */
+        .hud-cheer-panel.disabled .cheer-emoji-btn {
+            background: #e5dcc3;
+            border-color: #c9b489;
+            color: #8a7a63;
+            font-size: 14px;
+            cursor: default;
+        }
+
+        /* NetGameScene HUD — fixed-size boxes, explicitly left/center/
+           right anchored via setOrigin(0,0) + a literal top-left pixel
+           position computed in JS (see NetGameScene.js createHud()) —
+           no more "band width" positioning hacks needed now that
+           setOrigin() is known to work correctly. transform-origin:
+           center on the ones that get a JS-driven pulse/punch tween
+           (see NetGameScene.js) so they scale from their own middle,
+           not the setOrigin(0,0) top-left corner used for positioning. */
+
+        /* Room code — top-center, just above the table, below the main
+           status text. Styled as a tappable pill (not plain text) with
+           a gentle continuous pulse so it visibly invites a tap. */
+        .hud-net-room-code {
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 320px;
+            height: 34px;
+            margin: 0 auto;
+            background: #fbf3df;
+            border: 2px solid #c9b489;
+            border-radius: 17px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 18px;
+            color: #8a7a63;
+            cursor: pointer;
+            white-space: nowrap;
+            text-align: center;
+            transform-origin: center;
+        }
+
+        .hud-net-room-code:hover {
+            color: #3b2a20;
+            border-color: #9c7b52;
+        }
+
+        .hud-net-status {
+            width: 520px;
+            height: 36px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 30px;
+            color: #3b2a20;
+            text-align: center;
+            white-space: nowrap;
+            pointer-events: none;
+            transform-origin: center;
+        }
+
+        /* Now docked at the bottom edge of the table (see
+           NetGameScene.js's SUB_TEXT layout) — the actionable
+           instruction line ("Drag your pen…"), so it pulses (via a
+           Phaser tween, see setSubText()) when it's telling the active
+           player to do something. */
+        .hud-net-sub {
+            width: 520px;
+            height: 30px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 21px;
+            color: #6b5a42;
+            text-align: center;
+            white-space: nowrap;
+            pointer-events: none;
+            transform-origin: center;
+        }
+
+        /* Streak + spectator-count badges — one centered row in the gap
+           between the room code and the table (see NetGameScene.js's
+           createHud()), replacing what used to be two separate pills
+           stacked under the top-right flick/cheer switch. */
+        .hud-net-badges {
+            width: 460px;
+            height: 26px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 18px;
+            color: #8a7a63;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        /* Countdown (NetGameScene) */
+        .hud-countdown {
+            width: 300px;
+            height: 220px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 140px;
+            color: #c1272d;
+            -webkit-text-stroke: 4px #3b2a20;
+            text-align: center;
+            opacity: 0;
+            transform: scale(1.6);
+            transition: opacity 220ms ease, transform 220ms ease;
+            pointer-events: none;
+        }
+
+        .hud-countdown.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Popups — WinPopup (GameScene) + game-over (NetGameScene).
+           Sized in JS to fully cover the canvas as a dark scrim, with
+           the actual card centered inside via flexbox.
+           display:none/flex is still what actually shows/hides it (see
+           show()/hide() in WinPopup.js and NetGameScene.js — display
+           can't itself be transitioned), but .show additionally fades
+           the scrim in and pops the panel up from a slight scale, so
+           the result doesn't just snap into existence. */
+        .hud-popup-overlay {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.55);
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 260ms ease;
+        }
+
+        .hud-popup-overlay.show {
+            opacity: 1;
+        }
+
+        .hud-popup-panel {
+            width: 420px;
+            max-width: 90%;
+            box-sizing: border-box;
+            background: #fffdf6;
+            border: 5px solid #7a5f3e;
+            border-radius: 16px;
+            padding: 30px 24px;
+            text-align: center;
+            transform: scale(0.82) translateY(14px);
+            transition: transform 320ms cubic-bezier(0.22, 1.4, 0.36, 1);
+        }
+
+        .hud-popup-overlay.show .hud-popup-panel {
+            transform: scale(1) translateY(0);
+        }
+
+        .hud-popup-title {
+            font-family: 'Architects Daughter', cursive;
+            font-size: 38px;
+            color: #3b2a20;
+            margin-bottom: 10px;
+        }
+
+        .hud-popup-subtitle {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 20px;
+            color: #8a7a63;
+            margin-bottom: 16px;
+        }
+
+        .hud-popup-stats {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 16px;
+            color: #8a7a63;
+            white-space: pre-line;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .hud-popup-btn {
+            margin: 8px 0 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="game"></div>
+
+    <!-- Phaser (all modes) -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.90.0/dist/phaser.min.js"></script>
+
+    <!-- Planck (Classroom / Vs Computer only — online play is server-authoritative and needs no client physics) -->
+    <script src="https://cdn.jsdelivr.net/npm/planck@1.4.2/dist/planck.min.js"></script>
+
+    <!-- Game -->
+    <script type="module" src="./js/main.js"></script>
+
+</body>
+
+</html>

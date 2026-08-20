@@ -1,0 +1,198 @@
+<div id="menu-overlay">
+    <!--
+      menu.html — loaded by js/MenuScene.js via this.load.html() and
+      injected as a Phaser DOM Element
+      (this.add.dom(...).createFromCache(...)). This file must have
+      exactly one root element — this outer #menu-overlay div — with
+      nothing (not even a comment) before its opening tag, since
+      Phaser's DOM loader takes the very first node of the parsed
+      fragment as the element it wraps.
+
+      All CSS for this markup lives in index.html's <style> block,
+      shared with the rest of the page — Phaser's DOM container is a
+      normal part of the document, so ordinary global CSS applies to
+      it just fine.
+    -->
+
+    <!-- ============== HOME ============== -->
+    <div id="screen-home" class="menu-panel">
+        <h1>PEN FIGHT</h1>
+        <p class="subtitle">Choose how to play</p>
+
+        <button class="menu-btn primary" id="btn-home-online">PLAY ONLINE</button>
+        <button class="menu-btn" id="btn-home-classroom">PLAY IN CLASSROOM</button>
+        <button class="menu-btn" id="btn-home-computer">PLAY AGAINST COMPUTER</button>
+    </div>
+
+    <!-- ============== CLASSROOM SETUP (local hotseat) ============== -->
+    <div id="screen-classroom" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">PLAY IN CLASSROOM</h1>
+        <p class="subtitle">Pass the device between players</p>
+
+        <div class="btn-row">
+            <button class="choice-btn" id="classroom-mode-turn-based" data-value="turn-based">TURN-BASED</button>
+            <button class="choice-btn" id="classroom-mode-chaos" data-value="chaos">CHAOS</button>
+        </div>
+
+        <div class="field-row">
+            <span>Players</span>
+            <div class="stepper">
+                <button id="classroom-players-minus">−</button>
+                <span id="classroom-players-value">3</span>
+                <button id="classroom-players-plus">+</button>
+            </div>
+        </div>
+
+        <div class="field-row" id="classroom-row-turn-timer">
+            <span>Turn Timer</span>
+            <button class="toggle-btn on" id="classroom-toggle-turn-timer" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="classroom-row-wait-settle">
+            <span>Wait For Settle</span>
+            <button class="toggle-btn on" id="classroom-toggle-wait-settle" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="classroom-row-match-time">
+            <span>Match Time Limit</span>
+            <button class="toggle-btn" id="classroom-toggle-match-time" data-on="false">OFF</button>
+        </div>
+
+        <div class="field-row">
+            <span>Power-Ups</span>
+            <button class="toggle-btn" id="classroom-toggle-power-ups" data-on="false">OFF</button>
+        </div>
+        <span class="field-hint">⚡ Speed boosts your next shot · 🚁 Helicopter Shot spins hard and hits harder · dark puddle slows any pen that crosses it — look for a glowing pen</span>
+
+        <button class="menu-btn accent" id="btn-classroom-start">START</button>
+        <button class="menu-back" id="back-from-classroom">← Back</button>
+    </div>
+
+    <!-- ============== VS COMPUTER SETUP ============== -->
+    <div id="screen-vs-computer" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">VS COMPUTER</h1>
+        <p class="subtitle">You're Player 1</p>
+
+        <div class="btn-row">
+            <button class="choice-btn" id="vc-mode-turn-based" data-value="turn-based">TURN-BASED</button>
+            <button class="choice-btn" id="vc-mode-chaos" data-value="chaos">CHAOS</button>
+        </div>
+
+        <div class="btn-row">
+            <button class="choice-btn" id="vc-diff-easy" data-value="easy">EASY</button>
+            <button class="choice-btn" id="vc-diff-medium" data-value="medium">MEDIUM</button>
+            <button class="choice-btn" id="vc-diff-hard" data-value="hard">HARD</button>
+        </div>
+
+        <div class="field-row">
+            <span>Computer Opponents</span>
+            <div class="stepper">
+                <button id="vc-opponents-minus">−</button>
+                <span id="vc-opponents-value">1</span>
+                <button id="vc-opponents-plus">+</button>
+            </div>
+        </div>
+
+        <div class="field-row" id="vc-row-turn-timer">
+            <span>Turn Timer</span>
+            <button class="toggle-btn on" id="vc-toggle-turn-timer" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="vc-row-wait-settle">
+            <span>Wait For Settle</span>
+            <button class="toggle-btn on" id="vc-toggle-wait-settle" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="vc-row-match-time">
+            <span>Match Time Limit</span>
+            <button class="toggle-btn" id="vc-toggle-match-time" data-on="false">OFF</button>
+        </div>
+
+        <div class="field-row">
+            <span>Power-Ups</span>
+            <button class="toggle-btn" id="vc-toggle-power-ups" data-on="false">OFF</button>
+        </div>
+        <span class="field-hint">⚡ Speed boosts your next shot · 🚁 Helicopter Shot spins hard and hits harder · dark puddle slows any pen that crosses it — look for a glowing pen</span>
+
+        <button class="menu-btn accent" id="btn-vc-start">START</button>
+        <button class="menu-back" id="back-from-vc">← Back</button>
+    </div>
+
+    <!-- ============== ONLINE MAIN ============== -->
+    <div id="screen-online-main" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">PLAY ONLINE</h1>
+        <p class="subtitle">Play with friends over the internet</p>
+
+        <button class="menu-btn primary" id="btn-quick-play">QUICK PLAY</button>
+        <button class="menu-btn" id="btn-create-room">CREATE ROOM</button>
+        <button class="menu-btn" id="btn-join-room">JOIN ROOM</button>
+        <button class="menu-back" id="back-from-online-main">← Back</button>
+    </div>
+
+    <!-- Create room -->
+    <div id="screen-create" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">CREATE ROOM</h1>
+
+        <div class="field-row">
+            <span>Players</span>
+            <div class="stepper">
+                <button id="players-minus">−</button>
+                <span id="players-value">2</span>
+                <button id="players-plus">+</button>
+            </div>
+        </div>
+
+        <div class="field-row" id="row-chaos-mode">
+            <span>Chaos Mode</span>
+            <button class="toggle-btn" id="toggle-chaos-mode" data-on="false">OFF</button>
+        </div>
+
+        <div class="field-row" id="row-turn-timer">
+            <span>Turn Timer</span>
+            <button class="toggle-btn on" id="toggle-turn-timer" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="row-wait-settle">
+            <span>Wait For Settle</span>
+            <button class="toggle-btn on" id="toggle-wait-settle" data-on="true">ON</button>
+        </div>
+
+        <div class="field-row" id="row-match-time">
+            <span>Match Time Limit</span>
+            <button class="toggle-btn" id="toggle-match-time" data-on="false">OFF</button>
+        </div>
+
+        <div class="field-row">
+            <span>Power-Ups</span>
+            <button class="toggle-btn" id="toggle-power-ups" data-on="false">OFF</button>
+        </div>
+        <span class="field-hint">⚡ Speed boosts your next shot · 🚁 Helicopter Shot spins hard and hits harder · dark puddle slows any pen that crosses it — look for a glowing pen</span>
+
+        <div class="field-row">
+            <span>Best of 3</span>
+            <button class="toggle-btn" id="toggle-best-of-3" data-on="false">OFF</button>
+        </div>
+
+        <button class="menu-btn accent" id="btn-do-create">CREATE</button>
+        <button class="menu-back" id="back-from-create">← Back</button>
+    </div>
+
+    <!-- Join room -->
+    <div id="screen-join" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">JOIN ROOM</h1>
+        <p class="subtitle">Enter the code your friend shared</p>
+
+        <input id="room-code-input" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters" />
+        <div id="join-error"></div>
+
+        <button class="menu-btn primary" id="btn-do-join">JOIN</button>
+        <button class="menu-back" id="back-from-join">← Back</button>
+    </div>
+
+    <!-- Connecting / status -->
+    <div id="screen-status" class="menu-panel hidden">
+        <h1 style="font-size: 32px;">PEN FIGHT</h1>
+        <p id="status-text">Connecting…</p>
+    </div>
+
+</div>

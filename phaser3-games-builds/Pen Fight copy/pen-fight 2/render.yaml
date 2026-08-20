@@ -1,0 +1,26 @@
+# Render Blueprint — one-click deploy (https://render.com/docs/blueprint-spec)
+#
+# Push this repo to GitHub, then in the Render dashboard choose
+# "New +" -> "Blueprint" and point it at the repo. Render reads this
+# file automatically and provisions everything below — no manual
+# service configuration needed.
+#
+# No buildCommand is needed (this project has no package.json/build
+# step by design — see README.md), so it's set to a harmless no-op.
+# Render supplies a PORT environment variable automatically, and
+# server/server.mjs already reads process.env.PORT, so no other
+# configuration is required.
+#
+# Free-tier note: the service sleeps after 15 minutes with no traffic
+# and takes 30-60s to wake back up on the next request — a non-issue
+# once people are actively playing, since that traffic keeps it awake.
+
+services:
+  - type: web
+    name: pen-fight
+    runtime: node
+    plan: free
+    buildCommand: "true"
+    startCommand: node server/server.mjs
+    healthCheckPath: /
+    autoDeploy: true

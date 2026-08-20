@@ -1,0 +1,12 @@
+{
+  "name": "outputs",
+  "version": "1.0.0",
+  "description": "A school-desk pen-flicking game. Open `index.html` and pick one of three ways to play — everything now lives behind a single start screen.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
