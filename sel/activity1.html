@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohan & Bruno SEL Game - The Pulse Matcher</title>
+    <!-- Load Phaser 3 directly from a secure Content Delivery Network -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.90.0/dist/phaser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #game-container {
+            width: 100%;
+            height: 100%;
+            max-width: 1920px;
+            max-height: 1080px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="game-container"></div>
+
+    <script>
+        class PulseMatcherScene extends Phaser.Scene {
+            constructor() {
+                super({ key: 'PulseMatcherScene' });
+            }
+
+            init() {
+                // Core game state trackers
+                this.streakCounter = 0;
+                this.tensionPercent = 1.0; // 1.0 = 100% full tension
+                this.isHolding = false;
+
+                // Ring tracking properties
+                this.targetRadius = 200;
+                this.perfectThreshold = 15; // +/- 15 pixels accuracy
+
+                this.redRingRadius = 0;
+                this.blueRingRadius = 0;
+
+                this.redGrowthSpeed = 220;  // Pixels per second
+                this.blueGrowthSpeed = 260; // Pixels per second
+            }
+
+            preload() {
+                // Visual indicator that the game engine is setting up
+                let loadingText = this.add.text(960, 540, 'Loading Activity...', {
+                    fontFamily: 'Arial', fontSize: '32px', color: '#ffffff'
+                }).setOrigin(0.5);
+            }
+
+            create() {
+                // Clear loading indicators
+                this.cameras.main.setBackgroundColor('#2c3e50');
+
+                // Define exact midpoint of the 1920x1080 resolution viewport
+                this.centerX = 960;
+                this.centerY = 540;
+
+                // Instantiate graphics pipes for structural drawing
+                this.staticGraphics = this.add.graphics();
+                this.dynamicGraphics = this.add.graphics();
+                this.uiGraphics = this.add.graphics();
+
+                // Render stationary target boundary rings
+                this.drawStaticLayout();
+
+                // Screen text configurations
+                this.titleText = this.add.text(this.centerX, 80, 'ACTIVITY: STEADY THE RHYTHM', {
+                    fontFamily: 'Arial Black', fontSize: '42px', color: '#f39c12'
+                }).setOrigin(0.5).setStroke('#000000', 6);
+
+                this.instructionText = this.add.text(this.centerX, 140, 'Press & Hold to expand Blue Ring. Release PERFECTLY inside Golden Circle!', {
+                    fontFamily: 'Arial', fontSize: '24px', color: '#ffffff'
+                }).setOrigin(0.5);
+
+                this.streakText = this.add.text(this.centerX, 850, 'STREAK: 0 / 3', {
+                    fontFamily: 'Arial Black', fontSize: '48px', color: '#ffffff'
+                }).setOrigin(0.5).setStroke('#000000', 4);
+
+                // Placeholders representing characters
+                this.rohanLabel = this.add.text(this.centerX, this.centerY, '🙋‍♂️ ROHAN', {
+                    fontFamily: 'Arial Bold', fontSize: '20px', color: '#3498db'
+                }).setOrigin(0.5);
+
+                this.brunoSprite = this.add.text(300, 750, '🐕 BRUNO', {
+                    fontFamily: 'Arial Black', fontSize: '36px', color: '#e67e22'
+                }).setOrigin(0.5);
+
+                // Map operational pointer action nodes
+                this.input.on('pointerdown', this.onPointerDown, this);
+                this.input.on('pointerup', this.onPointerUp, this);
+            }
+
+            drawStaticLayout() {
+                this.staticGraphics.clear();
+
+                // Draw the main fixed Golden Target Circle
+                this.staticGraphics.lineStyle(6, 0xf1c40f, 1.0);
+                this.staticGraphics.strokeCircle(this.centerX, this.centerY, this.targetRadius);
+
+                // Draw faint helper guide boundaries showing the precision threshold zones
+                this.staticGraphics.lineStyle(2, 0xf1c40f, 0.2);
+                this.staticGraphics.strokeCircle(this.centerX, this.centerY, this.targetRadius - this.perfectThreshold);
+                this.staticGraphics.strokeCircle(this.centerX, this.centerY, this.targetRadius + this.perfectThreshold);
+            }
+
+            update(time, delta) {
+                // Delta time normalization variable (fraction of a second)
+                const dt = delta / 1000;
+
+                // 1. Process automated outer background pulse loop (The Red Heart Ring)
+                this.redRingRadius += this.redGrowthSpeed * dt;
+                if (this.redRingRadius > 400) {
+                    this.redRingRadius = 0;
+                }
+
+                // 2. Process active user input ring (Rohan's Blue Energy Ring)
+                if (this.isHolding) {
+                    this.blueRingRadius += this.blueGrowthSpeed * dt;
+                    // Force reset if player holds indefinitely past practical boundaries
+                    if (this.blueRingRadius > 450) {
+                        this.evaluateRelease();
+                    }
+                }
+
+                // 3. Clear and redraft all animated elements frame-by-frame
+                this.dynamicGraphics.clear();
+
+                // Draw Red Heart Ring
+                this.dynamicGraphics.lineStyle(4, 0xe74c3c, 0.8);
+                this.dynamicGraphics.strokeCircle(this.centerX, this.centerY, this.redRingRadius);
+
+                // Draw Blue Input Ring if currently active
+                if (this.isHolding && this.blueRingRadius > 0) {
+                    this.dynamicGraphics.lineStyle(5, 0x3498db, 1.0);
+                    this.dynamicGraphics.strokeCircle(this.centerX, this.centerY, this.blueRingRadius);
+                }
+
+                // 4. Update the Tension Meter Bar Graphic rendering parameters
+                this.drawTensionBar();
+            }
+
+            drawTensionBar() {
+                this.uiGraphics.clear();
+
+                const barX = 1750;
+                const barY = 340;
+                const barWidth = 50;
+                const maxHeight = 400;
+
+                // Draw structural gray background bar slot frame
+                this.uiGraphics.fillStyle(0x34495e, 1.0);
+                this.uiGraphics.fillRect(barX, barY, barWidth, maxHeight);
+
+                // Draw filled dynamic content reflecting live values
+                if (this.tensionPercent > 0) {
+                    this.uiGraphics.fillStyle(0xe74c3c, 1.0);
+                    const currentHeight = maxHeight * this.tensionPercent;
+                    const currentY = barY + (maxHeight - currentHeight);
+                    this.uiGraphics.fillRect(barX, currentY, barWidth, currentHeight);
+                }
+
+                // Label above meter tracking internal tension states
+                if (!this.barLabelText) {
+                    this.barLabelText = this.add.text(barX + 25, barY - 30, 'TENSION', {
+                        fontFamily: 'Arial Bold', fontSize: '18px', color: '#ffffff'
+                    }).setOrigin(0.5);
+                }
+            }
+
+            onPointerDown() {
+                this.isHolding = true;
+                this.blueRingRadius = 0;
+            }
+
+            onPointerUp() {
+                if (this.isHolding) {
+                    this.evaluateRelease();
+                }
+            }
+
+            evaluateRelease() {
+                this.isHolding = false;
+
+                // Calculate mathematical distance error accuracy metric
+                const accuracyDelta = Math.abs(this.blueRingRadius - this.targetRadius);
+
+                if (accuracyDelta <= this.perfectThreshold) {
+                    // SUCCESSFUL PERFECT TIMING INJECTION MATCH
+                    this.streakCounter++;
+                    this.tensionPercent -= 0.334; // Drops down evenly in 3 steps
+                    if (this.tensionPercent < 0) this.tensionPercent = 0;
+
+                    this.streakText.setText(`STREAK: ${this.streakCounter} / 3`);
+                    this.flashScreenColor('#27ae60'); // Flash Green
+
+                    // Check if final objective criteria has been met
+                    if (this.streakCounter >= 3) {
+                        this.triggerLevelVictory();
+                    }
+                } else {
+                    // MISSED HIT TIMING REVOLUTION PENALTY
+                    this.streakCounter = 0;
+                    this.tensionPercent = 1.0; // Instantly resets tension up to baseline
+                    this.streakText.setText(`STREAK: ${this.streakCounter} / 3`);
+                    this.flashScreenColor('#c0392b'); // Flash Red
+                }
+
+                this.blueRingRadius = 0;
+            }
+
+            flashScreenColor(hexColorStr) {
+                this.cameras.main.flash(200,
+                    Phaser.Display.Color.HexStringToColor(hexColorStr).r,
+                    Phaser.Display.Color.HexStringToColor(hexColorStr).g,
+                    Phaser.Display.Color.HexStringToColor(hexColorStr).b
+                );
+            }
+
+            triggerLevelVictory() {
+                this.input.off('pointerdown');
+                this.input.off('pointerup');
+
+                this.instructionText.setText('Mind Cleared! Bruno is happy!');
+                this.titleText.setText('SUCCESSFUL REGULATION!');
+
+                // Run joyful arcade bounce animations on Bruno
+                this.tweens.add({
+                    targets: this.brunoSprite,
+                    scaleY: 1.5,
+                    scaleX: 1.2,
+                    y: 700,
+                    yoyo: true,
+                    duration: 150,
+                    repeat: 5,
+                    onComplete: () => {
+                        this.add.text(960, 680, '✨ UNLOCKED: ZEN MASTER BADGE (+100 Paw Points) ✨', {
+                            fontFamily: 'Arial Black', fontSize: '28px', color: '#f1c40f'
+                        }).setOrigin(0.5).setStroke('#000000', 4);
+                    }
+                });
+            }
+        }
+
+        // Global Core Config initialization parameters object block
+        const config = {
+            type: Phaser.AUTO,
+            parent: 'game-container',
+            width: 1920,
+            height: 1080,
+            scale: {
+                mode: Phaser.Scale.FIT,
+                autoCenter: Phaser.Scale.CENTER_BOTH
+            },
+            physics: {
+                default: 'arcade',
+                arcade: { debug: false }
+            },
+            scene: [PulseMatcherScene]
+        };
+
+        const game = new Phaser.Game(config);
+    </script>
+
+</body>
+
+</html>

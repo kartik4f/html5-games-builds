@@ -1,0 +1,1 @@
+export class DifficultyEngine{getProfile(p){return Object.fromEntries(Object.entries(p.skills).map(([k,v])=>[k,v<40?1:v<60?2:v<80?3:v<92?4:5]));}}

@@ -1,0 +1,3 @@
+export function header(s,t,sub=""){s.add.text(70,45,t,{fontSize:"42px",fontStyle:"bold",color:"#263238"});if(sub)s.add.text(72,100,sub,{fontSize:"22px",color:"#607d8b"});}
+export function panel(s,x,y,w,h){return s.add.rectangle(x,y,w,h,0xffffff).setStrokeStyle(3,0xb0bec5);}
+export function button(s,x,y,t,cb,w=320){return s.add.text(x,y,t,{fontSize:"28px",fontStyle:"bold",color:"#fff",backgroundColor:"#486b78",padding:{left:25,right:25,top:16,bottom:16},align:"center",fixedWidth:w}).setOrigin(.5).setInteractive({useHandCursor:true}).on("pointerdown",cb); }

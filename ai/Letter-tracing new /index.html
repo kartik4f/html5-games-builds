@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1f342c">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="Chalkboard Trace — a letter, number, and word tracing game for kids.">
+  <title>Chalkboard Trace</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700&family=Caveat:wght@600;700&display=swap">
+  <style>
+    /*
+    Chalkboard Trace commits to one scene — a wood-framed classroom chalkboard —
+    regardless of the viewer's light/dark OS setting, the way a themed poster or
+    game screen would. Every color below is painted explicitly rather than
+    switched by prefers-color-scheme.
+  */
+    :root {
+      --wall: #d9e4dc;
+      --wall-deep: #c3d3c8;
+      --wood: #96622f;
+      --wood-dark: #6e4620;
+      --wood-light: #c08c50;
+      --board: #1f342c;
+      --board-deep: #12201a;
+      --chalk: #f5f0e6;
+      --chalk-dim: #cfd8ce;
+      --accent: #ffb703;
+      --accent-ink: #6b4600;
+      --good: #4cd88a;
+      --c-coral: #ff6b6b;
+      --c-sky: #4cc9f0;
+      --c-mint: #2ec4a6;
+      --c-butter: #ffd166;
+      --c-lilac: #b185db;
+      --font-display: 'Fredoka', 'Baloo 2', system-ui, sans-serif;
+      --font-body: 'Quicksand', 'Nunito', system-ui, sans-serif;
+      --font-hand: 'Caveat', 'Segoe Script', cursive;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      height: 100%;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      overscroll-behavior-y: none;
+    }
+
+    button,
+    .swatch,
+    .tile,
+    .menu-card {
+      touch-action: manipulation;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    body {
+      background: radial-gradient(120% 140% at 50% -10%, var(--wall) 0%, var(--wall-deep) 100%);
+      color: var(--board);
+      font-family: var(--font-body);
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      overscroll-behavior-y: none;
+      padding: clamp(12px, 3vw, 32px);
+      padding-top: max(clamp(12px, 3vw, 32px), env(safe-area-inset-top, 0px));
+      padding-bottom: max(clamp(12px, 3vw, 32px), env(safe-area-inset-bottom, 0px));
+      padding-left: max(clamp(12px, 3vw, 32px), env(safe-area-inset-left, 0px));
+      padding-right: max(clamp(12px, 3vw, 32px), env(safe-area-inset-right, 0px));
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    .app {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .titleplate {
+      text-align: center;
+      padding: 2px 6px 0;
+    }
+
+    .titleplate h1 {
+      font-family: var(--font-hand);
+      font-weight: 700;
+      font-size: clamp(2.3rem, 7.5vw, 3.4rem);
+      color: var(--wood-dark);
+      margin: 0;
+      text-wrap: balance;
+      letter-spacing: 0.5px;
+    }
+
+    .titleplate p {
+      margin: 2px 0 0;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #4c5f52;
+    }
+
+    /* ---------- home / menu screen ---------- */
+    #homeScreen {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 420px) {
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .menu-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 26px 14px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      background: linear-gradient(160deg, var(--wood-light), var(--wood) 55%, var(--wood-dark));
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.25), inset 0 -6px 12px rgba(0, 0, 0, 0.3), 0 8px 18px -8px rgba(30, 20, 5, 0.5);
+      color: var(--chalk);
+    }
+
+    .menu-card:active {
+      transform: scale(0.97);
+    }
+
+    .menu-icon {
+      font-size: 2.8rem;
+      line-height: 1;
+    }
+
+    .menu-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .menu-sub {
+      font-family: var(--font-hand);
+      font-size: 1.05rem;
+      opacity: 0.85;
+    }
+
+    .settings-label {
+      font-family: var(--font-hand);
+      font-weight: 700;
+      color: var(--wood-dark);
+      font-size: 1.1rem;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    .board-row-left {
+      display: flex;
+      gap: 6px;
+      flex: 0 0 auto;
+    }
+
+    .subtoggle {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .subtab {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--chalk);
+    }
+
+    .subtab.active {
+      background: var(--accent);
+      color: var(--accent-ink);
+    }
+
+    .voicebar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: -2px;
+    }
+
+    .voice-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #4c5f52;
+      margin-right: 2px;
+    }
+
+    .voicetab {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(150, 98, 47, 0.12);
+      color: var(--wood-dark);
+    }
+
+    .voicetab.active {
+      background: var(--wood);
+      color: var(--chalk);
+    }
+
+    .voicetab[aria-pressed="true"] {
+      background: var(--wood);
+      color: var(--chalk);
+    }
+
+    body.lefty .board-footer {
+      flex-direction: row-reverse;
+    }
+
+    /* ---------- wooden frame + chalkboard ---------- */
+    .frame {
+      position: relative;
+      padding: 14px;
+      border-radius: 18px;
+      background:
+        repeating-linear-gradient(115deg, rgba(0, 0, 0, 0.10) 0 2px, transparent 2px 9px),
+        linear-gradient(160deg, var(--wood-light), var(--wood) 45%, var(--wood-dark) 100%);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -6px 14px rgba(0, 0, 0, 0.35),
+        0 14px 30px -12px rgba(30, 20, 5, 0.55);
+    }
+
+    .frame .peg-tl,
+    .frame .peg-tr,
+    .frame .peg-bl,
+    .frame .peg-br {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #ffe1a8, #7a5323 70%, #4a2f11);
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    }
+
+    .frame .peg-tl {
+      top: 8px;
+      left: 8px;
+    }
+
+    .frame .peg-tr {
+      top: 8px;
+      right: 8px;
+    }
+
+    .frame .peg-bl {
+      bottom: 8px;
+      left: 8px;
+    }
+
+    .frame .peg-br {
+      bottom: 8px;
+      right: 8px;
+    }
+
+    .board {
+      position: relative;
+      border-radius: 8px;
+      background: var(--board-deep);
+      box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.35), inset 0 10px 24px rgba(0, 0, 0, 0.5);
+      padding: 12px 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .board-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .plaque {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--chalk);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(245, 240, 230, 0.25);
+      border-radius: 999px;
+      padding: 7px 18px;
+      font-size: 1.15rem;
+      letter-spacing: 0.3px;
+    }
+
+    .totals {
+      font-family: var(--font-body);
+      font-weight: 700;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.95rem;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 999px;
+      padding: 6px 12px;
+      display: inline-block;
+    }
+
+    .bump {
+      animation: bumpPulse 0.4s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    @keyframes bumpPulse {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.4);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .flying-star {
+      position: fixed;
+      pointer-events: none;
+      font-size: 20px;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      transition: left 0.55s cubic-bezier(.2, .8, .3, 1), top 0.55s cubic-bezier(.2, .8, .3, 1), transform 0.55s ease, opacity 0.5s ease 0.05s;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      margin: 0 auto;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      /* Grow the tracing surface to fill whatever room the viewport allows —
+       bounded by a comfortable max width, but also by available viewport
+       height (minus the chrome around it) so short/landscape screens don't
+       force scrolling just to see the whole board. Never distorts: the
+       canvas element itself is fixed at a 320:380 aspect-ratio below, so
+       this only ever scales it uniformly, never stretches it. */
+      width: min(100%, 560px, max(220px, calc((100dvh - 300px) * 0.842)));
+    }
+
+    .canvas-wrap canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 320 / 380;
+      border-radius: 6px;
+      object-fit: contain;
+    }
+
+    #ink,
+    #cp,
+    #fx {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .pulse-ring {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      margin-left: -15px;
+      margin-top: -15px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      pointer-events: none;
+      animation: pulseRing 1.1s ease-out infinite;
+    }
+
+    .pulse-ring.hidden {
+      display: none;
+    }
+
+    @keyframes pulseRing {
+      0% {
+        transform: scale(0.6);
+        opacity: 0.95;
+      }
+
+      100% {
+        transform: scale(1.7);
+        opacity: 0;
+      }
+    }
+
+    .icon-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--chalk);
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.12s ease, background 0.12s ease;
+      flex: 0 0 auto;
+    }
+
+    .icon-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .icon-btn:active {
+      transform: scale(0.9);
+    }
+
+    .icon-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .icon-btn.is-hidden {
+      visibility: hidden;
+    }
+
+    .icon-btn.mini {
+      width: 40px;
+      height: 40px;
+      font-size: 1.1rem;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .tray .is-hidden {
+      display: none;
+    }
+
+    .board-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tray {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.22);
+      border-radius: 999px;
+      padding: 8px 14px;
+      max-width: 100%;
+    }
+
+    .swatch {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      padding: 0;
+      box-shadow: inset 0 -3px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .swatch[aria-pressed="true"] {
+      outline: 3px solid var(--chalk);
+      outline-offset: 2px;
+      transform: scale(1.12);
+    }
+
+    .clear-btn {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--board-deep);
+      background: var(--chalk);
+      border: none;
+      border-radius: 999px;
+      padding: 12px 20px;
+      cursor: pointer;
+    }
+
+    .clear-btn:active {
+      transform: scale(0.96);
+    }
+
+    button:focus-visible,
+    .swatch:focus-visible,
+    .tile:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ---------- celebration overlay ---------- */
+    .celebrate {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(18, 32, 26, 0.72);
+      border-radius: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+    }
+
+    .celebrate.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .celebrate-card {
+      background: var(--chalk);
+      color: var(--board-deep);
+      border-radius: 18px;
+      padding: 22px 30px;
+      text-align: center;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+      transform: scale(0.8) rotate(-4deg);
+      transition: transform 0.32s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    .celebrate.show .celebrate-card {
+      transform: scale(1) rotate(0deg);
+    }
+
+    .celebrate-msg {
+      font-family: var(--font-hand);
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .celebrate-stars {
+      font-size: 2rem;
+      color: var(--accent);
+      margin: 4px 0 6px;
+      letter-spacing: 3px;
+    }
+
+    .celebrate-object {
+      margin: 6px 0 16px;
+    }
+
+    .obj-pair {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .obj-letter {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--wood-dark);
+      animation: objPopLetter 0.5s cubic-bezier(.34, 1.56, .64, 1) both;
+    }
+
+    .obj-emoji {
+      font-size: 4rem;
+      line-height: 1;
+      animation: objPopEmoji 0.5s cubic-bezier(.34, 1.56, .64, 1) 0.15s both;
+    }
+
+    .obj-text {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-top: 8px;
+    }
+
+    @keyframes objPopLetter {
+      0% {
+        transform: scale(0) rotate(-18deg);
+        opacity: 0;
+      }
+
+      60% {
+        transform: scale(1.25) rotate(6deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes objPopEmoji {
+      0% {
+        transform: scale(0) rotate(18deg);
+        opacity: 0;
+      }
+
+      60% {
+        transform: scale(1.3) rotate(-6deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+      }
+    }
+
+    .btn-primary {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.05rem;
+      background: var(--accent);
+      color: var(--accent-ink);
+      border: none;
+      border-radius: 999px;
+      padding: 12px 26px;
+      cursor: pointer;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.96);
+    }
+
+    .nudge {
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%) translateY(6px);
+      background: rgba(0, 0, 0, 0.62);
+      color: var(--chalk);
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 9px 18px;
+      border-radius: 999px;
+      opacity: 0;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      pointer-events: none;
+      white-space: nowrap;
+      max-width: 92%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .nudge.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ---------- shelf ---------- */
+    .shelf-wrap {
+      margin-top: 2px;
+    }
+
+    .shelf-label {
+      font-family: var(--font-hand);
+      font-weight: 700;
+      color: var(--wood-dark);
+      font-size: 1.1rem;
+      margin: 6px 2px 3px;
+    }
+
+    .shelf {
+      display: flex;
+      gap: 9px;
+      overflow-x: auto;
+      padding: 4px 2px 10px;
+      scroll-snap-type: x proximity;
+    }
+
+    .shelf::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .shelf::-webkit-scrollbar-thumb {
+      background: var(--wood);
+      border-radius: 4px;
+    }
+
+    .tile {
+      scroll-snap-align: start;
+      flex: 0 0 auto;
+      width: 62px;
+      height: 68px;
+      border-radius: 9px;
+      cursor: pointer;
+      background: linear-gradient(160deg, #d9a465, #b47a3d);
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.35), inset 0 -3px 5px rgba(0, 0, 0, 0.25), 0 2px 3px rgba(0, 0, 0, 0.18);
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: #4a2f11;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      position: relative;
+    }
+
+    .tile.wordtile {
+      width: auto;
+      min-width: 92px;
+      padding: 0 14px;
+      font-size: 1.15rem;
+      letter-spacing: 1px;
+    }
+
+    .tile.numtile {
+      width: auto;
+      min-width: 54px;
+      padding: 0 8px;
+      font-size: 1.2rem;
+    }
+
+    .tile .pips {
+      font-size: 0.55rem;
+      letter-spacing: 1px;
+      color: var(--accent-ink);
+      height: 9px;
+    }
+
+    .tile[aria-current="true"] {
+      background: linear-gradient(160deg, #ffe1a8, var(--accent));
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.5), inset 0 -3px 5px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--chalk);
+      animation: tileBob 1.6s ease-in-out infinite;
+    }
+
+    .tile[data-stars="0"] .pips {
+      visibility: hidden;
+    }
+
+    .tile-pop {
+      animation: tilePop 0.28s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    @keyframes tilePop {
+      0% {
+        transform: scale(1);
+      }
+
+      45% {
+        transform: scale(1.18) rotate(-3deg);
+      }
+
+      100% {
+        transform: scale(1) rotate(0);
+      }
+    }
+
+    @keyframes tileBob {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    /* On short / landscape screens (phones on their side, small tablets),
+     trim the chrome around the board so the tracing surface keeps as much
+     of the available height as possible. */
+    @media (max-height: 560px) {
+      .app {
+        gap: 6px;
+      }
+
+      .board {
+        padding: 8px 8px 9px;
+        gap: 6px;
+      }
+
+      .board-footer {
+        gap: 6px;
+      }
+
+      .tray {
+        padding: 6px 10px;
+        gap: 7px;
+      }
+
+      .swatch {
+        width: 32px;
+        height: 32px;
+      }
+
+      .shelf-wrap {
+        margin-top: 0;
+      }
+
+      .shelf-label {
+        margin: 4px 2px 2px;
+        font-size: 0.95rem;
+      }
+
+      .shelf {
+        padding: 2px 2px 6px;
+        gap: 7px;
+      }
+
+      .tile {
+        width: 48px;
+        height: 52px;
+        font-size: 1.15rem;
+      }
+
+      .settings-label {
+        margin-top: 2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+    <!-- ============ HOME / MENU SCENE ============ -->
+    <div id="homeScreen">
+      <div class="titleplate">
+        <h1>Chalkboard Trace</h1>
+        <p>Pick something to trace!</p>
+      </div>
+
+      <div class="menu-grid">
+        <button class="menu-card" data-menu="letters">
+          <span class="menu-icon">🔤</span>
+          <span class="menu-title">Letter Tracing</span>
+          <span class="menu-sub">A a</span>
+        </button>
+        <button class="menu-card" data-menu="numbers">
+          <span class="menu-icon">🔢</span>
+          <span class="menu-title">Number Tracing</span>
+          <span class="menu-sub">1 2 3</span>
+        </button>
+        <button class="menu-card" data-menu="words">
+          <span class="menu-icon">📝</span>
+          <span class="menu-title">Word Tracing</span>
+          <span class="menu-sub">Cat · Dog</span>
+        </button>
+        <button class="menu-card" data-menu="free">
+          <span class="menu-icon">🎨</span>
+          <span class="menu-title">Free Draw</span>
+          <span class="menu-sub">Just for fun</span>
+        </button>
+      </div>
+
+      <div class="settings-label">⚙️ Settings</div>
+      <div class="voicebar" role="group" aria-label="Voice accent">
+        <span class="voice-label">Voice:</span>
+        <button class="voicetab accent-tab active" data-accent="us" aria-pressed="true">🇺🇸 US</button>
+        <button class="voicetab accent-tab" data-accent="uk" aria-pressed="false">🇬🇧 UK</button>
+        <button class="voicetab accent-tab" data-accent="in" aria-pressed="false">🇮🇳 India</button>
+      </div>
+
+      <div class="voicebar" role="group" aria-label="Hand preference and sound guide">
+        <span class="voice-label">Hand:</span>
+        <button class="voicetab hand-tab active" data-hand="right" aria-pressed="true">✋ Right</button>
+        <button class="voicetab hand-tab" data-hand="left" aria-pressed="false">🤚 Left</button>
+        <button class="voicetab" id="soundGuideBtn" aria-pressed="false"
+          title="For tracing by ear: a hum that gets higher-pitched near the next dot, a wider forgiving target, drag-to-search for the start point, and vibration on touch devices">👂
+          Sound Guide</button>
+      </div>
+    </div>
+
+    <!-- ============ DRAW SCENE ============ -->
+    <div id="playScreen" style="display:none">
+      <div class="frame">
+        <span class="peg-tl"></span><span class="peg-tr"></span><span class="peg-bl"></span><span class="peg-br"></span>
+        <div class="board">
+          <div class="board-row">
+            <div class="board-row-left">
+              <button class="icon-btn mini" id="backBtn" aria-label="Back to menu" title="Menu">🏠</button>
+              <button class="icon-btn mini" id="hearBtn" aria-label="Hear it spoken aloud" title="Hear it">🔊</button>
+            </div>
+            <span class="plaque" id="plaque">Letter A</span>
+            <span class="totals" id="totals" aria-live="polite">★ 0%</span>
+          </div>
+
+          <div class="subtoggle" id="letterCaseToggle" style="display:none">
+            <button class="subtab active" data-case="upper">ABC</button>
+            <button class="subtab" data-case="lower">abc</button>
+          </div>
+          <div class="subtoggle" id="numberSetToggle" style="display:none">
+            <button class="subtab active" data-set="digits">0-9</button>
+            <button class="subtab" data-set="count100">1-100</button>
+          </div>
+
+          <div class="canvas-wrap" id="wrap">
+            <canvas id="trace" width="640" height="760" aria-label="Tracing area"></canvas>
+            <canvas id="ink" width="640" height="760" aria-hidden="true"></canvas>
+            <canvas id="cp" width="640" height="760" aria-hidden="true"></canvas>
+            <canvas id="fx" width="640" height="760" aria-hidden="true"></canvas>
+            <div class="pulse-ring hidden" id="pulseRing"></div>
+            <div class="celebrate" id="celebrate">
+              <div class="celebrate-card">
+                <p class="celebrate-msg" id="celebrateMsg">Great job!</p>
+                <div class="celebrate-stars" id="celebrateStars">★★★</div>
+                <div class="celebrate-object" id="celebrateObject" hidden>
+                  <div class="obj-pair">
+                    <span class="obj-letter" id="objLetter">A</span>
+                    <span class="obj-emoji" id="objEmoji">🍎</span>
+                  </div>
+                  <div class="obj-text" id="objText">A is for Apple</div>
+                </div>
+                <button class="btn-primary" id="nextBtn">Next »</button>
+              </div>
+            </div>
+            <div class="nudge" id="nudge">Keep tracing! ✏️</div>
+          </div>
+
+          <div role="status" aria-live="polite" style="position:absolute; left:-9999px;" id="srStatus"></div>
+
+          <div class="board-footer">
+            <button class="icon-btn" id="prevBtn" aria-label="Previous">‹</button>
+            <div class="tray" role="group" aria-label="Chalk colors">
+              <button class="swatch" style="background:var(--c-coral)" data-color="var(--c-coral)" aria-pressed="true"
+                aria-label="Coral chalk"></button>
+              <button class="swatch" style="background:var(--c-sky)" data-color="var(--c-sky)" aria-pressed="false"
+                aria-label="Sky blue chalk"></button>
+              <button class="swatch" style="background:var(--c-mint)" data-color="var(--c-mint)" aria-pressed="false"
+                aria-label="Mint chalk"></button>
+              <button class="swatch" style="background:var(--c-butter)" data-color="var(--c-butter)"
+                aria-pressed="false" aria-label="Butter yellow chalk"></button>
+              <button class="swatch" style="background:var(--c-lilac)" data-color="var(--c-lilac)" aria-pressed="false"
+                aria-label="Lilac chalk"></button>
+              <button class="icon-btn mini is-hidden" id="freeNewIdeaBtn" aria-label="New drawing idea"
+                title="New idea">🔄</button>
+              <button class="clear-btn" id="clearBtn">Clear</button>
+              <button class="clear-btn is-hidden" id="freeDoneBtn">🎉 Done!</button>
+            </div>
+            <button class="icon-btn" id="nextArrow" aria-label="Next">›</button>
+          </div>
+        </div>
+
+        <div class="shelf-wrap">
+          <div class="shelf-unit" id="unitUpper">
+            <div class="shelf-label">ABC</div>
+            <div class="shelf" id="shelfUpper"></div>
+          </div>
+          <div class="shelf-unit" id="unitLower" style="display:none">
+            <div class="shelf-label">abc</div>
+            <div class="shelf" id="shelfLower"></div>
+          </div>
+          <div class="shelf-unit" id="unitDigits" style="display:none">
+            <div class="shelf-label">123</div>
+            <div class="shelf" id="shelfNumbers"></div>
+          </div>
+          <div class="shelf-unit" id="unitWords" style="display:none">
+            <div class="shelf-label">Words</div>
+            <div class="shelf" id="shelfWords"></div>
+          </div>
+          <div class="shelf-unit" id="unitNum100" style="display:none">
+            <div class="shelf-label">Count to 100</div>
+            <div class="shelf" id="shelfNum100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+      const Wc = 320, Hc = 380;
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const COLORS = ['var(--c-coral)', 'var(--c-sky)', 'var(--c-mint)', 'var(--c-butter)', 'var(--c-lilac)'];
+      const RESOLVED = { 'var(--c-coral)': '#ff6b6b', 'var(--c-sky)': '#4cc9f0', 'var(--c-mint)': '#2ec4a6', 'var(--c-butter)': '#ffd166', 'var(--c-lilac)': '#b185db' };
+
+      // ================= authored stroke-order data =================
+      // Coordinates sit on a shared 0-100 (x) by 0-170 (y) design grid, with
+      // baseline at y=130, x-height top at y≈55, ascenders reaching toward y=10,
+      // descenders reaching toward y=140-165. Capitals/digits below were authored
+      // on an older 0-100 y-range and are rescaled ×1.3 at build time to match.
+      // {curve:false} strokes are angular and walked point-to-point; everything
+      // else is smoothed with a Catmull-Rom spline so round letters stay smooth
+      // without hand-plotted bezier data.
+      const STROKES = {
+        A: [{ pts: [[50, 4], [16, 96]] }, { pts: [[50, 4], [84, 96]] }, { pts: [[28, 62], [72, 62]] }],
+        B: [{ pts: [[22, 4], [22, 96]] },
+        { pts: [[22, 4], [58, 4], [76, 24], [58, 44], [22, 44]], curve: true },
+        { pts: [[22, 46], [62, 46], [82, 71], [62, 96], [22, 96]], curve: true }],
+        C: [{ pts: [[78, 20], [52, 4], [16, 50], [52, 96], [78, 80]], curve: true }],
+        D: [{ pts: [[22, 4], [22, 96]] }, { pts: [[22, 4], [56, 4], [84, 50], [56, 96], [22, 96]], curve: true }],
+        E: [{ pts: [[22, 4], [22, 96]] }, { pts: [[22, 4], [80, 4]] }, { pts: [[22, 50], [64, 50]] }, { pts: [[22, 96], [80, 96]] }],
+        F: [{ pts: [[22, 4], [22, 96]] }, { pts: [[22, 4], [80, 4]] }, { pts: [[22, 50], [64, 50]] }],
+        G: [{ pts: [[80, 20], [52, 4], [16, 50], [52, 97], [85, 80], [85, 56]], curve: true }, { pts: [[85, 56], [54, 56]] }],
+        H: [{ pts: [[22, 4], [22, 96]] }, { pts: [[80, 4], [80, 96]] }, { pts: [[22, 50], [80, 50]] }],
+        I: [{ pts: [[50, 4], [50, 96]] }],
+        J: [{ pts: [[68, 4], [68, 66]] }, { pts: [[68, 66], [66, 88], [46, 98], [24, 88]], curve: true }],
+        K: [{ pts: [[22, 4], [22, 96]] }, { pts: [[80, 4], [22, 52]] }, { pts: [[22, 52], [82, 96]] }],
+        L: [{ pts: [[22, 4], [22, 96]] }, { pts: [[22, 96], [80, 96]] }],
+        M: [{ pts: [[14, 96], [14, 4], [50, 58], [86, 4], [86, 96]], curve: false }],
+        N: [{ pts: [[18, 96], [18, 4], [84, 96], [84, 4]], curve: false }],
+        O: [{ pts: [[50, 4], [80, 13], [94, 50], [80, 88], [50, 98], [20, 88], [6, 50], [20, 13], [50, 4]], curve: true }],
+        P: [{ pts: [[22, 4], [22, 96]] }, { pts: [[22, 4], [60, 4], [80, 26], [60, 48], [22, 48]], curve: true }],
+        Q: [{ pts: [[50, 4], [80, 13], [94, 50], [80, 88], [50, 98], [20, 88], [6, 50], [20, 13], [50, 4]], curve: true }, { pts: [[58, 78], [92, 100]] }],
+        R: [{ pts: [[22, 4], [22, 96]] }, { pts: [[22, 4], [60, 4], [80, 26], [60, 48], [22, 48]], curve: true }, { pts: [[42, 48], [86, 96]] }],
+        S: [{ pts: [[80, 18], [50, 4], [20, 20], [30, 46], [70, 54], [80, 80], [50, 97], [20, 86]], curve: true }],
+        T: [{ pts: [[16, 4], [84, 4]] }, { pts: [[50, 4], [50, 96]] }],
+        U: [{ pts: [[20, 4], [20, 60], [35, 92], [65, 92], [80, 60], [80, 4]], curve: true }],
+        V: [{ pts: [[14, 4], [50, 96], [86, 4]], curve: false }],
+        W: [{ pts: [[8, 4], [28, 96], [50, 40], [72, 96], [92, 4]], curve: false }],
+        X: [{ pts: [[16, 4], [84, 96]] }, { pts: [[84, 4], [16, 96]] }],
+        Y: [{ pts: [[14, 4], [50, 52]] }, { pts: [[86, 4], [50, 52]] }, { pts: [[50, 52], [50, 96]] }],
+        Z: [{ pts: [[16, 4], [84, 4], [16, 96], [84, 96]], curve: false }],
+        '0': [{ pts: [[50, 4], [78, 13], [92, 50], [78, 88], [50, 98], [22, 88], [8, 50], [22, 13], [50, 4]], curve: true }],
+        '1': [{ pts: [[34, 20], [50, 4], [50, 96]], curve: false }],
+        '2': [{ pts: [[18, 24], [32, 4], [64, 4], [82, 22], [74, 44], [18, 92]], curve: true }, { pts: [[18, 96], [84, 96]] }],
+        '3': [{ pts: [[18, 16], [46, 4], [74, 20], [66, 44], [38, 48]], curve: true }, { pts: [[38, 50], [70, 54], [76, 80], [44, 98], [18, 86]], curve: true }],
+        '4': [{ pts: [[66, 4], [16, 68]] }, { pts: [[16, 68], [88, 68]] }, { pts: [[68, 20], [68, 98]] }],
+        '5': [{ pts: [[78, 4], [20, 4], [20, 46]], curve: false }, { pts: [[20, 46], [56, 42], [82, 60], [68, 92], [28, 97]], curve: true }],
+        '6': [{ pts: [[76, 10], [44, 4], [18, 34], [12, 68], [24, 92], [52, 98], [78, 82], [74, 58], [46, 50], [22, 62]], curve: true }],
+        '7': [{ pts: [[16, 4], [86, 4], [38, 96]], curve: false }],
+        '8': [{ pts: [[50, 4], [72, 14], [72, 34], [50, 44], [28, 34], [28, 14], [50, 4]], curve: true },
+        { pts: [[50, 46], [78, 58], [78, 84], [50, 98], [22, 84], [22, 58], [50, 46]], curve: true }],
+        '9': [{ pts: [[50, 4], [72, 10], [78, 26], [70, 42], [50, 48], [30, 42], [22, 26], [28, 10], [50, 4]], curve: true }, { pts: [[76, 26], [70, 64], [48, 98]], curve: true }]
+      };
+
+      const STROKES_LOWER = {
+        a: [{ pts: [[78, 64], [54, 54], [32, 92], [54, 128], [78, 112]], curve: true }, { pts: [[80, 64], [80, 128]] }],
+        b: [{ pts: [[18, 10], [18, 130]] }, { pts: [[18, 82], [46, 74], [66, 96], [62, 118], [38, 130], [18, 128]], curve: true }],
+        c: [{ pts: [[76, 66], [52, 56], [30, 92], [52, 126], [76, 114]], curve: true }],
+        d: [{ pts: [[70, 66], [46, 56], [26, 92], [46, 126], [70, 116], [70, 66]], curve: true }, { pts: [[70, 10], [70, 130]] }],
+        e: [{ pts: [[30, 96], [76, 96], [70, 68], [42, 58], [26, 84], [36, 116], [62, 128], [78, 112]], curve: true }],
+        f: [{ pts: [[62, 20], [46, 10], [34, 26], [34, 130]], curve: true }, { pts: [[20, 70], [56, 70]] }],
+        g: [{ pts: [[74, 80], [54, 66], [30, 80], [30, 108], [54, 124], [74, 110], [74, 80]], curve: true }, { pts: [[74, 86], [74, 140], [58, 160], [34, 158]], curve: true }],
+        h: [{ pts: [[22, 10], [22, 130]] }, { pts: [[22, 86], [40, 68], [62, 72], [68, 96], [68, 130]], curve: true }],
+        i: [{ pts: [[50, 58], [50, 130]] }],
+        j: [{ pts: [[64, 58], [64, 110], [62, 138], [46, 150], [28, 140]], curve: true }],
+        k: [{ pts: [[22, 10], [22, 130]] }, { pts: [[64, 66], [22, 100]] }, { pts: [[22, 100], [68, 130]] }],
+        l: [{ pts: [[50, 10], [50, 130]] }],
+        m: [{ pts: [[16, 130], [16, 64], [33, 54], [50, 66], [50, 130], [50, 66], [67, 54], [84, 64], [84, 130]], curve: true }],
+        n: [{ pts: [[18, 130], [18, 64], [36, 54], [54, 66], [54, 130]], curve: true }],
+        o: [{ pts: [[54, 58], [76, 68], [80, 94], [68, 120], [46, 128], [26, 116], [22, 90], [34, 64], [54, 58]], curve: true }],
+        p: [{ pts: [[20, 58], [20, 160]] }, { pts: [[20, 62], [48, 56], [66, 76], [66, 98], [48, 116], [20, 112]], curve: true }],
+        q: [{ pts: [[62, 58], [38, 58], [22, 80], [22, 104], [38, 124], [62, 124], [70, 104], [70, 80], [62, 58]], curve: true }, { pts: [[68, 80], [68, 158], [80, 162]], curve: true }],
+        r: [{ pts: [[22, 58], [22, 130]] }, { pts: [[22, 72], [38, 58], [54, 64]], curve: true }],
+        s: [{ pts: [[74, 68], [54, 58], [30, 70], [38, 90], [62, 96], [70, 116], [46, 128], [24, 118]], curve: true }],
+        t: [{ pts: [[38, 20], [38, 116], [46, 128], [60, 124]], curve: true }, { pts: [[20, 66], [58, 66]] }],
+        u: [{ pts: [[20, 58], [20, 104], [36, 124], [54, 124], [68, 106], [68, 58]], curve: true }],
+        v: [{ pts: [[18, 58], [50, 128], [82, 58]], curve: false }],
+        w: [{ pts: [[10, 58], [28, 128], [50, 80], [72, 128], [90, 58]], curve: false }],
+        x: [{ pts: [[20, 58], [74, 128]] }, { pts: [[74, 58], [20, 128]] }],
+        y: [{ pts: [[18, 58], [50, 100]] }, { pts: [[82, 58], [50, 100], [36, 140], [20, 152]], curve: true }],
+        z: [{ pts: [[20, 60], [76, 60], [20, 128], [76, 128]], curve: false }]
+      };
+      const DECOR = { i: [[50, 34]], j: [[64, 30]] };
+
+      const UPPER = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+      const LOWER = [..."abcdefghijklmnopqrstuvwxyz"];
+      const DIGITS = [..."0123456789"];
+      const ITEMS = [
+        ...UPPER.map(ch => ({ ch, kind: 'letter' })),
+        ...LOWER.map(ch => ({ ch, kind: 'lower' })),
+        ...DIGITS.map(ch => ({ ch, kind: 'number' }))
+      ];
+      const WORDS = ['CAT', 'DOG', 'SUN', 'HAT', 'PIG', 'BUS', 'FOX', 'BEE', 'MAP', 'RUN', 'TOP', 'BAT'];
+      const NUM100 = Array.from({ length: 100 }, (_, i) => String(i + 1));
+
+      // one everyday object per letter, shown + spoken on completion ("A is for Apple")
+      const OBJECTS = {
+        a: ['🍎', 'Apple'], b: ['⚽', 'Ball'], c: ['🐱', 'Cat'], d: ['🐶', 'Dog'], e: ['🐘', 'Elephant'],
+        f: ['🐟', 'Fish'], g: ['🍇', 'Grapes'], h: ['🎩', 'Hat'], i: ['🍦', 'Ice Cream'], j: ['🧃', 'Juice'],
+        k: ['🪁', 'Kite'], l: ['🦁', 'Lion'], m: ['🐵', 'Monkey'], n: ['👃', 'Nose'], o: ['🍊', 'Orange'],
+        p: ['🐷', 'Pig'], q: ['👑', 'Queen'], r: ['🐰', 'Rabbit'], s: ['☀️', 'Sun'], t: ['🐯', 'Tiger'],
+        u: ['☂️', 'Umbrella'], v: ['🎻', 'Violin'], w: ['🍉', 'Watermelon'], x: ['🩻', 'X-ray'],
+        y: ['🪀', 'Yo-yo'], z: ['🦓', 'Zebra']
+      };
+
+      // simple drawing prompts for Free Draw mode, so it has a goal instead of being blank
+      const FREE_PROMPTS = [
+        ['☀️', 'Sun'], ['⭐', 'Star'], ['🌸', 'Flower'], ['🏠', 'House'], ['🐟', 'Fish'],
+        ['🦋', 'Butterfly'], ['🌈', 'Rainbow'], ['🎈', 'Balloon'], ['🌳', 'Tree'], ['⛵', 'Boat'],
+        ['❤️', 'Heart'], ['☁️', 'Cloud'], ['⛄', 'Snowman'], ['🐦', 'Bird']
+      ];
+
+      const BOX = { x0: Wc * 0.20, x1: Wc * 0.80, y0: Hc * 0.07, y1: Hc * 0.90 };
+      const BASE_CORRIDOR = 28, WORD_CORRIDOR = 20;
+      const BUFFER_FACTOR = 1.6; // how much wider the forgiving "don't erase my ink" zone is than the strict scoring corridor
+
+      function mapPointIn(layout, x, y) { return { x: layout.x0 + (x / 100) * (layout.x1 - layout.x0), y: layout.y0 + (y / 170) * (layout.y1 - layout.y0) }; }
+      function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
+
+      function sampleUniformPolyline(pts, n) {
+        const segLen = []; let total = 0;
+        for (let i = 1; i < pts.length; i++) { const d = dist(pts[i - 1], pts[i]); segLen.push(d); total += d; }
+        const out = [pts[0]]; let segIdx = 0, acc = 0;
+        for (let k = 1; k <= n; k++) {
+          const target = total * k / n;
+          while (segIdx < segLen.length - 1 && acc + segLen[segIdx] < target) { acc += segLen[segIdx]; segIdx++; }
+          const t = segLen[segIdx] > 0 ? (target - acc) / segLen[segIdx] : 0;
+          const a = pts[segIdx], b = pts[segIdx + 1];
+          out.push({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t });
+        }
+        return out;
+      }
+      function catmullRomPoint(p0, p1, p2, p3, t) {
+        const t2 = t * t, t3 = t2 * t;
+        return {
+          x: 0.5 * ((2 * p1.x) + (-p0.x + p2.x) * t + (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 + (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3),
+          y: 0.5 * ((2 * p1.y) + (-p0.y + p2.y) * t + (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 + (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3)
+        };
+      }
+      function sampleCatmullRom(pts, n) {
+        const ext = [pts[0], ...pts, pts[pts.length - 1]];
+        const segs = pts.length - 1, out = [];
+        for (let k = 0; k <= n; k++) {
+          const u = k / n * segs;
+          let si = Math.floor(u); if (si >= segs) si = segs - 1;
+          const t = u - si;
+          out.push(catmullRomPoint(ext[si], ext[si + 1], ext[si + 2], ext[si + 3], t));
+        }
+        return out;
+      }
+      function pickIndicesByArc(fine, count) {
+        const cum = [0];
+        for (let i = 1; i < fine.length; i++) cum.push(cum[i - 1] + dist(fine[i - 1], fine[i]));
+        const total = cum[cum.length - 1] || 1;
+        const idxs = [];
+        for (let k = 0; k < count; k++) {
+          const target = total * k / (count - 1);
+          let idx = 0; while (idx < cum.length - 1 && cum[idx] < target) idx++;
+          idxs.push(idx);
+        }
+        return idxs;
+      }
+      function fineFor(pts, curveFlag) {
+        return (curveFlag === false || pts.length === 2) ? sampleUniformPolyline(pts, 80) : sampleCatmullRom(pts, 80);
+      }
+      function checkpointsFromStrokes(strokes) {
+        const out = [];
+        strokes.forEach((st, si) => {
+          let total = 0;
+          for (let i = 1; i < st.fine.length; i++) total += dist(st.fine[i - 1], st.fine[i]);
+          const count = Math.max(2, Math.min(5, Math.round(total / 55)));
+          const idxs = pickIndicesByArc(st.fine, count);
+          idxs.forEach((fi, k) => {
+            const p = st.fine[fi];
+            out.push({ x: p.x, y: p.y, strokeIdx: si, isStart: k === 0, isEnd: k === idxs.length - 1 });
+          });
+        });
+        return out;
+      }
+      function maskFromStrokes(strokes, corridor) {
+        const off = document.createElement('canvas'); off.width = Wc; off.height = Hc;
+        const octx = off.getContext('2d');
+        octx.lineJoin = 'round'; octx.lineCap = 'round'; octx.lineWidth = corridor; octx.strokeStyle = '#fff';
+        strokes.forEach(st => {
+          octx.beginPath();
+          st.fine.forEach((p, i) => i === 0 ? octx.moveTo(p.x, p.y) : octx.lineTo(p.x, p.y));
+          octx.stroke();
+        });
+        const img = octx.getImageData(0, 0, Wc, Hc).data;
+        const mask = new Uint8Array(Wc * Hc);
+        for (let i = 0; i < Wc * Hc; i++) if (img[i * 4 + 3] > 40) mask[i] = 1;
+        return { mask, canvas: off };
+      }
+
+      const canvas = document.getElementById('trace');
+      const ink = document.getElementById('ink');
+      const cp = document.getElementById('cp');
+      const fx = document.getElementById('fx');
+      const dpr = window.devicePixelRatio || 1;
+      [canvas, ink, cp, fx].forEach(c => { c.width = Wc * dpr; c.height = Hc * dpr; });
+      const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr);
+      const inkCtx = ink.getContext('2d'); inkCtx.scale(dpr, dpr);
+      const cpCtx = cp.getContext('2d'); cpCtx.scale(dpr, dpr);
+      const fxCtx = fx.getContext('2d'); fxCtx.scale(dpr, dpr);
+
+      const plaque = document.getElementById('plaque');
+      const totalsEl = document.getElementById('totals');
+      const srStatus = document.getElementById('srStatus');
+      const celebrateEl = document.getElementById('celebrate');
+      const celebrateMsg = document.getElementById('celebrateMsg');
+      const celebrateStars = document.getElementById('celebrateStars');
+      const celebrateObject = document.getElementById('celebrateObject');
+      const objLetter = document.getElementById('objLetter');
+      const objEmoji = document.getElementById('objEmoji');
+      const objText = document.getElementById('objText');
+      const nudgeEl = document.getElementById('nudge');
+      const hearBtn = document.getElementById('hearBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextArrow = document.getElementById('nextArrow');
+      const pulseRing = document.getElementById('pulseRing');
+
+      // ---------- chalk-dust texture (built once) ----------
+      const noiseTile = document.createElement('canvas');
+      noiseTile.width = 48; noiseTile.height = 48;
+      (function () {
+        const nctx = noiseTile.getContext('2d');
+        const img = nctx.createImageData(48, 48);
+        for (let i = 0; i < img.data.length; i += 4) {
+          const v = Math.random() * 255;
+          img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
+          img.data[i + 3] = Math.random() * 40;
+        }
+        nctx.putImageData(img, 0, 0);
+      })();
+      const noisePattern = ctx.createPattern(noiseTile, 'repeat');
+
+      function drawBoardBackground(c) {
+        c.clearRect(0, 0, Wc, Hc);
+        const g = c.createLinearGradient(0, 0, 0, Hc);
+        g.addColorStop(0, '#24392f'); g.addColorStop(1, '#182b22');
+        c.fillStyle = g; c.fillRect(0, 0, Wc, Hc);
+        const vg = c.createRadialGradient(Wc / 2, Hc * 0.42, Hc * 0.15, Wc / 2, Hc * 0.42, Hc * 0.75);
+        vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.35)');
+        c.fillStyle = vg; c.fillRect(0, 0, Wc, Hc);
+        c.save(); c.globalAlpha = 0.5; c.fillStyle = noisePattern; c.fillRect(0, 0, Wc, Hc); c.restore();
+      }
+
+      // ---------- glyph build + cache ----------
+      const glyphCache = new Map();
+      function buildGlyph(ch) {
+        if (glyphCache.has(ch)) return glyphCache.get(ch);
+        const isCap = !!STROKES[ch];
+        const raw = isCap ? STROKES[ch] : STROKES_LOWER[ch];
+        const scaleY = isCap ? 1.3 : 1;
+        const strokes = raw.map(s => {
+          const mapped = s.pts.map(([x, y]) => mapPointIn(BOX, x, y * scaleY));
+          return { fine: fineFor(mapped, s.curve) };
+        });
+        const decorRaw = !isCap && DECOR[ch] ? DECOR[ch] : [];
+        const decor = decorRaw.map(([x, y]) => mapPointIn(BOX, x, y));
+        const { mask, canvas: maskCanvas } = maskFromStrokes(strokes, BASE_CORRIDOR);
+        const { canvas: bufferMaskCanvas } = maskFromStrokes(strokes, BASE_CORRIDOR * BUFFER_FACTOR);
+        const checkpoints = checkpointsFromStrokes(strokes);
+        const glyph = { ch, strokes, mask, maskCanvas, bufferMaskCanvas, checkpoints, decor, corridor: BASE_CORRIDOR, hitR: BASE_CORRIDOR * 0.78, startR: BASE_CORRIDOR * 1.15 };
+        glyphCache.set(ch, glyph);
+        return glyph;
+      }
+
+      function buildWordGlyph(word) {
+        const gap = 16, n = word.length;
+        const totalUnits = n * 100 + (n - 1) * gap;
+        const wx0 = Wc * 0.06, wx1 = Wc * 0.94;
+        const pxPerUnit = (wx1 - wx0) / totalUnits;
+        let allStrokes = [], allCheckpoints = [];
+        [...word].forEach((ch, li) => {
+          const x0 = wx0 + li * (100 + gap) * pxPerUnit;
+          const x1 = x0 + 100 * pxPerUnit;
+          const layout = { x0, x1, y0: BOX.y0, y1: BOX.y1 };
+          const strokes = STROKES[ch].map(s => {
+            const mapped = s.pts.map(([x, y]) => mapPointIn(layout, x, y * 1.3));
+            return { fine: fineFor(mapped, s.curve) };
+          });
+          strokes.forEach(st => allStrokes.push(st));
+        });
+        allCheckpoints = checkpointsFromStrokes(allStrokes).map((c, i) => c);
+        // strokeIdx from checkpointsFromStrokes is per-call local; recompute continuous numbering is implicit via array order
+        const { mask, canvas: maskCanvas } = maskFromStrokes(allStrokes, WORD_CORRIDOR);
+        const { canvas: bufferMaskCanvas } = maskFromStrokes(allStrokes, WORD_CORRIDOR * BUFFER_FACTOR);
+        return { ch: word, strokes: allStrokes, mask, maskCanvas, bufferMaskCanvas, checkpoints: allCheckpoints, decor: [], corridor: WORD_CORRIDOR, hitR: WORD_CORRIDOR * 0.85, startR: WORD_CORRIDOR * 1.3 };
+      }
+
+      function strokePath(c, fine) {
+        c.beginPath();
+        fine.forEach((p, i) => i === 0 ? c.moveTo(p.x, p.y) : c.lineTo(p.x, p.y));
+        c.stroke();
+      }
+
+      function drawGuide(g) {
+        drawBoardBackground(ctx);
+        // the wider forgiveness zone, shown as a soft transparent shaded halo so the
+        // child can see how much slack they have before ink gets clipped away
+        if (g.bufferMaskCanvas) {
+          ctx.save();
+          ctx.globalAlpha = 0.13;
+          ctx.drawImage(g.bufferMaskCanvas, 0, 0, Wc, Hc);
+          ctx.restore();
+        }
+        ctx.save();
+        ctx.globalAlpha = 0.32; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+        ctx.lineWidth = g.corridor; ctx.strokeStyle = '#f5f0e6';
+        g.strokes.forEach(st => strokePath(ctx, st.fine));
+        ctx.restore();
+        ctx.save();
+        ctx.globalAlpha = 0.65; ctx.setLineDash([9, 7]); ctx.lineWidth = Math.max(2.4, g.corridor * 0.12);
+        ctx.strokeStyle = '#ffffff';
+        g.strokes.forEach(st => strokePath(ctx, st.fine));
+        ctx.restore();
+        if (g.decor && g.decor.length) {
+          ctx.save(); ctx.globalAlpha = 0.55; ctx.fillStyle = '#f5f0e6';
+          g.decor.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, g.corridor * 0.32, 0, Math.PI * 2); ctx.fill(); });
+          ctx.restore();
+        }
+      }
+
+      function drawDot(c, x, y, r, fill, stroke, lw) {
+        c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2);
+        if (fill) { c.fillStyle = fill; c.fill(); }
+        if (stroke) { c.lineWidth = lw || 2; c.strokeStyle = stroke; c.stroke(); }
+      }
+
+      function renderCheckpoints(g, cpIndex) {
+        cpCtx.clearRect(0, 0, Wc, Hc);
+        g.checkpoints.forEach((c, i) => {
+          const num = i + 1;
+          cpCtx.save();
+          if (i < cpIndex) {
+            drawDot(cpCtx, c.x, c.y, 9, 'rgba(76,216,138,0.9)', 'rgba(18,32,26,0.4)', 1.5);
+            cpCtx.fillStyle = '#12201a';
+          } else if (i === cpIndex) {
+            if (c.isStart && c.strokeIdx > 0) drawDot(cpCtx, c.x, c.y, 13, null, 'rgba(255,183,3,0.55)', 2);
+            drawDot(cpCtx, c.x, c.y, 10.5, '#ffb703', 'rgba(107,70,0,0.5)', 1.5);
+            cpCtx.fillStyle = '#6b4600';
+          } else {
+            drawDot(cpCtx, c.x, c.y, 8, 'rgba(255,255,255,0.14)', 'rgba(245,240,230,0.55)', 1.5);
+            cpCtx.fillStyle = 'rgba(245,240,230,0.85)';
+          }
+          cpCtx.font = "700 9px 'Quicksand', sans-serif";
+          cpCtx.textAlign = 'center'; cpCtx.textBaseline = 'middle';
+          cpCtx.fillText(String(num), c.x, c.y + 0.5);
+          cpCtx.restore();
+        });
+      }
+
+      function positionPulseRing(c) {
+        if (!c) { pulseRing.classList.add('hidden'); return; }
+        pulseRing.classList.remove('hidden');
+        pulseRing.style.left = (c.x / Wc * 100) + '%';
+        pulseRing.style.top = (c.y / Hc * 100) + '%';
+      }
+
+      // ---------- progress + mastery ----------
+      function loadProgress() { try { return JSON.parse(localStorage.getItem('chalkTraceProgress') || '{}'); } catch (e) { return {}; } }
+      function saveProgress(ch, stars) {
+        try {
+          const p = loadProgress();
+          if (!p[ch] || p[ch] < stars) { p[ch] = stars; localStorage.setItem('chalkTraceProgress', JSON.stringify(p)); }
+        } catch (e) { }
+        renderShelfStars();
+      }
+      function renderShelfStars() {
+        const p = loadProgress();
+        document.querySelectorAll('.tile[data-ch]').forEach(t => {
+          const stars = p[t.dataset.ch] || 0;
+          t.dataset.stars = String(stars);
+          const pip = t.querySelector('.pips');
+          if (pip) pip.textContent = '★'.repeat(stars) + '☆'.repeat(3 - stars);
+        });
+      }
+
+      // ---------- lifetime stars-collected counter (rewarded per checkpoint) ----------
+      let starsCollected = 0;
+      function loadStarsCollected() { try { return parseInt(localStorage.getItem('chalkTraceStarsCollected') || '0', 10) || 0; } catch (e) { return 0; } }
+      function saveStarsCollected(n) { try { localStorage.setItem('chalkTraceStarsCollected', String(n)); } catch (e) { } }
+      function updateStarsBadge(bump) {
+        totalsEl.textContent = `⭐ ${starsCollected}`;
+        if (bump) { totalsEl.classList.remove('bump'); void totalsEl.offsetWidth; totalsEl.classList.add('bump'); }
+      }
+      function addStars(n) {
+        starsCollected += n;
+        saveStarsCollected(starsCollected);
+        updateStarsBadge(true);
+      }
+      function flyStarToCounter(cx, cy) {
+        if (reduceMotion) return;
+        const rect = canvas.getBoundingClientRect();
+        const startX = rect.left + (cx / Wc) * rect.width;
+        const startY = rect.top + (cy / Hc) * rect.height;
+        const tRect = totalsEl.getBoundingClientRect();
+        const endX = tRect.left + tRect.width / 2, endY = tRect.top + tRect.height / 2;
+        const el = document.createElement('div');
+        el.className = 'flying-star'; el.textContent = '⭐';
+        el.style.left = startX + 'px'; el.style.top = startY + 'px';
+        document.body.appendChild(el);
+        requestAnimationFrame(() => {
+          el.style.left = endX + 'px'; el.style.top = endY + 'px';
+          el.style.transform = 'translate(-50%,-50%) scale(0.3)';
+          el.style.opacity = '0';
+        });
+        setTimeout(() => el.remove(), 650);
+      }
+      function popTile(el) { el.classList.remove('tile-pop'); void el.offsetWidth; el.classList.add('tile-pop'); }
+
+      // ---------- shelf build ----------
+      function makeTile(label, key, extraClass) {
+        const btn = document.createElement('button');
+        btn.className = 'tile' + (extraClass ? ' ' + extraClass : '');
+        btn.dataset.ch = key;
+        btn.setAttribute('aria-current', 'false');
+        btn.innerHTML = `<span>${label}</span><span class="pips"></span>`;
+        return btn;
+      }
+      const shelfUpper = document.getElementById('shelfUpper');
+      const shelfLower = document.getElementById('shelfLower');
+      const shelfNumbers = document.getElementById('shelfNumbers');
+      const shelfWords = document.getElementById('shelfWords');
+      const shelfNum100 = document.getElementById('shelfNum100');
+      ITEMS.forEach((item, idx) => {
+        const btn = makeTile(item.ch, item.ch);
+        btn.dataset.idx = String(idx);
+        btn.addEventListener('click', () => { popTile(btn); currentTrace = idx; loadItem(); });
+        (item.kind === 'letter' ? shelfUpper : item.kind === 'lower' ? shelfLower : shelfNumbers).appendChild(btn);
+      });
+      WORDS.forEach((w, idx) => {
+        const btn = makeTile(w, w, 'wordtile');
+        btn.dataset.widx = String(idx);
+        btn.addEventListener('click', () => { popTile(btn); currentWord = idx; loadItem(); });
+        shelfWords.appendChild(btn);
+      });
+      NUM100.forEach((numStr, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'tile numtile';
+        btn.dataset.nidx = String(idx);
+        btn.setAttribute('aria-current', 'false');
+        btn.innerHTML = `<span>${numStr}</span>`;
+        btn.addEventListener('click', () => { popTile(btn); currentNum100 = idx; loadItem(); });
+        shelfNum100.appendChild(btn);
+      });
+      renderShelfStars();
+      starsCollected = loadStarsCollected();
+      updateStarsBadge(false);
+
+      function updateShelfActive() {
+        document.querySelectorAll('#shelfUpper .tile, #shelfLower .tile, #shelfNumbers .tile').forEach(t =>
+          t.setAttribute('aria-current', String(Number(t.dataset.idx) === currentTrace)));
+        const active = document.querySelector(`#shelfUpper .tile[data-idx="${currentTrace}"], #shelfLower .tile[data-idx="${currentTrace}"], #shelfNumbers .tile[data-idx="${currentTrace}"]`);
+        if (active) active.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+      }
+      function updateWordShelfActive() {
+        document.querySelectorAll('#shelfWords .tile').forEach(t => t.setAttribute('aria-current', String(Number(t.dataset.widx) === currentWord)));
+        const active = document.querySelector(`#shelfWords .tile[data-widx="${currentWord}"]`);
+        if (active) active.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+      }
+      function updateNum100ShelfActive() {
+        document.querySelectorAll('#shelfNum100 .tile').forEach(t => t.setAttribute('aria-current', String(Number(t.dataset.nidx) === currentNum100)));
+        const active = document.querySelector(`#shelfNum100 .tile[data-nidx="${currentNum100}"]`);
+        if (active) active.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+      }
+
+      // ---------- audio ----------
+      let actx = null;
+      function ensureAudio() {
+        if (!actx) { try { actx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { } }
+        if (actx && actx.state === 'suspended') actx.resume();
+      }
+      function playTone(freq, t0, dur, peak) {
+        if (!actx) return;
+        const o = actx.createOscillator(), g = actx.createGain();
+        o.type = 'sine'; o.frequency.value = freq; o.connect(g); g.connect(actx.destination);
+        const now = actx.currentTime + t0;
+        g.gain.setValueAtTime(0.0001, now);
+        g.gain.linearRampToValueAtTime(peak, now + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.001, now + dur);
+        o.start(now); o.stop(now + dur + 0.03);
+      }
+      function playChime(stars) {
+        ensureAudio();
+        const notes = stars === 3 ? [523.25, 659.25, 783.99, 1046.5] : stars === 2 ? [523.25, 659.25, 783.99] : [523.25, 659.25];
+        notes.forEach((f, i) => playTone(f, i * 0.11, 0.3, 0.16));
+      }
+      function playTick() { ensureAudio(); playTone(880, 0, 0.08, 0.06); }
+
+      // ---------- speech (kid-toned, with a UK / US / India accent picker) ----------
+      const canSpeak = 'speechSynthesis' in window;
+      const ACCENT_LANGS = { us: ['en-us'], uk: ['en-gb'], in: ['en-in'] };
+      let voicesList = [], currentAccent = 'us';
+      try { currentAccent = localStorage.getItem('chalkTraceAccent') || 'us'; } catch (e) { }
+
+      function refreshVoices() { if (canSpeak) voicesList = speechSynthesis.getVoices() || []; }
+      if (canSpeak) {
+        refreshVoices();
+        if ('onvoiceschanged' in speechSynthesis) speechSynthesis.addEventListener('voiceschanged', refreshVoices);
+      }
+      function scoreVoice(v) {
+        let s = 0;
+        if (/kid|child|junior/i.test(v.name)) s += 10;
+        if (/female|zira|samantha|salli|amy|emma|joanna|kendra|raveena|priya|heera|kajal/i.test(v.name)) s += 5;
+        if (v.localService) s += 1;
+        return s;
+      }
+      function bestVoiceFor(accent) {
+        const langs = ACCENT_LANGS[accent] || ACCENT_LANGS.us;
+        let candidates = voicesList.filter(v => v.lang && langs.some(l => v.lang.toLowerCase().startsWith(l)));
+        if (!candidates.length) candidates = voicesList.filter(v => v.lang && v.lang.toLowerCase().startsWith('en'));
+        if (!candidates.length) return null;
+        return candidates.slice().sort((a, b) => scoreVoice(b) - scoreVoice(a))[0];
+      }
+      // iOS/Safari (and some Chrome builds) only allow speechSynthesis to start
+      // reliably when it's primed by a real user gesture; a silent "warm-up"
+      // utterance on the very first tap unlocks it for every speak() call after,
+      // including ones fired later from a timer (like the completion voiceover).
+      let speechUnlocked = false;
+      function unlockSpeech() {
+        if (speechUnlocked || !canSpeak) return;
+        speechUnlocked = true;
+        try { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); } catch (e) { }
+      }
+      document.addEventListener('pointerdown', unlockSpeech, { once: true, capture: true });
+
+      function speak(text) {
+        if (!canSpeak) return;
+        try {
+          if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
+          const u = new SpeechSynthesisUtterance(text);
+          u.rate = 0.88; u.pitch = 1.4; // brighter, more child-like tone
+          const v = bestVoiceFor(currentAccent);
+          if (v) u.voice = v;
+          // Chrome can silently drop a speak() issued in the same tick as cancel();
+          // deferring one tick is a well-known workaround.
+          setTimeout(() => { try { speechSynthesis.speak(u); } catch (e) { } }, 0);
+        } catch (e) { }
+      }
+      function speakItem(item) { speak(`Trace the ${item.kind === 'lower' ? 'small letter' : item.kind} ${item.ch}`); }
+      function speakWord(w) { speak(`Trace the word ${w}`); }
+      if (!canSpeak) hearBtn.style.display = 'none';
+
+      document.querySelectorAll('.accent-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentAccent = btn.dataset.accent;
+          try { localStorage.setItem('chalkTraceAccent', currentAccent); } catch (e) { }
+          document.querySelectorAll('.accent-tab').forEach(b => {
+            const active = b === btn;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-pressed', String(active));
+          });
+          speak('Hello!');
+        });
+      });
+      document.querySelectorAll('.accent-tab').forEach(b => {
+        const active = b.dataset.accent === currentAccent;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-pressed', String(active));
+      });
+
+      // ---------- handedness (mirrors control layout only — real handwriting
+      // curricula teach the same letterforms and stroke order to left- and
+      // right-handed children, so the trace sequence itself never changes) ----------
+      let handedness = 'right';
+      try { handedness = localStorage.getItem('chalkTraceHand') || 'right'; } catch (e) { }
+      function applyHandedness() {
+        document.body.classList.toggle('lefty', handedness === 'left');
+        document.querySelectorAll('.hand-tab').forEach(b => {
+          const active = b.dataset.hand === handedness;
+          b.classList.toggle('active', active);
+          b.setAttribute('aria-pressed', String(active));
+        });
+      }
+      document.querySelectorAll('.hand-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          handedness = btn.dataset.hand;
+          try { localStorage.setItem('chalkTraceHand', handedness); } catch (e) { }
+          applyHandedness();
+        });
+      });
+      applyHandedness();
+
+      // ---------- sound guide (audio + haptic distance cue for blind/low-vision
+      // tracing by ear — a hum that rises in pitch near the next dot, and switches
+      // timbre when the finger strays off the path; a flat touchscreen still can't
+      // replace tactile/Braille materials for teaching letterforms, so this is a
+      // supplementary aid, not a full substitute) ----------
+      let soundGuideOn = false;
+      try { soundGuideOn = localStorage.getItem('chalkTraceSoundGuide') === '1'; } catch (e) { }
+      const soundGuideBtn = document.getElementById('soundGuideBtn');
+      function applySoundGuideUI() {
+        soundGuideBtn.classList.toggle('active', soundGuideOn);
+        soundGuideBtn.setAttribute('aria-pressed', String(soundGuideOn));
+      }
+      soundGuideBtn.addEventListener('click', () => {
+        soundGuideOn = !soundGuideOn;
+        try { localStorage.setItem('chalkTraceSoundGuide', soundGuideOn ? '1' : '0'); } catch (e) { }
+        applySoundGuideUI();
+        if (soundGuideOn) speak('Sound guide on.'); else { speak('Sound guide off.'); stopGuideTone(); }
+      });
+      applySoundGuideUI();
+
+      let guideOsc = null, guideGain = null;
+      function startGuideTone() {
+        if (!soundGuideOn) return;
+        ensureAudio();
+        if (!actx || guideOsc) return;
+        guideOsc = actx.createOscillator();
+        guideGain = actx.createGain();
+        guideOsc.type = 'sine';
+        guideGain.gain.value = 0.05;
+        guideOsc.connect(guideGain); guideGain.connect(actx.destination);
+        guideOsc.start();
+      }
+      function updateGuideTone(distance, onTrack) {
+        if (!soundGuideOn || !guideOsc) return;
+        const norm = Math.max(0, Math.min(1, 1 - distance / 140));
+        const freq = 220 + norm * 660;
+        guideOsc.frequency.setTargetAtTime(freq, actx.currentTime, 0.03);
+        guideOsc.type = onTrack ? 'sine' : 'sawtooth';
+        guideGain.gain.setTargetAtTime(onTrack ? 0.05 : 0.03, actx.currentTime, 0.05);
+      }
+      function stopGuideTone() {
+        if (guideOsc) {
+          try { guideOsc.stop(); } catch (e) { }
+          guideOsc.disconnect(); guideGain.disconnect();
+          guideOsc = null; guideGain = null;
+        }
+      }
+
+      // ---------- particles ----------
+      let particles = [], fxRunning = false, lastT = 0;
+      function spawnSparkle(x, y, color) {
+        if (reduceMotion) return;
+        for (let i = 0; i < 3; i++) particles.push({ x, y, vx: (Math.random() - 0.5) * 60, vy: (Math.random() - 0.5) * 60 - 20, life: 0.6, color, size: 1.5 + Math.random() * 1.5 });
+        ensureFx();
+      }
+      function spawnRing(x, y, color) {
+        if (reduceMotion) return;
+        particles.push({ x, y, life: 0.4, color, ring: true, size: 6 });
+        ensureFx();
+      }
+      function spawnBurst() {
+        if (reduceMotion) return;
+        for (let i = 0; i < 40; i++) {
+          const color = RESOLVED[COLORS[i % COLORS.length]];
+          particles.push({ x: Wc / 2, y: Hc / 2, vx: (Math.random() - 0.5) * 220, vy: -Math.random() * 220 - 40, life: 1, color, size: 2 + Math.random() * 2.5 });
+        }
+        ensureFx();
+      }
+      function ensureFx() { if (!fxRunning) { fxRunning = true; lastT = performance.now(); requestAnimationFrame(fxLoop); } }
+      function fxLoop(t) {
+        const dt = Math.min(0.05, (t - lastT) / 1000); lastT = t;
+        fxCtx.clearRect(0, 0, Wc, Hc);
+        particles.forEach(p => {
+          if (p.ring) {
+            p.size += 90 * dt; p.life -= dt * 2.2;
+            fxCtx.globalAlpha = Math.max(p.life, 0) * 0.8;
+            fxCtx.strokeStyle = p.color; fxCtx.lineWidth = 2.5;
+            fxCtx.beginPath(); fxCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2); fxCtx.stroke();
+          } else {
+            p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 260 * dt; p.life -= dt * 1.1;
+            fxCtx.globalAlpha = Math.max(p.life, 0);
+            fxCtx.fillStyle = p.color;
+            fxCtx.beginPath(); fxCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2); fxCtx.fill();
+          }
+        });
+        fxCtx.globalAlpha = 1;
+        particles = particles.filter(p => p.life > 0);
+        if (particles.length) requestAnimationFrame(fxLoop); else fxRunning = false;
+      }
+
+      // ---------- state ----------
+      let mode = 'trace', currentTrace = 0, currentWord = 0, currentNum100 = 0;
+      let glyph = null, attempt = null, curColor = COLORS[0], drawing = false, lastPt = null;
+
+      function newAttempt() { return { cpIndex: 0, userTotal: 0, onTrackTotal: 0, midStrokeLifts: 0, completed: false, celebrated: false, exploring: false }; }
+      function currentCorridor() { return glyph ? glyph.corridor : 24; }
+
+      function loadItem() {
+        if (mode === 'trace') {
+          const item = ITEMS[currentTrace];
+          glyph = buildGlyph(item.ch);
+          plaque.textContent = (item.kind === 'letter' ? 'Letter ' : item.kind === 'lower' ? 'small letter ' : 'Number ') + item.ch;
+          updateShelfActive();
+          speakItem(item);
+        } else if (mode === 'words') {
+          const w = WORDS[currentWord];
+          glyph = buildWordGlyph(w);
+          plaque.textContent = 'Word ' + w;
+          updateWordShelfActive();
+          speakWord(w);
+        } else if (mode === 'num100') {
+          const numStr = NUM100[currentNum100];
+          glyph = buildWordGlyph(numStr);
+          plaque.textContent = 'Number ' + numStr;
+          updateNum100ShelfActive();
+          speak(`Trace the number ${numStr}`);
+        }
+        attempt = newAttempt();
+        drawGuide(glyph);
+        inkCtx.clearRect(0, 0, Wc, Hc);
+        renderCheckpoints(glyph, 0);
+        positionPulseRing(glyph.checkpoints[0]);
+        fxCtx.clearRect(0, 0, Wc, Hc);
+        hideCelebration();
+      }
+
+      // ---------- free-draw goal (a rotating prompt so it's not just a blank pad) ----------
+      let currentFreePromptIdx = -1;
+      function rerollFreePrompt() {
+        let idx;
+        do { idx = Math.floor(Math.random() * FREE_PROMPTS.length); } while (idx === currentFreePromptIdx && FREE_PROMPTS.length > 1);
+        currentFreePromptIdx = idx;
+        const [emoji, word] = FREE_PROMPTS[idx];
+        plaque.textContent = `🎯 Draw a ${word}! ${emoji}`;
+        inkCtx.clearRect(0, 0, Wc, Hc);
+        speak(`Let's draw a ${word}!`);
+      }
+
+      function loadFree() {
+        glyph = null; attempt = null;
+        drawBoardBackground(ctx);
+        inkCtx.clearRect(0, 0, Wc, Hc);
+        cpCtx.clearRect(0, 0, Wc, Hc);
+        fxCtx.clearRect(0, 0, Wc, Hc);
+        positionPulseRing(null);
+        hideCelebration();
+        rerollFreePrompt();
+      }
+
+      function toLogical(e) {
+        const rect = canvas.getBoundingClientRect();
+        return { x: (e.clientX - rect.left) * (Wc / rect.width), y: (e.clientY - rect.top) * (Hc / rect.height) };
+      }
+
+      function drawSegment(a, b, colorVar) {
+        const color = RESOLVED[colorVar] || '#ff6b6b';
+        const corridor = currentCorridor();
+        inkCtx.save();
+        inkCtx.strokeStyle = color; inkCtx.lineWidth = corridor * 0.5;
+        inkCtx.lineJoin = 'round'; inkCtx.lineCap = 'round'; inkCtx.globalAlpha = 0.92;
+        inkCtx.beginPath(); inkCtx.moveTo(a.x, a.y); inkCtx.lineTo(b.x, b.y); inkCtx.stroke();
+        if (Math.random() < 0.35) {
+          inkCtx.globalAlpha = 0.25; inkCtx.lineWidth = corridor * 0.22; inkCtx.strokeStyle = '#ffffff';
+          inkCtx.beginPath();
+          inkCtx.moveTo(a.x + (Math.random() - 0.5) * 2, a.y + (Math.random() - 0.5) * 2);
+          inkCtx.lineTo(b.x + (Math.random() - 0.5) * 2, b.y + (Math.random() - 0.5) * 2);
+          inkCtx.stroke();
+        }
+        inkCtx.restore();
+        // mask out ink that landed outside the letter's shape — but only past the
+        // wider buffer zone, not the strict scoring corridor, so a slightly loose
+        // stroke still shows instead of vanishing right at the guide's edge
+        if (glyph && glyph.bufferMaskCanvas) {
+          inkCtx.save();
+          inkCtx.globalCompositeOperation = 'destination-in';
+          inkCtx.drawImage(glyph.bufferMaskCanvas, 0, 0, Wc, Hc);
+          inkCtx.restore();
+        }
+      }
+
+      function processAccuracy(p) {
+        attempt.userTotal++;
+        const gx = Math.round(p.x), gy = Math.round(p.y);
+        if (gx >= 0 && gx < Wc && gy >= 0 && gy < Hc && glyph.mask[gy * Wc + gx]) attempt.onTrackTotal++;
+      }
+
+      function markHit(i) {
+        attempt.cpIndex = i + 1;
+        const hitX = glyph.checkpoints[i].x, hitY = glyph.checkpoints[i].y;
+        spawnSparkle(hitX, hitY, RESOLVED[curColor]);
+        spawnRing(hitX, hitY, RESOLVED[curColor]);
+        flyStarToCounter(hitX, hitY);
+        addStars(1);
+        playTick();
+        if (navigator.vibrate) navigator.vibrate(16);
+        renderCheckpoints(glyph, attempt.cpIndex);
+        if (attempt.cpIndex >= glyph.checkpoints.length) {
+          positionPulseRing(null);
+          onCompleted();
+        } else {
+          positionPulseRing(glyph.checkpoints[attempt.cpIndex]);
+        }
+      }
+
+      function registerHitCheck(p) {
+        while (!attempt.completed) {
+          const t = glyph.checkpoints[attempt.cpIndex];
+          if (!t) break;
+          if (dist(p, t) <= effHitR(glyph)) markHit(attempt.cpIndex); else break;
+        }
+      }
+
+      function showNudge(text) {
+        nudgeEl.textContent = text;
+        nudgeEl.classList.add('show');
+        clearTimeout(showNudge._t);
+        showNudge._t = setTimeout(() => nudgeEl.classList.remove('show'), 1500);
+      }
+
+      const MESSAGES = { 3: ['Perfect!', 'Amazing!', 'Superstar!'], 2: ['Great job!', 'Well done!', 'So good!'], 1: ['Nice try!', 'Good start!', 'Keep it up!'] };
+      function celebrate(stars, obj) {
+        celebrateMsg.textContent = MESSAGES[stars][Math.floor(Math.random() * MESSAGES[stars].length)];
+        celebrateStars.textContent = '★'.repeat(stars) + '☆'.repeat(3 - stars);
+        if (obj) {
+          objLetter.textContent = obj.letter;
+          objEmoji.textContent = obj.emoji;
+          objText.textContent = `${obj.letter.toUpperCase()} is for ${obj.word}`;
+          // force the pop-in animation to replay even if the same letter is retraced back-to-back
+          celebrateObject.hidden = true;
+          void celebrateObject.offsetWidth;
+          celebrateObject.hidden = false;
+        } else {
+          celebrateObject.hidden = true;
+        }
+        celebrateEl.classList.add('show');
+        spawnBurst();
+        srStatus.textContent = `${celebrateMsg.textContent} ${stars} out of 3 stars.` + (obj ? ` ${obj.letter.toUpperCase()} is for ${obj.word}.` : '');
+      }
+      function hideCelebration() { celebrateEl.classList.remove('show'); }
+
+      function onCompleted() {
+        attempt.completed = true;
+        if (attempt.celebrated) return;
+        attempt.celebrated = true;
+        const accuracy = attempt.userTotal ? attempt.onTrackTotal / attempt.userTotal : 1;
+        // Sound Guide tracing is judged by ear, not by eye — pixel-perfect accuracy
+        // isn't the point, so completion itself counts for more toward the rating,
+        // and an imperfect pen-lift (much harder to time without sight) isn't capped.
+        let stars = soundGuideOn
+          ? (accuracy >= 0.5 ? 3 : accuracy >= 0.3 ? 2 : 1)
+          : (accuracy >= 0.75 ? 3 : accuracy >= 0.5 ? 2 : 1);
+        if (attempt.midStrokeLifts > 0 && !soundGuideOn) stars = Math.min(stars, 2);
+        const isSingleLetter = mode === 'trace' && /^[A-Za-z]$/.test(glyph.ch);
+        const objData = isSingleLetter && OBJECTS[glyph.ch.toLowerCase()]
+          ? { letter: glyph.ch, emoji: OBJECTS[glyph.ch.toLowerCase()][0], word: OBJECTS[glyph.ch.toLowerCase()][1] }
+          : null;
+        celebrate(stars, objData);
+        if (mode === 'trace') saveProgress(glyph.ch, stars);
+        addStars(stars * 3);
+        playChime(stars);
+        if (navigator.vibrate) navigator.vibrate([0, 40, 40, 40, 40, 80]);
+        let completionSpeech = null;
+        if (objData) completionSpeech = `${objData.letter} is for ${objData.word}`;
+        else if (mode === 'trace') completionSpeech = `That's the number ${glyph.ch}!`;
+        else if (mode === 'num100') completionSpeech = `You traced ${glyph.ch}!`;
+        else if (mode === 'words') completionSpeech = `You traced the word ${glyph.ch}!`;
+        if (completionSpeech) setTimeout(() => speak(completionSpeech), 650);
+      }
+
+      // ---------- pointer events ----------
+      // Sound Guide widens tolerance a lot — a blind child can't visually confirm
+      // "close enough", so the same physical miss that's fine for a sighted child
+      // needs a much bigger effective target.
+      function effHitR(g) { return soundGuideOn ? g.hitR * 2.2 : g.hitR; }
+      function effStartR(g) { return soundGuideOn ? g.startR * 2.4 : g.startR; }
+
+      canvas.addEventListener('pointerdown', (e) => {
+        ensureAudio();
+        unlockSpeech();
+        const p = toLogical(e);
+        if (mode === 'free') {
+          drawing = true; lastPt = p;
+          try { canvas.setPointerCapture(e.pointerId); } catch (err) { }
+          e.preventDefault();
+          return;
+        }
+        if (!glyph || attempt.completed) return;
+        const target = glyph.checkpoints[attempt.cpIndex];
+        if (!target) return;
+        if (target.isStart) {
+          if (dist(p, target) > effStartR(glyph)) {
+            if (soundGuideOn) {
+              // touchscreens have no "hover" — dragging IS how a blind child explores.
+              // Start a silent search: play the guide tone toward the target and only
+              // begin the real stroke once they land close enough to lock on.
+              attempt.exploring = true;
+              drawing = true; lastPt = p;
+              try { canvas.setPointerCapture(e.pointerId); } catch (err) { }
+              startGuideTone();
+            } else {
+              showNudge(attempt.cpIndex === 0 ? 'Start on the glowing dot 1!' : 'Put your finger back on the glowing dot!');
+            }
+            e.preventDefault();
+            return;
+          }
+          drawing = true; lastPt = p;
+          try { canvas.setPointerCapture(e.pointerId); } catch (err) { }
+          startGuideTone();
+          markHit(attempt.cpIndex);
+        } else {
+          drawing = true; lastPt = p;
+          try { canvas.setPointerCapture(e.pointerId); } catch (err) { }
+          startGuideTone();
+        }
+        e.preventDefault();
+      });
+      canvas.addEventListener('pointermove', (e) => {
+        if (!drawing) return;
+        const p = toLogical(e);
+        if (mode === 'free') { drawSegment(lastPt, p, curColor); lastPt = p; e.preventDefault(); return; }
+        if (attempt.completed) return;
+        if (attempt.exploring) {
+          // searching for the start dot by ear only — no ink, no scoring yet
+          const target = glyph.checkpoints[attempt.cpIndex];
+          if (target) {
+            updateGuideTone(dist(p, target), false);
+            if (dist(p, target) <= effStartR(glyph)) {
+              attempt.exploring = false;
+              lastPt = p;
+              markHit(attempt.cpIndex);
+            }
+          }
+          e.preventDefault();
+          return;
+        }
+        drawSegment(lastPt, p, curColor);
+        processAccuracy(p);
+        registerHitCheck(p);
+        if (soundGuideOn && !attempt.completed) {
+          const target = glyph.checkpoints[attempt.cpIndex];
+          if (target) {
+            const gx = Math.round(p.x), gy = Math.round(p.y);
+            const onTrack = gx >= 0 && gx < Wc && gy >= 0 && gy < Hc && !!glyph.mask[gy * Wc + gx];
+            updateGuideTone(dist(p, target), onTrack);
+          }
+        }
+        lastPt = p;
+        e.preventDefault();
+      });
+      function endStroke() {
+        if (!drawing) return;
+        drawing = false;
+        stopGuideTone();
+        if (mode === 'free') return;
+        if (!glyph || attempt.completed) return;
+        if (attempt.exploring) { attempt.exploring = false; return; }
+        const lastCp = glyph.checkpoints[attempt.cpIndex - 1];
+        if (lastCp && !lastCp.isEnd) {
+          attempt.midStrokeLifts++;
+          showNudge('Try to keep your finger down until the line is done!');
+        }
+      }
+      canvas.addEventListener('pointerup', endStroke);
+      canvas.addEventListener('pointercancel', endStroke);
+      canvas.addEventListener('pointerleave', () => { if (drawing) endStroke(); });
+
+      // ---------- home / menu → draw scene ----------
+      // ITEMS is [26 upper][26 lower][10 digits] in that order (see construction above).
+      const RANGES = { upper: [0, 25], lower: [26, 51], digits: [52, 61] };
+      let topMenu = 'letters', letterCase = 'upper', numberSet = 'digits';
+
+      function showScene(name) {
+        document.getElementById('homeScreen').style.display = name === 'home' ? '' : 'none';
+        document.getElementById('playScreen').style.display = name === 'play' ? '' : 'none';
+      }
+
+      function applyModeChrome() {
+        hearBtn.style.display = (mode !== 'free' && canSpeak) ? '' : 'none';
+        const isFree = mode === 'free';
+        prevBtn.classList.toggle('is-hidden', isFree);
+        nextArrow.classList.toggle('is-hidden', isFree);
+        document.getElementById('freeNewIdeaBtn').classList.toggle('is-hidden', !isFree);
+        document.getElementById('freeDoneBtn').classList.toggle('is-hidden', !isFree);
+      }
+
+      function updateShelfVisibility() {
+        const activeKey = topMenu === 'letters' ? letterCase : topMenu === 'numbers' ? numberSet : topMenu === 'words' ? 'words' : null;
+        const units = { upper: 'unitUpper', lower: 'unitLower', digits: 'unitDigits', words: 'unitWords', count100: 'unitNum100' };
+        Object.entries(units).forEach(([key, id]) => { document.getElementById(id).style.display = key === activeKey ? '' : 'none'; });
+      }
+
+      function updateSubToggles() {
+        document.getElementById('letterCaseToggle').style.display = topMenu === 'letters' ? '' : 'none';
+        document.getElementById('numberSetToggle').style.display = topMenu === 'numbers' ? '' : 'none';
+        document.querySelectorAll('#letterCaseToggle .subtab').forEach(b => b.classList.toggle('active', b.dataset.case === letterCase));
+        document.querySelectorAll('#numberSetToggle .subtab').forEach(b => b.classList.toggle('active', b.dataset.set === numberSet));
+      }
+
+      function openMenu(which) {
+        topMenu = which;
+        if (which === 'letters') { mode = 'trace'; currentTrace = RANGES[letterCase][0]; }
+        else if (which === 'numbers') {
+          if (numberSet === 'digits') { mode = 'trace'; currentTrace = RANGES.digits[0]; }
+          else { mode = 'num100'; }
+        } else if (which === 'words') { mode = 'words'; }
+        else if (which === 'free') { mode = 'free'; }
+        applyModeChrome();
+        updateShelfVisibility();
+        updateSubToggles();
+        showScene('play');
+        if (mode === 'free') loadFree(); else loadItem();
+      }
+      document.querySelectorAll('.menu-card').forEach(card => {
+        card.addEventListener('click', () => { popTile(card); openMenu(card.dataset.menu); });
+      });
+      document.getElementById('backBtn').addEventListener('click', () => {
+        stopGuideTone();
+        if (canSpeak) { try { speechSynthesis.cancel(); } catch (e) { } }
+        showScene('home');
+      });
+      document.querySelectorAll('#letterCaseToggle .subtab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          letterCase = btn.dataset.case;
+          currentTrace = RANGES[letterCase][0];
+          updateShelfVisibility(); updateSubToggles();
+          loadItem();
+        });
+      });
+      document.querySelectorAll('#numberSetToggle .subtab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          numberSet = btn.dataset.set;
+          if (numberSet === 'digits') { mode = 'trace'; currentTrace = RANGES.digits[0]; }
+          else { mode = 'num100'; }
+          applyModeChrome(); updateShelfVisibility(); updateSubToggles();
+          loadItem();
+        });
+      });
+
+      function activeRangeKey() {
+        if (topMenu === 'letters') return letterCase;
+        if (topMenu === 'numbers' && numberSet === 'digits') return 'digits';
+        return null;
+      }
+      function stepItem(delta) {
+        if (mode === 'trace') {
+          const key = activeRangeKey();
+          if (key) {
+            const [start, end] = RANGES[key], len = end - start + 1;
+            currentTrace = start + (((currentTrace - start) + delta) % len + len) % len;
+          } else {
+            currentTrace = (currentTrace + delta + ITEMS.length) % ITEMS.length;
+          }
+          loadItem();
+        } else if (mode === 'words') {
+          currentWord = (currentWord + delta + WORDS.length) % WORDS.length;
+          loadItem();
+        } else if (mode === 'num100') {
+          currentNum100 = (currentNum100 + delta + NUM100.length) % NUM100.length;
+          loadItem();
+        } else if (mode === 'free') {
+          hideCelebration(); rerollFreePrompt();
+        }
+      }
+
+      // ---------- controls ----------
+      document.querySelectorAll('.swatch').forEach(sw => {
+        sw.addEventListener('click', () => {
+          curColor = sw.dataset.color;
+          document.querySelectorAll('.swatch').forEach(s => s.setAttribute('aria-pressed', String(s === sw)));
+        });
+      });
+      document.getElementById('freeNewIdeaBtn').addEventListener('click', () => rerollFreePrompt());
+      document.getElementById('freeDoneBtn').addEventListener('click', () => {
+        celebrate(3, null);
+        addStars(10);
+        playChime(3);
+        if (navigator.vibrate) navigator.vibrate([0, 40, 40, 40, 40, 80]);
+        speak('Beautiful drawing!');
+      });
+      document.getElementById('clearBtn').addEventListener('click', () => {
+        inkCtx.clearRect(0, 0, Wc, Hc);
+        if (mode === 'free') return;
+        attempt = newAttempt();
+        renderCheckpoints(glyph, 0);
+        positionPulseRing(glyph.checkpoints[0]);
+        fxCtx.clearRect(0, 0, Wc, Hc);
+        hideCelebration();
+      });
+      prevBtn.addEventListener('click', () => stepItem(-1));
+      nextArrow.addEventListener('click', () => stepItem(1));
+      document.getElementById('nextBtn').addEventListener('click', () => stepItem(1));
+      hearBtn.addEventListener('click', () => {
+        if (mode === 'trace') speakItem(ITEMS[currentTrace]);
+        else if (mode === 'words') speakWord(WORDS[currentWord]);
+        else if (mode === 'num100') speak(`Trace the number ${NUM100[currentNum100]}`);
+      });
+
+      // ---------- boot ----------
+      function boot() { showScene('home'); }
+      if (document.fonts && document.fonts.ready) {
+        Promise.all([document.fonts.load('600 20px Quicksand'), document.fonts.load('700 20px Caveat')])
+          .catch(() => { }).then(() => document.fonts.ready).then(boot);
+      } else {
+        boot();
+      }
+    })();
+  </script>
+</body>
+
+</html>
