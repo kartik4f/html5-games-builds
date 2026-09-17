@@ -1,6 +1,2974 @@
-<!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SEL Quest</title><link rel="stylesheet" href="src/styles.css"></head>
-<body><div id="game"></div>
-<script src="https://cdn.jsdelivr.net/npm/phaser@3.90.0/dist/phaser.min.js"></script>
-<script type="module" src="src/main.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>WEND - Inclusive Word Finder & Riddles</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Fredoka:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #0f172a;
+            touch-action: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        #game-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Smart Orientation & Fullscreen Overlay Warning */
+        #orientation-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #0f172a;
+            z-index: 99999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-family: 'Baloo 2', cursive, sans-serif;
+            text-align: center;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        @keyframes wf-rotate-phone {
+            0% {
+                transform: rotate(0deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(90deg) scale(1.15);
+            }
+
+            100% {
+                transform: rotate(0deg) scale(1);
+            }
+        }
+
+        .wf-rotate-icon-wrap {
+            font-size: 64px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: wf-rotate-phone 2s ease-in-out infinite;
+        }
+
+        .wf-static-icon-wrap {
+            font-size: 64px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: none;
+        }
+
+        .wf-dom {
+            position: absolute;
+            box-sizing: border-box;
+        }
+
+        .wf-dom,
+        .wf-dom * {
+            font-family: 'Baloo 2', 'Fredoka', cursive, sans-serif;
+            box-sizing: border-box;
+            /* Enable smooth touch scrolling on touch devices */
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+        }
+
+        @keyframes wf-pop-in {
+            0% {
+                transform: scale(.4) rotate(-6deg);
+                opacity: 0;
+            }
+
+            65% {
+                transform: scale(1.08) rotate(2deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .wf-pop-in {
+            animation: wf-pop-in .38s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+
+        @keyframes wf-shine {
+
+            0%,
+            55% {
+                left: -60%;
+            }
+
+            100% {
+                left: 130%;
+            }
+        }
+
+        .wf-btn {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            border: 4px solid #ffffff;
+            border-radius: 999px;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 0 28px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            transition: transform .09s ease, box-shadow .09s ease;
+            box-shadow: 0 10px 0 rgba(0, 0, 0, 0.22);
+            font-size: calc(var(--base-btn-size, 32px) + 6px);
+        }
+
+        .wf-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(0.6);
+            box-shadow: none;
+            transform: none !important;
+        }
+
+        .wf-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .65), transparent);
+            transform: skewX(-18deg);
+            animation: wf-shine 2.8s ease-in-out infinite;
+        }
+
+        .wf-btn:hover:not(:disabled) {
+            filter: brightness(1.08);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .wf-btn:active:not(:disabled) {
+            transform: translateY(4px) scale(.96);
+            filter: brightness(.95);
+        }
+
+        .wf-btn .wf-btn-icon {
+            width: 1.4em;
+            height: 1.4em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .wf-card {
+            border-radius: 36px;
+            cursor: pointer;
+            transition: transform .18s cubic-bezier(.34, 1.56, .64, 1);
+        }
+
+        .wf-card:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        .wf-card.wf-static {
+            cursor: default;
+        }
+
+        .wf-card.wf-static:hover {
+            transform: none;
+        }
+
+        .wf-age-card {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 32px;
+        }
+
+        .wf-age-card-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .wf-age-card-icon-box {
+            width: 110px;
+            height: 110px;
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.18);
+            border: 4px solid #ffffff;
+            flex-shrink: 0;
+        }
+
+        .wf-age-card-title {
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #fff;
+        }
+
+        .wf-age-card-sub {
+            font-size: 22px;
+            font-weight: 600;
+            color: #f8fafc;
+            opacity: .9;
+            margin-top: 4px;
+        }
+
+        .wf-age-card-badge {
+            padding: 10px 24px;
+            border-radius: 999px;
+            font-size: 20px;
+            font-weight: 800;
+            border: 3px solid #ffffff;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+        }
+
+        .wf-mode-card {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 36px;
+            text-align: center;
+        }
+
+        .wf-mode-icon-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #ffffff;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
+            margin-bottom: 12px;
+        }
+
+        .wf-mode-title {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .wf-mode-desc {
+            font-size: 24px;
+            font-weight: 600;
+            color: #f8fafc;
+            opacity: 0.95;
+            margin-top: 6px;
+        }
+
+        .wf-mode-pill {
+            margin-top: 16px;
+            padding: 10px 32px;
+            border-radius: 999px;
+            font-size: 22px;
+            font-weight: 800;
+            border: 3px solid #ffffff;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2);
+            background: #ffffff;
+            color: #1e293b;
+        }
+
+        .wf-word-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            max-height: 250px;
+            overflow-y: auto;
+            padding: 4px;
+        }
+
+        .wf-word-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 999px;
+            padding: 6px 22px;
+            height: 60px;
+            font-weight: 800;
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.1);
+            transition: all .25s ease;
+        }
+
+        .wf-word-row .wf-word-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .wf-word-row .wf-word-text {
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        .wf-word-row .wf-word-check {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            opacity: 0;
+            transform: scale(.4);
+            transition: all .3s cubic-bezier(.34, 1.56, .64, 1);
+        }
+
+        .wf-word-row.wf-found {
+            background: #22c55e !important;
+            color: #ffffff !important;
+            border-color: #ffffff !important;
+        }
+
+        .wf-word-row.wf-found .wf-word-text {
+            text-decoration: line-through;
+            color: #ffffff !important;
+        }
+
+        .wf-word-row.wf-found .wf-word-check {
+            opacity: 1;
+            transform: scale(1);
+            color: #ffffff !important;
+        }
+
+        .wf-powerup-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .wf-powerup-btn {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            border-radius: 28px;
+            background: linear-gradient(180deg, #38bdf8, #0284c7);
+            border: 4px solid #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
+            transition: transform .1s ease;
+        }
+
+        .wf-powerup-btn:active {
+            transform: translateY(4px) scale(0.95);
+        }
+
+        .wf-powerup-btn.wf-highlight {
+            animation: wf-pulse 1s infinite alternate;
+            border-color: #facc15 !important;
+        }
+
+        @keyframes wf-pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0px #facc15;
+            }
+
+            100% {
+                transform: scale(1.12);
+                box-shadow: 0 0 25px #facc15;
+            }
+        }
+
+        .wf-powerup-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ef4444;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 800;
+            border-radius: 999px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #ffffff;
+        }
+
+        .wf-powerup-label {
+            font-size: 16px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-top: 2px;
+        }
+
+        .wf-setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 14px 22px;
+            background: #253356;
+            border: 3px solid #475b8a;
+            border-radius: 22px;
+            margin-bottom: 12px;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .wf-setting-label {
+            font-size: 26px;
+            font-weight: 800;
+            color: #ffffff;
+        }
+
+        .wf-toggle {
+            padding: 8px 26px;
+            border-radius: 999px;
+            font-size: 22px;
+            font-weight: 800;
+            border: 3px solid #ffffff;
+            cursor: pointer;
+        }
+
+        .wf-tts-btn {
+            background: #facc15;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+            color: #1e3a8a;
+        }
+
+        .wf-grid-btn {
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
+            background: linear-gradient(180deg, #3b82f6, #1d4ed8);
+            border: 4px solid #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.25);
+            transition: transform .12s ease;
+            padding: 6px;
+        }
+
+        .wf-grid-btn.wf-locked {
+            background: linear-gradient(180deg, #334155, #1e293b);
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .wf-grid-btn:hover:not(.wf-locked) {
+            transform: translateY(-4px) scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .wf-grid-btn:active:not(.wf-locked) {
+            transform: translateY(2px) scale(0.95);
+        }
+
+        .wf-grid-btn-num {
+            font-size: 32px;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1;
+        }
+
+        .wf-grid-btn-stars {
+            display: flex;
+            gap: 2px;
+            margin-top: 4px;
+        }
+
+        .wf-diff-tab {
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-size: 20px;
+            font-weight: 800;
+            border: 3px solid #ffffff;
+            cursor: pointer;
+            background: #253356;
+            color: #94a3b8;
+            transition: all .15s ease;
+        }
+
+        .wf-diff-tab.active {
+            background: #facc15;
+            color: #1e3a8a;
+            border-color: #ffffff;
+        }
+
+        .wf-help-card {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            width: 100%;
+            background: #253356;
+            border: 3px solid #475b8a;
+            border-radius: 24px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+        }
+
+        .wf-help-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #fff;
+            flex-shrink: 0;
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .wf-help-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #facc15;
+            line-height: 1.1;
+        }
+
+        .wf-help-desc {
+            font-size: 20px;
+            font-weight: 600;
+            color: #f8fafc;
+            opacity: 0.95;
+            margin-top: 4px;
+        }
+
+        .wf-confetti {
+            position: absolute;
+            top: 0;
+            border-radius: 4px;
+            animation: wf-confetti-fall linear forwards;
+            pointer-events: none;
+        }
+
+        @keyframes wf-confetti-fall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(640px) rotate(540deg);
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+
+<body>
+    <!-- Dynamic State-Driven Smart Overlay (Hidden initially until loading completes) -->
+    <div id="orientation-overlay" style="display: none;">
+        <div id="overlay-icon-container" class="wf-rotate-icon-wrap">
+            <i data-lucide="smartphone-nfc" style="width: 64px; height: 64px; stroke: #facc15;"></i>
+        </div>
+        <h2 id="overlay-title" style="font-size: 36px; margin: 0 0 10px 0; color: #facc15;">Please Rotate Your Device
+        </h2>
+        <p id="overlay-desc"
+            style="font-size: 20px; max-width: 420px; color: #cbd5e1; line-height: 1.4; margin-bottom: 24px;">This game
+            is
+            designed to be played in portrait mode.</p>
+        <button id="fullscreen-overlay-btn" class="wf-btn"
+            style="width: 320px; height: 75px; background: linear-gradient(180deg, #fde047, #eab308); font-size: 30px; color: #1e3a8a; border: 4px solid #ffffff;">
+            <span id="overlay-btn-text">OK</span>
+        </button>
+    </div>
+
+    <div id="game-container"></div>
+
+    <script>
+        "use strict";
+
+        const W = 1080;
+        const H = 1920;
+        const MODE = { CLASSIC: "classic", QUIZ: "quiz" };
+        const BLOCK_TILE = "■";
+        const AGE = { UNDER_8: "under8", EIGHT_TO_12: "eightTo12", TEENS: "teens", ADULTS: "adults" };
+
+        const DIRS = [{ dx: 1, dy: 0 }, { dx: -1, dy: 0 }, { dx: 0, dy: 1 }, { dx: 0, dy: -1 }];
+        let JSON_DATA = null;
+        let isGameLoaded = false; // Tracks whether the loading screen has finished
+        let isGamePausedByOverlay = false; // Tracks whether the game was paused due to orientation/fullscreen overlay warning
+
+        let seed = 1;
+        function seededRandom() {
+            const x = Math.sin(seed++) * 10000;
+            return x - Math.floor(x);
+        }
+        function seededRnd(a, b) { return Math.floor(seededRandom() * (b - a + 1)) + a; }
+        function seededChoice(arr) { return arr[Math.floor(seededRandom() * arr.length)]; }
+        function seededShuffle(arr) {
+            arr = [...arr];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(seededRandom() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function checkFullscreenSupport() {
+            const docEl = document.documentElement;
+            return !!(docEl.requestFullscreen || docEl.webkitRequestFullscreen);
+        }
+
+        function isFullscreenActive() {
+            return !!(document.fullscreenElement || document.webkitFullscreenElement);
+        }
+
+        function isPortraitActive() {
+            return window.innerHeight >= window.innerWidth;
+        }
+
+        function isIOSDevice() {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            return /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+        }
+
+        function isMobileDevice() {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            return /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua.toLowerCase());
+        }
+
+        function updateSmartOverlay() {
+            const overlay = document.getElementById("orientation-overlay");
+            const titleEl = document.getElementById("overlay-title");
+            const descEl = document.getElementById("overlay-desc");
+            const btnEl = document.getElementById("fullscreen-overlay-btn");
+            const iconContainer = document.getElementById("overlay-icon-container");
+
+            if (!overlay) return;
+
+            // Do not show the overlay until loading is finished, and bypass completely if not on a mobile device
+            if (!isGameLoaded || !isMobileDevice()) {
+                overlay.style.display = "none";
+                if (isGamePausedByOverlay) {
+                    isGamePausedByOverlay = false;
+                    if (window.currentGameSceneInstance) {
+                        window.currentGameSceneInstance.resumeFromOverlayPause();
+                    }
+                }
+                return;
+            }
+
+            const portrait = isPortraitActive();
+            const fsSupported = checkFullscreenSupport();
+            const inFullscreen = isFullscreenActive();
+            const isIOS = isIOSDevice();
+
+            // On iOS devices, Fullscreen API support is restricted/unavailable, so bypass fullscreen prompt when unnecessary
+            if (portrait && (isIOS || !fsSupported || inFullscreen)) {
+                overlay.style.display = "none";
+                if (isGamePausedByOverlay) {
+                    isGamePausedByOverlay = false;
+                    if (window.currentGameSceneInstance) {
+                        window.currentGameSceneInstance.resumeFromOverlayPause();
+                    }
+                }
+                return;
+            }
+
+            if (portrait && fsSupported && !inFullscreen && isIOS) {
+                overlay.style.display = "none";
+                if (isGamePausedByOverlay) {
+                    isGamePausedByOverlay = false;
+                    if (window.currentGameSceneInstance) {
+                        window.currentGameSceneInstance.resumeFromOverlayPause();
+                    }
+                }
+                return;
+            }
+
+            let needsOverlay = false;
+
+            if (!portrait) {
+                titleEl.textContent = "Please Rotate Your Device";
+                iconContainer.className = "wf-rotate-icon-wrap";
+                iconContainer.innerHTML = '<i data-lucide="smartphone-nfc" style="width: 64px; height: 64px; stroke: #facc15;"></i>';
+                if (fsSupported && !inFullscreen && !isIOS) {
+                    descEl.textContent = "This game requires portrait mode and fullscreen view. Click OK below to adjust!";
+                    btnEl.style.display = "flex";
+                } else {
+                    descEl.textContent = "This game is designed to be played in portrait mode. Please turn your device upright.";
+                    btnEl.style.display = "none";
+                }
+                needsOverlay = true;
+            } else if (fsSupported && !inFullscreen && !isIOS) {
+                titleEl.textContent = "Fullscreen Mode Required";
+                iconContainer.className = "wf-static-icon-wrap";
+                iconContainer.innerHTML = '<i data-lucide="maximize" style="width: 64px; height: 64px; stroke: #facc15;"></i>';
+                descEl.textContent = "Click OK below to enter Fullscreen mode and start playing!";
+                btnEl.style.display = "flex";
+                needsOverlay = true;
+            } else {
+                overlay.style.display = "none";
+                if (isGamePausedByOverlay) {
+                    isGamePausedByOverlay = false;
+                    if (window.currentGameSceneInstance) {
+                        window.currentGameSceneInstance.resumeFromOverlayPause();
+                    }
+                }
+            }
+
+            if (needsOverlay) {
+                overlay.style.display = "flex";
+                if (!isGamePausedByOverlay) {
+                    isGamePausedByOverlay = true;
+                    if (window.currentGameSceneInstance) {
+                        window.currentGameSceneInstance.triggerOverlayPause();
+                    }
+                }
+            }
+
+            if (window.lucide) window.lucide.createIcons();
+        }
+
+        function requestFullscreenAndLock() {
+            const docEl = document.documentElement;
+            if (docEl.requestFullscreen) {
+                docEl.requestFullscreen().catch(() => { });
+            } else if (docEl.webkitRequestFullscreen) {
+                docEl.webkitRequestFullscreen();
+            }
+
+            if (window.screen && window.screen.orientation && window.screen.orientation.lock) {
+                window.screen.orientation.lock('portrait').catch(() => { });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            const overlayBtn = document.getElementById("fullscreen-overlay-btn");
+            if (overlayBtn) {
+                overlayBtn.addEventListener("click", () => {
+                    requestFullscreenAndLock();
+                    setTimeout(updateSmartOverlay, 150);
+                });
+            }
+
+            window.addEventListener("resize", updateSmartOverlay);
+            window.addEventListener("orientationchange", updateSmartOverlay);
+            document.addEventListener("fullscreenchange", updateSmartOverlay);
+            document.addEventListener("webkitfullscreenchange", updateSmartOverlay);
+
+            updateSmartOverlay();
+        });
+
+        const State = {
+            age: localStorage.getItem('wend_age_group') || AGE.UNDER_8,
+            difficulty: parseInt(localStorage.getItem('wend_difficulty') || "1", 10),
+            mode: MODE.CLASSIC,
+            hasChosenMode: localStorage.getItem('wend_has_chosen_mode') === 'true',
+            hasSeenTutorial: localStorage.getItem('wend_has_seen_tutorial') === 'true',
+            found: 0, streak: 0, lastFoundTime: 0, comboMultiplier: 1,
+            usedPowerupThisLevel: false,
+            timerFrozen: false,
+
+            powerups: {
+                magnet: parseInt(localStorage.getItem('wend_pw_magnet') || "2", 10),
+                freeze: parseInt(localStorage.getItem('wend_pw_freeze') || "2", 10),
+                reveal: parseInt(localStorage.getItem('wend_pw_reveal') || "3", 10),
+                shuffle: parseInt(localStorage.getItem('wend_pw_shuffle') || "2", 10)
+            },
+
+            sfx: localStorage.getItem('wend_sfx') !== 'false',
+            bgm: localStorage.getItem('wend_bgm') !== 'false',
+            tapToSelect: localStorage.getItem('wend_tap_select') === 'true',
+            colorblindMode: localStorage.getItem('wend_colorblind') === 'true',
+            highContrast: localStorage.getItem('wend_high_contrast') === 'true',
+            quietMode: localStorage.getItem('wend_quiet_mode') === 'true',
+
+            getLearnedWords() {
+                return JSON.parse(localStorage.getItem('wend_learned_words') || "{}");
+            },
+            addLearnedWord(word, category, age) {
+                const vocab = this.getLearnedWords();
+                if (!vocab[word]) {
+                    vocab[word] = { word, category, age, count: 1, firstLearned: Date.now(), lastSeen: Date.now() };
+                } else {
+                    vocab[word].count++;
+                    vocab[word].lastSeen = Date.now();
+                }
+                localStorage.setItem('wend_learned_words', JSON.stringify(vocab));
+            },
+
+            getLevelHistory() {
+                return JSON.parse(localStorage.getItem('wend_level_history') || "[]");
+            },
+            saveLevelHistory(entry) {
+                const hist = this.getLevelHistory();
+                const existingIdx = hist.findIndex(h => h.diffNum === entry.diffNum && h.level === entry.level);
+                let starDiff = 0;
+
+                if (existingIdx !== -1) {
+                    const oldEntry = hist[existingIdx];
+                    if (entry.stars > oldEntry.stars) {
+                        starDiff = entry.stars - oldEntry.stars;
+                        hist[existingIdx].stars = entry.stars;
+                    }
+                    hist[existingIdx].timeTaken = Math.min(hist[existingIdx].timeTaken, entry.timeTaken);
+                } else {
+                    starDiff = entry.stars;
+                    hist.unshift(entry);
+                }
+                localStorage.setItem('wend_level_history', JSON.stringify(hist.slice(0, 150)));
+                return starDiff;
+            },
+
+            getAccumulatedStars(diff) {
+                const key = `wend_stars_accumulated_${this.age}_diff${diff}_${this.mode}`;
+                return parseInt(localStorage.getItem(key) || "0", 10);
+            },
+            addStars(diff, starsToAdd) {
+                if (starsToAdd <= 0) return this.getAccumulatedStars(diff);
+                const current = this.getAccumulatedStars(diff);
+                const next = current + starsToAdd;
+                const key = `wend_stars_accumulated_${this.age}_diff${diff}_${this.mode}`;
+                localStorage.setItem(key, next.toString());
+                return next;
+            },
+            getRequiredStarsToUnlock(diff) {
+                if (diff <= 1) return 0;
+                const base = (JSON_DATA && JSON_DATA.unlockConfig) ? JSON_DATA.unlockConfig.starsToUnlock : 15;
+                return base + (diff - 2) * 5;
+            },
+            isDiffUnlocked(diff) {
+                if (diff === 1) return true;
+                const required = this.getRequiredStarsToUnlock(diff);
+                return this.getAccumulatedStars(diff - 1) >= required;
+            },
+            getUnlockedDiffCount() {
+                let count = 0;
+                for (let d = 1; d <= 5; d++) {
+                    if (this.isDiffUnlocked(d)) count++;
+                }
+                return count;
+            },
+
+            get level() {
+                const key = `wend_progress_${this.age}_diff${this.difficulty}_${this.mode}`;
+                return parseInt(localStorage.getItem(key) || "1", 10);
+            },
+            set level(val) {
+                const key = `wend_progress_${this.age}_diff${this.difficulty}_${this.mode}`;
+                localStorage.setItem(key, val.toString());
+            },
+            savePowerups() {
+                Object.keys(this.powerups).forEach(k => localStorage.setItem(`wend_pw_${k}`, this.powerups[k]));
+            }
+        };
+
+        const TTS = {
+            speak(text) {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.rate = 0.9; utterance.pitch = 1.1;
+                    window.speechSynthesis.speak(utterance);
+                }
+            }
+        };
+
+        const AudioEngine = (() => {
+            let ctx = null, bgmTimer = null, bgmStep = 0;
+            function ac() {
+                if (!ctx) {
+                    const Ctx = window.AudioContext || window.webkitAudioContext;
+                    if (Ctx) ctx = new Ctx();
+                }
+                if (ctx && ctx.state === "suspended") ctx.resume();
+                return ctx;
+            }
+
+            function tone(freq, dur, opts = {}) {
+                if (!State.sfx && !opts.isBgm) return;
+                const c = ac(); if (!c || c.state !== "running") return;
+                const t0 = c.currentTime, osc = c.createOscillator(), gain = c.createGain();
+                osc.type = opts.type || "sine"; osc.frequency.setValueAtTime(freq, t0);
+                if (opts.slideTo) osc.frequency.exponentialRampToValueAtTime(Math.max(1, opts.slideTo), t0 + dur);
+                gain.gain.setValueAtTime(0.0001, t0); gain.gain.exponentialRampToValueAtTime(opts.vol || 0.15, t0 + 0.012);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+                osc.connect(gain).connect(c.destination); osc.start(t0); osc.stop(t0 + dur + 0.02);
+            }
+
+            const MELODY = [261.63, 293.66, 329.63, 392.00, 440.00, 392.00, 329.63, 293.66];
+            return {
+                unlock() { ac(); },
+                startBGM() {
+                    this.stopBGM(); if (!State.bgm) return;
+                    ac();
+                    bgmTimer = setInterval(() => {
+                        if (!State.bgm) return;
+                        tone(MELODY[bgmStep % MELODY.length], 0.45, { type: "triangle", vol: 0.035, isBgm: true });
+                        bgmStep = (bgmStep + 1) % MELODY.length;
+                    }, 550);
+                },
+                stopBGM() { if (bgmTimer) { clearInterval(bgmTimer); bgmTimer = null; } },
+                click() { tone(520, 0.09, { type: "triangle", vol: 0.14, slideTo: 700 }); },
+                select() { tone(660, 0.07, { type: "sine", vol: 0.13, slideTo: 820 }); },
+                deselect() { tone(340, 0.08, { type: "sine", vol: 0.1, slideTo: 220 }); },
+                wrong() { tone(220, 0.16, { type: "sawtooth", vol: 0.09, slideTo: 150 }); },
+                correct() { [523.25, 659.25, 783.99].forEach((f, i) => setTimeout(() => tone(f, 0.16, { type: "triangle", vol: 0.16, slideTo: f * 1.15 }), i * 60)); },
+                powerup() { [440, 554.37, 659.25, 880].forEach((f, i) => setTimeout(() => tone(f, 0.18, { type: "sine", vol: 0.18, slideTo: f * 1.08 }), i * 50)); },
+                win() { [523.25, 587.33, 659.25, 783.99, 1046.5].forEach((f, i) => setTimeout(() => tone(f, 0.24, { type: "triangle", vol: 0.17, slideTo: f * 1.02 }), i * 110)); }
+            };
+        })();
+
+        const THEMES = {
+            under8: { bg: 0x60a5fa, bg2: 0xbfdbfe, panel: 0xffffff, line: 0x3b82f6, primary: 0xfacc15, secondary: 0xf43f5e, accent: 0x8b5cf6, success: 0x22c55e, text: 0x1e3a8a, soft: 0x475569, cell: 0xffffff, cellLine: 0x93c5fd, selected: 0xfde047, hint: 0xbae6fd, found: 0x86efac, block: 0x3b82f6, font: "'Baloo 2', 'Fredoka'", gradA: "#fde047", gradB: "#eab308", gradPink: "#f43f5e", gradPink2: "#be123c", gradPurple: "#a855f7", gradPurple2: "#7e22ce" },
+            eightTo12: { bg: 0x2dd4bf, bg2: 0x99f6e4, panel: 0xffffff, line: 0x0d9488, primary: 0xf97316, secondary: 0xec4899, accent: 0x6366f1, success: 0x10b981, text: 0x134e4a, soft: 0x374151, cell: 0xffffff, cellLine: 0x5eead4, selected: 0xfdba74, hint: 0xccfbf1, found: 0x6ee7b7, block: 0x0f766e, font: "'Baloo 2', 'Fredoka'", gradA: "#fdba74", gradB: "#f97316", gradPink: "#f472b6", gradPink2: "#db2777", gradPurple: "#818cf8", gradPurple2: "#4f46e5" },
+            teens: { bg: 0x1e1b4b, bg2: 0x312e81, panel: 0x2e1065, line: 0x6366f1, primary: 0xa855f7, secondary: 0x06b6d4, accent: 0xf59e0b, success: 0x10b981, text: 0xf8fafc, soft: 0xc7d2fe, cell: 0x3730a3, cellLine: 0x818cf8, selected: 0xa855f7, hint: 0x38bdf8, found: 0x059669, block: 0x1e1b4b, font: "'Fredoka', Arial", gradA: "#c084fc", gradB: "#9333ea", gradPink: "#22d3ee", gradPink2: "#0891b2", gradPurple: "#fbbf24", gradPurple2: "#d97706" },
+            adults: { bg: 0x0f172a, bg2: 0x1e293b, panel: 0x1e293b, line: 0x475569, primary: 0xf59e0b, secondary: 0xef4444, accent: 0x3b82f6, success: 0x10b981, text: 0xf8fafc, soft: 0x94a3b8, cell: 0x0f172a, cellLine: 0x334155, selected: 0xf59e0b, hint: 0x334155, found: 0x059669, block: 0x334155, font: "'Fredoka', Arial", gradA: "#fbbf24", gradB: "#d97706", gradPink: "#f87171", gradPink2: "#dc2626", gradPurple: "#60a5fa", gradPurple2: "#2563eb" },
+            highContrast: { bg: 0x000000, bg2: 0x121212, panel: 0x000000, line: 0xffffff, primary: 0xffff00, secondary: 0x00ffff, accent: 0xff00ff, success: 0x00ff00, text: 0xffffff, soft: 0xdddddd, cell: 0x000000, cellLine: 0xffffff, selected: 0xffff00, hint: 0x00ffff, found: 0x00ff00, block: 0x444444, font: "'Fredoka', Arial", gradA: "#ffff00", gradB: "#cccc00", gradPink: "#00ffff", gradPink2: "#00cccc", gradPurple: "#ff00ff", gradPurple2: "#cc00cc" }
+        };
+
+        const WALL_SHAPES = {
+            U: [[0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2], [2, 2]],
+            L: [[0, 0], [0, 1], [0, 2], [1, 2], [2, 2]],
+            C: [[0, 0], [1, 0], [2, 0], [0, 1], [0, 2], [1, 2], [2, 2]],
+            E: [[0, 0], [1, 0], [2, 0], [0, 1], [1, 1], [0, 2], [1, 2], [2, 2]],
+            F: [[0, 0], [1, 0], [2, 0], [0, 1], [1, 1], [0, 2]],
+            S: [[1, 0], [2, 0], [0, 1], [1, 1], [0, 2], [1, 2]],
+            Z: [[0, 0], [1, 0], [1, 1], [2, 1], [1, 2], [2, 2]]
+        };
+
+        function theme() { return State.highContrast ? THEMES.highContrast : THEMES[State.age || AGE.UNDER_8]; }
+        function hex(n) { return "#" + n.toString(16).padStart(6, "0"); }
+        function refreshIcons() { if (window.lucide) window.lucide.createIcons(); }
+        function miniIconHTML(name, size = 28, stroke = "#ffffff") {
+            return `<i data-lucide="${name}" style="width:${size}px;height:${size}px;stroke:${stroke};"></i>`;
+        }
+
+        function generateShapeBlocks(grid, p) {
+            const shapeKey = seededChoice(["U", "L", "C", "E", "F", "S", "Z"]);
+            let shapeCoords = WALL_SHAPES[shapeKey];
+            const rotation = seededRnd(0, 3);
+            for (let r = 0; r < rotation; r++) shapeCoords = shapeCoords.map(([x, y]) => [2 - y, x]);
+            if (seededRnd(0, 1) === 1) shapeCoords = shapeCoords.map(([x, y]) => [2 - x, y]);
+            if (seededRnd(0, 1) === 1) shapeCoords = shapeCoords.map(([x, y]) => [x, 2 - y]);
+
+            const maxOffsetR = p.rows - 3, maxOffsetC = p.cols - 3;
+            if (maxOffsetR < 0 || maxOffsetC < 0) return;
+            const offsetR = seededRnd(0, maxOffsetR), offsetC = seededRnd(0, maxOffsetC);
+
+            let placedCount = 0;
+            for (let [dx, dy] of shapeCoords) {
+                const r = offsetR + dy, c = offsetC + dx;
+                if (r < p.rows && c < p.cols && grid[r][c] === null) {
+                    grid[r][c] = BLOCK_TILE; placedCount++;
+                    if (placedCount >= p.blocks) break;
+                }
+            }
+            while (placedCount < p.blocks) {
+                const br = seededRnd(0, p.rows - 1), bc = seededRnd(0, p.cols - 1);
+                if (grid[br][bc] === null) { grid[br][bc] = BLOCK_TILE; placedCount++; }
+            }
+        }
+
+        function placeSnakingWord(grid, p, word) {
+            for (let attempt = 0; attempt < 300; attempt++) {
+                const startR = seededRnd(0, p.rows - 1), startC = seededRnd(0, p.cols - 1);
+                if (grid[startR][startC] !== null) continue;
+
+                const path = [[startC, startR]];
+                let currentR = startR, currentC = startC, success = true;
+
+                for (let i = 1; i < word.length; i++) {
+                    const neighbors = seededShuffle(DIRS).map(d => ({ r: currentR + d.dy, c: currentC + d.dx }))
+                        .filter(n => n.r >= 0 && n.r < p.rows && n.c >= 0 && n.c < p.cols && grid[n.r][n.c] === null && !path.some(pt => pt[0] === n.c && pt[1] === n.r));
+
+                    if (neighbors.length === 0) { success = false; break; }
+                    const next = neighbors[0];
+                    path.push([next.c, next.r]);
+                    currentR = next.r; currentC = next.c;
+                }
+
+                if (success && path.length === word.length) {
+                    path.forEach(([cc, cr], idx) => grid[cr][cc] = word[idx]);
+                    return path;
+                }
+            }
+            return null;
+        }
+
+        function generateLevel(age, level, mode, difficulty) {
+            let ageOffset = 1;
+            if (age === AGE.EIGHT_TO_12) ageOffset = 2;
+            if (age === AGE.TEENS) ageOffset = 3;
+            if (age === AGE.ADULTS) ageOffset = 4;
+
+            seed = (level * 10007) + (difficulty * 1337) + (ageOffset * 503) + (mode.length * 97);
+
+            const p = JSON_DATA.difficulties[difficulty.toString()] || JSON_DATA.difficulties["1"];
+            const pool = JSON_DATA.wordPools[age] || JSON_DATA.wordPools.under8;
+
+            let subPoolKeys = ["EASY"];
+            if (difficulty >= 3) subPoolKeys.push("MEDIUM");
+            if (difficulty >= 4) subPoolKeys.push("HARD");
+
+            let combinedWords = [];
+            subPoolKeys.forEach(key => {
+                if (pool[key]) combinedWords = combinedWords.concat(pool[key]);
+            });
+
+            const uniquePool = [];
+            const seenWords = new Set();
+            combinedWords.forEach(item => {
+                if (!seenWords.has(item.word)) {
+                    seenWords.add(item.word);
+                    uniquePool.push(item);
+                }
+            });
+
+            let forced = null, quiz = null;
+            if (mode === MODE.QUIZ) {
+                const validQuizzes = JSON_DATA.quizzes.filter(q => q.minDiff <= difficulty);
+                quiz = seededChoice(validQuizzes.length > 0 ? validQuizzes : JSON_DATA.quizzes);
+                forced = { word: quiz.answer, category: "QUIZ", icon: quiz.icon, isQuizWord: true };
+            }
+
+            const shuffledPool = seededShuffle(uniquePool);
+            const targetCount = p.words - (forced ? 1 : 0);
+
+            const chosen = (forced ? [forced] : []).concat(
+                shuffledPool.filter(w => !forced || w.word !== forced.word).slice(0, targetCount)
+            );
+
+            const grid = Array.from({ length: p.rows }, () => Array(p.cols).fill(null));
+
+            generateShapeBlocks(grid, p);
+
+            const placements = [];
+            for (let item of chosen) {
+                const path = placeSnakingWord(grid, p, item.word);
+                if (path) placements.push({ ...item, path });
+            }
+
+            for (let r = 0; r < p.rows; r++) {
+                for (let c = 0; c < p.cols; c++) {
+                    if (!grid[r][c]) grid[r][c] = String.fromCharCode(65 + seededRnd(0, 25));
+                }
+            }
+
+            return { profile: p, grid, placements, mode, quiz };
+        }
+
+        class PreloadScene extends Phaser.Scene {
+            constructor() { super("Preload"); }
+
+            preload() {
+                this.load.json("levelData", "levels.json");
+            }
+
+            create() {
+                const t = theme();
+
+                const bg = this.add.graphics();
+                bg.fillStyle(t.bg, 1);
+                bg.fillRect(0, 0, W, H);
+                bg.fillStyle(t.bg2, 0.4);
+                bg.fillCircle(W * 0.85, H * 0.15, 500);
+                bg.fillCircle(W * 0.15, H * 0.85, 450);
+
+                this.add.text(W / 2, H * 0.35, "WEND", {
+                    fontFamily: t.font, fontSize: "140px", fontStyle: "bold", color: hex(t.secondary)
+                }).setOrigin(0.5);
+
+                this.add.text(W / 2, H * 0.47, "SEARCH & RIDDLES", {
+                    fontFamily: t.font, fontSize: "48px", fontStyle: "bold", color: hex(t.accent)
+                }).setOrigin(0.5);
+
+                const barWidth = 640, barHeight = 44;
+                const barX = (W - barWidth) / 2, barY = H * 0.65;
+
+                const borderRect = this.add.graphics();
+                borderRect.fillStyle(t.panel, 1);
+                borderRect.fillRoundedRect(barX - 8, barY - 8, barWidth + 16, barHeight + 16, 26);
+                borderRect.lineStyle(6, t.line, 1);
+                borderRect.strokeRoundedRect(barX - 8, barY - 8, barWidth + 16, barHeight + 16, 26);
+
+                const progressFill = this.add.graphics();
+
+                const statusText = this.add.text(W / 2, barY + 70, "LOADING ASSETS...", {
+                    fontFamily: t.font, fontSize: "28px", fontStyle: "bold", color: hex(t.text)
+                }).setOrigin(0.5);
+
+                let loadProgress = 0;
+                const loadTimer = this.time.addEvent({
+                    delay: 35,
+                    repeat: 45,
+                    callback: () => {
+                        loadProgress += 0.022;
+                        if (loadProgress > 1) loadProgress = 1;
+
+                        progressFill.clear();
+                        progressFill.fillStyle(t.primary, 1);
+                        progressFill.fillRoundedRect(barX, barY, barWidth * loadProgress, barHeight, 16);
+
+                        const percent = Math.floor(loadProgress * 100);
+                        statusText.setText(`LOADING GAME... ${percent}%`);
+
+                        if (loadProgress >= 1) {
+                            JSON_DATA = this.cache.json.get("levelData");
+                            this.time.delayedCall(300, () => {
+                                isGameLoaded = true; // Mark loading as finished
+                                updateSmartOverlay(); // Trigger the orientation/fullscreen overlay checks now that loading is done
+                                this.scene.start("Home");
+                            });
+                        }
+                    }
+                });
+            }
+        }
+
+        class BaseScene extends Phaser.Scene {
+            bg() {
+                const t = theme();
+                const g = this.add.graphics();
+                g.fillStyle(t.bg, 1); g.fillRect(0, 0, W, H);
+                g.fillStyle(t.bg2, 0.3); g.fillCircle(W * 0.85, H * 0.1, 450); g.fillCircle(W * 0.15, H * 0.9, 400);
+
+                for (let i = 0; i < 18; i++) {
+                    const x = Math.floor(Math.random() * (W - 80)) + 40, y = Math.floor(Math.random() * (H - 160)) + 120, radius = Math.floor(Math.random() * 14) + 10;
+                    const shape = this.add.circle(x, y, radius, t.primary, 0.28);
+                    this.tweens.add({ targets: shape, y: y - Math.floor(Math.random() * 30 + 20), duration: Math.floor(Math.random() * 1400 + 1800), yoyo: true, repeat: -1, ease: "Sine.easeInOut" });
+                }
+
+                // Render universal copyright footer visible across all themes and screens
+                const footerHtml = `
+          <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; height:100%; color:${hex(t.soft)}; font-size:18px; text-align:center; gap:4px; pointer-events:none;">
+            <div><strong>WEND</strong> • An inclusive word finder & riddle game experience.</div>
+            <div style="display:flex; gap:12px; align-items:center; justify-content:center; font-weight:600; opacity:0.85;">
+              <span>Version: v1.2.0</span>
+              <span>•</span>
+              <span>© 2026 codinginterface</span>
+            </div>
+          </div>`;
+                this.domCenter(W / 2, H - 45, 960, 75, footerHtml, "", 10);
+            }
+
+            text(x, y, s, size, color, style = {}) {
+                return this.add.text(x, y, s, { fontFamily: theme().font, fontSize: size + "px", color: hex(color), align: "center", ...style }).setOrigin(0.5);
+            }
+
+            domCenter(x, y, w, h, html, className = "", depth = 50) {
+                const wrapped = `<div class="wf-dom ${className}" style="width:${w}px; height:${h}px;"><div class="wf-pop-in" style="width:100%; height:100%;">${html}</div></div>`;
+                const dom = this.add.dom(x - w / 2, y - h / 2).createFromHTML(wrapped).setOrigin(0, 0);
+                dom.setDepth(depth); refreshIcons(); return dom;
+            }
+
+            openHtmlModal(w, h, innerHTML, opts = {}) {
+                const depth = opts.depth ?? 200;
+                const bg = opts.bg || hex(theme().panel);
+                const border = opts.border || hex(theme().line);
+                const borderWidth = opts.borderWidth || (State.highContrast ? 8 : 6);
+                const radius = opts.radius || 36;
+                const padding = opts.padding ?? 24;
+
+                const html = `
+          <div style="position:fixed; top:0; left:0; width:${W}px; height:${H}px; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:${depth}; box-sizing:border-box;">
+            <div class="wf-dom wf-pop-in" style="width:${w}px; height:${h}px; background:${bg}; border:${borderWidth}px solid ${border}; border-radius:${radius}px; box-shadow:0 20px 40px rgba(0,0,0,0.5); display:flex; flex-direction:column; align-items:center; justify-content:${opts.justify || "flex-start"}; padding:${padding}px; overflow:hidden; box-sizing:border-box;">
+              ${innerHTML}
+            </div>
+          </div>`;
+
+                const dom = this.add.dom(0, 0).createFromHTML(html).setOrigin(0, 0);
+                dom.setDepth(depth);
+                refreshIcons();
+                return dom;
+            }
+
+            domButton(x, y, w, h, label, onClick, opts = {}) {
+                const t = theme();
+                const bg = opts.bg || `linear-gradient(180deg, ${t.gradA}, ${t.gradB})`;
+                const color = opts.color || hex(t.text);
+                const size = opts.size || 34;
+                const disabledAttr = opts.disabled ? 'disabled' : '';
+
+                const html = `
+          <button class="wf-btn" ${disabledAttr} style="background:${bg}; color:${color}; --base-btn-size: ${size}px;">
+            ${opts.icon ? `<span class="wf-btn-icon">${miniIconHTML(opts.icon, size + 8, color)}</span>` : ""}
+            ${label ? `<span>${label}</span>` : ""}
+          </button>`;
+
+                const dom = this.domCenter(x, y, w, h, html);
+                const btnNode = dom.node.querySelector("button");
+                if (!opts.disabled) {
+                    btnNode.addEventListener("pointerup", (e) => {
+                        e.stopPropagation(); AudioEngine.click();
+                        this.tweens.add({ targets: dom, scale: 0.92, duration: 60, yoyo: true });
+                        onClick();
+                    });
+                }
+                return dom;
+            }
+
+            domCard(x, y, w, h, innerHTML, opts = {}) {
+                const t = theme();
+                const html = `
+          <div class="wf-card ${opts.interactive ? "" : "wf-static"}" style="
+            width:100%; height:100%; background:${opts.bg || hex(t.panel)}; border:${opts.borderWidth || (State.highContrast ? 8 : 6)}px solid ${opts.border || hex(t.line)};
+            border-radius:${opts.radius || 36}px; box-shadow:0 14px 0 rgba(0,0,0,.12);
+            display:flex; flex-direction:column; align-items:center; justify-content:${opts.justify || "flex-start"};
+            padding:${opts.padding ?? 24}px; overflow:hidden;
+          ">${innerHTML}</div>`;
+                return this.domCenter(x, y, w, h, html, "", opts.depth ?? 50);
+            }
+
+            confettiBurst(x, y, count = 30) {
+                if (State.quietMode) return;
+                const t = theme(); const colors = [t.primary, t.secondary, t.accent, t.success].map(hex);
+                let html = "";
+                for (let i = 0; i < count; i++) {
+                    const dx = Math.floor(Math.random() * 560 - 280), dur = Math.floor(Math.random() * 700 + 900), size = Math.floor(Math.random() * 10 + 10);
+                    html += `<div class="wf-confetti" style="left:${dx + 280}px; width:${size}px; height:${size * 0.6}px; background:${colors[Math.floor(Math.random() * colors.length)]}; animation-duration:${dur}ms;"></div>`;
+                }
+                const dom = this.domCenter(x, y, 560, 640, `<div style="position:relative;width:100%;height:100%;">${html}</div>`);
+                this.time.delayedCall(2000, () => dom.destroy());
+            }
+        }
+
+        class HomeScene extends BaseScene {
+            constructor() { super("Home"); }
+            create() {
+                this.bg(); const t = theme();
+
+                // Only animate the game title and subtitle as requested (no container movement)
+                const titleText = this.add.text(W / 2, 480, "WEND", {
+                    fontFamily: t.font, fontSize: "130px", fontStyle: "bold", color: hex(t.secondary), align: "center"
+                }).setOrigin(0.5);
+
+                this.tweens.add({
+                    targets: titleText,
+                    scale: { from: 0.96, to: 1.04 },
+                    yoyo: true,
+                    repeat: -1,
+                    duration: 1800,
+                    ease: "Sine.easeInOut"
+                });
+
+                const subText = this.add.text(W / 2, 580, "SEARCH & RIDDLES", {
+                    fontFamily: t.font, fontSize: "54px", fontStyle: "bold", color: hex(t.accent), align: "center"
+                }).setOrigin(0.5);
+
+                this.tweens.add({
+                    targets: subText,
+                    alpha: { from: 0.75, to: 1 },
+                    yoyo: true,
+                    repeat: -1,
+                    duration: 1200,
+                    ease: "Sine.easeInOut"
+                });
+
+                // Static menu container with zero position animations and center aligned children
+                const menuContainerY = 1080;
+                const menuDom = this.domCard(W / 2, menuContainerY, 920, 780, `
+          <div style="display:flex; flex-direction:column; gap:16px; width:100%; align-items:center; justify-content:center; text-align:center; padding:10px;">
+            <div id="btn-play-slot" style="width:560px; height:100px; display:flex; justify-content:center;"></div>
+            <div id="btn-howto-slot" style="width:520px; height:78px; display:flex; justify-content:center;"></div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; width:520px; justify-items:center;">
+              <div id="btn-mode-slot" style="width:100%; height:75px; display:flex; justify-content:center;"></div>
+              <div id="btn-diff-slot" style="width:100%; height:75px; display:flex; justify-content:center;"></div>
+              <div id="btn-age-slot" style="width:100%; height:75px; display:flex; justify-content:center;"></div>
+              <div id="btn-grid-slot" style="width:100%; height:75px; display:flex; justify-content:center;"></div>
+            </div>
+            <div style="display:flex; gap:14px; width:520px; justify-content:center;">
+              <div id="btn-vault-slot" style="flex:1; height:75px; display:flex; justify-content:center;"></div>
+              <div id="btn-settings-slot" style="flex:1; height:75px; display:flex; justify-content:center;"></div>
+            </div>
+            <div id="btn-about-slot" style="width:520px; height:75px; display:flex; justify-content:center;"></div>
+          </div>
+        `, { bg: "transparent", border: "transparent", padding: 0 });
+
+                // Mount interactive buttons inside the static HTML card slots
+                this.domButtonInsideSlot(menuDom.node.querySelector("#btn-play-slot"), "PLAY NOW", () => {
+                    if (!State.hasChosenMode) {
+                        this.scene.start("ModeScene");
+                    } else {
+                        this.scene.start("GameScene");
+                    }
+                }, { size: 40, icon: "play" });
+
+                this.domButtonInsideSlot(menuDom.node.querySelector("#btn-howto-slot"), "HOW TO PLAY", () => this.openHowToPlay(), {
+                    size: 26, icon: "help-circle", bg: `linear-gradient(180deg, ${t.gradA}, ${t.gradB})`, color: "#1e3a8a"
+                });
+
+                this.domButtonInsideSlot(menuDom.node.querySelector("#btn-mode-slot"), "MODE", () => this.scene.start("ModeScene"), { size: 24, icon: "gamepad-2", bg: `linear-gradient(180deg, ${t.gradPurple}, ${t.gradPurple2})`, color: "#fff" });
+                this.domButtonInsideSlot(menuDom.node.querySelector("#btn-diff-slot"), "DIFFICULTY", () => this.scene.start("DifficultyScene"), { size: 24, icon: "zap", bg: `linear-gradient(180deg, ${t.gradPurple}, ${t.gradPurple2})`, color: "#fff" });
+                this.domButtonInsideSlot(menuDom.node.querySelector("#btn-age-slot"), "AGE GROUP", () => this.scene.start("AgeScene"), { size: 24, icon: "users", bg: `linear-gradient(180deg, ${t.gradPurple}, ${t.gradPurple2})`, color: "#fff" });
+                this.domButtonInsideSlot(menuDom.node.querySelector("#btn-grid-slot"), "LEVEL GRID", () => this.openHistoryTracker(), { size: 24, icon: "grid", bg: `linear-gradient(180deg, ${t.gradA}, ${t.gradB})`, color: "#1e3a8a" });
+                this.domButtonInsideSlot(menuDom.node.querySelector("#btn-vault-slot"), "VOCAB VAULT", () => this.openVocabVault(), { size: 24, icon: "book-open", bg: `linear-gradient(180deg, ${t.gradA}, ${t.gradB})`, color: "#1e3a8a" });
+                this.domButtonInsideSlot(menuDom.node.querySelector("#btn-settings-slot"), "SETTINGS", () => this.openSettingsModal(), { size: 24, icon: "accessibility", bg: `linear-gradient(180deg, ${t.gradPink}, ${t.gradPink2})`, color: "#fff" });
+                this.domButtonInsideSlot(menuDom.node.querySelector("#btn-about-slot"), "ABOUT US", () => this.openAboutUs(), { size: 26, icon: "info", bg: `linear-gradient(180deg, ${t.gradPurple}, ${t.gradPurple2})`, color: "#fff" });
+            }
+
+            openSettingsModal() {
+                const html = `
+          <div style="width:100%; display:flex; flex-direction:column; align-items:center; height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y; padding-right:4px;">
+            <div style="font-size:42px; font-weight:800; color:#fff; margin-bottom:8px;">ACCESSIBILITY & SOUND</div>
+            <div style="font-size:22px; color:#cbd5e1; margin-bottom:20px;">Configure audio and visual preferences</div>
+            <div style="width:100%; display:flex; flex-direction:column; gap:12px;">
+              <div class="wf-setting-row"><span class="wf-setting-label">Sound FX</span><button class="wf-toggle" id="toggle-sfx" style="background:${State.sfx ? '#22c55e' : '#ef4444'}; color:#fff;">${State.sfx ? 'ON' : 'OFF'}</button></div>
+              <div class="wf-setting-row"><span class="wf-setting-label">Background Music</span><button class="wf-toggle" id="toggle-bgm" style="background:${State.bgm ? '#22c55e' : '#ef4444'}; color:#fff;">${State.bgm ? 'ON' : 'OFF'}</button></div>
+              <div class="wf-setting-row"><span class="wf-setting-label">Tap-To-Select Mode</span><button class="wf-toggle" id="toggle-tap" style="background:${State.tapToSelect ? '#22c55e' : '#ef4444'}; color:#fff;">${State.tapToSelect ? 'ON' : 'OFF'}</button></div>
+              <div class="wf-setting-row"><span class="wf-setting-label">Colorblind Mode</span><button class="wf-toggle" id="toggle-cb" style="background:${State.colorblindMode ? '#22c55e' : '#ef4444'}; color:#fff;">${State.colorblindMode ? 'ON' : 'OFF'}</button></div>
+            </div>
+            <button class="wf-btn" id="settings-close" style="width:280px; height:70px; background:linear-gradient(180deg, #fde047, #eab308); --base-btn-size: 28px; color:#1e3a8a; margin-top:24px; flex-shrink:0;">SAVE & BACK</button>
+          </div>`;
+
+                const modal = this.openHtmlModal(920, 820, html, { depth: 200, bg: "#1e2942", border: "#475569", padding: 32 });
+
+                const bindToggle = (id, key, stateProp, onToggle) => {
+                    const btn = modal.node.querySelector(id);
+                    if (btn) {
+                        btn.addEventListener("click", () => {
+                            State[stateProp] = !State[stateProp];
+                            localStorage.setItem(key, State[stateProp].toString());
+                            btn.textContent = State[stateProp] ? 'ON' : 'OFF';
+                            btn.style.background = State[stateProp] ? '#22c55e' : '#ef4444';
+                            AudioEngine.click(); if (onToggle) onToggle();
+                        });
+                    }
+                };
+
+                bindToggle("#toggle-sfx", "wend_sfx", "sfx");
+                bindToggle("#toggle-bgm", "wend_bgm", "bgm", () => AudioEngine.startBGM());
+                bindToggle("#toggle-tap", "wend_tap_select", "tapToSelect");
+                bindToggle("#toggle-cb", "wend_colorblind", "colorblindMode");
+
+                modal.node.querySelector("#settings-close").addEventListener("click", () => {
+                    modal.destroy();
+                });
+            }
+
+            domButtonInsideSlot(containerEl, label, onClick, opts = {}) {
+                if (!containerEl) return;
+                const t = theme();
+                const bg = opts.bg || `linear-gradient(180deg, ${t.gradA}, ${t.gradB})`;
+                const color = opts.color || hex(t.text);
+                const size = opts.size || 34;
+                const disabledAttr = opts.disabled ? 'disabled' : '';
+
+                containerEl.innerHTML = `
+          <button class="wf-btn" ${disabledAttr} style="background:${bg}; color:${color}; --base-btn-size: ${size}px;">
+            ${opts.icon ? `<span class="wf-btn-icon">${miniIconHTML(opts.icon, size + 6, color)}</span>` : ""}
+            ${label ? `<span>${label}</span>` : ""}
+          </button>`;
+
+                const btnNode = containerEl.querySelector("button");
+                if (!opts.disabled && btnNode) {
+                    btnNode.addEventListener("pointerup", (e) => {
+                        e.stopPropagation(); AudioEngine.click();
+                        onClick();
+                    });
+                }
+                refreshIcons();
+            }
+
+            openAboutUs() {
+                const html = `
+          <div style="width:100%; display:flex; flex-direction:column; align-items:center; height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y; padding-right:4px;">
+            <div style="font-size:42px; font-weight:800; color:#fff; margin-bottom:12px;">ABOUT US</div>
+            <div style="font-size:22px; color:#cbd5e1; margin-bottom:20px; text-align:center; line-height:1.5;">
+              WEND is a thoughtfully designed, inclusive word puzzle and riddle game tailored for all age groups. Explore snaking word pathways, solve creative riddles, and expand your vocabulary vault with ease!
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:14px; width:100%; text-align:left;">
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#3b82f6;">${miniIconHTML("heart", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">Our Mission</div>
+                  <div class="wf-help-desc">Providing a delightful, highly accessible, and engaging educational experience for casual gamers and word puzzle enthusiasts alike.</div>
+                </div>
+              </div>
+
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#a855f7;">${miniIconHTML("code", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">Developed By</div>
+                  <div class="wf-help-desc">Brought to life by <strong>codinginterface</strong> with cutting-edge web technologies and immersive audio-visual design.</div>
+                </div>
+              </div>
+            </div>
+
+            <button class="wf-btn" id="about-close" style="width:280px; height:70px; background:linear-gradient(180deg, #fde047, #eab308); --base-btn-size: 28px; color:#1e3a8a; margin-top:20px; flex-shrink:0;">BACK</button>
+          </div>`;
+
+                const modal = this.openHtmlModal(920, 920, html, { depth: 200, bg: "#1e2942", border: "#475569", padding: 32 });
+                modal.node.querySelector("#about-close").addEventListener("click", () => {
+                    modal.destroy();
+                });
+            }
+
+            openHowToPlay() {
+                const html = `
+          <div style="width:100%; display:flex; flex-direction:column; align-items:center; height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y; padding-right:4px;">
+            <div style="font-size:46px; font-weight:800; color:#fff; margin-bottom:8px;">HOW TO PLAY</div>
+            <div style="font-size:24px; color:#cbd5e1; margin-bottom:20px;">Master controls & powerup boosts</div>
+
+            <div style="display:flex; flex-direction:column; gap:14px; width:100%;">
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#3b82f6;">${miniIconHTML("move", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">Snaking Selection</div>
+                  <div class="wf-help-desc">Words can bend in any direction! Drag across or tap connected letters to spell target words. Drag backward over previous letters to unselect.</div>
+                </div>
+              </div>
+
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#0284c7;">${miniIconHTML("magnet", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">SOLVE (Magnet)</div>
+                  <div class="wf-help-desc">Instantly reveals and solves an entire un-found word on the board. Earn free magnets by solving fast!</div>
+                </div>
+              </div>
+
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#38bdf8;">${miniIconHTML("eye", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">REVEAL (Eye)</div>
+                  <div class="wf-help-desc">Highlights the starting letter tile for up to 3 un-found words in blue hint color.</div>
+                </div>
+              </div>
+
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#06b6d4;">${miniIconHTML("snowflake", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">FREEZE (Snowflake)</div>
+                  <div class="wf-help-desc">Freezes the 60-second level countdown timer for 15 seconds to give you breathing space.</div>
+                </div>
+              </div>
+
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#a855f7;">${miniIconHTML("shuffle", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">SHUFFLE (Mix)</div>
+                  <div class="wf-help-desc">Shuffles all distractor letters around target words to make hidden words stand out better.</div>
+                </div>
+              </div>
+            </div>
+
+            <button class="wf-btn" id="help-close" style="width:300px; height:75px; background:linear-gradient(180deg, #fde047, #eab308); --base-btn-size: 30px; color:#1e3a8a; margin-top:24px; flex-shrink:0;">OK</button>
+          </div>`;
+
+                // Height increased by 20px (from 960 to 980)
+                const modal = this.openHtmlModal(920, 980, html, { depth: 200, bg: "#1e2942", border: "#475569", padding: 32 });
+                modal.node.querySelector("#help-close").addEventListener("click", () => {
+                    modal.destroy();
+                });
+            }
+
+            openHistoryTracker() {
+                const history = State.getLevelHistory();
+                let selectedDiff = State.difficulty;
+
+                const renderGrid = (diff) => {
+                    const levelMap = {};
+
+                    history.forEach(h => {
+                        if (h.diffNum === diff) {
+                            if (!levelMap[h.level] || h.stars > levelMap[h.level]) {
+                                levelMap[h.level] = h.stars;
+                            }
+                        }
+                    });
+
+                    let gridHTML = "";
+                    const maxHistoryLevel = Math.max(...history.filter(h => h.diffNum === diff).map(h => h.level), 0);
+                    const currentProgressLevel = (selectedDiff === State.difficulty) ? State.level : 1;
+                    const totalLevelsToShow = Math.max(20, maxHistoryLevel + 1, currentProgressLevel);
+
+                    for (let l = 1; l <= totalLevelsToShow; l++) {
+                        const stars = levelMap[l] || 0;
+                        const isAttempted = levelMap[l] !== undefined;
+                        const isUnlocked = (l === 1) || isAttempted || (l <= maxHistoryLevel + 1);
+
+                        const starsHTML = Array.from({ length: 3 }, (_, i) =>
+                            miniIconHTML(i < stars ? "star" : "star-off", 16, i < stars ? "#facc15" : "rgba(255,255,255,0.4)")
+                        ).join("");
+
+                        if (isUnlocked) {
+                            gridHTML += `
+                <div class="wf-grid-btn" data-level="${l}">
+                  <span class="wf-grid-btn-num">${l}</span>
+                  <div class="wf-grid-btn-stars">${starsHTML}</div>
+                </div>`;
+                        } else {
+                            gridHTML += `
+                <div class="wf-grid-btn wf-locked" data-level="${l}">
+                  <span class="wf-grid-btn-num">${miniIconHTML("lock", 20, "#94a3b8")}</span>
+                  <div class="wf-grid-btn-stars">${starsHTML}</div>
+                </div>`;
+                        }
+                    }
+
+                    return gridHTML;
+                };
+
+                const renderTabs = () => {
+                    return [1, 2, 3, 4, 5].map(d => {
+                        const unlocked = State.isDiffUnlocked(d);
+                        const active = d === selectedDiff ? "active" : "";
+                        const diffName = (JSON_DATA.difficulties[d.toString()] || {}).name || `D${d}`;
+                        return `
+              <button class="wf-diff-tab ${active}" data-diff="${d}" ${unlocked ? "" : "disabled"}>
+                ${unlocked ? diffName : "🔒 " + diffName}
+              </button>`;
+                    }).join("");
+                };
+
+                const modalHTML = `
+          <div style="width:100%; display:flex; flex-direction:column; align-items:center; height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y; padding-right:4px;">
+            <div style="font-size:40px; font-weight:800; color:#fff; margin-bottom:8px;">LEVEL SELECT & HISTORY</div>
+            <div style="font-size:22px; color:#cbd5e1; margin-bottom:14px;">Select difficulty & jump directly into attempted levels</div>
+            
+            <div id="diff-tabs" style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:16px; flex-shrink:0;">
+              ${renderTabs()}
+            </div>
+
+            <div id="grid-container" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; width:100%; padding:10px; justify-items:center;">
+              ${renderGrid(selectedDiff)}
+            </div>
+
+            <button class="wf-btn" id="hist-close" style="width:280px; height:70px; background:linear-gradient(180deg, #fde047, #eab308); --base-btn-size: 28px; color:#1e3a8a; margin-top:22px; flex-shrink:0;">BACK</button>
+          </div>`;
+
+                const modal = this.openHtmlModal(920, 920, modalHTML, { depth: 200, bg: "#1e2942", border: "#475569", padding: 28 });
+
+                const attachGridListeners = () => {
+                    modal.node.querySelectorAll(".wf-grid-btn:not(.wf-locked)").forEach(btn => {
+                        btn.addEventListener("click", () => {
+                            const targetLvl = parseInt(btn.getAttribute("data-level"), 10);
+                            State.difficulty = selectedDiff;
+                            localStorage.setItem('wend_difficulty', selectedDiff.toString());
+                            State.level = targetLvl;
+                            modal.destroy();
+                            this.scene.start("GameScene");
+                        });
+                    });
+                };
+
+                modal.node.querySelectorAll(".wf-diff-tab").forEach(tab => {
+                    tab.addEventListener("click", () => {
+                        selectedDiff = parseInt(tab.getAttribute("data-diff"), 10);
+                        modal.node.querySelector("#diff-tabs").innerHTML = renderTabs();
+                        modal.node.querySelector("#grid-container").innerHTML = renderGrid(selectedDiff);
+                        refreshIcons();
+                        attachGridListeners();
+                    });
+                });
+
+                attachGridListeners();
+
+                modal.node.querySelector("#hist-close").addEventListener("click", () => {
+                    modal.destroy();
+                });
+            }
+
+            openVocabVault() {
+                const vocab = State.getLearnedWords();
+                const keys = Object.keys(vocab);
+
+                let listHTML = "";
+                if (keys.length === 0) {
+                    listHTML = `<div style="font-size:28px; color:#94a3b8; margin-top:40px; text-align:center;">No words discovered yet. Complete levels to build your vocabulary!</div>`;
+                } else {
+                    listHTML = keys.map(k => {
+                        const item = vocab[k];
+                        return `
+              <div style="display:flex; align-items:center; justify-content:space-between; width:100%; background:#253356; padding:14px 24px; border-radius:18px; border:2px solid #475b8a; flex-shrink:0;">
+                <div style="text-align:left;">
+                  <span style="font-size:30px; font-weight:800; color:#facc15;">${item.word}</span>
+                  <span style="font-size:20px; color:#cbd5e1; margin-left:12px;">[${item.category}]</span>
+                </div>
+                <div style="font-size:22px; font-weight:700; color:#4ade80;">Found x${item.count}</div>
+              </div>`;
+                    }).join("");
+                }
+
+                const modalHTML = `
+          <div style="width:100%; display:flex; flex-direction:column; align-items:center; height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y; padding-right:4px;">
+            <div style="font-size:42px; font-weight:800; color:#fff; margin-bottom:8px;">VOCAB VAULT</div>
+            <div style="font-size:22px; color:#cbd5e1; margin-bottom:16px; flex-shrink:0;">Total Words Mastered: ${keys.length}</div>
+            <div style="display:flex; flex-direction:column; gap:12px; width:100%;">
+              ${listHTML}
+            </div>
+            <button class="wf-btn" id="vault-close" style="width:280px; height:70px; background:linear-gradient(180deg, #fde047, #eab308); --base-btn-size: 28px; color:#1e3a8a; margin-top:22px; flex-shrink:0;">BACK</button>
+          </div>`;
+
+                const modal = this.openHtmlModal(920, 920, modalHTML, { depth: 200, bg: "#1e2942", border: "#475569", padding: 28 });
+                modal.node.querySelector("#vault-close").addEventListener("click", () => {
+                    modal.destroy();
+                });
+            }
+        }
+
+        class DifficultyScene extends BaseScene {
+            constructor() { super("DifficultyScene"); }
+            create() {
+                this.bg(); const t = theme();
+                this.text(W / 2, 160, "SELECT DIFFICULTY", 58, t.text, { fontStyle: "bold" });
+
+                const diffs = JSON_DATA.difficulties;
+                let yPos = 360;
+
+                Object.keys(diffs).forEach(key => {
+                    const diffNum = parseInt(key, 10);
+                    const d = diffs[key];
+                    const isSelected = State.difficulty === diffNum;
+                    const isUnlocked = State.isDiffUnlocked(diffNum);
+                    const reqStars = State.getRequiredStarsToUnlock(diffNum);
+                    const currentStars = State.getAccumulatedStars(diffNum - 1);
+
+                    let statusHTML = "";
+                    if (!isUnlocked) {
+                        statusHTML = `<div style="font-size:20px; color:#f87171; font-weight:800;">LOCKED (${currentStars}/${reqStars} ⭐)</div>`;
+                    } else {
+                        statusHTML = `<div style="width:160px; height:50px; border-radius:999px; background:${isSelected ? '#22c55e' : '#3b82f6'}; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800;">${isSelected ? 'ACTIVE' : 'SELECT'}</div>`;
+                    }
+
+                    const html = `
+            <div style="display:flex; align-items:center; justify-content:space-between; width:100%; height:100%; opacity:${isUnlocked ? 1 : 0.65};">
+              <div style="text-align:left;">
+                <div style="font-size:32px; font-weight:800; color:${isSelected ? '#facc15' : '#ffffff'};">${d.name}</div>
+                <div style="font-size:22px; color:#cbd5e1;">${d.rows}x${d.cols} Grid • ${d.words} Words • 60s Timer</div>
+              </div>
+              ${statusHTML}
+            </div>`;
+
+                    const card = this.domCard(W / 2, yPos, 880, 140, html, { interactive: isUnlocked, bg: "#1e2942", border: isSelected ? "#facc15" : "#475569" });
+                    if (isUnlocked) {
+                        card.node.addEventListener("pointerup", () => {
+                            State.difficulty = diffNum;
+                            localStorage.setItem('wend_difficulty', key);
+                            this.scene.restart();
+                        });
+                    }
+                    yPos += 180;
+                });
+
+                this.domButton(W / 2, 1680, 480, 90, "BACK", () => this.scene.start("Home"), { size: 28, icon: "arrow-left" });
+            }
+        }
+
+        class SettingsScene extends BaseScene {
+            constructor() { super("SettingsScene"); }
+            create() {
+                this.bg(); const t = theme();
+                this.text(W / 2, 160, "ACCESSIBILITY & SOUND", 56, t.text, { fontStyle: "bold" });
+
+                const html = `
+          <div style="width:100%; display:flex; flex-direction:column; gap:12px;">
+            <div class="wf-setting-row"><span class="wf-setting-label">Sound FX</span><button class="wf-toggle" id="toggle-sfx" style="background:${State.sfx ? '#22c55e' : '#ef4444'}; color:#fff;">${State.sfx ? 'ON' : 'OFF'}</button></div>
+            <div class="wf-setting-row"><span class="wf-setting-label">Background Music</span><button class="wf-toggle" id="toggle-bgm" style="background:${State.bgm ? '#22c55e' : '#ef4444'}; color:#fff;">${State.bgm ? 'ON' : 'OFF'}</button></div>
+            <div class="wf-setting-row"><span class="wf-setting-label">Tap-To-Select Mode</span><button class="wf-toggle" id="toggle-tap" style="background:${State.tapToSelect ? '#22c55e' : '#ef4444'}; color:#fff;">${State.tapToSelect ? 'ON' : 'OFF'}</button></div>
+            <div class="wf-setting-row"><span class="wf-setting-label">Colorblind Mode</span><button class="wf-toggle" id="toggle-cb" style="background:${State.colorblindMode ? '#22c55e' : '#ef4444'}; color:#fff;">${State.colorblindMode ? 'ON' : 'OFF'}</button></div>
+          </div>`;
+
+                const panel = this.domCard(W / 2, 880, 920, 900, html, { padding: 28, bg: "#1e2942", border: "#475569" });
+
+                const bindToggle = (id, key, stateProp, onToggle) => {
+                    const btn = panel.node.querySelector(id);
+                    btn.addEventListener("click", () => {
+                        State[stateProp] = !State[stateProp];
+                        localStorage.setItem(key, State[stateProp].toString());
+                        btn.textContent = State[stateProp] ? 'ON' : 'OFF';
+                        btn.style.background = State[stateProp] ? '#22c55e' : '#ef4444';
+                        AudioEngine.click(); if (onToggle) onToggle();
+                    });
+                };
+
+                bindToggle("#toggle-sfx", "wend_sfx", "sfx");
+                bindToggle("#toggle-bgm", "wend_bgm", "bgm", () => AudioEngine.startBGM());
+                bindToggle("#toggle-tap", "wend_tap_select", "tapToSelect");
+                bindToggle("#toggle-cb", "wend_colorblind", "colorblindMode");
+
+                this.domButton(W / 2, 1580, 480, 90, "SAVE & BACK", () => this.scene.start("Home"), { size: 30, icon: "arrow-left" });
+            }
+        }
+
+        class AgeScene extends BaseScene {
+            constructor() { super("AgeScene"); }
+
+            create() {
+                this.bg(); const t = theme();
+                this.text(W / 2, 150, "SELECT YOUR AGE", 62, t.text, { fontStyle: "bold" });
+
+                this.richAgeCard(W / 2, 420, AGE.UNDER_8, "KIDS", "UNDER 8", "smile", "Fun spellings & cheerful themes", "#3b82f6", "#60a5fa");
+                this.richAgeCard(W / 2, 750, AGE.EIGHT_TO_12, "JUNIORS", "8 - 12 YRS", "rocket", "Nature, space & sports hunt", "#0d9488", "#2dd4bf");
+                this.richAgeCard(W / 2, 1080, AGE.TEENS, "TEENS", "13 - 17 YRS", "zap", "Science, tech & geography puzzles", "#7c3aed", "#a855f7");
+                this.richAgeCard(W / 2, 1410, AGE.ADULTS, "ADULTS", "18+ YRS", "brain", "Philosophy & literary grids", "#d97706", "#f59e0b");
+
+                this.domButton(W / 2, 1720, 480, 90, "BACK", () => this.scene.start("Home"), { size: 28, icon: "arrow-left" });
+            }
+
+            richAgeCard(x, y, age, title, subtitle, iconName, desc, primaryColor, accentColor) {
+                const isSelected = State.age === age;
+                const html = `
+          <div class="wf-age-card" style="background: linear-gradient(135deg, ${primaryColor}dd, ${accentColor}dd);">
+            <div class="wf-age-card-left">
+              <div class="wf-age-card-icon-box" style="background: ${accentColor};">
+                ${miniIconHTML(iconName, 56, "#ffffff")}
+              </div>
+              <div>
+                <div class="wf-age-card-title">${title}</div>
+                <div class="wf-age-card-sub">${desc}</div>
+              </div>
+            </div>
+            <div class="wf-age-card-badge" style="background:${isSelected ? '#22c55e' : 'rgba(255,255,255,0.25)'}; color:#ffffff;">
+              ${isSelected ? 'ACTIVE ✓' : subtitle}
+            </div>
+          </div>`;
+
+                const dom = this.domCard(x, y, 920, 270, html, {
+                    interactive: true, padding: 0,
+                    border: isSelected ? "#facc15" : "#ffffff", borderWidth: isSelected ? 8 : 4
+                });
+
+                dom.node.addEventListener("pointerup", () => {
+                    State.age = age; localStorage.setItem('wend_age_group', age);
+                    this.scene.start("ModeScene");
+                });
+            }
+        }
+
+        class ModeScene extends BaseScene {
+            constructor() { super("ModeScene"); }
+
+            create() {
+                this.bg(); const t = theme();
+                this.text(W / 2, 180, "CHOOSE GAME MODE", 62, t.text, { fontStyle: "bold" });
+
+                this.richModeCard(W / 2, 600, MODE.CLASSIC, "search", "WORD HUNT", "Uncover hidden words snaking through the letter grid!", "#2563eb", "#3b82f6");
+                this.richModeCard(W / 2, 1150, MODE.QUIZ, "help-circle", "RIDDLE CHALLENGE", "Solve riddles & listen to audio clues to find the answer!", "#7c3aed", "#a855f7");
+
+                this.domButton(W / 2, 1680, 480, 90, "BACK", () => this.scene.start("Home"), { size: 28, icon: "arrow-left" });
+            }
+
+            richModeCard(x, y, mode, iconName, title, desc, primaryColor, accentColor) {
+                const isSelected = State.mode === mode;
+                const html = `
+          <div class="wf-mode-card" style="background: linear-gradient(135deg, ${primaryColor}ee, ${accentColor}ee);">
+            <div class="wf-mode-icon-circle" style="background: ${accentColor};">
+              ${miniIconHTML(iconName, 64, "#ffffff")}
+            </div>
+            <div>
+              <div class="wf-mode-title">${title}</div>
+              <div class="wf-mode-desc">${desc}</div>
+            </div>
+            <div class="wf-mode-pill" style="background:${isSelected ? '#22c55e' : '#ffffff'}; color:${isSelected ? '#ffffff' : '#1e2942'};">
+              ${isSelected ? 'PLAYING NOW ✓' : 'SELECT MODE'}
+            </div>
+          </div>`;
+
+                const dom = this.domCard(x, y, 860, 460, html, {
+                    interactive: true, padding: 0,
+                    border: isSelected ? "#facc15" : "#ffffff", borderWidth: isSelected ? 8 : 4
+                });
+
+                dom.node.addEventListener("pointerup", () => {
+                    State.mode = mode;
+                    State.hasChosenMode = true;
+                    localStorage.setItem('wend_has_chosen_mode', 'true');
+                    this.scene.start("GameScene");
+                });
+            }
+        }
+
+        class GameScene extends BaseScene {
+            constructor() {
+                super("GameScene");
+                this.selected = []; this.cells = []; this.foundSet = new Set();
+                this.wordRowEls = {}; this.dragging = false; this.isLevelCleared = false;
+                this.timerEvent = null; this.remainingTime = 0; this.timeTaken = 0;
+                this.isTutorialRunning = false;
+                this.isPausedByOverlay = false;
+                this.isPausedModalOpen = false;
+                this.pauseModalDom = null;
+            }
+
+            create() {
+                window.currentGameSceneInstance = this;
+                this.levelData = generateLevel(State.age, State.level, State.mode, State.difficulty);
+                this.selected = []; this.cells = []; this.foundSet = new Set();
+                this.wordRowEls = {}; this.dragging = false; this.isLevelCleared = false;
+                this.isPausedByOverlay = false;
+                this.isPausedModalOpen = false;
+                this.pauseModalDom = null;
+
+                State.streak = 0; State.lastFoundTime = Date.now(); State.comboMultiplier = 1;
+                State.usedPowerupThisLevel = false;
+                State.timerFrozen = false;
+
+                this.remainingTime = 60;
+                this.timeTaken = 0;
+
+                this.bg(); this.drawHeader(); this.drawBoard(); this.drawWordPanel(); this.drawTimerBar(); this.drawPowerupToolbar();
+                this.startLevelTimer();
+
+                this.input.on("pointerdown", this.handlePointerDown, this);
+                this.input.on("pointermove", this.handlePointerMove, this);
+                this.input.on("pointerup", this.finishSelection, this);
+                this.input.on("pointerupoutside", this.finishSelection, this);
+
+                AudioEngine.startBGM();
+
+                // Check if overlay is already active at startup
+                updateSmartOverlay();
+
+                if (!State.hasSeenTutorial && State.level === 1 && !this.isPausedByOverlay) {
+                    this.time.delayedCall(400, () => this.startAssistedTutorial());
+                }
+            }
+
+            triggerOverlayPause() {
+                if (this.isLevelCleared) return;
+                this.isPausedByOverlay = true;
+                State.timerFrozen = true;
+                if (this.tutorialLoopActive && this.cancelTutorialLoop) {
+                    this.cancelTutorialLoop();
+                }
+                this.showPausedModal();
+            }
+
+            resumeFromOverlayPause() {
+                if (!this.isPausedByOverlay) return;
+                this.isPausedByOverlay = false;
+                State.timerFrozen = false;
+                if (this.isPausedModalOpen && this.pauseModalDom) {
+                    this.pauseModalDom.destroy();
+                    this.pauseModalDom = null;
+                    this.isPausedModalOpen = false;
+                }
+            }
+
+            showPausedModal() {
+                if (this.isPausedModalOpen) return;
+                this.isPausedModalOpen = true;
+
+                const html = `
+          <div style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:20px; height:100%; justify-content:center;">
+            <div style="font-size:48px; font-weight:800; color:#facc15;">GAME PAUSED</div>
+            <div style="font-size:22px; color:#cbd5e1; max-width:600px;">Please rotate your device or enter fullscreen mode to resume playing.</div>
+
+            <!-- Resume button with resume icon only btn -->
+            <button class="wf-btn" id="btn-resume-game" style="width:340px; height:80px; background:linear-gradient(180deg, #22c55e, #15803d); --base-btn-size: 28px; color:#ffffff;">
+              <span class="wf-btn-icon">${miniIconHTML("play", 32, "#ffffff")}</span>
+              <span>RESUME GAME</span>
+            </button>
+
+            <!-- Icon-only accessibility btn, game mode btn, level grid btn, difficulty change btn -->
+            <div style="display:flex; gap:16px; margin-top:10px;">
+              <button class="wf-btn" id="btn-pause-accessibility" style="width:75px; height:75px; padding:0; background:linear-gradient(180deg, #f43f5e, #be123c); color:#ffffff;" title="Accessibility Settings">
+                ${miniIconHTML("accessibility", 34, "#ffffff")}
+              </button>
+              <button class="wf-btn" id="btn-pause-gamemode" style="width:75px; height:75px; padding:0; background:linear-gradient(180deg, #a855f7, #7e22ce); color:#ffffff;" title="Game Mode">
+                ${miniIconHTML("gamepad-2", 34, "#ffffff")}
+              </button>
+              <button class="wf-btn" id="btn-pause-levelgrid" style="width:75px; height:75px; padding:0; background:linear-gradient(180deg, #38bdf8, #0284c7); color:#ffffff;" title="Level Grid">
+                ${miniIconHTML("grid", 34, "#ffffff")}
+              </button>
+              <button class="wf-btn" id="btn-pause-difficulty" style="width:75px; height:75px; padding:0; background:linear-gradient(180deg, #facc15, #eab308); color:#1e3a8a;" title="Difficulty Change">
+                ${miniIconHTML("zap", 34, "#1e3a8a")}
+              </button>
+            </div>
+          </div>`;
+
+                this.pauseModalDom = this.openHtmlModal(800, 560, html, { depth: 300, border: "#facc15" });
+                refreshIcons();
+
+                this.pauseModalDom.node.querySelector("#btn-resume-game").addEventListener("click", () => {
+                    requestFullscreenAndLock();
+                    setTimeout(() => {
+                        updateSmartOverlay();
+                    }, 150);
+                });
+
+                this.pauseModalDom.node.querySelector("#btn-pause-accessibility").addEventListener("click", () => {
+                    this.pauseModalDom.destroy();
+                    this.pauseModalDom = null;
+                    this.isPausedModalOpen = false;
+                    this.openInGameAccessibility();
+                });
+
+                this.pauseModalDom.node.querySelector("#btn-pause-gamemode").addEventListener("click", () => {
+                    this.scene.start("ModeScene");
+                });
+
+                this.pauseModalDom.node.querySelector("#btn-pause-levelgrid").addEventListener("click", () => {
+                    this.pauseModalDom.destroy();
+                    this.pauseModalDom = null;
+                    this.isPausedModalOpen = false;
+                    this.openHistoryGridModalFromGame();
+                });
+
+                this.pauseModalDom.node.querySelector("#btn-pause-difficulty").addEventListener("click", () => {
+                    this.scene.start("DifficultyScene");
+                });
+            }
+
+            startAssistedTutorial() {
+                this.isTutorialRunning = true;
+                State.timerFrozen = true;
+
+                if (this.levelData.placements.length < 2) return;
+                const firstPlacement = this.levelData.placements[0];
+                const secondPlacement = this.levelData.placements[1];
+
+                const tooltip1 = this.add.text(W / 2, 400, "WATCH: HOW TO FIND WORDS!", {
+                    fontFamily: theme().font, fontSize: "28px", fontStyle: "bold", color: "#ffffff",
+                    backgroundColor: "#3b82f6", padding: { x: 20, y: 12 }, align: "center"
+                }).setOrigin(0.5).setDepth(110);
+
+                const firstPathPoints = firstPlacement.path.map(([c, r]) => ({
+                    x: this.cells[r][c].cx,
+                    y: this.cells[r][c].cy
+                }));
+
+                const handW = 70, handH = 70;
+                const startPt = firstPathPoints[0];
+
+                const handHtml = `<div style="width:${handW}px;height:${handH}px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 4px 6px rgba(0,0,0,0.3));pointer-events:none;">${miniIconHTML("pointer", 52, "#ffffff")}</div>`;
+
+                const handDom = this.add.dom(startPt.x - handW / 2, startPt.y - handH / 2).createFromHTML(handHtml).setOrigin(0, 0).setDepth(120);
+                refreshIcons();
+
+                let idx1 = 0;
+                const animateFirstWord = () => {
+                    if (idx1 < firstPathPoints.length) {
+                        const pt = firstPathPoints[idx1];
+                        const cell = firstPlacement.path[idx1];
+                        this.addCell(cell[0], cell[1]);
+
+                        this.tweens.add({
+                            targets: handDom, x: pt.x - handW / 2, y: pt.y - handH / 2, duration: 500, ease: "Power1.easeInOut",
+                            onComplete: () => { idx1++; animateFirstWord(); }
+                        });
+                    } else {
+                        this.finishSelection();
+                        tooltip1.destroy();
+
+                        const tooltip2 = this.add.text(W / 2, 400, "WATCH PATH & DRAG TO SOLVE!", {
+                            fontFamily: theme().font, fontSize: "26px", fontStyle: "bold", color: "#ffffff",
+                            backgroundColor: "#22c55e", padding: { x: 20, y: 12 }, align: "center"
+                        }).setOrigin(0.5).setDepth(110);
+
+                        const secondPathPoints = secondPlacement.path.map(([c, r]) => ({
+                            x: this.cells[r][c].cx,
+                            y: this.cells[r][c].cy
+                        }));
+
+                        let isLooping = true;
+                        let currentTween = null;
+
+                        const runLoopAnimation = () => {
+                            if (!isLooping) return;
+                            handDom.setPosition(secondPathPoints[0].x - handW / 2, secondPathPoints[0].y - handH / 2);
+
+                            let step = 0;
+                            const nextStep = () => {
+                                if (!isLooping) return;
+                                if (step < secondPathPoints.length) {
+                                    const pt = secondPathPoints[step];
+                                    currentTween = this.tweens.add({
+                                        targets: handDom, x: pt.x - handW / 2, y: pt.y - handH / 2, duration: 450, ease: "Power1.easeInOut",
+                                        onComplete: () => { step++; nextStep(); }
+                                    });
+                                } else {
+                                    currentTween = this.time.delayedCall(700, () => {
+                                        if (isLooping) runLoopAnimation();
+                                    });
+                                }
+                            };
+                            nextStep();
+                        };
+
+                        runLoopAnimation();
+
+                        this.tutorialLoopActive = true;
+                        this.tutorialHandDomRef = handDom;
+                        this.tutorialTooltipRef = tooltip2;
+                        this.cancelTutorialLoop = () => {
+                            isLooping = false;
+                            if (currentTween) {
+                                if (typeof currentTween.stop === 'function') currentTween.stop();
+                                if (currentTween.remove) currentTween.remove();
+                            }
+                            this.tweens.killTweensOf(handDom);
+                            handDom.destroy();
+                            tooltip2.destroy();
+                            State.timerFrozen = false;
+                            State.hasSeenTutorial = true;
+                            localStorage.setItem('wend_has_seen_tutorial', 'true');
+                            this.isTutorialRunning = false;
+                            this.tutorialLoopActive = false;
+                        };
+                    }
+                };
+
+                animateFirstWord();
+            }
+
+            startLevelTimer() {
+                if (this.timerEvent) this.timerEvent.remove();
+                this.timerEvent = this.time.addEvent({
+                    delay: 1000,
+                    callback: () => {
+                        if (this.isLevelCleared || this.isPausedByOverlay) return;
+                        if (!State.timerFrozen) {
+                            this.remainingTime--;
+                            this.timeTaken++;
+                            this.updateTimerText();
+                            if (this.remainingTime <= 0) {
+                                this.handleTimeout();
+                            }
+                        }
+                    },
+                    loop: true
+                });
+            }
+
+            updateTimerText() {
+                if (this.timerTextNode) {
+                    const mins = Math.floor(Math.max(0, this.remainingTime) / 60).toString().padStart(2, "0");
+                    const secs = (Math.max(0, this.remainingTime) % 60).toString().padStart(2, "0");
+                    this.timerTextNode.innerHTML = `<span style="display:inline-flex; vertical-align:middle; margin-right:6px;">${miniIconHTML("timer", 26, "#ffffff")}</span>${mins}:${secs}`;
+                    if (this.remainingTime <= 15) {
+                        this.timerTextNode.style.color = "#f87171";
+                        this.timerTextNode.style.borderColor = "#f87171";
+                    } else {
+                        this.timerTextNode.style.color = "#ffffff";
+                        this.timerTextNode.style.borderColor = "rgba(255, 255, 255, 0.4)";
+                    }
+                }
+            }
+
+            handleTimeout() {
+                this.isLevelCleared = true;
+                AudioEngine.wrong();
+                const html = `
+          <div style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:20px; height:100%; justify-content:center;">
+            <div style="font-size:56px; font-weight:800; color:#f87171;">TIME UP!</div>
+            <div style="font-size:24px; color:#ffffff; max-width:600px;">The level timer ran out! Choose an option below:</div>
+
+            <button class="wf-btn" id="btn-restart" style="width:360px; height:75px; background:linear-gradient(180deg, #fde047, #eab308); --base-btn-size: 28px; color:#1e3a8a;">
+              <span class="wf-btn-icon">${miniIconHTML("rotate-cw", 30, "#1e3a8a")}</span>
+              <span>RETRY LEVEL</span>
+            </button>
+
+            <!-- On timeup pop up - accessibility icon only btn, game mode icon only btn, level grid icon only btn, difficulty change icon only btn -->
+            <div style="display:flex; gap:16px; margin-top:6px;">
+              <button class="wf-btn" id="btn-timeout-accessibility" style="width:75px; height:75px; padding:0; background:linear-gradient(180deg, #f43f5e, #be123c); color:#ffffff;" title="Accessibility Settings">
+                ${miniIconHTML("accessibility", 34, "#ffffff")}
+              </button>
+              <button class="wf-btn" id="btn-timeout-gamemode" style="width:75px; height:75px; padding:0; background:linear-gradient(180deg, #a855f7, #7e22ce); color:#ffffff;" title="Game Mode">
+                ${miniIconHTML("gamepad-2", 34, "#ffffff")}
+              </button>
+              <button class="wf-btn" id="btn-timeout-levelgrid" style="width:75px; height:75px; padding:0; background:linear-gradient(180deg, #38bdf8, #0284c7); color:#ffffff;" title="Level Grid">
+                ${miniIconHTML("grid", 34, "#ffffff")}
+              </button>
+              <button class="wf-btn" id="btn-timeout-difficulty" style="width:75px; height:75px; padding:0; background:linear-gradient(180deg, #facc15, #eab308); color:#1e3a8a;" title="Difficulty Change">
+                ${miniIconHTML("zap", 34, "#1e3a8a")}
+              </button>
+            </div>
+          </div>`;
+
+                const modal = this.openHtmlModal(820, 600, html, { depth: 200, border: "#f87171" });
+                refreshIcons();
+
+                modal.node.querySelector("#btn-restart").addEventListener("click", () => {
+                    modal.destroy(); this.scene.restart();
+                });
+
+                modal.node.querySelector("#btn-timeout-accessibility").addEventListener("click", () => {
+                    modal.destroy();
+                    this.openInGameAccessibility();
+                });
+
+                modal.node.querySelector("#btn-timeout-gamemode").addEventListener("click", () => {
+                    modal.destroy();
+                    this.scene.start("ModeScene");
+                });
+
+                modal.node.querySelector("#btn-timeout-levelgrid").addEventListener("click", () => {
+                    modal.destroy();
+                    this.openHistoryGridModalFromGame();
+                });
+
+                modal.node.querySelector("#btn-timeout-difficulty").addEventListener("click", () => {
+                    modal.destroy();
+                    this.scene.start("DifficultyScene");
+                });
+            }
+
+            drawHeader() {
+                const t = theme();
+                this.add.rectangle(W / 2, 110, W, 180, t.panel, 0.95);
+
+                this.text(W / 2 - 120, 85, "LEVEL " + State.level, 52, t.text, { fontStyle: "bold" });
+                const reqStars = State.getRequiredStarsToUnlock(State.difficulty + 1);
+                const currentStars = State.getAccumulatedStars(State.difficulty);
+                this.text(W / 2 - 120, 140, `Diff ${State.difficulty}/5 • Tier Stars: ${currentStars}/${reqStars} ⭐`, 24, t.soft);
+
+                // Fixed Prev Button logic: enabled if State.level > 1
+                const isPrevDisabled = State.level <= 1;
+                this.domButton(70, 110, 70, 70, "", () => {
+                    if (State.level > 1) {
+                        State.level--;
+                        this.scene.restart();
+                    }
+                }, { size: 28, icon: "chevron-left", disabled: isPrevDisabled });
+
+                // Fixed Next Button logic: enabled ONLY if the current level is already attempted
+                const history = State.getLevelHistory();
+                const isCurrentLevelAttempted = history.some(h => h.diffNum === State.difficulty && h.level === State.level);
+                const isNextDisabled = !isCurrentLevelAttempted;
+
+                this.domButton(145, 110, 70, 70, "", () => {
+                    if (!isNextDisabled) {
+                        State.level++;
+                        this.scene.restart();
+                    }
+                }, { size: 28, icon: "chevron-right", disabled: isNextDisabled });
+
+                this.domButton(W - 255, 110, 75, 75, "", () => this.openHowToPlayModal(), { size: 28, icon: "help-circle" });
+                this.domButton(W - 165, 110, 75, 75, "", () => this.openInGameAccessibility(), { size: 28, icon: "accessibility" });
+                this.domButton(W - 75, 110, 85, 75, "", () => this.scene.start("Home"), { size: 24, icon: "home" });
+            }
+
+            openHowToPlayModal() {
+                const wasFrozen = State.timerFrozen;
+                State.timerFrozen = true;
+
+                const html = `
+          <div style="width:100%; display:flex; flex-direction:column; align-items:center; height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y; padding-right:4px;">
+            <div style="font-size:46px; font-weight:800; color:#fff; margin-bottom:8px;">HOW TO PLAY</div>
+            <div style="font-size:24px; color:#cbd5e1; margin-bottom:20px;">Master controls & powerup boosts</div>
+
+            <div style="display:flex; flex-direction:column; gap:14px; width:100%;">
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#3b82f6;">${miniIconHTML("move", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">Snaking Selection</div>
+                  <div class="wf-help-desc">Words can bend in any direction! Drag across or tap connected letters to spell target words. Drag backward over previous letters to unselect.</div>
+                </div>
+              </div>
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#0284c7;">${miniIconHTML("magnet", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">SOLVE (Magnet)</div>
+                  <div class="wf-help-desc">Instantly reveals and solves an entire un-found word on the board.</div>
+                </div>
+              </div>
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#38bdf8;">${miniIconHTML("eye", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">REVEAL (Eye)</div>
+                  <div class="wf-help-desc">Highlights starting letter tiles for un-found words in blue hint color.</div>
+                </div>
+              </div>
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#06b6d4;">${miniIconHTML("snowflake", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">FREEZE (Snowflake)</div>
+                  <div class="wf-help-desc">Freezes the 60-second countdown timer for 15 seconds.</div>
+                </div>
+              </div>
+              <div class="wf-help-card">
+                <div class="wf-help-icon" style="background:#a855f7;">${miniIconHTML("shuffle", 36, "#fff")}</div>
+                <div>
+                  <div class="wf-help-title">SHUFFLE (Mix)</div>
+                  <div class="wf-help-desc">Shuffles distractor letter tiles around target words.</div>
+                </div>
+              </div>
+            </div>
+
+            <button class="wf-btn" id="help-ingame-close" style="width:300px; height:75px; background:linear-gradient(180deg, #fde047, #eab308); --base-btn-size: 30px; color:#1e3a8a; margin-top:24px; flex-shrink:0;">OK</button>
+          </div>`;
+
+                // Height increased by 20px (from 960 to 980)
+                const modal = this.openHtmlModal(920, 980, html, { depth: 200, bg: "#1e2942", border: "#475569", padding: 32 });
+                modal.node.querySelector("#help-ingame-close").addEventListener("click", () => {
+                    modal.destroy();
+                    State.timerFrozen = wasFrozen;
+                });
+            }
+
+            drawBoard() {
+                const d = this.levelData, p = d.profile, t = theme();
+                const maxW = 920;
+                this.cellSize = Math.floor(maxW / p.cols);
+                const bw = this.cellSize * p.cols, bh = this.cellSize * p.rows;
+
+                this.boardX = (W - bw) / 2; this.boardY = 220 + (maxW - bh) / 2;
+                this.boardBg = this.add.rectangle(this.boardX + bw / 2, this.boardY + bh / 2, bw + 28, bh + 28, t.panel, 0.95).setStrokeStyle(8, t.line);
+
+                this.cells = Array.from({ length: p.rows }, () => Array(p.cols));
+
+                for (let r = 0; r < p.rows; r++) {
+                    for (let c = 0; c < p.cols; c++) {
+                        const cx = this.boardX + c * this.cellSize + this.cellSize / 2;
+                        const cy = this.boardY + r * this.cellSize + this.cellSize / 2;
+                        const cs = this.cellSize - 8, isBlock = d.grid[r][c] === BLOCK_TILE;
+
+                        const g = this.add.graphics();
+                        this.paintTile(g, cx, cy, cs, isBlock ? t.block : t.cell, t.cellLine, "normal");
+
+                        const tx = this.add.text(cx, cy, isBlock ? "" : d.grid[r][c], {
+                            fontFamily: t.font, fontSize: Math.min(48, cs * 0.52) + "px", fontStyle: "bold", color: hex(t.text)
+                        }).setOrigin(0.5);
+
+                        this.cells[r][c] = { g, tx, cx, cy, cs, r, c, isBlock, letter: d.grid[r][c] };
+                    }
+                }
+            }
+
+            drawWordPanel() {
+                const t = theme(), isQuiz = State.mode === MODE.QUIZ;
+                const rowsHTML = this.levelData.placements.map(pl => {
+                    const masked = isQuiz && pl.isQuizWord;
+                    const display = masked ? "?".repeat(pl.word.length) : pl.word;
+                    return `
+            <div class="wf-word-row" data-word="${pl.word}" style="background:${hex(t.bg)}44; color:${hex(t.text)};">
+              <span class="wf-word-icon" style="background:${hex(t.primary)}33;">${miniIconHTML(pl.icon, 22, hex(t.primary))}</span>
+              <span class="wf-word-text">${display}</span>
+              <span class="wf-word-check">${miniIconHTML("check-circle-2", 26, "#ffffff")}</span>
+            </div>`;
+                }).join("");
+
+                let quizHTML = "";
+                if (isQuiz) {
+                    quizHTML = `
+            <div style="width:100%; border-radius:20px; padding:12px; margin-bottom:12px; background:${hex(t.primary)}22; border:3px dashed ${hex(t.primary)}; text-align:center; display:flex; flex-direction:column; align-items:center;">
+              <div style="display:flex; align-items:center; justify-content:center; gap:12px; width:100%;">
+                <div style="font-size:24px; font-weight:700; color:${hex(t.text)};">"${this.levelData.quiz.q}"</div>
+                <button class="wf-tts-btn" id="tts-btn">
+                  ${miniIconHTML("volume-2", 30, "#1e3a8a")}
+                </button>
+              </div>
+            </div>`;
+                }
+
+                const innerHTML = `
+          <div style="font-size:28px; font-weight:800; color:${hex(t.text)}; margin-bottom:10px; text-align:center;">
+            ${isQuiz ? "SOLVE THE RIDDLE:" : "FIND THE WORDS:"}
+          </div>
+          ${quizHTML}
+          <div class="wf-word-list" style="width:100%;">${rowsHTML}</div>`;
+
+                this.wordPanelDom = this.domCard(W / 2, 1370, 940, isQuiz ? 390 : 320, innerHTML, { padding: 20 });
+
+                if (isQuiz) {
+                    const ttsBtn = this.wordPanelDom.node.querySelector("#tts-btn");
+                    if (ttsBtn) ttsBtn.addEventListener("click", () => TTS.speak(this.levelData.quiz.q));
+                }
+
+                this.levelData.placements.forEach(pl => {
+                    this.wordRowEls[pl.word] = this.wordPanelDom.node.querySelector(`.wf-word-row[data-word="${pl.word}"]`);
+                });
+            }
+
+            drawTimerBar() {
+                const t = theme();
+                const html = `
+          <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#1e2942; border:4px solid #475b8a; border-radius:999px; box-shadow:0 6px 0 rgba(0,0,0,0.15);">
+            <div id="timer-text" style="font-size:32px; font-weight:800; color:#ffffff; letter-spacing:2px; border:3px dashed rgba(255,255,255,0.4); padding:4px 32px; border-radius:999px; background:rgba(0,0,0,0.2); display:flex; align-items:center;">
+              <span style="display:inline-flex; vertical-align:middle; margin-right:6px;">${miniIconHTML("timer", 26, "#ffffff")}</span>01:00
+            </div>
+          </div>`;
+
+                this.timerDom = this.domCenter(W / 2, 1610, 420, 75, html);
+                this.timerTextNode = this.timerDom.node.querySelector("#timer-text");
+            }
+
+            drawPowerupToolbar() {
+                const html = `
+          <div class="wf-powerup-bar">
+            <div class="wf-powerup-btn" id="pw-magnet" title="Solves 1 full word">
+              <span class="wf-powerup-count">${State.powerups.magnet}</span>
+              ${miniIconHTML("magnet", 38, "#ffffff")}
+              <span class="wf-powerup-label">SOLVE</span>
+            </div>
+            <div class="wf-powerup-btn" id="pw-reveal" title="Reveals word start letter">
+              <span class="wf-powerup-count">${State.powerups.reveal}</span>
+              ${miniIconHTML("eye", 38, "#ffffff")}
+              <span class="wf-powerup-label">REVEAL</span>
+            </div>
+            <div class="wf-powerup-btn" id="pw-freeze" title="Freezes timer for 15s">
+              <span class="wf-powerup-count">${State.powerups.freeze}</span>
+              ${miniIconHTML("snowflake", 38, "#ffffff")}
+              <span class="wf-powerup-label">FREEZE</span>
+            </div>
+            <div class="wf-powerup-btn" id="pw-shuffle" title="Mixes distractor tiles">
+              <span class="wf-powerup-count">${State.powerups.shuffle}</span>
+              ${miniIconHTML("shuffle", 38, "#ffffff")}
+              <span class="wf-powerup-label">SHUFFLE</span>
+            </div>
+          </div>`;
+
+                this.powerupDom = this.domCenter(W / 2, 1750, 940, 140, html);
+
+                const bindPowerup = (id, type, handler) => {
+                    const btn = this.powerupDom.node.querySelector(id);
+                    btn.addEventListener("click", () => {
+                        if (this.isPausedByOverlay) return;
+                        if (State.powerups[type] > 0) {
+                            State.usedPowerupThisLevel = true;
+                            State.powerups[type]--; State.savePowerups();
+                            btn.querySelector(".wf-powerup-count").textContent = State.powerups[type];
+                            AudioEngine.powerup(); handler();
+                        }
+                    });
+                };
+
+                bindPowerup("#pw-magnet", "magnet", () => this.useMagnetPowerup());
+                bindPowerup("#pw-reveal", "reveal", () => this.useRevealPowerup());
+                bindPowerup("#pw-freeze", "freeze", () => this.useFreezePowerup());
+                bindPowerup("#pw-shuffle", "shuffle", () => this.useShufflePowerup());
+            }
+
+            useMagnetPowerup() {
+                const unfound = this.levelData.placements.filter(pl => !this.foundSet.has(pl.word));
+                if (unfound.length > 0) this.markFound(unfound[0]);
+            }
+
+            useRevealPowerup() {
+                const unfound = this.levelData.placements.filter(pl => !this.foundSet.has(pl.word));
+                unfound.slice(0, 3).forEach(target => {
+                    const [c, r] = target.path[0], cell = this.cells[r][c];
+                    this.paintTile(cell.g, cell.cx, cell.cy, cell.cs, theme().hint, theme().accent, "hint");
+                });
+            }
+
+            useFreezePowerup() {
+                State.timerFrozen = true;
+                this.boardBg.setStrokeStyle(12, 0x38bdf8);
+                this.showPowerupBanner("TIMER FROZEN FOR 15s!");
+                this.time.delayedCall(15000, () => {
+                    if (!this.isPausedByOverlay) State.timerFrozen = false;
+                    this.boardBg.setStrokeStyle(8, theme().line);
+                });
+            }
+
+            useShufflePowerup() {
+                const p = this.levelData.profile;
+                const targetCoords = new Set();
+                this.levelData.placements.forEach(pl => {
+                    pl.path.forEach(([c, r]) => targetCoords.add(`${c},${r}`));
+                });
+
+                for (let r = 0; r < p.rows; r++) {
+                    for (let c = 0; c < p.cols; c++) {
+                        const cell = this.cells[r][c];
+                        if (!cell.isBlock && !targetCoords.has(`${c},${r}`)) {
+                            cell.letter = String.fromCharCode(65 + seededRnd(0, 25));
+                            cell.tx.setText(cell.letter);
+                            this.tweens.add({ targets: cell.tx, angle: 360, duration: 400 });
+                        }
+                    }
+                }
+                this.showPowerupBanner("DISTRACTORS SHUFFLED!");
+            }
+
+            getCellAtPointer(pointer) {
+                if (this.isLevelCleared || this.isPausedByOverlay) return null;
+                const p = this.levelData.profile, radiusSq = (this.cellSize / 2) * (this.cellSize / 2);
+                for (let r = 0; r < p.rows; r++) {
+                    for (let c = 0; c < p.cols; c++) {
+                        const cell = this.cells[r][c]; if (cell.isBlock) continue;
+                        const dx = pointer.x - cell.cx, dy = pointer.y - cell.cy;
+                        if (dx * dx + dy * dy <= radiusSq) return cell;
+                    }
+                }
+                return null;
+            }
+
+            handlePointerDown(pointer) {
+                if (this.isLevelCleared || this.isPausedByOverlay) return;
+
+                if (this.tutorialLoopActive) {
+                    if (this.cancelTutorialLoop) this.cancelTutorialLoop();
+                }
+
+                if (this.isTutorialRunning) return;
+
+                const cell = this.getCellAtPointer(pointer);
+                if (cell) {
+                    if (State.tapToSelect) { this.addCell(cell.c, cell.r); this.checkTapMatch(); }
+                    else { this.clearSelection(); this.dragging = true; this.addCell(cell.c, cell.r); }
+                }
+            }
+
+            handlePointerMove(pointer) {
+                if (!this.dragging || this.isLevelCleared || this.isPausedByOverlay || State.tapToSelect || this.isTutorialRunning) return;
+                const cell = this.getCellAtPointer(pointer);
+                if (cell) {
+                    if (this.selected.length >= 2) {
+                        const prevCell = this.selected[this.selected.length - 2];
+                        if (prevCell.c === cell.c && prevCell.r === cell.r) {
+                            const removed = this.selected.pop();
+                            const remCell = this.cells[removed.r][removed.c];
+                            this.paintTile(remCell.g, remCell.cx, remCell.cy, remCell.cs, theme().cell, theme().cellLine, "normal");
+                            AudioEngine.deselect();
+                            return;
+                        }
+                    }
+                    this.addCell(cell.c, cell.r);
+                }
+            }
+
+            addCell(c, r) {
+                const p = this.levelData.profile;
+                if (r < 0 || r >= p.rows || c < 0 || c >= p.cols || this.cells[r][c].isBlock) return;
+                const last = this.selected[this.selected.length - 1];
+                if (last && last.c === c && last.r === r) return;
+                if (last && (Math.abs(last.c - c) + Math.abs(last.r - r) !== 1)) return;
+
+                if (this.selected.some(item => item.c === c && item.r === r)) return;
+
+                this.selected.push({ c, r });
+                const cell = this.cells[r][c];
+                this.paintTile(cell.g, cell.cx, cell.cy, cell.cs, theme().selected, theme().accent, "selected");
+                AudioEngine.select();
+            }
+
+            checkTapMatch() {
+                const traced = this.selected.map(item => this.cells[item.r][item.c].letter).join("");
+                const reversed = [...traced].reverse().join("");
+                const match = this.levelData.placements.find(pl => !this.foundSet.has(pl.word) && (pl.word === traced || pl.word === reversed));
+                if (match) {
+                    this.markFound(match, [...this.selected]);
+                }
+            }
+
+            finishSelection() {
+                if (State.tapToSelect || (!this.dragging && !this.isTutorialRunning) || this.isPausedByOverlay) return;
+                this.dragging = false;
+                const traced = this.selected.map(item => this.cells[item.r][item.c].letter).join("");
+                const reversed = [...traced].reverse().join("");
+                const match = this.levelData.placements.find(pl => !this.foundSet.has(pl.word) && (pl.word === traced || pl.word === reversed));
+
+                if (match) {
+                    this.markFound(match, [...this.selected]);
+                } else {
+                    if (this.selected.length > 1) AudioEngine.wrong();
+                    this.clearSelection();
+                }
+            }
+
+            clearSelection() {
+                this.selected.forEach(item => {
+                    const cell = this.cells[item.r][item.c];
+                    this.paintTile(cell.g, cell.cx, cell.cy, cell.cs, theme().cell, theme().cellLine, "normal");
+                });
+                this.selected = [];
+            }
+
+            markFound(pl, customPath = null) {
+                this.foundSet.add(pl.word); const t = theme();
+                State.addLearnedWord(pl.word, pl.category || "GENERAL", State.age);
+
+                const pathTiles = customPath || pl.path.map(([c, r]) => ({ c, r }));
+
+                pathTiles.forEach(({ c, r }) => {
+                    const cell = this.cells[r][c];
+                    this.paintTile(cell.g, cell.cx, cell.cy, cell.cs, t.found, t.success, "found");
+                });
+
+                const row = this.wordRowEls[pl.word];
+                if (row) { row.classList.add("wf-found"); if (pl.isQuizWord) row.querySelector(".wf-word-text").textContent = pl.word; }
+
+                AudioEngine.correct();
+
+                const now = Date.now(), timeDiff = (now - State.lastFoundTime) / 1000;
+                State.lastFoundTime = now;
+
+                if (timeDiff <= 7) {
+                    State.streak++; State.powerups.magnet++; State.savePowerups();
+                    this.showPowerupBanner(`FAST SOLVE x${State.streak}! +1 MAGNET`);
+                } else { State.streak = 1; }
+
+                const centerItem = pathTiles[Math.floor(pathTiles.length / 2)];
+                const centerCell = this.cells[centerItem.r][centerItem.c];
+                this.spawnWordParticleFX(centerCell.cx, centerCell.cy);
+                this.confettiBurst(W / 2, 700, 28);
+                this.selected = [];
+
+                if (this.foundSet.size === this.levelData.placements.length) {
+                    this.time.delayedCall(600, () => this.levelComplete());
+                }
+            }
+
+            showPowerupBanner(msg) {
+                const t = theme();
+                const banner = this.add.text(W / 2, 380, msg, {
+                    fontFamily: t.font, fontSize: "40px", fontStyle: "bold", color: "#ffffff", stroke: "#10b981", strokeThickness: 8
+                }).setOrigin(0.5).setDepth(85);
+
+                this.tweens.add({
+                    targets: banner, y: 330, scale: { from: 0.6, to: 1.2 }, alpha: { from: 1, to: 0 },
+                    duration: 1400, ease: "Back.easeOut", onComplete: () => banner.destroy()
+                });
+            }
+
+            spawnWordParticleFX(x, y) {
+                if (State.quietMode) return;
+                const t = theme(), praises = ["GREAT!", "AWESOME!", "FANTASTIC!", "SUPER!", "PERFECT!"];
+                const praiseText = this.add.text(x, y, praises[Math.floor(Math.random() * praises.length)], {
+                    fontFamily: t.font, fontSize: "54px", fontStyle: "bold", color: "#ffffff", stroke: hex(t.secondary), strokeThickness: 10
+                }).setOrigin(0.5).setDepth(80);
+
+                this.tweens.add({
+                    targets: praiseText, y: y - 110, scale: { from: 0.5, to: 1.3 }, alpha: { from: 1, to: 0 },
+                    duration: 1100, ease: "Back.easeOut", onComplete: () => praiseText.destroy()
+                });
+
+                for (let i = 0; i < 20; i++) {
+                    const particle = this.add.circle(x, y, Math.floor(Math.random() * 8 + 8), t.primary).setDepth(75);
+                    const angle = Math.random() * Math.PI * 2, speed = Math.floor(Math.random() * 160 + 80);
+                    this.tweens.add({
+                        targets: particle, x: x + Math.cos(angle) * speed, y: y + Math.sin(angle) * speed,
+                        alpha: 0, scale: 0.2, duration: Math.floor(Math.random() * 400 + 600), ease: "Quad.easeOut", onComplete: () => particle.destroy()
+                    });
+                }
+            }
+
+            paintTile(g, cx, cy, cs, fill, line, stateType = "normal") {
+                g.clear(); g.fillStyle(fill, 1); g.fillRoundedRect(cx - cs / 2, cy - cs / 2, cs, cs, 18);
+                g.lineStyle(State.highContrast ? 6 : 4, line, 1); g.strokeRoundedRect(cx - cs / 2, cy - cs / 2, cs, cs, 18);
+                if (State.colorblindMode && stateType === "selected") {
+                    g.lineStyle(3, 0xffffff, 0.7); g.lineBetween(cx - cs / 3, cy - cs / 3, cx + cs / 3, cy + cs / 3);
+                }
+            }
+
+            openInGameAccessibility() {
+                const wasFrozen = State.timerFrozen;
+                State.timerFrozen = true;
+
+                const html = `
+          <div style="width:100%; display:flex; flex-direction:column; align-items:center;">
+            <div style="font-size:42px; font-weight:800; color:#fff; margin-bottom:16px;">ACCESSIBILITY SETTINGS</div>
+            <div class="wf-setting-row"><span class="wf-setting-label">Sound FX</span><button class="wf-toggle" id="mid-sfx" style="background:${State.sfx ? '#22c55e' : '#ef4444'}; color:#fff;">${State.sfx ? 'ON' : 'OFF'}</button></div>
+            <div class="wf-setting-row"><span class="wf-setting-label">Background Music</span><button class="wf-toggle" id="mid-bgm" style="background:${State.bgm ? '#22c55e' : '#ef4444'}; color:#fff;">${State.bgm ? 'ON' : 'OFF'}</button></div>
+            <div class="wf-setting-row"><span class="wf-setting-label">Tap-To-Select Mode</span><button class="wf-toggle" id="mid-tap" style="background:${State.tapToSelect ? '#22c55e' : '#ef4444'}; color:#fff;">${State.tapToSelect ? 'ON' : 'OFF'}</button></div>
+            <div class="wf-setting-row"><span class="wf-setting-label">Colorblind Mode</span><button class="wf-toggle" id="mid-cb" style="background:${State.colorblindMode ? '#22c55e' : '#ef4444'}; color:#fff;">${State.colorblindMode ? 'ON' : 'OFF'}</button></div>
+            <button class="wf-btn" id="mid-close" style="width:280px; height:70px; background:linear-gradient(180deg, #fde047, #eab308); --base-btn-size: 28px; color:#1e3a8a; margin-top:16px;">OK</button>
+          </div>`;
+
+                const modal = this.openHtmlModal(880, 780, html, { depth: 200, bg: "#1e2942", border: "#475569", padding: 30 });
+
+                const bindMidToggle = (id, key, stateProp, onToggle) => {
+                    const btn = modal.node.querySelector(id);
+                    btn.addEventListener("click", () => {
+                        State[stateProp] = !State[stateProp]; localStorage.setItem(key, State[stateProp].toString());
+                        btn.textContent = State[stateProp] ? 'ON' : 'OFF'; btn.style.background = State[stateProp] ? '#22c55e' : '#ef4444';
+                        AudioEngine.click();
+                        if (onToggle) onToggle();
+                    });
+                };
+
+                bindMidToggle("#mid-sfx", "wend_sfx", "sfx");
+                bindMidToggle("#mid-bgm", "wend_bgm", "bgm", () => AudioEngine.startBGM());
+                bindMidToggle("#mid-tap", "wend_tap_select", "tapToSelect");
+                bindMidToggle("#mid-cb", "wend_colorblind", "colorblindMode");
+
+                modal.node.querySelector("#mid-close").addEventListener("click", () => {
+                    modal.destroy();
+                    if (!this.isPausedByOverlay) State.timerFrozen = wasFrozen;
+                });
+            }
+
+            openHistoryGridModalFromGame() {
+                const history = State.getLevelHistory();
+                let selectedDiff = State.difficulty;
+
+                const renderGrid = (diff) => {
+                    const levelMap = {};
+
+                    history.forEach(h => {
+                        if (h.diffNum === diff) {
+                            if (!levelMap[h.level] || h.stars > levelMap[h.level]) {
+                                levelMap[h.level] = h.stars;
+                            }
+                        }
+                    });
+
+                    let gridHTML = "";
+                    const maxHistoryLevel = Math.max(...history.filter(h => h.diffNum === diff).map(h => h.level), 0);
+                    const currentProgressLevel = (selectedDiff === State.difficulty) ? State.level : 1;
+                    const totalLevelsToShow = Math.max(20, maxHistoryLevel + 1, currentProgressLevel);
+
+                    for (let l = 1; l <= totalLevelsToShow; l++) {
+                        const stars = levelMap[l] || 0;
+                        const isAttempted = levelMap[l] !== undefined;
+                        const isUnlocked = (l === 1) || isAttempted || (l <= maxHistoryLevel + 1);
+
+                        const starsHTML = Array.from({ length: 3 }, (_, i) =>
+                            miniIconHTML(i < stars ? "star" : "star-off", 16, i < stars ? "#facc15" : "rgba(255,255,255,0.4)")
+                        ).join("");
+
+                        if (isUnlocked) {
+                            gridHTML += `
+                <div class="wf-grid-btn" data-level="${l}">
+                  <span class="wf-grid-btn-num">${l}</span>
+                  <div class="wf-grid-btn-stars">${starsHTML}</div>
+                </div>`;
+                        } else {
+                            gridHTML += `
+                <div class="wf-grid-btn wf-locked" data-level="${l}">
+                  <span class="wf-grid-btn-num">${miniIconHTML("lock", 20, "#94a3b8")}</span>
+                  <div class="wf-grid-btn-stars">${starsHTML}</div>
+                </div>`;
+                        }
+                    }
+                    return gridHTML;
+                };
+
+                const renderTabs = () => {
+                    return [1, 2, 3, 4, 5].map(d => {
+                        const unlocked = State.isDiffUnlocked(d);
+                        const active = d === selectedDiff ? "active" : "";
+                        const diffName = (JSON_DATA.difficulties[d.toString()] || {}).name || `D${d}`;
+                        return `
+              <button class="wf-diff-tab ${active}" data-diff="${d}" ${unlocked ? "" : "disabled"}>
+                ${unlocked ? diffName : "🔒 " + diffName}
+              </button>`;
+                    }).join("");
+                };
+
+                const modalHTML = `
+          <div style="width:100%; display:flex; flex-direction:column; align-items:center; height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y; padding-right:4px;">
+            <div style="font-size:38px; font-weight:800; color:#fff; margin-bottom:8px;">LEVEL SELECT</div>
+            <div style="font-size:22px; color:#cbd5e1; margin-bottom:14px;">Select any attempted level to replay</div>
+            
+            <div id="diff-tabs" style="display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-bottom:16px; flex-shrink:0;">
+              ${renderTabs()}
+            </div>
+
+            <div id="grid-container" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; width:100%; padding:10px; justify-items:center;">
+              ${renderGrid(selectedDiff)}
+            </div>
+
+            <button class="wf-btn" id="hist-close" style="width:280px; height:70px; background:linear-gradient(180deg, #fde047, #eab308); --base-btn-size: 28px; color:#1e3a8a; margin-top:18px; flex-shrink:0;">CLOSE</button>
+          </div>`;
+
+                const modal = this.openHtmlModal(920, 920, modalHTML, { depth: 300, bg: "#1e2942", border: "#475569", padding: 28 });
+
+                const attachGridListeners = () => {
+                    modal.node.querySelectorAll(".wf-grid-btn:not(.wf-locked)").forEach(btn => {
+                        btn.addEventListener("click", () => {
+                            const targetLvl = parseInt(btn.getAttribute("data-level"), 10);
+                            State.difficulty = selectedDiff;
+                            localStorage.setItem('wend_difficulty', selectedDiff.toString());
+                            State.level = targetLvl;
+                            modal.destroy();
+                            this.scene.restart();
+                        });
+                    });
+                };
+
+                modal.node.querySelectorAll(".wf-diff-tab").forEach(tab => {
+                    tab.addEventListener("click", () => {
+                        selectedDiff = parseInt(tab.getAttribute("data-diff"), 10);
+                        modal.node.querySelector("#diff-tabs").innerHTML = renderTabs();
+                        modal.node.querySelector("#grid-container").innerHTML = renderGrid(selectedDiff);
+                        refreshIcons();
+                        attachGridListeners();
+                    });
+                });
+
+                attachGridListeners();
+                modal.node.querySelector("#hist-close").addEventListener("click", () => {
+                    modal.destroy();
+                });
+            }
+
+            levelComplete() {
+                this.isLevelCleared = true;
+                if (this.timerEvent) this.timerEvent.remove();
+                AudioEngine.win();
+
+                let stars = 1;
+                if (this.timeTaken <= 25) stars = 3;
+                else if (this.timeTaken <= 45) stars = 2;
+
+                const reqStars = State.getRequiredStarsToUnlock(State.difficulty + 1);
+                const prevAccumulatedStars = State.getAccumulatedStars(State.difficulty);
+
+                const currentLevel = State.level;
+
+                // Save history and compute strictly extra stars gained beyond previous personal best for this level
+                const extraStarsGained = State.saveLevelHistory({
+                    level: currentLevel,
+                    diffNum: State.difficulty,
+                    diffName: this.levelData.profile.name,
+                    timeTaken: this.timeTaken,
+                    stars,
+                    usedPw: State.usedPowerupThisLevel,
+                    timestamp: Date.now()
+                });
+
+                const newTotalStars = State.addStars(State.difficulty, extraStarsGained);
+
+                let newlyUnlockedDiff = null;
+                if (prevAccumulatedStars < reqStars && newTotalStars >= reqStars && State.difficulty < 5) {
+                    newlyUnlockedDiff = State.difficulty + 1;
+                }
+
+                const maxLevelForThisTier = 20;
+                const isLastLevelOfTier = currentLevel >= maxLevelForThisTier;
+
+                const starsHTML = Array.from({ length: 3 }, (_, i) => miniIconHTML(i < stars ? "star" : "star-off", 64, i < stars ? "#facc15" : "#64748b")).join("");
+
+                if (isLastLevelOfTier) {
+                    const badgeHTML = `
+            <div style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:14px; height:100%; justify-content:center;">
+              <div style="display:flex; gap:12px; margin-bottom:4px;">${starsHTML}</div>
+              
+              <div style="display:flex; align-items:center; justify-content:center; gap:10px; background:rgba(250,204,21,0.15); border:3px solid #facc15; padding:8px 24px; border-radius:999px;">
+                ${miniIconHTML("sparkles", 30, "#facc15")}
+                <span style="font-size:32px; font-weight:800; color:#facc15; letter-spacing:1px;">DIFFICULTY COMPLETED!</span>
+                ${miniIconHTML("sparkles", 30, "#facc15")}
+              </div>
+
+              <div style="font-size:22px; color:#e2e8f0; max-width:720px; line-height:1.4;">
+                You have completed this difficulty tier! Move on to a new challenge or choose to replay your favorite levels.
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:540px; margin-top:6px;">
+                ${State.difficulty < 5 ? `
+                <button class="wf-btn" id="btn-next-diff" style="height:70px; background:linear-gradient(180deg, #22c55e, #15803d); --base-btn-size: 24px; color:#ffffff;">
+                  <span class="wf-btn-icon">${miniIconHTML("play", 28, "#ffffff")}</span>
+                  <span>MOVE TO NEXT DIFFICULTY ▶</span>
+                </button>` : ""}
+                <button class="wf-btn" id="btn-open-grid" style="height:70px; background:linear-gradient(180deg, #38bdf8, #0284c7); --base-btn-size: 22px; color:#ffffff;">
+                  <span class="wf-btn-icon">${miniIconHTML("grid", 26, "#ffffff")}</span>
+                  <span>REPLAY LEVELS (GRID)</span>
+                </button>
+                <button class="wf-btn" id="btn-home" style="height:65px; background:linear-gradient(180deg, #a855f7, #7e22ce); --base-btn-size: 22px; color:#ffffff;">
+                  HOME MENU
+                </button>
+              </div>
+            </div>`;
+
+                    const modal = this.openHtmlModal(880, 820, badgeHTML, { depth: 200, bg: "#1e2942", border: "#facc15", borderWidth: 6 });
+                    refreshIcons();
+
+                    if (modal.node.querySelector("#btn-next-diff")) {
+                        modal.node.querySelector("#btn-next-diff").addEventListener("click", () => {
+                            State.difficulty++;
+                            localStorage.setItem('wend_difficulty', State.difficulty.toString());
+                            State.level = 1;
+                            modal.destroy(); this.scene.restart();
+                        });
+                    }
+
+                    modal.node.querySelector("#btn-open-grid").addEventListener("click", () => {
+                        modal.destroy();
+                        this.openHistoryGridModalFromGame();
+                    });
+
+                    modal.node.querySelector("#btn-home").addEventListener("click", () => {
+                        modal.destroy(); this.scene.start("Home");
+                    });
+
+                } else if (newlyUnlockedDiff) {
+                    State.powerups.magnet += 2;
+                    State.powerups.reveal += 2;
+                    State.powerups.freeze += 2;
+                    State.powerups.shuffle += 2;
+                    State.savePowerups();
+
+                    const totalUnlocked = State.getUnlockedDiffCount();
+                    const showChooseOption = totalUnlocked > 2;
+
+                    const badgeHTML = `
+            <div style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:14px; height:100%; justify-content:center;">
+              <div style="display:flex; gap:12px; margin-bottom:4px;">${starsHTML}</div>
+              
+              <div style="display:flex; align-items:center; justify-content:center; gap:10px; background:rgba(250,204,21,0.15); border:3px solid #facc15; padding:8px 24px; border-radius:999px;">
+                ${miniIconHTML("sparkles", 30, "#facc15")}
+                <span style="font-size:32px; font-weight:800; color:#facc15; letter-spacing:1px;">NEW DIFFICULTY UNLOCKED!</span>
+                ${miniIconHTML("sparkles", 30, "#facc15")}
+              </div>
+
+              <div style="font-size:22px; color:#e2e8f0; max-width:720px; line-height:1.4;">
+                Awesome job! You reached <strong>${newTotalStars}/${reqStars}</strong> total stars in this difficulty tier, unlocking the next challenge!
+              </div>
+
+              <div style="display:flex; align-items:center; justify-content:center; gap:12px; width:100%; background:linear-gradient(135deg, rgba(34,197,94,0.25), rgba(16,185,129,0.25)); border:3px solid #22c55e; padding:12px 20px; border-radius:24px; box-shadow:0 6px 0 rgba(0,0,0,0.15);">
+                <div style="background:#22c55e; border-radius:16px; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border:2px solid #ffffff;">
+                  ${miniIconHTML("zap", 28, "#ffffff")}
+                </div>
+                <div style="text-align:left;">
+                  <div style="font-size:16px; font-weight:700; color:#86efac; text-transform:uppercase; letter-spacing:1px;">New Tier Unlocked</div>
+                  <div style="font-size:26px; font-weight:800; color:#ffffff;">${JSON_DATA.difficulties[newlyUnlockedDiff.toString()].name.toUpperCase()} DIFFICULTY</div>
+                </div>
+              </div>
+              
+              <div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:540px; margin-top:6px;">
+                <button class="wf-btn" id="btn-jump-new" style="height:70px; background:linear-gradient(180deg, #22c55e, #15803d); --base-btn-size: 24px; color:#ffffff;">
+                  <span class="wf-btn-icon">${miniIconHTML("play", 28, "#ffffff")}</span>
+                  <span>JUMP TO NEW DIFFICULTY</span>
+                </button>
+                <div style="display:flex; gap:12px; width:100%;">
+                  <button class="wf-btn" id="btn-mode-select-unlocked" style="width:90px; height:70px; padding:0; flex-shrink:0; background:linear-gradient(180deg, #a855f7, #7e22ce); color:#ffffff;" title="Change Game Mode">
+                    ${miniIconHTML("gamepad-2", 36, "#ffffff")}
+                  </button>
+                  <button class="wf-btn" id="btn-continue-practice" style="flex:1; height:70px; background:linear-gradient(180deg, #fde047, #eab308); --base-btn-size: 22px; color:#1e3a8a;">
+                    CONTINUE PRACTICE
+                  </button>
+                </div>
+                ${showChooseOption ? `
+                <button class="wf-btn" id="btn-diff-menu" style="height:65px; background:linear-gradient(180deg, #38bdf8, #0284c7); --base-btn-size: 22px; color:#ffffff;">
+                  <span class="wf-btn-icon">${miniIconHTML("layers", 26, "#ffffff")}</span>
+                  <span>CHOOSE DIFFICULTY</span>
+                </button>` : ""}
+              </div>
+            </div>`;
+
+                    const modal = this.openHtmlModal(880, 880, badgeHTML, { depth: 200, bg: "#1e2942", border: "#475569", borderWidth: 6 });
+                    refreshIcons();
+
+                    modal.node.querySelector("#btn-jump-new").addEventListener("click", () => {
+                        State.difficulty = newlyUnlockedDiff;
+                        localStorage.setItem('wend_difficulty', newlyUnlockedDiff.toString());
+                        State.level = 1;
+                        modal.destroy(); this.scene.restart();
+                    });
+
+                    modal.node.querySelector("#btn-mode-select-unlocked").addEventListener("click", () => {
+                        modal.destroy(); this.scene.start("ModeScene");
+                    });
+
+                    if (showChooseOption) {
+                        modal.node.querySelector("#btn-diff-menu").addEventListener("click", () => {
+                            modal.destroy(); this.scene.start("DifficultyScene");
+                        });
+                    }
+
+                    modal.node.querySelector("#btn-continue-practice").addEventListener("click", () => {
+                        State.level++;
+                        modal.destroy(); this.scene.restart();
+                    });
+                } else {
+                    State.level++;
+                    const html = `
+            <div style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:20px; height:100%; justify-content:center;">
+              <div style="display:flex; gap:10px;">${starsHTML}</div>
+              <div style="font-size:52px; font-weight:800; color:${hex(theme().text)};">LEVEL CLEAR!</div>
+              <div style="font-size:26px; color:${hex(theme().soft)};">Time Taken: ${this.timeTaken}s • Earned +${stars} ⭐</div>
+              <div style="font-size:22px; color:#22c55e; font-weight:800;">
+                ✨ Total Tier Stars: ${newTotalStars}/${reqStars}
+              </div>
+
+              <div style="display:flex; gap:14px; width:100%; max-width:500px; justify-content:center; align-items:center;">
+                <button class="wf-btn" id="btn-mode-select" style="width:90px; height:90px; padding:0; flex-shrink:0; background:linear-gradient(180deg, #a855f7, #7e22ce); color:#ffffff;" title="Level Grid Mode Switch">
+                  ${miniIconHTML("gamepad-2", 42, "#ffffff")}
+                </button>
+                <button class="wf-btn" id="btn-next" style="flex:1; height:90px; background:linear-gradient(180deg, ${theme().gradA}, ${theme().gradB}); --base-btn-size: 32px; color:#1e3a8a;">
+                  NEXT LEVEL ▶
+                </button>
+              </div>
+            </div>`;
+
+                    const modal = this.openHtmlModal(840, 600, html, { depth: 200 });
+                    refreshIcons();
+
+                    modal.node.querySelector("#btn-mode-select").addEventListener("click", () => {
+                        modal.destroy(); this.scene.start("ModeScene");
+                    });
+
+                    modal.node.querySelector("#btn-next").addEventListener("click", () => {
+                        modal.destroy(); this.scene.restart();
+                    });
+                }
+            }
+        }
+
+        const config = {
+            type: Phaser.AUTO, parent: "game-container", width: W, height: H,
+            scale: {
+                mode: Phaser.Scale.FIT,
+                autoCenter: Phaser.Scale.CENTER_BOTH
+            },
+            dom: { createContainer: true },
+            scene: [PreloadScene, HomeScene, DifficultyScene, SettingsScene, AgeScene, ModeScene, GameScene]
+        };
+
+        window.onload = () => new Phaser.Game(config);
+    </script>
+</body>
+
+</html>

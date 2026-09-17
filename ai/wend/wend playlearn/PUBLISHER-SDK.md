@@ -37,7 +37,11 @@ offline, instantly, and without any API keys or publisher accounts.
 3. When the player finishes a round, report the result:
 
    ```js
-   PlayLearnSDK.reportComplete({ performance: 0.8, score: 120, levelReached: 3 });
+   PlayLearnSDK.reportComplete({
+     performance: 0.8,
+     score: 120,
+     levelReached: 3,
+   });
    ```
 
 That's the whole integration. Package your game as a ZIP with an
@@ -111,9 +115,9 @@ const ctx = PlayLearnSDK.getContext(); // null until init's callback has fired o
 
 ```js
 PlayLearnSDK.reportComplete({
-  performance: 0.8,     // 0..1 — how well they did. Required.
-  score: 120,            // optional, game-specific
-  levelReached: 3,        // optional, game-specific
+  performance: 0.8, // 0..1 — how well they did. Required.
+  score: 120, // optional, game-specific
+  levelReached: 3, // optional, game-specific
 });
 ```
 
@@ -127,7 +131,7 @@ Optional extras:
 
 ```js
 PlayLearnSDK.reportProgress({ anything: 'you want' }); // informational only, not persisted
-PlayLearnSDK.requestClose();                            // ask the host to close the player without recording a result
+PlayLearnSDK.requestClose(); // ask the host to close the player without recording a result
 ```
 
 You generally don't need `requestClose()` — the player already shows its
