@@ -1,0 +1,3005 @@
+{
+  "unlockConfig": {
+    "starsToUnlock": 15
+  },
+  "difficulties": {
+    "1": {
+      "name": "Very Easy",
+      "rows": 5,
+      "cols": 5,
+      "words": 3,
+      "blocks": 2,
+      "timeLimit": 60
+    },
+    "2": {
+      "name": "Easy",
+      "rows": 6,
+      "cols": 6,
+      "words": 4,
+      "blocks": 4,
+      "timeLimit": 60
+    },
+    "3": {
+      "name": "Medium",
+      "rows": 7,
+      "cols": 7,
+      "words": 5,
+      "blocks": 6,
+      "timeLimit": 60
+    },
+    "4": {
+      "name": "Hard",
+      "rows": 8,
+      "cols": 8,
+      "words": 6,
+      "blocks": 8,
+      "timeLimit": 60
+    },
+    "5": {
+      "name": "Expert",
+      "rows": 9,
+      "cols": 9,
+      "words": 7,
+      "blocks": 10,
+      "timeLimit": 60
+    }
+  },
+  "wordPools": {
+    "under8": {
+      "EASY": [
+        {
+          "word": "CAT",
+          "category": "ANIMALS",
+          "icon": "cat",
+          "definition": "A small, furry pet animal that says meow."
+        },
+        {
+          "word": "DOG",
+          "category": "ANIMALS",
+          "icon": "dog",
+          "definition": "A loyal, furry pet animal that barks."
+        },
+        {
+          "word": "SUN",
+          "category": "NATURE",
+          "icon": "sun",
+          "definition": "The bright star at the center of our solar system that gives Earth light and heat."
+        },
+        {
+          "word": "TOY",
+          "category": "PLAY",
+          "icon": "gamepad-2",
+          "definition": "An object made for children to play with."
+        },
+        {
+          "word": "BALL",
+          "category": "PLAY",
+          "icon": "circle",
+          "definition": "A round object used for playing games and sports."
+        },
+        {
+          "word": "BOX",
+          "category": "ITEMS",
+          "icon": "box",
+          "definition": "A container with flat sides, usually used for storing or carrying things."
+        },
+        {
+          "word": "HAT",
+          "category": "CLOTHES",
+          "icon": "shirt",
+          "definition": "A covering worn on the head."
+        },
+        {
+          "word": "RED",
+          "category": "COLORS",
+          "icon": "palette",
+          "definition": "A bright color like the color of blood or a ripe apple."
+        },
+        {
+          "word": "BUG",
+          "category": "NATURE",
+          "icon": "bug",
+          "definition": "A small insect, or an error in a computer program."
+        },
+        {
+          "word": "CUP",
+          "category": "ITEMS",
+          "icon": "cup-soda",
+          "definition": "A small container used for drinking."
+        },
+        {
+          "word": "PIG",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A farm animal with a curly tail, raised for meat."
+        },
+        {
+          "word": "COW",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A large farm animal raised for milk and meat."
+        },
+        {
+          "word": "FOX",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A small, clever wild animal related to dogs, with a bushy tail."
+        },
+        {
+          "word": "OWL",
+          "category": "ANIMALS",
+          "icon": "bird",
+          "definition": "A nocturnal bird known for its large eyes and quiet flight."
+        },
+        {
+          "word": "BAT",
+          "category": "ANIMALS",
+          "icon": "bird",
+          "definition": "A flying mammal that is active at night, or a piece of sports equipment used to hit a ball."
+        },
+        {
+          "word": "ANT",
+          "category": "NATURE",
+          "icon": "bug",
+          "definition": "A tiny insect that lives in large groups called colonies."
+        },
+        {
+          "word": "BEE",
+          "category": "NATURE",
+          "icon": "bug",
+          "definition": "A flying insect that makes honey and helps pollinate flowers."
+        },
+        {
+          "word": "BUS",
+          "category": "VEHICLES",
+          "icon": "bus",
+          "definition": "A large vehicle that carries many passengers along a route."
+        },
+        {
+          "word": "CAR",
+          "category": "VEHICLES",
+          "icon": "car",
+          "definition": "A wheeled vehicle used to travel on roads."
+        },
+        {
+          "word": "VAN",
+          "category": "VEHICLES",
+          "icon": "car",
+          "definition": "A boxy vehicle used for carrying goods or passengers."
+        },
+        {
+          "word": "BED",
+          "category": "HOUSE",
+          "icon": "bed",
+          "definition": "A piece of furniture people sleep on."
+        },
+        {
+          "word": "PEN",
+          "category": "SCHOOL",
+          "icon": "pencil",
+          "definition": "A tool used for writing with ink."
+        },
+        {
+          "word": "MAP",
+          "category": "SCHOOL",
+          "icon": "map",
+          "definition": "A drawing that shows the layout of an area, like roads and land."
+        },
+        {
+          "word": "KEY",
+          "category": "ITEMS",
+          "icon": "key",
+          "definition": "A small metal tool used to lock or unlock something."
+        },
+        {
+          "word": "JAM",
+          "category": "FOOD",
+          "icon": "cup-soda",
+          "definition": "A sweet spread made from cooked fruit and sugar."
+        },
+        {
+          "word": "EGG",
+          "category": "FOOD",
+          "icon": "circle",
+          "definition": "An oval object laid by birds, reptiles, and other animals, containing a developing baby."
+        },
+        {
+          "word": "NUT",
+          "category": "FOOD",
+          "icon": "circle",
+          "definition": "A hard-shelled fruit or seed, often edible."
+        },
+        {
+          "word": "PIE",
+          "category": "FOOD",
+          "icon": "cake",
+          "definition": "A baked dish with a pastry crust filled with sweet or savory ingredients."
+        },
+        {
+          "word": "ICE",
+          "category": "NATURE",
+          "icon": "snowflake",
+          "definition": "Water that has frozen solid."
+        },
+        {
+          "word": "SKY",
+          "category": "NATURE",
+          "icon": "cloud",
+          "definition": "The space above the Earth where clouds, the sun, and stars appear."
+        },
+        {
+          "word": "SEA",
+          "category": "NATURE",
+          "icon": "waves",
+          "definition": "A large body of salt water, smaller than an ocean."
+        },
+        {
+          "word": "MUG",
+          "category": "ITEMS",
+          "icon": "cup-soda",
+          "definition": "A large cup with a handle, usually used for hot drinks."
+        },
+        {
+          "word": "PAN",
+          "category": "ITEMS",
+          "icon": "box",
+          "definition": "A flat-bottomed container used for cooking."
+        },
+        {
+          "word": "BAG",
+          "category": "ITEMS",
+          "icon": "box",
+          "definition": "A container made of cloth, paper, or plastic used to carry things."
+        },
+        {
+          "word": "FAN",
+          "category": "HOUSE",
+          "icon": "fan",
+          "definition": "A device that moves air to cool things down, or an enthusiastic supporter."
+        },
+        {
+          "word": "TUB",
+          "category": "HOUSE",
+          "icon": "box",
+          "definition": "A large open container used for washing or bathing."
+        },
+        {
+          "word": "MAT",
+          "category": "HOUSE",
+          "icon": "box",
+          "definition": "A flat piece of material placed on a floor for protection or decoration."
+        },
+        {
+          "word": "NET",
+          "category": "ITEMS",
+          "icon": "grid",
+          "definition": "A material of woven threads with open spaces, used for catching things or in sports."
+        },
+        {
+          "word": "PIN",
+          "category": "ITEMS",
+          "icon": "pencil",
+          "definition": "A small, thin, pointed piece of metal used to fasten things."
+        },
+        {
+          "word": "TOP",
+          "category": "PLAY",
+          "icon": "circle",
+          "definition": "The highest point of something, or a spinning toy."
+        }
+      ],
+      "MEDIUM": [
+        {
+          "word": "FROG",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A small jumping amphibian with smooth, moist skin."
+        },
+        {
+          "word": "DUCK",
+          "category": "ANIMALS",
+          "icon": "bird",
+          "definition": "A water bird with webbed feet and a flat beak."
+        },
+        {
+          "word": "CAKE",
+          "category": "FOOD",
+          "icon": "cake",
+          "definition": "A sweet baked dessert, often eaten to celebrate special occasions."
+        },
+        {
+          "word": "MILK",
+          "category": "FOOD",
+          "icon": "cup-soda",
+          "definition": "A white liquid produced by mammals to feed their young, often drunk by people."
+        },
+        {
+          "word": "KITE",
+          "category": "PLAY",
+          "icon": "wind",
+          "definition": "A light frame covered in fabric, flown in the wind on a string."
+        },
+        {
+          "word": "FISH",
+          "category": "ANIMALS",
+          "icon": "fish",
+          "definition": "A cold-blooded animal that lives in water and breathes through gills."
+        },
+        {
+          "word": "BOOK",
+          "category": "SCHOOL",
+          "icon": "book-open",
+          "definition": "A set of printed or written pages bound together to be read."
+        },
+        {
+          "word": "TREE",
+          "category": "NATURE",
+          "icon": "trees",
+          "definition": "A tall plant with a wooden trunk, branches, and leaves."
+        },
+        {
+          "word": "LION",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A large, powerful wild cat known as the king of the jungle."
+        },
+        {
+          "word": "MOON",
+          "category": "NATURE",
+          "icon": "moon",
+          "definition": "The natural satellite that orbits the Earth."
+        },
+        {
+          "word": "STAR",
+          "category": "NATURE",
+          "icon": "star",
+          "definition": "A giant ball of burning gas in space that gives off light, like the Sun."
+        },
+        {
+          "word": "PARK",
+          "category": "PLACES",
+          "icon": "trees",
+          "definition": "An open public area with grass and trees for recreation."
+        },
+        {
+          "word": "SHIP",
+          "category": "VEHICLES",
+          "icon": "ship",
+          "definition": "A large boat used to travel or carry goods across water."
+        },
+        {
+          "word": "BOAT",
+          "category": "VEHICLES",
+          "icon": "ship",
+          "definition": "A vehicle that travels on water."
+        },
+        {
+          "word": "BIRD",
+          "category": "ANIMALS",
+          "icon": "bird",
+          "definition": "A feathered animal that usually can fly and lays eggs."
+        },
+        {
+          "word": "ROSE",
+          "category": "NATURE",
+          "icon": "flower-2",
+          "definition": "A flower known for its beauty and fragrance, often with thorns."
+        },
+        {
+          "word": "LAKE",
+          "category": "NATURE",
+          "icon": "waves",
+          "definition": "A large body of water surrounded by land."
+        },
+        {
+          "word": "RING",
+          "category": "ITEMS",
+          "icon": "circle",
+          "definition": "A circular piece of jewelry worn on a finger."
+        },
+        {
+          "word": "LAMP",
+          "category": "HOUSE",
+          "icon": "lightbulb",
+          "definition": "A device that produces light."
+        },
+        {
+          "word": "DRUM",
+          "category": "MUSIC",
+          "icon": "music",
+          "definition": "A musical instrument played by hitting its surface."
+        },
+        {
+          "word": "DEER",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A graceful animal, often with antlers, that lives in forests."
+        },
+        {
+          "word": "BEAR",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A large, furry mammal with sharp claws found in forests and mountains."
+        },
+        {
+          "word": "GOAT",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A horned farm animal known for climbing and eating almost anything."
+        },
+        {
+          "word": "SEAL",
+          "category": "ANIMALS",
+          "icon": "fish",
+          "definition": "A sea mammal with flippers, or a device used to close something tightly."
+        },
+        {
+          "word": "SWAN",
+          "category": "ANIMALS",
+          "icon": "bird",
+          "definition": "A large, graceful white water bird with a long neck."
+        },
+        {
+          "word": "CORN",
+          "category": "FOOD",
+          "icon": "sprout",
+          "definition": "A tall cereal plant with sweet yellow kernels, also called maize."
+        },
+        {
+          "word": "SOUP",
+          "category": "FOOD",
+          "icon": "cup-soda",
+          "definition": "A liquid food made by cooking ingredients like vegetables or meat in water or stock."
+        },
+        {
+          "word": "PEAR",
+          "category": "FOOD",
+          "icon": "apple",
+          "definition": "A sweet fruit that's rounder at the bottom and narrower at the top."
+        },
+        {
+          "word": "PLUM",
+          "category": "FOOD",
+          "icon": "apple",
+          "definition": "A small, round, juicy fruit with smooth purple or red skin."
+        },
+        {
+          "word": "RICE",
+          "category": "FOOD",
+          "icon": "box",
+          "definition": "A small grain that is a staple food for much of the world."
+        },
+        {
+          "word": "DESK",
+          "category": "SCHOOL",
+          "icon": "box",
+          "definition": "A piece of furniture with a flat top used for writing or working."
+        },
+        {
+          "word": "BELL",
+          "category": "SCHOOL",
+          "icon": "bell",
+          "definition": "An object that makes a ringing sound when struck or shaken."
+        },
+        {
+          "word": "PAGE",
+          "category": "SCHOOL",
+          "icon": "file-text",
+          "definition": "One side of a sheet of paper in a book or document."
+        },
+        {
+          "word": "COAT",
+          "category": "CLOTHES",
+          "icon": "shirt",
+          "definition": "An outer piece of clothing worn to stay warm."
+        },
+        {
+          "word": "BOOT",
+          "category": "CLOTHES",
+          "icon": "footprints",
+          "definition": "A sturdy shoe that covers the foot and ankle, sometimes the lower leg."
+        },
+        {
+          "word": "SOCK",
+          "category": "CLOTHES",
+          "icon": "footprints",
+          "definition": "A soft covering worn on the foot, usually under a shoe."
+        },
+        {
+          "word": "DOOR",
+          "category": "HOUSE",
+          "icon": "home",
+          "definition": "A movable barrier used to open and close an entrance."
+        },
+        {
+          "word": "ROOF",
+          "category": "HOUSE",
+          "icon": "home",
+          "definition": "The covering on top of a building."
+        },
+        {
+          "word": "YARD",
+          "category": "PLACES",
+          "icon": "trees",
+          "definition": "An outdoor area next to a house, or a unit of length equal to 3 feet."
+        },
+        {
+          "word": "ROAD",
+          "category": "PLACES",
+          "icon": "map-pin",
+          "definition": "A path built for vehicles to travel on."
+        }
+      ],
+      "HARD": [
+        {
+          "word": "BREAD",
+          "category": "FOOD",
+          "icon": "sandwich",
+          "definition": "A food made by baking a dough of flour and water."
+        },
+        {
+          "word": "PIZZA",
+          "category": "FOOD",
+          "icon": "pizza",
+          "definition": "A baked dish of flat dough topped with sauce, cheese, and other toppings."
+        },
+        {
+          "word": "TRAIN",
+          "category": "VEHICLES",
+          "icon": "train",
+          "definition": "A line of connected railway carriages pulled by an engine."
+        },
+        {
+          "word": "APPLE",
+          "category": "FOOD",
+          "icon": "apple",
+          "definition": "A round, crunchy fruit that grows on trees, often red or green."
+        },
+        {
+          "word": "CHAIR",
+          "category": "HOUSE",
+          "icon": "armchair",
+          "definition": "A piece of furniture used for sitting, usually with a back and four legs."
+        },
+        {
+          "word": "CLOCK",
+          "category": "HOUSE",
+          "icon": "clock",
+          "definition": "A device used to tell the time."
+        },
+        {
+          "word": "GRAPE",
+          "category": "FOOD",
+          "icon": "apple",
+          "definition": "A small, round, juicy fruit that grows in bunches on vines."
+        },
+        {
+          "word": "WATER",
+          "category": "NATURE",
+          "icon": "droplet",
+          "definition": "A clear liquid essential for life, found in rivers, lakes, and oceans."
+        },
+        {
+          "word": "HOUSE",
+          "category": "PLACES",
+          "icon": "home",
+          "definition": "A building where people live."
+        },
+        {
+          "word": "PENCIL",
+          "category": "SCHOOL",
+          "icon": "pencil",
+          "definition": "A tool used for writing or drawing, usually with graphite."
+        },
+        {
+          "word": "TIGER",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A large wild cat with orange fur and black stripes."
+        },
+        {
+          "word": "ZEBRA",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "An African animal related to the horse, known for its black-and-white stripes."
+        },
+        {
+          "word": "HORSE",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A large animal with hooves, often ridden or used to pull carts."
+        },
+        {
+          "word": "PLANE",
+          "category": "VEHICLES",
+          "icon": "plane",
+          "definition": "A vehicle with wings that flies through the air."
+        },
+        {
+          "word": "CAMEL",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A large desert animal with one or two humps on its back."
+        },
+        {
+          "word": "KOALA",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A furry Australian animal that lives in trees and eats eucalyptus leaves."
+        },
+        {
+          "word": "PANDA",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A black-and-white bear from China that mainly eats bamboo."
+        },
+        {
+          "word": "OTTER",
+          "category": "ANIMALS",
+          "icon": "fish",
+          "definition": "A playful, furry mammal that lives in and around water."
+        },
+        {
+          "word": "SHARK",
+          "category": "ANIMALS",
+          "icon": "fish",
+          "definition": "A large ocean fish with sharp teeth, known as a powerful predator."
+        },
+        {
+          "word": "WHALE",
+          "category": "ANIMALS",
+          "icon": "fish",
+          "definition": "A huge sea mammal, one of the largest animals on Earth."
+        },
+        {
+          "word": "LEMON",
+          "category": "FOOD",
+          "icon": "apple",
+          "definition": "A sour, yellow citrus fruit."
+        },
+        {
+          "word": "MANGO",
+          "category": "FOOD",
+          "icon": "apple",
+          "definition": "A sweet, juicy tropical fruit with orange flesh."
+        },
+        {
+          "word": "PEACH",
+          "category": "FOOD",
+          "icon": "apple",
+          "definition": "A soft, fuzzy-skinned fruit with a large pit."
+        },
+        {
+          "word": "BERRY",
+          "category": "FOOD",
+          "icon": "apple",
+          "definition": "A small, juicy, often colorful fruit that grows on bushes or vines."
+        },
+        {
+          "word": "CANDY",
+          "category": "FOOD",
+          "icon": "cake",
+          "definition": "A sweet treat made mostly of sugar."
+        },
+        {
+          "word": "DONUT",
+          "category": "FOOD",
+          "icon": "circle",
+          "definition": "A round, sweet fried pastry, often with a hole in the middle."
+        },
+        {
+          "word": "SLIDE",
+          "category": "PLAY",
+          "icon": "smile",
+          "definition": "A smooth ramp used for sliding down, or a single image in a presentation."
+        },
+        {
+          "word": "SWING",
+          "category": "PLAY",
+          "icon": "wind",
+          "definition": "A seat hung from ropes or chains that moves back and forth."
+        },
+        {
+          "word": "ROBOT",
+          "category": "PLAY",
+          "icon": "bot",
+          "definition": "A machine that can be programmed to perform tasks automatically."
+        },
+        {
+          "word": "PAPER",
+          "category": "SCHOOL",
+          "icon": "file-text",
+          "definition": "A thin material made from wood pulp, used for writing or wrapping."
+        },
+        {
+          "word": "ERASER",
+          "category": "SCHOOL",
+          "icon": "box",
+          "definition": "A small tool used to rub out pencil marks."
+        },
+        {
+          "word": "CRAYON",
+          "category": "SCHOOL",
+          "icon": "palette",
+          "definition": "A stick of colored wax used for drawing."
+        },
+        {
+          "word": "RULER",
+          "category": "SCHOOL",
+          "icon": "pencil",
+          "definition": "A flat tool used for measuring length or drawing straight lines."
+        },
+        {
+          "word": "SHIRT",
+          "category": "CLOTHES",
+          "icon": "shirt",
+          "definition": "A piece of clothing worn on the upper body."
+        },
+        {
+          "word": "SHOES",
+          "category": "CLOTHES",
+          "icon": "footprints",
+          "definition": "Coverings worn on the feet for protection and comfort."
+        },
+        {
+          "word": "CROWN",
+          "category": "ITEMS",
+          "icon": "crown",
+          "definition": "A decorated headpiece worn by a king or queen."
+        },
+        {
+          "word": "SPOON",
+          "category": "ITEMS",
+          "icon": "cup-soda",
+          "definition": "A utensil with a shallow bowl used for eating or serving food."
+        },
+        {
+          "word": "PLATE",
+          "category": "ITEMS",
+          "icon": "circle",
+          "definition": "A flat dish used for eating food."
+        },
+        {
+          "word": "PLANT",
+          "category": "NATURE",
+          "icon": "sprout",
+          "definition": "A living thing that grows in the ground and usually makes its own food from sunlight."
+        },
+        {
+          "word": "GRASS",
+          "category": "NATURE",
+          "icon": "trees",
+          "definition": "A green plant with thin leaves that covers fields and lawns."
+        }
+      ]
+    },
+    "eightTo12": {
+      "EASY": [
+        {
+          "word": "RIVER",
+          "category": "NATURE",
+          "icon": "waves",
+          "definition": "A large natural stream of water flowing toward the sea."
+        },
+        {
+          "word": "STORM",
+          "category": "NATURE",
+          "icon": "cloud-lightning",
+          "definition": "A period of very bad, windy weather, often with rain or thunder."
+        },
+        {
+          "word": "PENCIL",
+          "category": "SCHOOL",
+          "icon": "pencil",
+          "definition": "A tool used for writing or drawing, usually with graphite."
+        },
+        {
+          "word": "GLOBE",
+          "category": "SPACE",
+          "icon": "globe-2",
+          "definition": "A round model of the Earth, or the Earth itself."
+        },
+        {
+          "word": "TIGER",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A large wild cat with orange fur and black stripes."
+        },
+        {
+          "word": "SHARK",
+          "category": "ANIMALS",
+          "icon": "fish",
+          "definition": "A large ocean fish with sharp teeth, known as a powerful predator."
+        },
+        {
+          "word": "CLOUD",
+          "category": "NATURE",
+          "icon": "cloud",
+          "definition": "A visible mass of tiny water droplets floating in the sky."
+        },
+        {
+          "word": "EAGLE",
+          "category": "ANIMALS",
+          "icon": "bird",
+          "definition": "A large, powerful bird of prey with excellent eyesight."
+        },
+        {
+          "word": "SNAKE",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "A long, legless reptile that slithers on the ground."
+        },
+        {
+          "word": "CROWN",
+          "category": "ITEMS",
+          "icon": "crown",
+          "definition": "A decorated headpiece worn by a king or queen."
+        },
+        {
+          "word": "SWORD",
+          "category": "ITEMS",
+          "icon": "sword",
+          "definition": "A long-bladed weapon with a handle, used for cutting or thrusting."
+        },
+        {
+          "word": "PLANT",
+          "category": "NATURE",
+          "icon": "sprout",
+          "definition": "A living thing that grows in the ground and usually makes its own food from sunlight."
+        },
+        {
+          "word": "BEACH",
+          "category": "NATURE",
+          "icon": "sun",
+          "definition": "A sandy or rocky shore next to the sea."
+        },
+        {
+          "word": "STONE",
+          "category": "NATURE",
+          "icon": "gem",
+          "definition": "A hard, solid mineral material found in the ground."
+        },
+        {
+          "word": "FROST",
+          "category": "WEATHER",
+          "icon": "snowflake",
+          "definition": "A thin layer of ice that forms on cold surfaces."
+        },
+        {
+          "word": "EMBER",
+          "category": "NATURE",
+          "icon": "flame",
+          "definition": "A small piece of glowing coal or wood left after a fire."
+        },
+        {
+          "word": "MAGIC",
+          "category": "FANTASY",
+          "icon": "sparkles",
+          "definition": "The power to make impossible things happen using special skills, spells, or tricks."
+        },
+        {
+          "word": "SHIELD",
+          "category": "ITEMS",
+          "icon": "shield",
+          "definition": "A piece of armor held to protect against attacks."
+        },
+        {
+          "word": "SCOUT",
+          "category": "EXPLORE",
+          "icon": "compass",
+          "definition": "A person sent ahead to gather information, or a member of a youth organization."
+        },
+        {
+          "word": "TRACK",
+          "category": "SPORTS",
+          "icon": "trophy",
+          "definition": "A path or course used for running or racing, or a song."
+        },
+        {
+          "word": "FIELD",
+          "category": "SPORTS",
+          "icon": "trophy",
+          "definition": "An open area of land, often used for farming or sports."
+        },
+        {
+          "word": "MATCH",
+          "category": "SPORTS",
+          "icon": "activity",
+          "definition": "A small stick used to start a fire, or a sports contest between two sides."
+        },
+        {
+          "word": "SCORE",
+          "category": "SPORTS",
+          "icon": "trophy",
+          "definition": "The number of points earned in a game or test."
+        },
+        {
+          "word": "STORY",
+          "category": "BOOKS",
+          "icon": "book-open",
+          "definition": "A written or spoken account of events, real or imagined."
+        },
+        {
+          "word": "COMIC",
+          "category": "BOOKS",
+          "icon": "book-open",
+          "definition": "A story told through a sequence of drawings, often funny or adventurous."
+        },
+        {
+          "word": "NOVEL",
+          "category": "BOOKS",
+          "icon": "book-open",
+          "definition": "A long fictional story, usually written in prose."
+        },
+        {
+          "word": "POEM",
+          "category": "BOOKS",
+          "icon": "pencil",
+          "definition": "A piece of writing that uses rhythm and often rhyme to express feelings or ideas."
+        },
+        {
+          "word": "STAGE",
+          "category": "ARTS",
+          "icon": "music",
+          "definition": "A raised platform where performances happen, or a step in a process."
+        },
+        {
+          "word": "DANCE",
+          "category": "ARTS",
+          "icon": "music",
+          "definition": "A series of movements made to music, or the art of moving that way."
+        },
+        {
+          "word": "PAINT",
+          "category": "ARTS",
+          "icon": "palette",
+          "definition": "A colored liquid used to decorate or protect surfaces."
+        },
+        {
+          "word": "BRUSH",
+          "category": "ARTS",
+          "icon": "palette",
+          "definition": "A tool with bristles used for cleaning, painting, or grooming."
+        },
+        {
+          "word": "SKETCH",
+          "category": "ARTS",
+          "icon": "pencil",
+          "definition": "A quick, rough drawing."
+        },
+        {
+          "word": "OCEAN",
+          "category": "GEOGRAPHY",
+          "icon": "waves",
+          "definition": "A vast body of salt water covering most of the Earth's surface."
+        },
+        {
+          "word": "CANAL",
+          "category": "GEOGRAPHY",
+          "icon": "waves",
+          "definition": "A man-made waterway used for transport or irrigation."
+        },
+        {
+          "word": "CLIFF",
+          "category": "GEOGRAPHY",
+          "icon": "mountain-snow",
+          "definition": "A steep, high rock face, often found on a coastline."
+        },
+        {
+          "word": "RIDGE",
+          "category": "GEOGRAPHY",
+          "icon": "mountain-snow",
+          "definition": "A long, narrow raised strip of land, like the top of a mountain range."
+        },
+        {
+          "word": "TRAIL",
+          "category": "EXPLORE",
+          "icon": "compass",
+          "definition": "A rough path through natural terrain, like a forest or mountains."
+        },
+        {
+          "word": "CABIN",
+          "category": "PLACES",
+          "icon": "home",
+          "definition": "A small, simple house, often made of wood in the countryside."
+        },
+        {
+          "word": "TOWER",
+          "category": "PLACES",
+          "icon": "building",
+          "definition": "A tall, narrow building or structure."
+        },
+        {
+          "word": "PLAZA",
+          "category": "PLACES",
+          "icon": "building",
+          "definition": "An open public square in a town or city."
+        }
+      ],
+      "MEDIUM": [
+        {
+          "word": "FOREST",
+          "category": "NATURE",
+          "icon": "trees",
+          "definition": "A large area covered mainly with trees."
+        },
+        {
+          "word": "PLANET",
+          "category": "SPACE",
+          "icon": "globe-2",
+          "definition": "A large round space object that orbits a star, like Earth orbits the Sun."
+        },
+        {
+          "word": "SOCCER",
+          "category": "SPORTS",
+          "icon": "trophy",
+          "definition": "A sport where two teams try to score by kicking a ball into a goal."
+        },
+        {
+          "word": "TENNIS",
+          "category": "SPORTS",
+          "icon": "activity",
+          "definition": "A sport where players use rackets to hit a ball over a net."
+        },
+        {
+          "word": "ROCKET",
+          "category": "SPACE",
+          "icon": "rocket",
+          "definition": "A vehicle that uses powerful thrust to travel into space."
+        },
+        {
+          "word": "CASTLE",
+          "category": "PLACES",
+          "icon": "building",
+          "definition": "A large, fortified building, often home to kings, queens, or nobles in the past."
+        },
+        {
+          "word": "JUNGLE",
+          "category": "NATURE",
+          "icon": "trees",
+          "definition": "A dense forest found in hot, tropical areas."
+        },
+        {
+          "word": "GUITAR",
+          "category": "MUSIC",
+          "icon": "music",
+          "definition": "A stringed musical instrument played by plucking or strumming."
+        },
+        {
+          "word": "SILVER",
+          "category": "ITEMS",
+          "icon": "gem",
+          "definition": "A shiny, precious white metal."
+        },
+        {
+          "word": "WINTER",
+          "category": "SEASONS",
+          "icon": "snowflake",
+          "definition": "The coldest season of the year."
+        },
+        {
+          "word": "SUMMER",
+          "category": "SEASONS",
+          "icon": "sun",
+          "definition": "The warmest season of the year."
+        },
+        {
+          "word": "SPRING",
+          "category": "SEASONS",
+          "icon": "sprout",
+          "definition": "The season between winter and summer, or a coiled piece of metal."
+        },
+        {
+          "word": "BRIDGE",
+          "category": "PLACES",
+          "icon": "landmark",
+          "definition": "A structure built to cross over a river, road, or valley."
+        },
+        {
+          "word": "ISLAND",
+          "category": "GEOGRAPHY",
+          "icon": "palmtree",
+          "definition": "A piece of land completely surrounded by water."
+        },
+        {
+          "word": "DESERT",
+          "category": "GEOGRAPHY",
+          "icon": "sun",
+          "definition": "A dry area with very little rainfall, often covered in sand."
+        },
+        {
+          "word": "CANYON",
+          "category": "GEOGRAPHY",
+          "icon": "mountain-snow",
+          "definition": "A deep valley with steep sides, often carved by a river."
+        },
+        {
+          "word": "METEOR",
+          "category": "SPACE",
+          "icon": "sparkles",
+          "definition": "A piece of rock or dust that burns up as it enters Earth's atmosphere, seen as a shooting star."
+        },
+        {
+          "word": "GALAXY",
+          "category": "SPACE",
+          "icon": "sparkles",
+          "definition": "A huge group of stars, gas, and dust held together by gravity."
+        },
+        {
+          "word": "CRATER",
+          "category": "SPACE",
+          "icon": "circle",
+          "definition": "A large bowl-shaped hollow in the ground, often made by an impact or volcano."
+        },
+        {
+          "word": "ORBIT",
+          "category": "SPACE",
+          "icon": "orbit",
+          "definition": "The curved path an object follows around a star, planet, or moon."
+        },
+        {
+          "word": "DRAGON",
+          "category": "FANTASY",
+          "icon": "sparkles",
+          "definition": "A mythical, often fire-breathing creature that looks like a giant lizard."
+        },
+        {
+          "word": "KNIGHT",
+          "category": "HISTORY",
+          "icon": "sword",
+          "definition": "A medieval warrior who served a king, often wearing armor."
+        },
+        {
+          "word": "WIZARD",
+          "category": "FANTASY",
+          "icon": "sparkles",
+          "definition": "A person with magical powers, often shown wearing robes and a pointed hat."
+        },
+        {
+          "word": "POTION",
+          "category": "FANTASY",
+          "icon": "flask-conical",
+          "definition": "A magical or medicinal liquid mixture."
+        },
+        {
+          "word": "ARCHER",
+          "category": "HISTORY",
+          "icon": "target",
+          "definition": "A person who shoots arrows using a bow."
+        },
+        {
+          "word": "VIKING",
+          "category": "HISTORY",
+          "icon": "ship",
+          "definition": "A Scandinavian seafarer and warrior from the medieval period."
+        },
+        {
+          "word": "PIRATE",
+          "category": "HISTORY",
+          "icon": "flag",
+          "definition": "A person who attacks and robs ships at sea."
+        },
+        {
+          "word": "MEDAL",
+          "category": "SPORTS",
+          "icon": "trophy",
+          "definition": "A metal disc given as an award for achievement, often in sports."
+        },
+        {
+          "word": "RUNNER",
+          "category": "SPORTS",
+          "icon": "activity",
+          "definition": "A person who runs, especially in races."
+        },
+        {
+          "word": "LEAGUE",
+          "category": "SPORTS",
+          "icon": "trophy",
+          "definition": "A group of teams or countries that join together for a shared purpose or competition."
+        },
+        {
+          "word": "MUSEUM",
+          "category": "PLACES",
+          "icon": "building",
+          "definition": "A building where historical or interesting objects are displayed."
+        },
+        {
+          "word": "CINEMA",
+          "category": "PLACES",
+          "icon": "film",
+          "definition": "A place where movies are shown, or the art of filmmaking."
+        },
+        {
+          "word": "HARBOR",
+          "category": "PLACES",
+          "icon": "ship",
+          "definition": "A sheltered area of water where ships can dock safely."
+        },
+        {
+          "word": "STUDIO",
+          "category": "ARTS",
+          "icon": "palette",
+          "definition": "A room or building where art, music, or film is created."
+        },
+        {
+          "word": "CAMERA",
+          "category": "TECH",
+          "icon": "camera",
+          "definition": "A device used to take photographs or record video."
+        },
+        {
+          "word": "STATUE",
+          "category": "ARTS",
+          "icon": "landmark",
+          "definition": "A carved or molded figure of a person or animal."
+        },
+        {
+          "word": "FOSSIL",
+          "category": "SCIENCE",
+          "icon": "bone",
+          "definition": "The preserved remains or trace of an ancient plant or animal."
+        },
+        {
+          "word": "MAGNET",
+          "category": "SCIENCE",
+          "icon": "magnet",
+          "definition": "An object that attracts iron and certain other metals."
+        },
+        {
+          "word": "PRISM",
+          "category": "SCIENCE",
+          "icon": "sparkles",
+          "definition": "A clear glass or crystal shape that splits light into a rainbow of colors."
+        },
+        {
+          "word": "ENERGY",
+          "category": "SCIENCE",
+          "icon": "zap",
+          "definition": "The power needed to do work or make things happen, like light, heat, or motion."
+        }
+      ],
+      "HARD": [
+        {
+          "word": "VALLEY",
+          "category": "NATURE",
+          "icon": "mountain-snow",
+          "definition": "A low area of land between hills or mountains, often with a river running through."
+        },
+        {
+          "word": "LIBRARY",
+          "category": "SCHOOL",
+          "icon": "book-open",
+          "definition": "A place where books are kept for people to read or borrow."
+        },
+        {
+          "word": "SCIENCE",
+          "category": "SCHOOL",
+          "icon": "flask-conical",
+          "definition": "The systematic study of the natural world through observation and experiment."
+        },
+        {
+          "word": "VOLCANO",
+          "category": "NATURE",
+          "icon": "flame",
+          "definition": "A mountain with an opening that can erupt hot lava, ash, and gases."
+        },
+        {
+          "word": "COMPASS",
+          "category": "EXPLORE",
+          "icon": "compass",
+          "definition": "A tool with a magnetic needle that always points north, used for finding direction."
+        },
+        {
+          "word": "DIAMOND",
+          "category": "GEOLOGY",
+          "icon": "gem",
+          "definition": "A very hard, clear precious stone, or a four-sided shape with points."
+        },
+        {
+          "word": "PYRAMID",
+          "category": "HISTORY",
+          "icon": "landmark",
+          "definition": "A structure with a square base and triangular sides meeting at a point."
+        },
+        {
+          "word": "TORNADO",
+          "category": "WEATHER",
+          "icon": "wind",
+          "definition": "A violently spinning column of air that touches the ground."
+        },
+        {
+          "word": "CRYSTAL",
+          "category": "GEOLOGY",
+          "icon": "sparkles",
+          "definition": "A solid material whose atoms are arranged in a clear, repeating pattern, often sparkly."
+        },
+        {
+          "word": "PENGUIN",
+          "category": "ANIMALS",
+          "icon": "bird",
+          "definition": "A flightless black-and-white bird that swims well and lives in cold regions."
+        },
+        {
+          "word": "DOLPHIN",
+          "category": "ANIMALS",
+          "icon": "fish",
+          "definition": "A smart, friendly sea mammal known for jumping out of the water."
+        },
+        {
+          "word": "THUNDER",
+          "category": "WEATHER",
+          "icon": "zap",
+          "definition": "The loud rumbling sound that follows a flash of lightning."
+        },
+        {
+          "word": "EXPLORER",
+          "category": "EXPLORE",
+          "icon": "compass",
+          "definition": "A person who travels to discover new places."
+        },
+        {
+          "word": "GLACIER",
+          "category": "GEOGRAPHY",
+          "icon": "snowflake",
+          "definition": "A huge, slow-moving mass of ice found in cold regions."
+        },
+        {
+          "word": "MONUMENT",
+          "category": "HISTORY",
+          "icon": "landmark",
+          "definition": "A structure built to remember an important person or event."
+        },
+        {
+          "word": "SATELLITE",
+          "category": "SPACE",
+          "icon": "radio",
+          "definition": "An object that orbits a planet, either natural like the moon or made by people."
+        },
+        {
+          "word": "TELESCOPE",
+          "category": "SPACE",
+          "icon": "telescope",
+          "definition": "An instrument used to see distant objects, like stars and planets, up close."
+        },
+        {
+          "word": "ASTRONAUT",
+          "category": "SPACE",
+          "icon": "rocket",
+          "definition": "A person trained to travel and work in space."
+        },
+        {
+          "word": "BLIZZARD",
+          "category": "WEATHER",
+          "icon": "snowflake",
+          "definition": "A severe snowstorm with strong winds and low visibility."
+        },
+        {
+          "word": "HURRICANE",
+          "category": "WEATHER",
+          "icon": "wind",
+          "definition": "A powerful storm with strong spinning winds that forms over warm ocean water."
+        },
+        {
+          "word": "REPTILE",
+          "category": "ANIMALS",
+          "icon": "bug",
+          "definition": "A cold-blooded animal with scales, like a snake or lizard."
+        },
+        {
+          "word": "AMPHIBIAN",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "An animal like a frog that can live both in water and on land."
+        },
+        {
+          "word": "CARNIVORE",
+          "category": "ANIMALS",
+          "icon": "footprints",
+          "definition": "An animal that mainly eats meat."
+        },
+        {
+          "word": "HERBIVORE",
+          "category": "ANIMALS",
+          "icon": "sprout",
+          "definition": "An animal that only eats plants."
+        },
+        {
+          "word": "SKELETON",
+          "category": "SCIENCE",
+          "icon": "bone",
+          "definition": "The framework of bones that supports a body."
+        },
+        {
+          "word": "CHAMPION",
+          "category": "SPORTS",
+          "icon": "trophy",
+          "definition": "A person or team that has won a competition."
+        },
+        {
+          "word": "MARATHON",
+          "category": "SPORTS",
+          "icon": "activity",
+          "definition": "A long-distance running race, traditionally about 26 miles."
+        },
+        {
+          "word": "GYMNAST",
+          "category": "SPORTS",
+          "icon": "activity",
+          "definition": "An athlete who performs acrobatic exercises requiring strength and balance."
+        },
+        {
+          "word": "ORCHESTRA",
+          "category": "MUSIC",
+          "icon": "music",
+          "definition": "A large group of musicians playing different instruments together."
+        },
+        {
+          "word": "SYMPHONY",
+          "category": "MUSIC",
+          "icon": "music",
+          "definition": "A long musical piece for a full orchestra."
+        },
+        {
+          "word": "SCULPTURE",
+          "category": "ARTS",
+          "icon": "palette",
+          "definition": "A three-dimensional work of art, often carved or molded."
+        },
+        {
+          "word": "PORTRAIT",
+          "category": "ARTS",
+          "icon": "camera",
+          "definition": "A painting or photograph of a person, especially their face."
+        },
+        {
+          "word": "FORTRESS",
+          "category": "HISTORY",
+          "icon": "building",
+          "definition": "A strong building built to defend against attack."
+        },
+        {
+          "word": "TREASURE",
+          "category": "EXPLORE",
+          "icon": "gem",
+          "definition": "A valuable collection of money, jewels, or precious objects."
+        },
+        {
+          "word": "NAVIGATE",
+          "category": "EXPLORE",
+          "icon": "compass",
+          "definition": "To plan and follow a route or find your way somewhere."
+        },
+        {
+          "word": "DISCOVERY",
+          "category": "EXPLORE",
+          "icon": "sparkles",
+          "definition": "The act of finding something new or unknown."
+        },
+        {
+          "word": "SPECTRUM",
+          "category": "SCIENCE",
+          "icon": "rainbow",
+          "definition": "A range of colors or values, like the colors of the rainbow."
+        },
+        {
+          "word": "MOLECULE",
+          "category": "SCIENCE",
+          "icon": "atom",
+          "definition": "The smallest unit of a substance, made of two or more atoms joined together."
+        },
+        {
+          "word": "ELECTRON",
+          "category": "SCIENCE",
+          "icon": "atom",
+          "definition": "A tiny particle with a negative charge that orbits the nucleus of an atom."
+        },
+        {
+          "word": "GRAVITY",
+          "category": "SCIENCE",
+          "icon": "orbit",
+          "definition": "The force that pulls objects toward each other, like keeping us on the ground."
+        }
+      ]
+    },
+    "teens": {
+      "EASY": [
+        {
+          "word": "ENERGY",
+          "category": "SCIENCE",
+          "icon": "zap",
+          "definition": "The power needed to do work or make things happen, like light, heat, or motion."
+        },
+        {
+          "word": "OCEAN",
+          "category": "GEOGRAPHY",
+          "icon": "waves",
+          "definition": "A vast body of salt water covering most of the Earth's surface."
+        },
+        {
+          "word": "DIGITAL",
+          "category": "TECH",
+          "icon": "laptop",
+          "definition": "Using electronic technology that stores information as numbers, like 0s and 1s."
+        },
+        {
+          "word": "GALAXY",
+          "category": "SPACE",
+          "icon": "sparkles",
+          "definition": "A huge group of stars, gas, and dust held together by gravity."
+        },
+        {
+          "word": "SYSTEM",
+          "category": "TECH",
+          "icon": "cpu",
+          "definition": "A set of connected parts that work together as a whole."
+        },
+        {
+          "word": "VECTOR",
+          "category": "MATH",
+          "icon": "move-up-right",
+          "definition": "A quantity that has both size and direction, like velocity."
+        },
+        {
+          "word": "SENSOR",
+          "category": "TECH",
+          "icon": "radio",
+          "definition": "A device that detects changes and sends information, like light or motion."
+        },
+        {
+          "word": "BINARY",
+          "category": "TECH",
+          "icon": "binary",
+          "definition": "A number system using only two digits, 0 and 1, used by computers."
+        },
+        {
+          "word": "CIRCUIT",
+          "category": "TECH",
+          "icon": "cpu",
+          "definition": "A closed path that electricity can flow around."
+        },
+        {
+          "word": "PIXEL",
+          "category": "TECH",
+          "icon": "monitor",
+          "definition": "The smallest single point of color that makes up a digital image."
+        },
+        {
+          "word": "SIGNAL",
+          "category": "TECH",
+          "icon": "rss",
+          "definition": "A sound, gesture, or transmission used to send information."
+        },
+        {
+          "word": "LOGIC",
+          "category": "TECH",
+          "icon": "brain",
+          "definition": "The science of correct reasoning."
+        },
+        {
+          "word": "SERVER",
+          "category": "TECH",
+          "icon": "hard-drive",
+          "definition": "A computer that provides data or services to other computers."
+        },
+        {
+          "word": "ROUTER",
+          "category": "TECH",
+          "icon": "wifi",
+          "definition": "A device that directs data between computer networks, like home Wi-Fi."
+        },
+        {
+          "word": "DOMAIN",
+          "category": "TECH",
+          "icon": "globe-2",
+          "definition": "An area of knowledge or activity, or a website's address."
+        },
+        {
+          "word": "MODULE",
+          "category": "TECH",
+          "icon": "box",
+          "definition": "A separate, self-contained part of a larger system or program."
+        },
+        {
+          "word": "STORAGE",
+          "category": "TECH",
+          "icon": "hard-drive",
+          "definition": "A place or space used to keep things until needed."
+        },
+        {
+          "word": "MEMORY",
+          "category": "TECH",
+          "icon": "cpu",
+          "definition": "The ability to store and recall information, or a computer's data storage."
+        },
+        {
+          "word": "NUCLEUS",
+          "category": "BIOLOGY",
+          "icon": "atom",
+          "definition": "The central part of an atom or cell."
+        },
+        {
+          "word": "PLASMA",
+          "category": "PHYSICS",
+          "icon": "zap",
+          "definition": "A hot, electrically charged gas, considered a state of matter alongside solid, liquid, and gas."
+        },
+        {
+          "word": "PROTON",
+          "category": "PHYSICS",
+          "icon": "atom",
+          "definition": "A positively charged particle found in the nucleus of an atom."
+        },
+        {
+          "word": "PHOTON",
+          "category": "PHYSICS",
+          "icon": "sun",
+          "definition": "A tiny particle of light."
+        },
+        {
+          "word": "NEUTRON",
+          "category": "PHYSICS",
+          "icon": "atom",
+          "definition": "A particle with no electric charge found in the nucleus of an atom."
+        },
+        {
+          "word": "QUARK",
+          "category": "PHYSICS",
+          "icon": "sparkles",
+          "definition": "One of the tiny basic particles that make up protons and neutrons."
+        },
+        {
+          "word": "MOMENTUM",
+          "category": "PHYSICS",
+          "icon": "gauge",
+          "definition": "The force an object has because of its motion; mass times speed."
+        },
+        {
+          "word": "FRICTION",
+          "category": "PHYSICS",
+          "icon": "activity",
+          "definition": "A force that resists motion when two surfaces rub together."
+        },
+        {
+          "word": "TENSION",
+          "category": "PHYSICS",
+          "icon": "activity",
+          "definition": "A feeling of mental or physical strain, or a pulling force."
+        },
+        {
+          "word": "IMPULSE",
+          "category": "PHYSICS",
+          "icon": "zap",
+          "definition": "A sudden urge to act, or a force applied over a short time in physics."
+        },
+        {
+          "word": "DENSITY",
+          "category": "PHYSICS",
+          "icon": "box",
+          "definition": "How much mass is packed into a given amount of space."
+        },
+        {
+          "word": "VOLUME",
+          "category": "MATH",
+          "icon": "box",
+          "definition": "The amount of space something takes up, or the loudness of sound."
+        },
+        {
+          "word": "RADIUS",
+          "category": "MATH",
+          "icon": "circle",
+          "definition": "The distance from the center of a circle to its edge."
+        },
+        {
+          "word": "DEGREE",
+          "category": "MATH",
+          "icon": "compass",
+          "definition": "A unit for measuring angles or temperature, or an award from a school after finishing study."
+        },
+        {
+          "word": "FACTOR",
+          "category": "MATH",
+          "icon": "calculator",
+          "definition": "A number that divides evenly into another, or something that contributes to a result."
+        },
+        {
+          "word": "MATRIX",
+          "category": "MATH",
+          "icon": "grid",
+          "definition": "A rectangular arrangement of numbers or symbols in rows and columns."
+        },
+        {
+          "word": "VERTEX",
+          "category": "MATH",
+          "icon": "move-up-right",
+          "definition": "The point where two lines or edges meet, like the corner of a shape."
+        },
+        {
+          "word": "ORIGIN",
+          "category": "MATH",
+          "icon": "map-pin",
+          "definition": "The point or place where something begins."
+        },
+        {
+          "word": "SPECIES",
+          "category": "BIOLOGY",
+          "icon": "sprout",
+          "definition": "A group of living things that can breed together and share common features."
+        },
+        {
+          "word": "TISSUE",
+          "category": "BIOLOGY",
+          "icon": "dna",
+          "definition": "A group of similar cells in the body that perform a specific function."
+        },
+        {
+          "word": "ORGAN",
+          "category": "BIOLOGY",
+          "icon": "heart",
+          "definition": "A part of the body with a specific job, like the heart or lungs."
+        },
+        {
+          "word": "MUTATION",
+          "category": "BIOLOGY",
+          "icon": "dna",
+          "definition": "A change in an organism's genetic material, which can be passed on."
+        }
+      ],
+      "MEDIUM": [
+        {
+          "word": "GRAVITY",
+          "category": "SCIENCE",
+          "icon": "orbit",
+          "definition": "The force that pulls objects toward each other, like keeping us on the ground."
+        },
+        {
+          "word": "PROGRAM",
+          "category": "TECH",
+          "icon": "code",
+          "definition": "A set of instructions that tells a computer what to do."
+        },
+        {
+          "word": "VELOCITY",
+          "category": "PHYSICS",
+          "icon": "gauge",
+          "definition": "The speed of something in a given direction."
+        },
+        {
+          "word": "SPECTRUM",
+          "category": "PHYSICS",
+          "icon": "rainbow",
+          "definition": "A range of colors or values, like the colors of the rainbow."
+        },
+        {
+          "word": "NETWORK",
+          "category": "TECH",
+          "icon": "network",
+          "definition": "A group of connected computers, people, or things that share information."
+        },
+        {
+          "word": "ELEMENT",
+          "category": "CHEMISTRY",
+          "icon": "atom",
+          "definition": "A basic substance made of only one type of atom, like oxygen or gold."
+        },
+        {
+          "word": "GENETICS",
+          "category": "BIOLOGY",
+          "icon": "dna",
+          "definition": "The study of genes and how traits are passed from parents to children."
+        },
+        {
+          "word": "THEOREM",
+          "category": "MATH",
+          "icon": "calculator",
+          "definition": "A statement in math that has been proven true through logical reasoning."
+        },
+        {
+          "word": "ECLIPSE",
+          "category": "SPACE",
+          "icon": "moon",
+          "definition": "When one space object blocks the light from another, like the sun or moon."
+        },
+        {
+          "word": "TURBINE",
+          "category": "PHYSICS",
+          "icon": "fan",
+          "definition": "A machine with blades that spins to generate power from wind, water, or steam."
+        },
+        {
+          "word": "DATABASE",
+          "category": "TECH",
+          "icon": "hard-drive",
+          "definition": "An organized collection of information stored on a computer."
+        },
+        {
+          "word": "HARDWARE",
+          "category": "TECH",
+          "icon": "cpu",
+          "definition": "The physical parts of a computer, like the screen, keyboard, and circuits."
+        },
+        {
+          "word": "COMPILER",
+          "category": "TECH",
+          "icon": "code",
+          "definition": "A computer program that turns code into a form a computer can run."
+        },
+        {
+          "word": "PROTOCOL",
+          "category": "TECH",
+          "icon": "shield",
+          "definition": "A set of official rules for how something should be done, especially in technology or diplomacy."
+        },
+        {
+          "word": "ENCRYPT",
+          "category": "TECH",
+          "icon": "key",
+          "definition": "To convert information into a secret code to protect it."
+        },
+        {
+          "word": "TERMINAL",
+          "category": "TECH",
+          "icon": "terminal",
+          "definition": "The end point of something, like a bus station, or a computer input screen."
+        },
+        {
+          "word": "FUNCTION",
+          "category": "MATH",
+          "icon": "calculator",
+          "definition": "A relationship where each input gives exactly one output, or the purpose something serves."
+        },
+        {
+          "word": "EQUATION",
+          "category": "MATH",
+          "icon": "calculator",
+          "definition": "A mathematical statement showing that two things are equal."
+        },
+        {
+          "word": "FRACTION",
+          "category": "MATH",
+          "icon": "calculator",
+          "definition": "A part of a whole, written as one number over another, like 1/2."
+        },
+        {
+          "word": "GEOMETRY",
+          "category": "MATH",
+          "icon": "compass",
+          "definition": "The branch of math dealing with shapes, sizes, and space."
+        },
+        {
+          "word": "CALCULUS",
+          "category": "MATH",
+          "icon": "calculator",
+          "definition": "A branch of mathematics that studies how things change, using rates and areas."
+        },
+        {
+          "word": "VARIABLE",
+          "category": "MATH",
+          "icon": "code",
+          "definition": "A quantity that can change, or a symbol representing an unknown number."
+        },
+        {
+          "word": "CONSTANT",
+          "category": "MATH",
+          "icon": "lock",
+          "definition": "A value or quantity that does not change."
+        },
+        {
+          "word": "COMPOUND",
+          "category": "CHEMISTRY",
+          "icon": "flask-conical",
+          "definition": "A substance made when two or more different elements are chemically combined."
+        },
+        {
+          "word": "CATALYST",
+          "category": "CHEMISTRY",
+          "icon": "zap",
+          "definition": "Something that speeds up a change or a chemical reaction without being used up itself."
+        },
+        {
+          "word": "SOLUTION",
+          "category": "CHEMISTRY",
+          "icon": "flask-conical",
+          "definition": "The answer to a problem, or a liquid mixture of substances."
+        },
+        {
+          "word": "ELECTRON",
+          "category": "PHYSICS",
+          "icon": "atom",
+          "definition": "A tiny particle with a negative charge that orbits the nucleus of an atom."
+        },
+        {
+          "word": "DYNAMICS",
+          "category": "PHYSICS",
+          "icon": "activity",
+          "definition": "The study of forces and how they cause things to move or change."
+        },
+        {
+          "word": "PRESSURE",
+          "category": "PHYSICS",
+          "icon": "gauge",
+          "definition": "The force pushing on a surface, or a feeling of stress."
+        },
+        {
+          "word": "RADIATION",
+          "category": "PHYSICS",
+          "icon": "sun",
+          "definition": "Energy that travels as waves or particles, like light or heat."
+        },
+        {
+          "word": "ORGANISM",
+          "category": "BIOLOGY",
+          "icon": "sprout",
+          "definition": "Any living thing, from tiny bacteria to large animals."
+        },
+        {
+          "word": "CELLULAR",
+          "category": "BIOLOGY",
+          "icon": "dna",
+          "definition": "Relating to cells, the tiny building blocks of living things."
+        },
+        {
+          "word": "CHROMOSOME",
+          "category": "BIOLOGY",
+          "icon": "dna",
+          "definition": "A thread-like structure in cells that carries genetic information."
+        },
+        {
+          "word": "MEMBRANE",
+          "category": "BIOLOGY",
+          "icon": "circle",
+          "definition": "A thin, flexible layer that covers or separates parts of a cell or organism."
+        },
+        {
+          "word": "PALEONTOLOGY",
+          "category": "GEOLOGY",
+          "icon": "bone",
+          "definition": "The study of fossils to learn about ancient life on Earth."
+        },
+        {
+          "word": "BIOSPHERE",
+          "category": "GEOGRAPHY",
+          "icon": "globe-2",
+          "definition": "The parts of Earth where living things exist, including land, water, and air."
+        },
+        {
+          "word": "ATMOSPHERE",
+          "category": "GEOGRAPHY",
+          "icon": "cloud",
+          "definition": "The layer of gases surrounding a planet, like the air around Earth."
+        },
+        {
+          "word": "TECTONIC",
+          "category": "GEOLOGY",
+          "icon": "mountain-snow",
+          "definition": "Relating to the huge plates that make up the Earth's crust and cause earthquakes."
+        },
+        {
+          "word": "ASTRONOMY",
+          "category": "SPACE",
+          "icon": "telescope",
+          "definition": "The scientific study of stars, planets, and outer space."
+        },
+        {
+          "word": "SUPERNOVA",
+          "category": "SPACE",
+          "icon": "sparkles",
+          "definition": "A powerful explosion that occurs when a massive star dies."
+        }
+      ],
+      "HARD": [
+        {
+          "word": "MOLECULE",
+          "category": "SCIENCE",
+          "icon": "atom",
+          "definition": "The smallest unit of a substance, made of two or more atoms joined together."
+        },
+        {
+          "word": "SOFTWARE",
+          "category": "TECH",
+          "icon": "terminal",
+          "definition": "The programs and instructions that run on a computer."
+        },
+        {
+          "word": "ALGORITHM",
+          "category": "TECH",
+          "icon": "binary",
+          "definition": "A step-by-step set of instructions for solving a problem or completing a task."
+        },
+        {
+          "word": "ASTRONOMY",
+          "category": "SPACE",
+          "icon": "telescope",
+          "definition": "The scientific study of stars, planets, and outer space."
+        },
+        {
+          "word": "SATELLITE",
+          "category": "SPACE",
+          "icon": "radio",
+          "definition": "An object that orbits a planet, either natural like the moon or made by people."
+        },
+        {
+          "word": "CYBERNETIC",
+          "category": "TECH",
+          "icon": "bot",
+          "definition": "Relating to systems that combine machines and living things, or automatic control systems."
+        },
+        {
+          "word": "HYPOTHESIS",
+          "category": "SCIENCE",
+          "icon": "flask-conical",
+          "definition": "An educated guess that can be tested through experiments."
+        },
+        {
+          "word": "PHOTOSYNTH",
+          "category": "BIOLOGY",
+          "icon": "sprout",
+          "definition": "Short for photosynthesis: the process plants use to turn sunlight into food."
+        },
+        {
+          "word": "BLOCKCHAIN",
+          "category": "TECH",
+          "icon": "key",
+          "definition": "A secure digital record of transactions shared across many computers."
+        },
+        {
+          "word": "CYBERSECURITY",
+          "category": "TECH",
+          "icon": "shield",
+          "definition": "The practice of protecting computers and networks from digital attacks."
+        },
+        {
+          "word": "CRYPTOGRAPHY",
+          "category": "TECH",
+          "icon": "key",
+          "definition": "The practice of writing or solving codes to keep information secret."
+        },
+        {
+          "word": "ARCHITECTURE",
+          "category": "TECH",
+          "icon": "building",
+          "definition": "The art and science of designing buildings."
+        },
+        {
+          "word": "INFRASTRUCTURE",
+          "category": "TECH",
+          "icon": "network",
+          "definition": "The basic systems a country needs, like roads, bridges, and power lines."
+        },
+        {
+          "word": "TRIGONOMETRY",
+          "category": "MATH",
+          "icon": "compass",
+          "definition": "The branch of math that studies the relationships between angles and sides of triangles."
+        },
+        {
+          "word": "PROBABILITY",
+          "category": "MATH",
+          "icon": "help-circle",
+          "definition": "The likelihood or chance that something will happen."
+        },
+        {
+          "word": "DIFFERENTIAL",
+          "category": "MATH",
+          "icon": "calculator",
+          "definition": "A difference between two related things, or a part of calculus about rates of change."
+        },
+        {
+          "word": "THERMODYNAMICS",
+          "category": "PHYSICS",
+          "icon": "flame",
+          "definition": "The branch of physics dealing with heat, energy, and how they move."
+        },
+        {
+          "word": "ELECTROMAGNET",
+          "category": "PHYSICS",
+          "icon": "zap",
+          "definition": "A magnet created using an electric current running through a coil of wire."
+        },
+        {
+          "word": "ASTROPHYSICS",
+          "category": "PHYSICS",
+          "icon": "telescope",
+          "definition": "The branch of astronomy that uses physics to explain how stars and galaxies work."
+        },
+        {
+          "word": "SPECTROSCOPY",
+          "category": "PHYSICS",
+          "icon": "rainbow",
+          "definition": "The study of how light interacts with matter to identify substances."
+        },
+        {
+          "word": "QUANTUMMECHANICS",
+          "category": "PHYSICS",
+          "icon": "atom",
+          "definition": "The branch of physics that explains how very tiny particles behave."
+        },
+        {
+          "word": "NEUROSCIENCE",
+          "category": "BIOLOGY",
+          "icon": "brain",
+          "definition": "The scientific study of the brain and nervous system."
+        },
+        {
+          "word": "BIOCHEMISTRY",
+          "category": "BIOLOGY",
+          "icon": "flask-conical",
+          "definition": "The study of the chemical processes that happen inside living things."
+        },
+        {
+          "word": "MICROBIOLOGY",
+          "category": "BIOLOGY",
+          "icon": "dna",
+          "definition": "The study of tiny living things like bacteria and viruses."
+        },
+        {
+          "word": "EPIDEMIOLOGY",
+          "category": "SCIENCE",
+          "icon": "activity",
+          "definition": "The study of how diseases spread and can be controlled in populations."
+        },
+        {
+          "word": "METEOROLOGY",
+          "category": "SCIENCE",
+          "icon": "cloud-lightning",
+          "definition": "The scientific study of weather and the atmosphere."
+        },
+        {
+          "word": "OCEANOGRAPHY",
+          "category": "SCIENCE",
+          "icon": "waves",
+          "definition": "The scientific study of the oceans."
+        },
+        {
+          "word": "ANTHROPOLOGY",
+          "category": "SCIENCE",
+          "icon": "globe-2",
+          "definition": "The study of human societies, cultures, and how people developed over time."
+        },
+        {
+          "word": "ARCHAEOLOGY",
+          "category": "HISTORY",
+          "icon": "landmark",
+          "definition": "The study of human history through digging up old objects and ruins."
+        },
+        {
+          "word": "PALEONTOLOGY",
+          "category": "SCIENCE",
+          "icon": "bone",
+          "definition": "The study of fossils to learn about ancient life on Earth."
+        },
+        {
+          "word": "EXOPLANET",
+          "category": "SPACE",
+          "icon": "globe-2",
+          "definition": "A planet that orbits a star outside our solar system."
+        },
+        {
+          "word": "CONSTELLATION",
+          "category": "SPACE",
+          "icon": "star",
+          "definition": "A group of stars that forms a recognizable pattern in the sky."
+        },
+        {
+          "word": "SINGULARITY",
+          "category": "SPACE",
+          "icon": "circle",
+          "definition": "A point where normal rules break down, such as the center of a black hole."
+        },
+        {
+          "word": "NANO TECHNOLOGY",
+          "category": "TECH",
+          "icon": "cpu",
+          "definition": "Science and engineering done at an extremely tiny, molecular scale."
+        },
+        {
+          "word": "ARTIFICIALINTEL",
+          "category": "TECH",
+          "icon": "bot",
+          "definition": "Artificial Intelligence: computer systems built to perform tasks that normally need human thinking."
+        },
+        {
+          "word": "MACHINELEARNING",
+          "category": "TECH",
+          "icon": "brain",
+          "definition": "A type of artificial intelligence where computers learn from data instead of being directly programmed."
+        },
+        {
+          "word": "BIOENGINEERING",
+          "category": "SCIENCE",
+          "icon": "dna",
+          "definition": "Using engineering methods to solve problems in biology and medicine."
+        },
+        {
+          "word": "GEOPHYSICS",
+          "category": "SCIENCE",
+          "icon": "mountain-snow",
+          "definition": "The study of the Earth using the principles of physics."
+        },
+        {
+          "word": "SEISMOLOGY",
+          "category": "SCIENCE",
+          "icon": "activity",
+          "definition": "The scientific study of earthquakes."
+        },
+        {
+          "word": "VOLCANOLOGY",
+          "category": "SCIENCE",
+          "icon": "flame",
+          "definition": "The scientific study of volcanoes."
+        }
+      ]
+    },
+    "adults": {
+      "EASY": [
+        {
+          "word": "STOICISM",
+          "category": "PHILOSOPHY",
+          "icon": "brain",
+          "definition": "An ancient philosophy that teaches calm acceptance and control over emotions."
+        },
+        {
+          "word": "ENTROPY",
+          "category": "SCIENCE",
+          "icon": "sparkles",
+          "definition": "A measure of disorder or randomness in a system."
+        },
+        {
+          "word": "SYNAPSE",
+          "category": "SCIENCE",
+          "icon": "cpu",
+          "definition": "The tiny gap where signals pass between nerve cells in the brain."
+        },
+        {
+          "word": "LOGIC",
+          "category": "PHILOSOPHY",
+          "icon": "lightbulb",
+          "definition": "The science of correct reasoning."
+        },
+        {
+          "word": "COGNITION",
+          "category": "PSYCHOLOGY",
+          "icon": "brain",
+          "definition": "The mental process of thinking, learning, and understanding."
+        },
+        {
+          "word": "AESTHETIC",
+          "category": "ART",
+          "icon": "palette",
+          "definition": "Relating to beauty and what makes something pleasing to look at."
+        },
+        {
+          "word": "RHETORIC",
+          "category": "LITERATURE",
+          "icon": "message-square",
+          "definition": "The art of speaking or writing effectively to persuade others."
+        },
+        {
+          "word": "EMPIRICAL",
+          "category": "SCIENCE",
+          "icon": "flask-conical",
+          "definition": "Based on observation or experiment rather than theory alone."
+        },
+        {
+          "word": "ETHICS",
+          "category": "PHILOSOPHY",
+          "icon": "scale",
+          "definition": "The study of what is morally right and wrong."
+        },
+        {
+          "word": "DOGMA",
+          "category": "PHILOSOPHY",
+          "icon": "book-open",
+          "definition": "A fixed belief or set of beliefs that people are expected to accept without question."
+        },
+        {
+          "word": "AXIOM",
+          "category": "LOGIC",
+          "icon": "lightbulb",
+          "definition": "A statement accepted as true without needing proof, used as a starting point for reasoning."
+        },
+        {
+          "word": "SCHEMA",
+          "category": "PSYCHOLOGY",
+          "icon": "brain",
+          "definition": "A structured plan or framework used to organize information."
+        },
+        {
+          "word": "CARMA",
+          "category": "PHILOSOPHY",
+          "icon": "sun",
+          "definition": "A likely variant of karma: the belief that good or bad actions lead to good or bad results."
+        },
+        {
+          "word": "MIND",
+          "category": "PSYCHOLOGY",
+          "icon": "brain",
+          "definition": "The part of a person that thinks, feels, and understands."
+        },
+        {
+          "word": "REASON",
+          "category": "LOGIC",
+          "icon": "lightbulb",
+          "definition": "The ability to think logically and make judgments."
+        },
+        {
+          "word": "THEORY",
+          "category": "SCIENCE",
+          "icon": "flask-conical",
+          "definition": "An idea or set of ideas explaining how or why something happens."
+        },
+        {
+          "word": "METHOD",
+          "category": "SCIENCE",
+          "icon": "compass",
+          "definition": "A particular way of doing something."
+        },
+        {
+          "word": "SAMPLE",
+          "category": "SCIENCE",
+          "icon": "flask-conical",
+          "definition": "A small part of something used to represent the whole."
+        },
+        {
+          "word": "SYNTAX",
+          "category": "LINGUISTICS",
+          "icon": "code",
+          "definition": "The rules for how words are arranged to form sentences."
+        },
+        {
+          "word": "JARGON",
+          "category": "LINGUISTICS",
+          "icon": "message-square",
+          "definition": "Special words or phrases used by a particular group or profession."
+        },
+        {
+          "word": "DIALECT",
+          "category": "LINGUISTICS",
+          "icon": "message-square",
+          "definition": "A particular form of a language spoken in a certain region or group."
+        },
+        {
+          "word": "GENRE",
+          "category": "LITERATURE",
+          "icon": "book-open",
+          "definition": "A category of art, music, or writing with a particular style."
+        },
+        {
+          "word": "MOTIF",
+          "category": "LITERATURE",
+          "icon": "sparkles",
+          "definition": "A repeated idea, image, or theme in a story or piece of art."
+        },
+        {
+          "word": "CANON",
+          "category": "LITERATURE",
+          "icon": "book-open",
+          "definition": "A collection of works or rules officially accepted as genuine or standard."
+        },
+        {
+          "word": "STANCE",
+          "category": "PHILOSOPHY",
+          "icon": "scale",
+          "definition": "A person's opinion on a topic, or the way someone stands."
+        },
+        {
+          "word": "BIAS",
+          "category": "PSYCHOLOGY",
+          "icon": "scale",
+          "definition": "A tendency to favor one side or idea over another, often unfairly."
+        },
+        {
+          "word": "TRAIT",
+          "category": "PSYCHOLOGY",
+          "icon": "brain",
+          "definition": "A distinguishing quality or characteristic of a person or thing."
+        },
+        {
+          "word": "DRIVE",
+          "category": "PSYCHOLOGY",
+          "icon": "zap",
+          "definition": "To operate a vehicle, or a strong motivation to do something."
+        },
+        {
+          "word": "AFFECT",
+          "category": "PSYCHOLOGY",
+          "icon": "heart",
+          "definition": "To have an influence or effect on something."
+        },
+        {
+          "word": "MORAL",
+          "category": "ETHICS",
+          "icon": "scale",
+          "definition": "Relating to what is right and wrong in behavior."
+        },
+        {
+          "word": "VALUE",
+          "category": "ETHICS",
+          "icon": "gem",
+          "definition": "The importance or worth of something, or a core belief someone holds."
+        },
+        {
+          "word": "VIRTUE",
+          "category": "ETHICS",
+          "icon": "crown",
+          "definition": "A positive moral quality, like honesty or courage."
+        },
+        {
+          "word": "RIGHT",
+          "category": "ETHICS",
+          "icon": "scale",
+          "definition": "A moral or legal entitlement, or the opposite direction of left."
+        },
+        {
+          "word": "JUSTICE",
+          "category": "LAW",
+          "icon": "scale",
+          "definition": "Fair treatment of people according to the law or what is right."
+        },
+        {
+          "word": "STATUTE",
+          "category": "LAW",
+          "icon": "file-text",
+          "definition": "A law formally created by a government."
+        },
+        {
+          "word": "CLAUSE",
+          "category": "LAW",
+          "icon": "file-text",
+          "definition": "A part of a sentence containing a subject and a verb, or a section of a legal document."
+        },
+        {
+          "word": "VERDICT",
+          "category": "LAW",
+          "icon": "scale",
+          "definition": "A formal decision made by a jury or judge."
+        },
+        {
+          "word": "EQUITY",
+          "category": "ECONOMICS",
+          "icon": "scale",
+          "definition": "Fairness, especially in how resources or opportunities are shared."
+        },
+        {
+          "word": "ASSET",
+          "category": "ECONOMICS",
+          "icon": "gem",
+          "definition": "Something valuable that a person, company, or country owns."
+        },
+        {
+          "word": "MARGIN",
+          "category": "ECONOMICS",
+          "icon": "activity",
+          "definition": "The empty space around the edge of a page, or the difference between two amounts."
+        }
+      ],
+      "MEDIUM": [
+        {
+          "word": "QUANTUM",
+          "category": "SCIENCE",
+          "icon": "atom",
+          "definition": "Relating to the smallest possible units of energy and matter."
+        },
+        {
+          "word": "PARADOX",
+          "category": "LITERATURE",
+          "icon": "help-circle",
+          "definition": "A statement or situation that seems to contradict itself but may still be true."
+        },
+        {
+          "word": "HEURISTIC",
+          "category": "LOGIC",
+          "icon": "lightbulb",
+          "definition": "A practical method or shortcut used to solve problems quickly."
+        },
+        {
+          "word": "METAPHOR",
+          "category": "LITERATURE",
+          "icon": "book-open",
+          "definition": "A figure of speech that describes something by calling it another thing."
+        },
+        {
+          "word": "ALTRUISM",
+          "category": "ETHICS",
+          "icon": "heart",
+          "definition": "Caring for the wellbeing of others without expecting anything in return."
+        },
+        {
+          "word": "DUALITY",
+          "category": "PHILOSOPHY",
+          "icon": "scale",
+          "definition": "The state of having two different or opposite parts."
+        },
+        {
+          "word": "PRAGMATIC",
+          "category": "PHILOSOPHY",
+          "icon": "compass",
+          "definition": "Dealing with things in a practical, sensible way."
+        },
+        {
+          "word": "INFERENCE",
+          "category": "LOGIC",
+          "icon": "brain",
+          "definition": "A conclusion reached based on evidence and reasoning."
+        },
+        {
+          "word": "SEMANTICS",
+          "category": "LINGUISTICS",
+          "icon": "book-open",
+          "definition": "The study of meaning in language."
+        },
+        {
+          "word": "PRAGMATICS",
+          "category": "LINGUISTICS",
+          "icon": "message-square",
+          "definition": "The study of how context affects the meaning of language."
+        },
+        {
+          "word": "DICHOTOMY",
+          "category": "PHILOSOPHY",
+          "icon": "scale",
+          "definition": "A division between two things that are completely different or opposite."
+        },
+        {
+          "word": "SYLOGISM",
+          "category": "LOGIC",
+          "icon": "scale",
+          "definition": "A likely variant of syllogism: a logical argument with two premises leading to a conclusion."
+        },
+        {
+          "word": "FALLACY",
+          "category": "LOGIC",
+          "icon": "help-circle",
+          "definition": "A mistaken belief, especially one based on faulty reasoning."
+        },
+        {
+          "word": "PARADIGM",
+          "category": "SCIENCE",
+          "icon": "compass",
+          "definition": "A typical example or pattern of how something works."
+        },
+        {
+          "word": "ANOMALY",
+          "category": "SCIENCE",
+          "icon": "sparkles",
+          "definition": "Something that doesn't fit the normal pattern; an unusual exception."
+        },
+        {
+          "word": "SYNTHESIS",
+          "category": "SCIENCE",
+          "icon": "flask-conical",
+          "definition": "The combination of separate parts to form a new whole."
+        },
+        {
+          "word": "ANALYSIS",
+          "category": "SCIENCE",
+          "icon": "brain",
+          "definition": "A close, careful study of something to understand it better."
+        },
+        {
+          "word": "IDEOLOGY",
+          "category": "POLITICS",
+          "icon": "globe-2",
+          "definition": "A system of ideas and beliefs that shapes how people see the world."
+        },
+        {
+          "word": "HEGEMONY",
+          "category": "POLITICS",
+          "icon": "crown",
+          "definition": "Leadership or dominance of one group or country over others."
+        },
+        {
+          "word": "AUTONOMY",
+          "category": "POLITICS",
+          "icon": "user",
+          "definition": "The ability to make your own decisions and act independently."
+        },
+        {
+          "word": "DISCOURSE",
+          "category": "PHILOSOPHY",
+          "icon": "messages-square",
+          "definition": "Written or spoken communication, especially serious discussion of a topic."
+        },
+        {
+          "word": "NARRATIVE",
+          "category": "LITERATURE",
+          "icon": "book-open",
+          "definition": "A spoken or written account of connected events; a story."
+        },
+        {
+          "word": "ALLEGORY",
+          "category": "LITERATURE",
+          "icon": "book-open",
+          "definition": "A story where the characters and events secretly represent a deeper meaning."
+        },
+        {
+          "word": "IRONY",
+          "category": "LITERATURE",
+          "icon": "smile",
+          "definition": "A situation where the opposite of what's expected happens, often for humorous effect."
+        },
+        {
+          "word": "SARTORIAL",
+          "category": "ARTS",
+          "icon": "shirt",
+          "definition": "Relating to clothing, tailoring, or style of dress."
+        },
+        {
+          "word": "CATHARSIS",
+          "category": "PSYCHOLOGY",
+          "icon": "heart",
+          "definition": "A feeling of relief after releasing strong emotions."
+        },
+        {
+          "word": "NARCISSISM",
+          "category": "PSYCHOLOGY",
+          "icon": "user",
+          "definition": "Excessive interest in or admiration of oneself."
+        },
+        {
+          "word": "HEONISM",
+          "category": "PHILOSOPHY",
+          "icon": "sun",
+          "definition": "A likely variant of hedonism: the belief that pleasure is the most important goal in life."
+        },
+        {
+          "word": "NIHILISM",
+          "category": "PHILOSOPHY",
+          "icon": "moon",
+          "definition": "The belief that life has no inherent meaning, purpose, or value."
+        },
+        {
+          "word": "HUMANISM",
+          "category": "PHILOSOPHY",
+          "icon": "users",
+          "definition": "A way of thinking that focuses on human values, reason, and potential."
+        },
+        {
+          "word": "REALISM",
+          "category": "PHILOSOPHY",
+          "icon": "eye",
+          "definition": "A style that represents things as they truly are, without idealizing them."
+        },
+        {
+          "word": "IDEALISM",
+          "category": "PHILOSOPHY",
+          "icon": "sparkles",
+          "definition": "The belief that ideas or the mind are the most fundamental part of reality."
+        },
+        {
+          "word": "DUALISM",
+          "category": "PHILOSOPHY",
+          "icon": "scale",
+          "definition": "The idea that something (like mind and body) is made of two separate, distinct parts."
+        },
+        {
+          "word": "UTILITARIAN",
+          "category": "ETHICS",
+          "icon": "scale",
+          "definition": "Relating to the idea that the best action is the one that creates the most happiness overall."
+        },
+        {
+          "word": "CONSEQUENT",
+          "category": "ETHICS",
+          "icon": "activity",
+          "definition": "Following as a result or effect of something."
+        },
+        {
+          "word": "PLURALISM",
+          "category": "PHILOSOPHY",
+          "icon": "users",
+          "definition": "The idea that many different groups or beliefs can exist together in society."
+        },
+        {
+          "word": "EMPIRICISM",
+          "category": "PHILOSOPHY",
+          "icon": "flask-conical",
+          "definition": "The belief that knowledge comes mainly from sensory experience."
+        },
+        {
+          "word": "RATIONALISM",
+          "category": "PHILOSOPHY",
+          "icon": "lightbulb",
+          "definition": "The belief that reason, not experience, is the main source of knowledge."
+        },
+        {
+          "word": "EXISTENTIAL",
+          "category": "PHILOSOPHY",
+          "icon": "compass",
+          "definition": "Relating to human existence and the meaning of life."
+        },
+        {
+          "word": "SOLIPSISM",
+          "category": "PHILOSOPHY",
+          "icon": "user",
+          "definition": "The philosophical idea that only one's own mind can be known to exist."
+        }
+      ],
+      "HARD": [
+        {
+          "word": "EXISTENCE",
+          "category": "PHILOSOPHY",
+          "icon": "compass",
+          "definition": "The state of being real or living."
+        },
+        {
+          "word": "EPISTEMIC",
+          "category": "PHILOSOPHY",
+          "icon": "lightbulb",
+          "definition": "Relating to knowledge and how we come to know things."
+        },
+        {
+          "word": "DIALECTIC",
+          "category": "PHILOSOPHY",
+          "icon": "messages-square",
+          "definition": "A method of discussion that looks at opposing ideas to find the truth."
+        },
+        {
+          "word": "PHENOMENA",
+          "category": "PHILOSOPHY",
+          "icon": "eye",
+          "definition": "Observable facts or events, especially ones that are notable or unusual."
+        },
+        {
+          "word": "ONTOLOGY",
+          "category": "PHILOSOPHY",
+          "icon": "brain",
+          "definition": "The branch of philosophy that studies the nature of being and existence."
+        },
+        {
+          "word": "HERMENEUT",
+          "category": "LITERATURE",
+          "icon": "book-open",
+          "definition": "Relating to hermeneutics, the study of interpreting texts and their meaning."
+        },
+        {
+          "word": "SYLOGISM",
+          "category": "LOGIC",
+          "icon": "scale",
+          "definition": "A likely variant of syllogism: a logical argument with two premises leading to a conclusion."
+        },
+        {
+          "word": "EPISTEMOLOGY",
+          "category": "PHILOSOPHY",
+          "icon": "brain",
+          "definition": "The branch of philosophy that studies the nature and limits of knowledge."
+        },
+        {
+          "word": "PHENOMENOLOGY",
+          "category": "PHILOSOPHY",
+          "icon": "eye",
+          "definition": "The study of how things appear to and are experienced by our consciousness."
+        },
+        {
+          "word": "DEONTOLOGY",
+          "category": "ETHICS",
+          "icon": "scale",
+          "definition": "An ethical theory that judges actions as right or wrong based on rules, not just outcomes."
+        },
+        {
+          "word": "POSTMODERNISM",
+          "category": "PHILOSOPHY",
+          "icon": "sparkles",
+          "definition": "A movement that questions absolute truths and embraces many different perspectives."
+        },
+        {
+          "word": "STRUCTURALISM",
+          "category": "PHILOSOPHY",
+          "icon": "building",
+          "definition": "A theory that studies how underlying patterns and structures shape meaning."
+        },
+        {
+          "word": "DECONSTRUCTION",
+          "category": "PHILOSOPHY",
+          "icon": "box",
+          "definition": "A way of closely examining a text to reveal hidden or contradictory meanings."
+        },
+        {
+          "word": "INTERTEXTUALITY",
+          "category": "LITERATURE",
+          "icon": "book-open",
+          "definition": "The way one text's meaning is shaped by its relationship to other texts."
+        },
+        {
+          "word": "JUXTAPOSITION",
+          "category": "LITERATURE",
+          "icon": "scale",
+          "definition": "Placing two things side by side to highlight their differences."
+        },
+        {
+          "word": "SOLIPSISTIC",
+          "category": "PHILOSOPHY",
+          "icon": "user",
+          "definition": "Relating to solipsism, or excessively focused only on oneself."
+        },
+        {
+          "word": "TRANSCENDENTAL",
+          "category": "PHILOSOPHY",
+          "icon": "sparkles",
+          "definition": "Going beyond ordinary experience or the physical world."
+        },
+        {
+          "word": "METAPHYSICAL",
+          "category": "PHILOSOPHY",
+          "icon": "brain",
+          "definition": "Relating to the nature of reality and existence beyond the physical world."
+        },
+        {
+          "word": "TELEOLOGICAL",
+          "category": "PHILOSOPHY",
+          "icon": "target",
+          "definition": "Relating to purpose or design, especially the idea that things exist for a reason."
+        },
+        {
+          "word": "ESCHATOLOGY",
+          "category": "PHILOSOPHY",
+          "icon": "moon",
+          "definition": "The study of beliefs about the end of the world or final events in history."
+        },
+        {
+          "word": "INTERSUBJECTIVE",
+          "category": "PHILOSOPHY",
+          "icon": "users",
+          "definition": "Shared or agreed upon between different people's minds."
+        },
+        {
+          "word": "COMPATIBILISM",
+          "category": "PHILOSOPHY",
+          "icon": "scale",
+          "definition": "The idea that free will and a world governed by cause and effect can both be true."
+        },
+        {
+          "word": "DETERMINISM",
+          "category": "PHILOSOPHY",
+          "icon": "compass",
+          "definition": "The idea that every event is caused entirely by what happened before it."
+        },
+        {
+          "word": "LIBERTARIANISM",
+          "category": "POLITICS",
+          "icon": "flag",
+          "definition": "A political philosophy that emphasizes individual freedom and limited government."
+        },
+        {
+          "word": "TOTALITARIANISM",
+          "category": "POLITICS",
+          "icon": "shield",
+          "definition": "A system of government with total, often oppressive, control over its citizens."
+        },
+        {
+          "word": "INTERSECTIONAL",
+          "category": "SOCIOLOGY",
+          "icon": "network",
+          "definition": "Relating to how different forms of identity or disadvantage overlap and combine."
+        },
+        {
+          "word": "ETHNOGRAPHY",
+          "category": "SOCIOLOGY",
+          "icon": "globe-2",
+          "definition": "The scientific study and description of a group's culture and way of life."
+        },
+        {
+          "word": "NEUROPLASTICITY",
+          "category": "PSYCHOLOGY",
+          "icon": "brain",
+          "definition": "The brain's ability to change and reorganize itself throughout life."
+        },
+        {
+          "word": "PSYCHOANALYSIS",
+          "category": "PSYCHOLOGY",
+          "icon": "brain",
+          "definition": "A method of treating mental health issues by exploring the unconscious mind."
+        },
+        {
+          "word": "BEHAVIORISM",
+          "category": "PSYCHOLOGY",
+          "icon": "activity",
+          "definition": "A theory in psychology that focuses on studying observable behavior rather than the mind."
+        },
+        {
+          "word": "COGNITIVISM",
+          "category": "PSYCHOLOGY",
+          "icon": "lightbulb",
+          "definition": "A theory that focuses on how the mind processes and stores information."
+        },
+        {
+          "word": "CONSTRUCTIVISM",
+          "category": "PHILOSOPHY",
+          "icon": "building",
+          "definition": "A theory that people build their own understanding through experience."
+        },
+        {
+          "word": "UTILITARIANISM",
+          "category": "ETHICS",
+          "icon": "scale",
+          "definition": "An ethical theory that judges actions by how much overall happiness they create."
+        },
+        {
+          "word": "COMMUNITARIAN",
+          "category": "POLITICS",
+          "icon": "users",
+          "definition": "Relating to the belief that community wellbeing is as important as individual rights."
+        },
+        {
+          "word": "NEOLIBERALISM",
+          "category": "ECONOMICS",
+          "icon": "globe-2",
+          "definition": "An economic approach that favors free markets and reduced government control."
+        },
+        {
+          "word": "KEYNESIANISM",
+          "category": "ECONOMICS",
+          "icon": "activity",
+          "definition": "An economic theory that supports government spending to boost the economy."
+        },
+        {
+          "word": "MACROECONOMICS",
+          "category": "ECONOMICS",
+          "icon": "trending-up",
+          "definition": "The study of large-scale economic factors like national growth and inflation."
+        },
+        {
+          "word": "MICROECONOMICS",
+          "category": "ECONOMICS",
+          "icon": "pie-chart",
+          "definition": "The study of individual people's and businesses' economic choices."
+        },
+        {
+          "word": "ECONOMETRICS",
+          "category": "ECONOMICS",
+          "icon": "calculator",
+          "definition": "The use of math and statistics to test economic ideas."
+        },
+        {
+          "word": "GAME THEORY",
+          "category": "MATHEMATICS",
+          "icon": "gamepad-2",
+          "definition": "The mathematical study of strategy and decision-making between competing players."
+        }
+      ]
+    }
+  },
+  "quizzes": [
+    {
+      "q": "Loyal pet that barks and wags its tail!",
+      "answer": "DOG",
+      "icon": "dog",
+      "minDiff": 1
+    },
+    {
+      "q": "Feline friend that purrs and catches mice!",
+      "answer": "CAT",
+      "icon": "cat",
+      "minDiff": 1
+    },
+    {
+      "q": "Bright star giving light and heat to Earth!",
+      "answer": "SUN",
+      "icon": "sun",
+      "minDiff": 1
+    },
+    {
+      "q": "Sweet baked treat for birthday parties!",
+      "answer": "CAKE",
+      "icon": "cake",
+      "minDiff": 1
+    },
+    {
+      "q": "Green amphibian that leaps between lily pads!",
+      "answer": "FROG",
+      "icon": "footprints",
+      "minDiff": 2
+    },
+    {
+      "q": "Building filled with endless stories and books.",
+      "answer": "LIBRARY",
+      "icon": "book-open",
+      "minDiff": 3
+    },
+    {
+      "q": "Invisible force pulling objects to Earth's core.",
+      "answer": "GRAVITY",
+      "icon": "orbit",
+      "minDiff": 3
+    }
+  ]
+}
